@@ -49,18 +49,19 @@
 	<property name="substance-demo.output.dir" value="${substance-demo.build.dir}/classes" />
 	<property name="substance-demo.drop.dir" value="${module.substance-demo.basedir}/drop" />
 	<property name="substance-demo.src.dir" value="${module.substance-demo.basedir}/src/" />
-	
+
     <property name="flamingo.basedir" value="${module.substance-demo.basedir}/../flamingo" />
-    <property name="substance.basedir" value="${module.substance-demo.basedir}/../substance" />
-    <property name="substance.swingx.basedir" value="${module.substance-demo.basedir}/../substance-swingx" />
-    <property name="substance.flamingo.basedir" value="${module.substance-demo.basedir}/../substance-flamingo" />
-    <property name="substance.extras.basedir" value="${module.substance-demo.basedir}/../substance-extras" />
-	
-    <property name="substance.version" value="8.0.00-dev" />
-    <property name="substance.versionKey" value="8.0.0dev Wyoming" />
-    <property name="flamingo.version" value="6.0.00-dev" />
-    <property name="flamingo.versionKey" value="6.0.00dev Liadan" />
-    <property name="trident.version" value="1.4" />
+    <property name="flamingo.demo.basedir" value="${module.substance-demo.basedir}/../flamingo-demo" />
+	<property name="substance.basedir" value="${module.substance-demo.basedir}/../substance" />
+	<property name="substance.swingx.basedir" value="${module.substance-demo.basedir}/../substance-swingx" />
+	<property name="substance.flamingo.basedir" value="${module.substance-demo.basedir}/../substance-flamingo" />
+	<property name="substance.extras.basedir" value="${module.substance-demo.basedir}/../substance-extras" />
+
+	<property name="substance.version" value="8.0.00-dev" />
+	<property name="substance.versionKey" value="8.0.0dev Wyoming" />
+	<property name="flamingo.version" value="6.0.00-dev" />
+	<property name="flamingo.versionKey" value="6.0.00dev Liadan" />
+	<property name="trident.version" value="1.4" />
 
 	<path id="substance-demo.module.bootclasspath">
 		<!-- Paths to be included in compilation bootclasspath -->
@@ -71,19 +72,18 @@
 
 	<path id="substance-demo.module.classpath">
 		<path refid="${module.jdk.classpath.substance-demo}" />
-        <pathelement location="${substance.basedir}/lib/trident-${trident.version}.jar" />
-        <pathelement location="${substance.swingx.basedir}/lib/swingx-all-1.6.4.jar" />
+		<pathelement location="${substance.basedir}/lib/trident-${trident.version}.jar" />
+		<pathelement location="${substance.swingx.basedir}/lib/swingx-all-1.6.4.jar" />
 		<pathelement location="${substance.basedir}/drop/${substance.version}/substance-${substance.version}.jar" />
-        <pathelement location="${flamingo.basedir}/drop/${flamingo.version}/flamingo-${flamingo.version}.jar" />
-        <pathelement location="${flamingo.basedir}/drop/${flamingo.version}/flamingo-tst-${flamingo.version}.jar" />
-        <pathelement location="${substance.flamingo.basedir}/drop/${substance.version}/substance-flamingo-${substance.version}.jar" />
-        <pathelement location="${substance.swingx.basedir}/drop/${substance.version}/substance-swingx-${substance.version}.jar" />
-        <pathelement location="${substance.extras.basedir}/drop/${substance.version}/substance-extras-${substance.version}.jar" />
-        <pathelement location="${flamingo.basedir}/lib/batik-all.jar" />
-        <pathelement location="${flamingo.basedir}/lib/forms-1.2.0.jar" />
-        <pathelement location="${substance.basedir}/lib/build/forms-1.2.0.jar" />
-        <pathelement location="${substance.basedir}/lib/test/fest-swing-1.2.jar" />
-        <pathelement location="${substance.basedir}/lib/test/fest-assert-1.2.jar" />
+		<pathelement location="${flamingo.basedir}/drop/${flamingo.version}/flamingo-${flamingo.version}.jar" />
+        <pathelement location="${flamingo.demo.basedir}/drop/${flamingo.version}/flamingo-demo-${flamingo.version}.jar" />
+        <pathelement location="${module.substance-demo.basedir}/lib/build/forms-1.2.0.jar" />
+		<pathelement location="${substance.flamingo.basedir}/drop/${substance.version}/substance-flamingo-${substance.version}.jar" />
+		<pathelement location="${substance.swingx.basedir}/drop/${substance.version}/substance-swingx-${substance.version}.jar" />
+		<pathelement location="${substance.extras.basedir}/drop/${substance.version}/substance-extras-${substance.version}.jar" />
+		<pathelement location="${flamingo.basedir}/lib/batik-all.jar" />
+		<pathelement location="${substance.basedir}/lib/test/fest-swing-1.2.jar" />
+		<pathelement location="${substance.basedir}/lib/test/fest-assert-1.2.jar" />
 	</path>
 
 	<patternset id="excluded.from.module.substance-demo" />
@@ -95,7 +95,7 @@
 
 	<path id="substance-demo.module.sourcepath">
 		<dirset dir="${substance-demo.src.dir}">
-			<include name="org/pushingpixels/substance/demo" />
+			<include name="org/pushingpixels/demo/substance" />
 		</dirset>
 	</path>
 
@@ -156,8 +156,8 @@
 				<include name="src/**" />
 				<include name="www/*.html" />
 				<!--
-				<include name="docs/**" />
-				-->
+	                <include name="docs/**" />
+	                -->
 				<include name="www/docs/**" />
 				<include name="www/images/**" />
 				<include name="build.xml" />
