@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.renderers.SubstanceDefaultComboBoxRenderer;
+import org.pushingpixels.substance.api.renderer.SubstanceDefaultComboBoxRenderer;
 
 public abstract class FlexiComboBox<T> extends JComboBox {
 

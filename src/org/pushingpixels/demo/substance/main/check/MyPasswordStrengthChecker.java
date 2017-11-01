@@ -29,8 +29,9 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import org.pushingpixels.lafwidget.text.PasswordStrengthChecker;
-import org.pushingpixels.lafwidget.utils.LafConstants.PasswordStrength;
+import org.pushingpixels.substance.api.SubstanceConstants;
+import org.pushingpixels.substance.api.SubstanceConstants.PasswordStrength;
+import org.pushingpixels.substance.api.password.PasswordStrengthChecker;
 
 /**
  * A custom password strength checker for the test application.
@@ -43,15 +44,15 @@ public class MyPasswordStrengthChecker implements PasswordStrengthChecker {
 	 * 
 	 * @see org.pushingpixels.lafwidget.text.PasswordStrengthChecker#getStrength(char[])
 	 */
-	public PasswordStrength getStrength(char[] password) {
+	public SubstanceConstants.PasswordStrength getStrength(char[] password) {
 		if (password == null)
-			return PasswordStrength.WEAK;
+			return SubstanceConstants.PasswordStrength.WEAK;
 		int length = password.length;
 		if (length < 3)
-			return PasswordStrength.WEAK;
+			return SubstanceConstants.PasswordStrength.WEAK;
 		if (length < 6)
-			return PasswordStrength.MEDIUM;
-		return PasswordStrength.STRONG;
+			return SubstanceConstants.PasswordStrength.MEDIUM;
+		return SubstanceConstants.PasswordStrength.STRONG;
 	}
 
 	/*
@@ -59,12 +60,12 @@ public class MyPasswordStrengthChecker implements PasswordStrengthChecker {
 	 * 
 	 * @see org.pushingpixels.lafwidget.text.PasswordStrengthChecker#getDescription(org.pushingpixels.lafwidget.utils.LafConstants.PasswordStrength)
 	 */
-	public String getDescription(PasswordStrength strength) {
-		if (strength == PasswordStrength.WEAK)
+	public String getDescription(SubstanceConstants.PasswordStrength strength) {
+		if (strength == SubstanceConstants.PasswordStrength.WEAK)
 			return "<html>This password is <b>way</b> too weak</html>";
-		if (strength == PasswordStrength.MEDIUM)
+		if (strength == SubstanceConstants.PasswordStrength.MEDIUM)
 			return "<html>Come on, you can do<br> a little better than that</html>";
-		if (strength == PasswordStrength.STRONG)
+		if (strength == SubstanceConstants.PasswordStrength.STRONG)
 			return "OK";
 		return null;
 	}

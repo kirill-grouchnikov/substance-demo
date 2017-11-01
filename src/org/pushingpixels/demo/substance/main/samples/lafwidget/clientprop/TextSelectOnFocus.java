@@ -40,16 +40,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-import org.pushingpixels.lafwidget.LafWidget;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /**
  * Test application that shows the use of the
- * {@link LafWidget#TEXT_SELECT_ON_FOCUS} client property.
+ * {@link SubstanceWidget#TEXT_SELECT_ON_FOCUS} client property.
  * 
  * @author Kirill Grouchnikov
- * @see LafWidget#TEXT_SELECT_ON_FOCUS
+ * @see SubstanceWidget#TEXT_SELECT_ON_FOCUS
  */
 public class TextSelectOnFocus extends JFrame {
 	/**
@@ -73,7 +73,7 @@ public class TextSelectOnFocus extends JFrame {
 				"Has \"select on focus\" behaviour");
 		hasSelectOnFocus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				jtf.putClientProperty(LafWidget.TEXT_SELECT_ON_FOCUS,
+				jtf.putClientProperty(SubstanceWidget.TEXT_SELECT_ON_FOCUS,
 						hasSelectOnFocus.isSelected() ? Boolean.TRUE : null);
 			}
 		});

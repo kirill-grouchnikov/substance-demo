@@ -37,7 +37,7 @@ import javax.swing.SwingUtilities;
 
 import org.pushingpixels.demo.flamingo.bcb.SvnBreadCrumbTest;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.renderers.SubstanceDefaultComboBoxRenderer;
+import org.pushingpixels.substance.api.renderer.SubstanceDefaultComboBoxRenderer;
 import org.pushingpixels.substance.api.skin.BusinessBlueSteelSkin;
 
 public class SubstanceSvnBrowser extends SvnBreadCrumbTest {

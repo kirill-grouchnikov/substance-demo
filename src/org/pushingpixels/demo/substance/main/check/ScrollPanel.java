@@ -43,9 +43,9 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.LineBorder;
 
 import org.pushingpixels.demo.substance.main.Check;
-import org.pushingpixels.lafwidget.LafWidget;
-import org.pushingpixels.lafwidget.preview.DefaultPreviewPainter;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceWidget;
+import org.pushingpixels.substance.api.painter.preview.DefaultPreviewPainter;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
@@ -110,7 +110,7 @@ public class ScrollPanel extends ControllablePanel {
 		final JCheckBox hasPreview = new JCheckBox("Has preview");
 		hasPreview.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				sp.putClientProperty(LafWidget.COMPONENT_PREVIEW_PAINTER,
+				sp.putClientProperty(SubstanceWidget.COMPONENT_PREVIEW_PAINTER,
 						hasPreview.isSelected() ? new DefaultPreviewPainter()
 								: null);
 			}
@@ -120,7 +120,7 @@ public class ScrollPanel extends ControllablePanel {
 		final JCheckBox hasAutoScroll = new JCheckBox("Has auto scroll");
 		hasAutoScroll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				sp.putClientProperty(LafWidget.AUTO_SCROLL, hasAutoScroll
+				sp.putClientProperty(SubstanceWidget.AUTO_SCROLL, hasAutoScroll
 						.isSelected() ? Boolean.TRUE : null);
 			}
 		});

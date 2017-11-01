@@ -54,9 +54,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.pushingpixels.demo.substance.main.Check;
 import org.pushingpixels.demo.substance.main.check.svg.flags.se;
-import org.pushingpixels.lafwidget.LafWidget;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.renderers.SubstanceDefaultTreeCellRenderer;
+import org.pushingpixels.substance.api.SubstanceWidget;
+import org.pushingpixels.substance.api.renderer.SubstanceDefaultTreeCellRenderer;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
@@ -164,7 +164,7 @@ public class TreePanel extends ControllablePanel {
 		// }
 		// };
 		// this.tree.setCellRenderer(new TestTreeCellRenderer());
-		this.tree.putClientProperty(LafWidget.TREE_AUTO_DND_SUPPORT,
+		this.tree.putClientProperty(SubstanceWidget.TREE_AUTO_DND_SUPPORT,
 				Boolean.TRUE);
 		this.jsp = new JScrollPane(this.tree);
 		this.jsp.setBorder(new EmptyBorder(0, 0, 0, 0));

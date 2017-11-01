@@ -34,7 +34,6 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
@@ -47,91 +46,81 @@ import org.pushingpixels.demo.substance.main.Check;
 import org.pushingpixels.demo.substance.main.check.svg.flags.hk;
 import org.pushingpixels.demo.substance.main.check.svg.flags.mx;
 import org.pushingpixels.demo.substance.main.check.svg.flags.se;
-import org.pushingpixels.lafwidget.LafWidget;
-import org.pushingpixels.lafwidget.tabbed.DefaultTabPreviewPainter;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
+import org.pushingpixels.substance.tabbed.DefaultTabPreviewPainter;
+import org.pushingpixels.substance.tabbed.TabPreviewUtilities;
 
 /**
  * Test application that shows the use of the
- * {@link LafWidget#TABBED_PANE_PREVIEW_PAINTER} client property.
+ * {@link TabPreviewUtilities#TABBED_PANE_PREVIEW_PAINTER} client property.
  * 
  * @author Kirill Grouchnikov
- * @see LafWidget#TABBED_PANE_PREVIEW_PAINTER
+ * @see {@link TabPreviewUtilities#TABBED_PANE_PREVIEW_PAINTER}
  */
 public class TabbedPanePreviewPainter extends JFrame {
-	/**
-	 * Creates the main frame for <code>this</code> sample.
-	 */
-	public TabbedPanePreviewPainter() {
-		super("Tabbed pane preview painter");
+    /**
+     * Creates the main frame for <code>this</code> sample.
+     */
+    public TabbedPanePreviewPainter() {
+        super("Tabbed pane preview painter");
 
-		this.setLayout(new BorderLayout());
+        this.setLayout(new BorderLayout());
 
-		final JTabbedPane jtp = new JTabbedPane();
-		jtp.addTab("First", Check.configure(new mx(), 21, 16),
-				new JPanel() {
-					@Override
-					protected void paintComponent(Graphics g) {
-						g.setColor(new Color(255, 200, 200));
-						g.fillRect(0, 0, getWidth(), getHeight());
-					}
-				});
-		jtp.addTab("Second", Check.configure(new se(), 21, 16),
-				new JPanel() {
-					@Override
-					protected void paintComponent(Graphics g) {
-						g.setColor(new Color(200, 255, 200));
-						g.fillRect(0, 0, getWidth(), getHeight());
-					}
-				});
-		jtp.addTab("Third", Check.configure(new hk(), 21, 16),
-				new JPanel() {
-					@Override
-					protected void paintComponent(Graphics g) {
-						g.setColor(new Color(200, 200, 255));
-						g.fillRect(0, 0, getWidth(), getHeight());
-					}
-				});
+        final JTabbedPane jtp = new JTabbedPane();
+        jtp.addTab("First", Check.configure(new mx(), 21, 16), new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                g.setColor(new Color(255, 200, 200));
+                g.fillRect(0, 0, getWidth(), getHeight());
+            }
+        });
+        jtp.addTab("Second", Check.configure(new se(), 21, 16), new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                g.setColor(new Color(200, 255, 200));
+                g.fillRect(0, 0, getWidth(), getHeight());
+            }
+        });
+        jtp.addTab("Third", Check.configure(new hk(), 21, 16), new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                g.setColor(new Color(200, 200, 255));
+                g.fillRect(0, 0, getWidth(), getHeight());
+            }
+        });
 
-		this.add(jtp, BorderLayout.CENTER);
+        this.add(jtp, BorderLayout.CENTER);
 
-		JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		final JCheckBox hasPreview = new JCheckBox("Has preview");
-		hasPreview.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				jtp
-						.putClientProperty(
-								LafWidget.TABBED_PANE_PREVIEW_PAINTER,
-								hasPreview.isSelected() ? new DefaultTabPreviewPainter()
-										: null);
-				jtp.revalidate();
-				jtp.repaint();
-			}
-		});
+        JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        final JCheckBox hasPreview = new JCheckBox("Has preview");
+        hasPreview.addActionListener((ActionEvent e) -> {
+            jtp.putClientProperty(TabPreviewUtilities.TABBED_PANE_PREVIEW_PAINTER,
+                    hasPreview.isSelected() ? new DefaultTabPreviewPainter() : null);
+            jtp.revalidate();
+            jtp.repaint();
+        });
 
-		controls.add(hasPreview);
-		this.add(controls, BorderLayout.SOUTH);
+        controls.add(hasPreview);
+        this.add(controls, BorderLayout.SOUTH);
 
-		this.setSize(400, 200);
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+        this.setSize(400, 200);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
 
-	/**
-	 * The main method for <code>this</code> sample. The arguments are ignored.
-	 * 
-	 * @param args
-	 *            Ignored.
-	 */
-	public static void main(String[] args) {
-		JFrame.setDefaultLookAndFeelDecorated(true);
-		JDialog.setDefaultLookAndFeelDecorated(true);
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				SubstanceLookAndFeel.setSkin(new BusinessBlackSteelSkin());
-				new TabbedPanePreviewPainter().setVisible(true);
-			}
-		});
-	}
+    /**
+     * The main method for <code>this</code> sample. The arguments are ignored.
+     * 
+     * @param args
+     *            Ignored.
+     */
+    public static void main(String[] args) {
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        JDialog.setDefaultLookAndFeelDecorated(true);
+        SwingUtilities.invokeLater(() -> {
+            SubstanceLookAndFeel.setSkin(new BusinessBlackSteelSkin());
+            new TabbedPanePreviewPainter().setVisible(true);
+        });
+    }
 }

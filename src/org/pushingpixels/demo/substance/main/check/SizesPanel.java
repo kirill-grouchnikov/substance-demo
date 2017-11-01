@@ -32,9 +32,9 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import org.pushingpixels.lafwidget.LafWidget;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.renderers.SubstanceDefaultListCellRenderer;
+import org.pushingpixels.substance.api.SubstanceWidget;
+import org.pushingpixels.substance.api.renderer.SubstanceDefaultListCellRenderer;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
@@ -132,7 +132,7 @@ public class SizesPanel extends JPanel {
 			public JComponent create(int fontSize) {
 				JTextField result = new JTextField("size " + fontSize);
 				result.setEditable(false);
-				result.putClientProperty(LafWidget.HAS_LOCK_ICON, Boolean.TRUE);
+				result.putClientProperty(SubstanceWidget.HAS_LOCK_ICON, Boolean.TRUE);
 				result.setFont(baseFinal.deriveFont((float) fontSize));
 				return result;
 			}

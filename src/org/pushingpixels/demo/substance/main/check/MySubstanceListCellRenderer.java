@@ -37,7 +37,7 @@ import javax.swing.JList;
 
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.renderers.SubstanceDefaultListCellRenderer;
+import org.pushingpixels.substance.api.renderer.SubstanceDefaultListCellRenderer;
 
 public class MySubstanceListCellRenderer extends
 		SubstanceDefaultListCellRenderer {

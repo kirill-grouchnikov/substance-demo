@@ -79,28 +79,29 @@ import javax.swing.Timer;
 import javax.swing.UIManager;
 
 import org.pushingpixels.demo.substance.main.Check;
-import org.pushingpixels.demo.substance.main.SubstanceLogo;
 import org.pushingpixels.demo.substance.main.Check.MyMainTabPreviewPainter;
+import org.pushingpixels.demo.substance.main.SubstanceLogo;
 import org.pushingpixels.demo.substance.main.check.svg.ic_error_black_24px;
 import org.pushingpixels.demo.substance.main.check.svg.ic_help_black_24px;
 import org.pushingpixels.demo.substance.main.check.svg.ic_info_black_24px;
 import org.pushingpixels.demo.substance.main.check.svg.ic_warning_black_24px;
-import org.pushingpixels.lafwidget.LafWidget;
-import org.pushingpixels.lafwidget.LafWidgetUtilities2;
-import org.pushingpixels.lafwidget.animation.AnimationConfigurationManager;
-import org.pushingpixels.lafwidget.animation.AnimationFacet;
-import org.pushingpixels.lafwidget.preview.DefaultPreviewPainter;
-import org.pushingpixels.lafwidget.utils.LafConstants.TabOverviewKind;
+import org.pushingpixels.substance.api.AnimationConfigurationManager;
+import org.pushingpixels.substance.api.AnimationFacet;
 import org.pushingpixels.substance.api.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceConstants;
 import org.pushingpixels.substance.api.SubstanceConstants.FocusKind;
 import org.pushingpixels.substance.api.SubstanceConstants.MenuGutterFillKind;
 import org.pushingpixels.substance.api.SubstanceConstants.SubstanceOptionPaneButtonAlignment;
 import org.pushingpixels.substance.api.SubstanceConstants.SubstanceOptionPaneButtonOrder;
 import org.pushingpixels.substance.api.SubstanceConstants.SubstanceWidgetType;
+import org.pushingpixels.substance.api.SubstanceConstants.TabOverviewKind;
+import org.pushingpixels.substance.api.painter.preview.DefaultPreviewPainter;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.api.skin.NebulaBrickWallSkin;
+import org.pushingpixels.substance.tabbed.TabPreviewUtilities;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
@@ -240,21 +241,21 @@ public class ControlPanelFactory {
 		builder.append("Placement", placementCombo);
 
 		try {
-			final JComboBox overviewKindCombo = new FlexiComboBox<TabOverviewKind>(
-					TabOverviewKind.GRID, TabOverviewKind.MENU_CAROUSEL,
-					TabOverviewKind.ROUND_CAROUSEL) {
+			final JComboBox overviewKindCombo = new FlexiComboBox<SubstanceConstants.TabOverviewKind>(
+					SubstanceConstants.TabOverviewKind.GRID, SubstanceConstants.TabOverviewKind.MENU_CAROUSEL,
+					SubstanceConstants.TabOverviewKind.ROUND_CAROUSEL) {
 				@Override
-				public String getCaption(TabOverviewKind item) {
+				public String getCaption(SubstanceConstants.TabOverviewKind item) {
 					return item.getName();
 				}
 			};
-			overviewKindCombo.setSelectedItem(LafWidgetUtilities2
+			overviewKindCombo.setSelectedItem(TabPreviewUtilities
 					.getTabPreviewPainter(mainTabbedPane).getOverviewKind(
 							mainTabbedPane));
 			overviewKindCombo.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					mainTabPreviewPainter
-							.setTabOverviewKind((TabOverviewKind) overviewKindCombo
+							.setTabOverviewKind((SubstanceConstants.TabOverviewKind) overviewKindCombo
 									.getSelectedItem());
 				}
 			});
@@ -431,22 +432,6 @@ public class ControlPanelFactory {
 			}
 		});
 		builder.append("Menu search", menuSearch);
-
-		final JCheckBox menuLocale = new JCheckBox("Has custom locale");
-		menuLocale.setSelected(false);
-		menuLocale.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (menuLocale.isSelected()) {
-					mainFrame.getJMenuBar().setLocale(Locale.FRENCH);
-					mainFrame.getJMenuBar().putClientProperty(
-							LafWidget.IGNORE_GLOBAL_LOCALE, Boolean.TRUE);
-				} else {
-					mainFrame.getJMenuBar().putClientProperty(
-							LafWidget.IGNORE_GLOBAL_LOCALE, null);
-				}
-			}
-		});
-		builder.append("Menu locale", menuLocale);
 
 		JPanel result = builder.getPanel();
 		result.setName("Main control panel");
@@ -751,7 +736,7 @@ public class ControlPanelFactory {
 								JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 								JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 						jsp.putClientProperty(
-								LafWidget.COMPONENT_PREVIEW_PAINTER,
+								SubstanceWidget.COMPONENT_PREVIEW_PAINTER,
 								new DefaultPreviewPainter());
 
 						disposableDialog.setLayout(new BorderLayout());
@@ -868,7 +853,7 @@ public class ControlPanelFactory {
 						tab1.add(new JLabel("test"));
 						JTextField tab1TextField = new JTextField("some text");
 						tab1TextField.putClientProperty(
-								LafWidget.TEXT_FLIP_SELECT_ON_ESCAPE,
+								SubstanceWidget.TEXT_FLIP_SELECT_ON_ESCAPE,
 								Boolean.TRUE);
 						tab1.add(tab1TextField);
 						tabs.addTab("Foo", tab1);

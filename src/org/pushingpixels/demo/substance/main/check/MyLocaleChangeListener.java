@@ -44,8 +44,7 @@ import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
 
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.fonts.FontPolicy;
-import org.pushingpixels.substance.api.fonts.FontSet;
+import org.pushingpixels.substance.api.font.FontSet;
 
 /**
  * Listener to change the current locale.
@@ -53,166 +52,136 @@ import org.pushingpixels.substance.api.fonts.FontSet;
  * @author Kirill Grouchnikov
  */
 public class MyLocaleChangeListener implements ActionListener {
-	/**
-	 * Language code.
-	 */
-	private String langCode;
+    /**
+     * Language code.
+     */
+    private String langCode;
 
-	/**
-	 * Country code.
-	 */
-	private String countryCode;
+    /**
+     * Country code.
+     */
+    private String countryCode;
 
-	/**
-	 * Main test frame.
-	 */
-	private JFrame frame;
+    /**
+     * Main test frame.
+     */
+    private JFrame frame;
 
-	/**
-	 * Wrapper around the base Substance font set. Is used to create larger /
-	 * smaller font sets.
-	 * 
-	 * @author Kirill Grouchnikov
-	 */
-	private static class DialogFontSet implements FontSet {
-		/**
-		 * The base Substance font set.
-		 */
-		private FontSet delegate;
+    /**
+     * Wrapper around the base Substance font set. Is used to create larger / smaller font sets.
+     * 
+     * @author Kirill Grouchnikov
+     */
+    private static class DialogFontSet implements FontSet {
+        /**
+         * The base Substance font set.
+         */
+        private FontSet delegate;
 
-		/**
-		 * Creates a wrapper font set.
-		 * 
-		 * @param delegate
-		 *            The base Substance font set.
-		 */
-		public DialogFontSet(FontSet delegate) {
-			super();
-			this.delegate = delegate;
-		}
+        /**
+         * Creates a wrapper font set.
+         * 
+         * @param delegate
+         *            The base Substance font set.
+         */
+        public DialogFontSet(FontSet delegate) {
+            super();
+            this.delegate = delegate;
+        }
 
-		/**
-		 * Returns the wrapped font.
-		 * 
-		 * @param systemFont
-		 *            Original font.
-		 * @return Wrapped font.
-		 */
-		private FontUIResource getWrappedFont(FontUIResource systemFont) {
-			return new FontUIResource("Dialog", systemFont.getStyle(),
-					systemFont.getSize());
-		}
+        /**
+         * Returns the wrapped font.
+         * 
+         * @param systemFont
+         *            Original font.
+         * @return Wrapped font.
+         */
+        private FontUIResource getWrappedFont(FontUIResource systemFont) {
+            return new FontUIResource("Dialog", systemFont.getStyle(), systemFont.getSize());
+        }
 
-		public FontUIResource getControlFont() {
-			return this.getWrappedFont(this.delegate.getControlFont());
-		}
+        public FontUIResource getControlFont() {
+            return this.getWrappedFont(this.delegate.getControlFont());
+        }
 
-		public FontUIResource getMenuFont() {
-			return this.getWrappedFont(this.delegate.getMenuFont());
-		}
+        public FontUIResource getMenuFont() {
+            return this.getWrappedFont(this.delegate.getMenuFont());
+        }
 
-		public FontUIResource getMessageFont() {
-			return this.getWrappedFont(this.delegate.getMessageFont());
-		}
+        public FontUIResource getMessageFont() {
+            return this.getWrappedFont(this.delegate.getMessageFont());
+        }
 
-		public FontUIResource getSmallFont() {
-			return this.getWrappedFont(this.delegate.getSmallFont());
-		}
+        public FontUIResource getSmallFont() {
+            return this.getWrappedFont(this.delegate.getSmallFont());
+        }
 
-		public FontUIResource getTitleFont() {
-			return this.getWrappedFont(this.delegate.getTitleFont());
-		}
+        public FontUIResource getTitleFont() {
+            return this.getWrappedFont(this.delegate.getTitleFont());
+        }
 
-		public FontUIResource getWindowTitleFont() {
-			return this.getWrappedFont(this.delegate.getWindowTitleFont());
-		}
-	}
+        public FontUIResource getWindowTitleFont() {
+            return this.getWrappedFont(this.delegate.getWindowTitleFont());
+        }
+    }
 
-	/**
-	 * Creates the locale change listener.
-	 * 
-	 * @param langCode
-	 *            Language code.
-	 * @param countryCode
-	 *            Country code.
-	 * @param frame
-	 *            Main test frame.
-	 */
-	public MyLocaleChangeListener(String langCode, String countryCode,
-			JFrame frame) {
-		this.langCode = langCode;
-		this.countryCode = countryCode;
-		this.frame = frame;
-	}
+    /**
+     * Creates the locale change listener.
+     * 
+     * @param langCode
+     *            Language code.
+     * @param countryCode
+     *            Country code.
+     * @param frame
+     *            Main test frame.
+     */
+    public MyLocaleChangeListener(String langCode, String countryCode, JFrame frame) {
+        this.langCode = langCode;
+        this.countryCode = countryCode;
+        this.frame = frame;
+    }
 
-	// String getDefaultPattern(Locale locale) {
-	// ResourceBundle r = LocaleData.getLocaleElements(locale);
-	// // ResourceBundle r = ResourceBundle.getBundle(
-	// // "java.text.resources.LocaleElements", locale);
-	// String[] dateTimePatterns = r.getStringArray("DateTimePatterns");
-	// Object[] dateTimeArgs = { dateTimePatterns[DateFormat.SHORT],
-	// dateTimePatterns[DateFormat.SHORT + 4] };
-	// return MessageFormat.format(dateTimePatterns[8], dateTimeArgs);
-	// }
-	//
-	/**
-	 * Sets the specified locale on a component and all its children
-	 * (recursively).
-	 * 
-	 * @param component
-	 *            Component.
-	 * @param locale
-	 *            Locale to set.
-	 */
-	void setLocale(Component component, Locale locale) {
-		component.setLocale(locale);
-		// if (component instanceof JSpinner) {
-		// JSpinner spinner = (JSpinner) component;
-		// if (spinner.getModel() instanceof SpinnerDateModel) {
-		// // probably not the best way. Since this is test
-		// // application, this will do.
-		// spinner.setEditor(new JSpinner.DateEditor(spinner,
-		// getDefaultPattern(locale)));
-		// }
-		// }
-		if (component instanceof Container) {
-			Container cont = (Container) component;
-			for (int i = 0; i < cont.getComponentCount(); i++)
-				setLocale(cont.getComponent(i), locale);
-		}
-	}
+    /**
+     * Sets the specified locale on a component and all its children (recursively).
+     * 
+     * @param component
+     *            Component.
+     * @param locale
+     *            Locale to set.
+     */
+    void setLocale(Component component, Locale locale) {
+        component.setLocale(locale);
+        if (component instanceof Container) {
+            Container cont = (Container) component;
+            for (int i = 0; i < cont.getComponentCount(); i++)
+                setLocale(cont.getComponent(i), locale);
+        }
+    }
 
-	public void actionPerformed(ActionEvent e) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				LookAndFeel currLaf = UIManager.getLookAndFeel();
-				// Locale currLocale = Locale.getDefault();
-				Locale newLocale = new Locale(langCode, countryCode);
-				Locale.setDefault(newLocale);
-				frame.applyComponentOrientation(ComponentOrientation
-						.getOrientation(Locale.getDefault()));
-				if (currLaf instanceof SubstanceLookAndFeel) {
-					SubstanceLookAndFeel.resetLabelBundle();
-					if ("CN".equals(countryCode)) {
-						final FontSet currFontSet = SubstanceLookAndFeel
-								.getFontPolicy().getFontSet("Substance", null);
-						SubstanceLookAndFeel.setFontPolicy(new FontPolicy() {
-							public FontSet getFontSet(String lafName,
-									UIDefaults table) {
-								return new DialogFontSet(currFontSet);
-							}
-						});
-					} else {
-						SubstanceLookAndFeel.setFontPolicy(null);
-					}
-				}
-				try {
-					UIManager.setLookAndFeel(currLaf.getClass().getName());
-				} catch (Exception exc) {
-				}
-				// this.setLocale(this.frame, newLocale);
-				SwingUtilities.updateComponentTreeUI(frame);
-			}
-		});
-	}
+    public void actionPerformed(ActionEvent e) {
+        SwingUtilities.invokeLater(() -> {
+            LookAndFeel currLaf = UIManager.getLookAndFeel();
+            // Locale currLocale = Locale.getDefault();
+            Locale newLocale = new Locale(langCode, countryCode);
+            Locale.setDefault(newLocale);
+            frame.applyComponentOrientation(
+                    ComponentOrientation.getOrientation(Locale.getDefault()));
+            if (currLaf instanceof SubstanceLookAndFeel) {
+                SubstanceLookAndFeel.resetLabelBundle();
+                if ("CN".equals(countryCode)) {
+                    final FontSet currFontSet = SubstanceLookAndFeel.getFontPolicy()
+                            .getFontSet("Substance", null);
+                    SubstanceLookAndFeel.setFontPolicy(
+                            (String lafName, UIDefaults table) -> new DialogFontSet(currFontSet));
+                } else {
+                    SubstanceLookAndFeel.setFontPolicy(null);
+                }
+            }
+            try {
+                UIManager.setLookAndFeel(currLaf.getClass().getName());
+            } catch (Exception exc) {
+            }
+            SwingUtilities.updateComponentTreeUI(frame);
+        });
+    }
 }

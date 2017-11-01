@@ -38,7 +38,7 @@ import org.pushingpixels.demo.substance.main.Check;
 import org.pushingpixels.demo.substance.main.check.svg.flags.mx;
 import org.pushingpixels.demo.substance.main.check.svg.flags.ru;
 import org.pushingpixels.demo.substance.main.check.svg.flags.se;
-import org.pushingpixels.lafwidget.LafWidget;
+import org.pushingpixels.substance.tabbed.TabPreviewUtilities;
 
 /**
  * Test application panel for testing {@link JTabbedPane} component.
@@ -74,7 +74,7 @@ public class TabPanel extends ControllablePanel {
 
 		try {
 			MyTabPreviewPainter previewPainter = new MyTabPreviewPainter();
-			jtp.putClientProperty(LafWidget.TABBED_PANE_PREVIEW_PAINTER,
+			jtp.putClientProperty(TabPreviewUtilities.TABBED_PANE_PREVIEW_PAINTER,
 					previewPainter);
 			this.controlPanel = new TabControlPanel(jtp, previewPainter);
 		} catch (NoClassDefFoundError ncdfe) {

@@ -41,16 +41,16 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import org.pushingpixels.lafwidget.LafWidget;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /**
- * Test application that shows the use of the {@link LafWidget#HAS_LOCK_ICON}
+ * Test application that shows the use of the {@link SubstanceWidget#HAS_LOCK_ICON}
  * client property.
  * 
  * @author Kirill Grouchnikov
- * @see LafWidget#HAS_LOCK_ICON
+ * @see SubstanceWidget#HAS_LOCK_ICON
  */
 public class HasLockIcon extends JFrame {
 	/**
@@ -74,7 +74,7 @@ public class HasLockIcon extends JFrame {
 		final JCheckBox hasLockIcon = new JCheckBox("Has lock icon");
 		hasLockIcon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				jtf.putClientProperty(LafWidget.HAS_LOCK_ICON, hasLockIcon
+				jtf.putClientProperty(SubstanceWidget.HAS_LOCK_ICON, hasLockIcon
 						.isSelected() ? Boolean.TRUE : null);
 			}
 		});

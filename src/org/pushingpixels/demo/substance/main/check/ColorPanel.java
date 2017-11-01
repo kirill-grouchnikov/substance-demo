@@ -35,7 +35,7 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
-import org.pushingpixels.lafwidget.LafWidgetUtilities;
+import org.pushingpixels.substance.internal.utils.WidgetUtilities;
 
 /**
  * Colored panel for the test application.
@@ -65,7 +65,7 @@ public class ColorPanel extends JPanel {
 	 */
 	protected void paintComponent(Graphics g) {
 		Graphics2D graphics = (Graphics2D) g.create();
-		graphics.setComposite(LafWidgetUtilities.getAlphaComposite(this));
+		graphics.setComposite(WidgetUtilities.getAlphaComposite(this));
 		super.paintComponent(graphics);
 		graphics.setColor(Color.black);
 		Color bg = this.getBackground();

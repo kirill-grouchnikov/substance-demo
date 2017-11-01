@@ -11,14 +11,14 @@ import java.awt.Graphics2D;
 
 import javax.swing.UIManager;
 
-import org.pushingpixels.lafwidget.LafWidgetUtilities;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.internal.utils.WidgetUtilities;
 
 final class CheckeredPanel extends ScrollablePanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		Graphics2D graphics = (Graphics2D) g.create();
-		graphics.setComposite(LafWidgetUtilities.getAlphaComposite(this));
+		graphics.setComposite(WidgetUtilities.getAlphaComposite(this));
 
 		int w = this.getWidth();
 		int h = this.getHeight();

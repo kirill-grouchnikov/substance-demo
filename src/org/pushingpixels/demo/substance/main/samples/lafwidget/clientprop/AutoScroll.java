@@ -45,16 +45,16 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
-import org.pushingpixels.lafwidget.LafWidget;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /**
- * Test application that shows the use of the {@link LafWidget#AUTO_SCROLL}
+ * Test application that shows the use of the {@link SubstanceWidget#AUTO_SCROLL}
  * client property.
  * 
  * @author Kirill Grouchnikov
- * @see LafWidget#AUTO_SCROLL
+ * @see SubstanceWidget#AUTO_SCROLL
  */
 public class AutoScroll extends JFrame {
 	/**
@@ -92,7 +92,7 @@ public class AutoScroll extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {
-						scrollPane.putClientProperty(LafWidget.AUTO_SCROLL,
+						scrollPane.putClientProperty(SubstanceWidget.AUTO_SCROLL,
 								hasAutoScroll.isSelected() ? Boolean.TRUE
 										: null);
 						repaint();

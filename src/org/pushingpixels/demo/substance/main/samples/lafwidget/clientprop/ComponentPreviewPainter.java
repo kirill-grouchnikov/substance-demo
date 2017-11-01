@@ -46,17 +46,17 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import org.pushingpixels.lafwidget.LafWidget;
-import org.pushingpixels.lafwidget.preview.DefaultPreviewPainter;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceWidget;
+import org.pushingpixels.substance.api.painter.preview.DefaultPreviewPainter;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /**
  * Test application that shows the use of the
- * {@link LafWidget#COMPONENT_PREVIEW_PAINTER} client property.
+ * {@link SubstanceWidget#COMPONENT_PREVIEW_PAINTER} client property.
  * 
  * @author Kirill Grouchnikov
- * @see LafWidget#COMPONENT_PREVIEW_PAINTER
+ * @see SubstanceWidget#COMPONENT_PREVIEW_PAINTER
  */
 public class ComponentPreviewPainter extends JFrame {
 	/**
@@ -96,7 +96,7 @@ public class ComponentPreviewPainter extends JFrame {
 					public void run() {
 						scrollPane
 								.putClientProperty(
-										LafWidget.COMPONENT_PREVIEW_PAINTER,
+										SubstanceWidget.COMPONENT_PREVIEW_PAINTER,
 										hasPreview.isSelected() ? new DefaultPreviewPainter()
 												: null);
 						repaint();

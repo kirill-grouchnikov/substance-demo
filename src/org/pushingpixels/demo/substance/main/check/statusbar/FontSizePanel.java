@@ -19,8 +19,8 @@ import javax.swing.plaf.FontUIResource;
 import org.pushingpixels.demo.substance.main.check.svg.View_zoom_in;
 import org.pushingpixels.demo.substance.main.check.svg.View_zoom_out;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.fonts.FontPolicy;
-import org.pushingpixels.substance.api.fonts.FontSet;
+import org.pushingpixels.substance.api.font.FontPolicy;
+import org.pushingpixels.substance.api.font.FontSet;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;

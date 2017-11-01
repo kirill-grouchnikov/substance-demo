@@ -57,10 +57,10 @@ import org.pushingpixels.demo.substance.main.check.svg.flags.il;
 import org.pushingpixels.demo.substance.main.check.svg.flags.it;
 import org.pushingpixels.demo.substance.main.check.svg.flags.ru;
 import org.pushingpixels.demo.substance.main.check.svg.flags.se;
-import org.pushingpixels.lafwidget.LafWidget;
 import org.pushingpixels.substance.api.SubstanceConstants.FocusKind;
 import org.pushingpixels.substance.api.SubstanceConstants.Side;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceWidget;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
@@ -610,7 +610,7 @@ public class ButtonsPanel extends JPanel {
 
 		JPanel panel = builder.getPanel();
 		JScrollPane jsp = new JScrollPane(panel);
-		jsp.putClientProperty(LafWidget.AUTO_SCROLL, Boolean.TRUE);
+		jsp.putClientProperty(SubstanceWidget.AUTO_SCROLL, Boolean.TRUE);
 		this.add(jsp, BorderLayout.CENTER);
 	}
 }

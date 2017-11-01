@@ -40,16 +40,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-import org.pushingpixels.lafwidget.LafWidget;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /**
  * Test application that shows the use of the
- * {@link LafWidget#TEXT_FLIP_SELECT_ON_ESCAPE} client property.
+ * {@link SubstanceWidget#TEXT_FLIP_SELECT_ON_ESCAPE} client property.
  * 
  * @author Kirill Grouchnikov
- * @see LafWidget#TEXT_FLIP_SELECT_ON_ESCAPE
+ * @see SubstanceWidget#TEXT_FLIP_SELECT_ON_ESCAPE
  */
 public class TextFlipSelectOnEscape extends JFrame {
 	/**
@@ -73,7 +73,7 @@ public class TextFlipSelectOnEscape extends JFrame {
 				"Has \"flip select on ESC\" behaviour");
 		hasSelectOnFocus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				jtf.putClientProperty(LafWidget.TEXT_FLIP_SELECT_ON_ESCAPE,
+				jtf.putClientProperty(SubstanceWidget.TEXT_FLIP_SELECT_ON_ESCAPE,
 						hasSelectOnFocus.isSelected() ? Boolean.TRUE : null);
 			}
 		});

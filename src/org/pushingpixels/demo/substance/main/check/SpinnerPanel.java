@@ -47,8 +47,8 @@ import org.pushingpixels.demo.substance.main.check.command.ClientPropertyCommand
 import org.pushingpixels.demo.substance.main.check.command.ConfigurationCommand;
 import org.pushingpixels.demo.substance.main.check.command.CreationCommand;
 import org.pushingpixels.demo.substance.main.check.command.DisableCommand;
-import org.pushingpixels.lafwidget.LafWidget;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceWidget;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
@@ -105,7 +105,7 @@ public class SpinnerPanel extends JPanel {
 		addSpinner(builder, "Date", dateCr, null);
 		addSpinner(builder, "Weekdays", weekdaysCr, null);
 		addSpinner(builder, "Weekdays select on focus", weekdaysCr,
-				new ClientPropertyCommand(LafWidget.TEXT_SELECT_ON_FOCUS,
+				new ClientPropertyCommand(SubstanceWidget.TEXT_SELECT_ON_FOCUS,
 						Boolean.TRUE));
 		addSpinner(builder, "Number", numberCr, null);
 		addSpinner(builder, "Number flat", numberCr, new ClientPropertyCommand(
@@ -123,7 +123,7 @@ public class SpinnerPanel extends JPanel {
 		addSpinner(builder, "Weekdays", weekdaysCr, new DisableCommand());
 		addSpinner(builder, "Weekdays select on focus", weekdaysCr,
 				new ChainCommand<Component>(new ClientPropertyCommand(
-						LafWidget.TEXT_SELECT_ON_FOCUS, Boolean.TRUE),
+						SubstanceWidget.TEXT_SELECT_ON_FOCUS, Boolean.TRUE),
 						new DisableCommand()));
 		addSpinner(builder, "Number", numberCr, new DisableCommand());
 		addSpinner(builder, "Number flat", numberCr,

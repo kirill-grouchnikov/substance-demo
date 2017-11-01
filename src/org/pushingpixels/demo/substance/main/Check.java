@@ -121,23 +121,24 @@ import org.pushingpixels.demo.substance.main.check.svg.Format_text_italic;
 import org.pushingpixels.demo.substance.main.check.svg.Format_text_strikethrough;
 import org.pushingpixels.demo.substance.main.check.svg.Format_text_underline;
 import org.pushingpixels.demo.substance.main.check.svg.Process_stop;
-import org.pushingpixels.lafwidget.LafWidget;
-import org.pushingpixels.lafwidget.icon.IsResizable;
-import org.pushingpixels.lafwidget.tabbed.DefaultTabPreviewPainter;
-import org.pushingpixels.lafwidget.utils.LafConstants.TabOverviewKind;
 import org.pushingpixels.substance.api.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceConstants;
 import org.pushingpixels.substance.api.SubstanceConstants.Side;
 import org.pushingpixels.substance.api.SubstanceConstants.TabCloseKind;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstancePluginRepository;
+import org.pushingpixels.substance.api.SubstanceWidgetRepository;
 import org.pushingpixels.substance.api.skin.SubstanceGeminiLookAndFeel;
 import org.pushingpixels.substance.api.tabbed.TabCloseCallback;
 import org.pushingpixels.substance.api.tabbed.TabCloseListener;
 import org.pushingpixels.substance.api.tabbed.VetoableMultipleTabCloseListener;
 import org.pushingpixels.substance.api.tabbed.VetoableTabCloseListener;
+import org.pushingpixels.substance.internal.hidpi.IsResizable;
 import org.pushingpixels.substance.swingx.SubstanceSwingxPlugin;
+import org.pushingpixels.substance.tabbed.DefaultTabPreviewPainter;
+import org.pushingpixels.substance.tabbed.TabPreviewUtilities;
 
 public class Check extends JFrame {
 	private JTabbedPane jtp;
@@ -177,7 +178,7 @@ public class Check extends JFrame {
 		jtp = new JTabbedPane();
 		try {
 			mainTabPreviewPainter = new MyMainTabPreviewPainter();
-			jtp.putClientProperty(LafWidget.TABBED_PANE_PREVIEW_PAINTER,
+			jtp.putClientProperty(TabPreviewUtilities.TABBED_PANE_PREVIEW_PAINTER,
 					mainTabPreviewPainter);
 		} catch (Throwable e) {
 		}
@@ -625,30 +626,28 @@ public class Check extends JFrame {
 
 	public static void main(String[] args) {
         SubstancePluginRepository.getInstance().registerComponentPlugin(new SubstanceSwingxPlugin());
+        SubstanceWidgetRepository.getRepository().registerWidget(
+                "org.pushingpixels.substance.tabbed.TabHoverPreviewWidget", 
+                JTabbedPane.class, false);
+        SubstanceWidgetRepository.getRepository().registerWidget(
+                "org.pushingpixels.substance.tabbed.TabOverviewDialogWidget", 
+                JTabbedPane.class, false);
+        SubstanceWidgetRepository.getRepository().registerWidget(
+                "org.pushingpixels.substance.tabbed.TabPagerWidget", 
+                JTabbedPane.class, false);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				boolean hasLafSpecified = false;
 				try {
-					hasLafSpecified = (System.getProperty("swing.defaultlaf") != null);
-				} catch (Throwable t) {
-					// JNLP sandbox
-				}
-
-				// LAFAdapter.startWidget();
-
-				try {
-					if (!hasLafSpecified) {
-						out(" CREATING LAF ");
-						long time0 = System.currentTimeMillis();
-						LookAndFeel laf = new SubstanceGeminiLookAndFeel();
-						long time1 = System.currentTimeMillis();
-						out(" LAF CREATED " + (time1 - time0));
-						out(" SETTING LAF ");
-						long time2 = System.currentTimeMillis();
-						UIManager.setLookAndFeel(laf);
-						long time3 = System.currentTimeMillis();
-						out(" LAF SET " + (time3 - time2));
-					}
+                    out(" CREATING LAF ");
+                    long time0 = System.currentTimeMillis();
+                    LookAndFeel laf = new SubstanceGeminiLookAndFeel();
+                    long time1 = System.currentTimeMillis();
+                    out(" LAF CREATED " + (time1 - time0));
+                    out(" SETTING LAF ");
+                    long time2 = System.currentTimeMillis();
+                    UIManager.setLookAndFeel(laf);
+                    long time3 = System.currentTimeMillis();
+                    out(" LAF SET " + (time3 - time2));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -891,14 +890,14 @@ public class Check extends JFrame {
 
 	public static class MyMainTabPreviewPainter extends
 			DefaultTabPreviewPainter {
-		protected TabOverviewKind tabOverviewKind;
+		protected SubstanceConstants.TabOverviewKind tabOverviewKind;
 
-		public void setTabOverviewKind(TabOverviewKind tabOverviewKind) {
+		public void setTabOverviewKind(SubstanceConstants.TabOverviewKind tabOverviewKind) {
 			this.tabOverviewKind = tabOverviewKind;
 		}
 
 		@Override
-		public TabOverviewKind getOverviewKind(JTabbedPane tabPane) {
+		public SubstanceConstants.TabOverviewKind getOverviewKind(JTabbedPane tabPane) {
 			if (tabOverviewKind == null)
 				return super.getOverviewKind(tabPane);
 			return tabOverviewKind;

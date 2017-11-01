@@ -41,18 +41,19 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.SwingUtilities;
 
-import org.pushingpixels.lafwidget.LafWidget;
-import org.pushingpixels.lafwidget.text.PasswordStrengthChecker;
-import org.pushingpixels.lafwidget.utils.LafConstants.PasswordStrength;
+import org.pushingpixels.substance.api.SubstanceConstants;
+import org.pushingpixels.substance.api.SubstanceConstants.PasswordStrength;
+import org.pushingpixels.substance.api.password.PasswordStrengthChecker;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /**
  * Test application that shows the use of the
- * {@link LafWidget#PASSWORD_STRENGTH_CHECKER} client property.
+ * {@link SubstanceWidget#PASSWORD_STRENGTH_CHECKER} client property.
  * 
  * @author Kirill Grouchnikov
- * @see LafWidget#PASSWORD_STRENGTH_CHECKER
+ * @see SubstanceWidget#PASSWORD_STRENGTH_CHECKER
  */
 public class PasswordStrengthCheckerProperty extends JFrame {
 	/**
@@ -76,33 +77,33 @@ public class PasswordStrengthCheckerProperty extends JFrame {
 		hasPasswordStrengthChecker.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (hasPasswordStrengthChecker.isSelected()) {
-					jpf.putClientProperty(LafWidget.PASSWORD_STRENGTH_CHECKER,
+					jpf.putClientProperty(SubstanceWidget.PASSWORD_STRENGTH_CHECKER,
 							new PasswordStrengthChecker() {
-								public PasswordStrength getStrength(
+								public SubstanceConstants.PasswordStrength getStrength(
 										char[] password) {
 									if (password == null)
-										return PasswordStrength.WEAK;
+										return SubstanceConstants.PasswordStrength.WEAK;
 									int length = password.length;
 									if (length < 3)
-										return PasswordStrength.WEAK;
+										return SubstanceConstants.PasswordStrength.WEAK;
 									if (length < 6)
-										return PasswordStrength.MEDIUM;
-									return PasswordStrength.STRONG;
+										return SubstanceConstants.PasswordStrength.MEDIUM;
+									return SubstanceConstants.PasswordStrength.STRONG;
 								}
 
 								public String getDescription(
-										PasswordStrength strength) {
-									if (strength == PasswordStrength.WEAK)
+										SubstanceConstants.PasswordStrength strength) {
+									if (strength == SubstanceConstants.PasswordStrength.WEAK)
 										return "<html>This password is <b>way</b> too weak</html>";
-									if (strength == PasswordStrength.MEDIUM)
+									if (strength == SubstanceConstants.PasswordStrength.MEDIUM)
 										return "<html>Come on, you can do<br> a little better than that</html>";
-									if (strength == PasswordStrength.STRONG)
+									if (strength == SubstanceConstants.PasswordStrength.STRONG)
 										return "OK";
 									return null;
 								}
 							});
 				} else {
-					jpf.putClientProperty(LafWidget.PASSWORD_STRENGTH_CHECKER,
+					jpf.putClientProperty(SubstanceWidget.PASSWORD_STRENGTH_CHECKER,
 							null);
 				}
 			}

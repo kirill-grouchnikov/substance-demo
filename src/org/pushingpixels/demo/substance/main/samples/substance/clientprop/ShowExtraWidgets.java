@@ -41,8 +41,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import org.pushingpixels.lafwidget.LafWidget;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /**
@@ -79,7 +79,7 @@ public class ShowExtraWidgets extends JFrame {
 						UIManager.put(SubstanceLookAndFeel.SHOW_EXTRA_WIDGETS,
 								Boolean.valueOf(showExtraWidgets.isSelected()));
 						readOnlyTextField
-								.putClientProperty(LafWidget.HAS_LOCK_ICON,
+								.putClientProperty(SubstanceWidget.HAS_LOCK_ICON,
 										Boolean.valueOf(showExtraWidgets
 												.isSelected()));
 						SwingUtilities

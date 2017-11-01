@@ -46,10 +46,11 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 
-import org.pushingpixels.lafwidget.LafWidget;
-import org.pushingpixels.lafwidget.text.PasswordStrengthChecker;
-import org.pushingpixels.lafwidget.utils.LafConstants.PasswordStrength;
+import org.pushingpixels.substance.api.SubstanceConstants;
+import org.pushingpixels.substance.api.SubstanceConstants.PasswordStrength;
+import org.pushingpixels.substance.api.password.PasswordStrengthChecker;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceWidget;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
@@ -118,7 +119,7 @@ public class TextFieldsPanel extends JPanel implements Deferrable {
 
 		JTextField jtfNotEditableWithLock = new JTextField("sample text");
 		jtfNotEditableWithLock.setEditable(false);
-		jtfNotEditableWithLock.putClientProperty(LafWidget.HAS_LOCK_ICON,
+		jtfNotEditableWithLock.putClientProperty(SubstanceWidget.HAS_LOCK_ICON,
 				Boolean.TRUE);
 		builder.append("Not editable with lock", jtfNotEditableWithLock);
 
@@ -126,12 +127,12 @@ public class TextFieldsPanel extends JPanel implements Deferrable {
 				new DecimalFormat("#,##0.0000"));
 		jftfNotEditableWithLock.setText("2,430.0000");
 		jftfNotEditableWithLock.setEditable(false);
-		jftfNotEditableWithLock.putClientProperty(LafWidget.HAS_LOCK_ICON,
+		jftfNotEditableWithLock.putClientProperty(SubstanceWidget.HAS_LOCK_ICON,
 				Boolean.TRUE);
 		JPasswordField jpfNotEditableWithLock = new JPasswordField("password",
 				10);
 		jpfNotEditableWithLock.setEditable(false);
-		jpfNotEditableWithLock.putClientProperty(LafWidget.HAS_LOCK_ICON,
+		jpfNotEditableWithLock.putClientProperty(SubstanceWidget.HAS_LOCK_ICON,
 				Boolean.TRUE);
 		builder.append(jftfNotEditableWithLock, jpfNotEditableWithLock);
 
@@ -175,37 +176,37 @@ public class TextFieldsPanel extends JPanel implements Deferrable {
 		builder.append(jftfWatermarkBleed, jpfWatermarkBleed);
 
 		JTextField jtf4 = new JTextField("sample text");
-		jtf4.putClientProperty(LafWidget.TEXT_SELECT_ON_FOCUS, Boolean.TRUE);
+		jtf4.putClientProperty(SubstanceWidget.TEXT_SELECT_ON_FOCUS, Boolean.TRUE);
 		builder.append("Select all on focus", jtf4);
 
 		JFormattedTextField jftf4 = new JFormattedTextField(new DecimalFormat(
 				"#,##0.0000"));
 		jftf4.setText("2,430.0000");
-		jftf4.putClientProperty(LafWidget.TEXT_SELECT_ON_FOCUS, Boolean.TRUE);
+		jftf4.putClientProperty(SubstanceWidget.TEXT_SELECT_ON_FOCUS, Boolean.TRUE);
 		builder.append(jftf4);
 		builder.nextLine();
 
 		JTextField jtf4_1 = new JTextField("sample text");
-		jtf4_1.putClientProperty(LafWidget.TEXT_FLIP_SELECT_ON_ESCAPE,
+		jtf4_1.putClientProperty(SubstanceWidget.TEXT_FLIP_SELECT_ON_ESCAPE,
 				Boolean.TRUE);
 		builder.append("Flip selection on ESC", jtf4_1);
 
 		JFormattedTextField jftf4_1 = new JFormattedTextField(
 				new DecimalFormat("#,##0.0000"));
 		jftf4_1.setText("2,430.0000");
-		jftf4_1.putClientProperty(LafWidget.TEXT_FLIP_SELECT_ON_ESCAPE,
+		jftf4_1.putClientProperty(SubstanceWidget.TEXT_FLIP_SELECT_ON_ESCAPE,
 				Boolean.TRUE);
 		builder.append(jftf4_1);
 		builder.nextLine();
 
 		JTextField jtf5 = new JTextField("sample text");
-		jtf5.putClientProperty(LafWidget.TEXT_EDIT_CONTEXT_MENU, Boolean.TRUE);
+		jtf5.putClientProperty(SubstanceWidget.TEXT_EDIT_CONTEXT_MENU, Boolean.TRUE);
 		builder.append("With context menu", jtf5);
 
 		JFormattedTextField jftf5 = new JFormattedTextField(new DecimalFormat(
 				"#,##0.0000"));
 		jftf5.setText("2,430.0000");
-		jftf5.putClientProperty(LafWidget.TEXT_EDIT_CONTEXT_MENU, Boolean.TRUE);
+		jftf5.putClientProperty(SubstanceWidget.TEXT_EDIT_CONTEXT_MENU, Boolean.TRUE);
 		builder.append(jftf5);
 		builder.nextLine();
 
@@ -241,25 +242,25 @@ public class TextFieldsPanel extends JPanel implements Deferrable {
 		JPasswordField jpfStrengthChecker = new JPasswordField("password", 10);
 		try {
 			jpfStrengthChecker.putClientProperty(
-					LafWidget.PASSWORD_STRENGTH_CHECKER,
+					SubstanceWidget.PASSWORD_STRENGTH_CHECKER,
 					new PasswordStrengthChecker() {
-						public PasswordStrength getStrength(char[] password) {
+						public SubstanceConstants.PasswordStrength getStrength(char[] password) {
 							if (password == null)
-								return PasswordStrength.WEAK;
+								return SubstanceConstants.PasswordStrength.WEAK;
 							int length = password.length;
 							if (length < 3)
-								return PasswordStrength.WEAK;
+								return SubstanceConstants.PasswordStrength.WEAK;
 							if (length < 6)
-								return PasswordStrength.MEDIUM;
-							return PasswordStrength.STRONG;
+								return SubstanceConstants.PasswordStrength.MEDIUM;
+							return SubstanceConstants.PasswordStrength.STRONG;
 						}
 
-						public String getDescription(PasswordStrength strength) {
-							if (strength == PasswordStrength.WEAK)
+						public String getDescription(SubstanceConstants.PasswordStrength strength) {
+							if (strength == SubstanceConstants.PasswordStrength.WEAK)
 								return "<html>This password is <b>way</b> too weak</html>";
-							if (strength == PasswordStrength.MEDIUM)
+							if (strength == SubstanceConstants.PasswordStrength.MEDIUM)
 								return "<html>Come on, you can do<br> a little better than that</html>";
-							if (strength == PasswordStrength.STRONG)
+							if (strength == SubstanceConstants.PasswordStrength.STRONG)
 								return "OK";
 							return null;
 						}
@@ -312,20 +313,20 @@ public class TextFieldsPanel extends JPanel implements Deferrable {
 		JEditorPane jepNotEditableWithLock = new JEditorPane("text/html;",
 				"Sample <b>content</b><br> <u>text</u>");
 		jepNotEditableWithLock.setEditable(false);
-		jepNotEditableWithLock.putClientProperty(LafWidget.HAS_LOCK_ICON,
+		jepNotEditableWithLock.putClientProperty(SubstanceWidget.HAS_LOCK_ICON,
 				Boolean.TRUE);
 		builder.append("Not editable with lock", jepNotEditableWithLock);
 
 		JTextArea jtaNotEditableWithLock = new JTextArea("Sample content text",
 				3, 20);
 		jtaNotEditableWithLock.setEditable(false);
-		jtaNotEditableWithLock.putClientProperty(LafWidget.HAS_LOCK_ICON,
+		jtaNotEditableWithLock.putClientProperty(SubstanceWidget.HAS_LOCK_ICON,
 				Boolean.TRUE);
 		JTextPane jtpNotEditableWithLock = new JTextPane();
 		jtpNotEditableWithLock.replaceSelection("Sample content text");
 		jtpNotEditableWithLock.setPreferredSize(new Dimension(100, 40));
 		jtpNotEditableWithLock.setEditable(false);
-		jtpNotEditableWithLock.putClientProperty(LafWidget.HAS_LOCK_ICON,
+		jtpNotEditableWithLock.putClientProperty(SubstanceWidget.HAS_LOCK_ICON,
 				Boolean.TRUE);
 		builder.append(jtaNotEditableWithLock, jtpNotEditableWithLock);
 
@@ -414,7 +415,7 @@ public class TextFieldsPanel extends JPanel implements Deferrable {
 			textAreaScrollWithLock
 					.append("Some long long long line with number " + i + "\n");
 		}
-		textAreaScrollWithLock.putClientProperty(LafWidget.HAS_LOCK_ICON,
+		textAreaScrollWithLock.putClientProperty(SubstanceWidget.HAS_LOCK_ICON,
 				Boolean.TRUE);
 		textAreaScrollWithLock.setEditable(false);
 		builder.append("Scrollable with lock", new JScrollPane(

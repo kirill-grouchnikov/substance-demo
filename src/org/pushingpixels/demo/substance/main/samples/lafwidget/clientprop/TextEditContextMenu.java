@@ -40,16 +40,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-import org.pushingpixels.lafwidget.LafWidget;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /**
  * Test application that shows the use of the
- * {@link LafWidget#TEXT_EDIT_CONTEXT_MENU} client property.
+ * {@link SubstanceWidget#TEXT_EDIT_CONTEXT_MENU} client property.
  * 
  * @author Kirill Grouchnikov
- * @see LafWidget#TEXT_EDIT_CONTEXT_MENU
+ * @see SubstanceWidget#TEXT_EDIT_CONTEXT_MENU
  */
 public class TextEditContextMenu extends JFrame {
 	/**
@@ -73,7 +73,7 @@ public class TextEditContextMenu extends JFrame {
 				"Has edit context menu");
 		hasEditContextMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				jtf.putClientProperty(LafWidget.TEXT_EDIT_CONTEXT_MENU,
+				jtf.putClientProperty(SubstanceWidget.TEXT_EDIT_CONTEXT_MENU,
 						hasEditContextMenu.isSelected() ? Boolean.TRUE : null);
 			}
 		});

@@ -53,10 +53,11 @@ import javax.swing.JTabbedPane;
 import javax.swing.ListCellRenderer;
 import javax.swing.SwingUtilities;
 
-import org.pushingpixels.lafwidget.LafWidgetUtilities2;
-import org.pushingpixels.lafwidget.utils.LafConstants.TabOverviewKind;
+import org.pushingpixels.substance.api.SubstanceConstants;
 import org.pushingpixels.substance.api.SubstanceConstants.TabContentPaneBorderKind;
+import org.pushingpixels.substance.api.SubstanceConstants.TabOverviewKind;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.tabbed.TabPreviewUtilities;
 
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
@@ -243,20 +244,20 @@ public class TabControlPanel extends JPanel {
 		builder.add(placementCombo, cc.xyw(3, row, 3));
 
 		try {
-			final JComboBox overviewKindCombo = new FlexiComboBox<TabOverviewKind>(
-					TabOverviewKind.GRID, TabOverviewKind.MENU_CAROUSEL,
-					TabOverviewKind.ROUND_CAROUSEL) {
+			final JComboBox overviewKindCombo = new FlexiComboBox<SubstanceConstants.TabOverviewKind>(
+					SubstanceConstants.TabOverviewKind.GRID, SubstanceConstants.TabOverviewKind.MENU_CAROUSEL,
+					SubstanceConstants.TabOverviewKind.ROUND_CAROUSEL) {
 				@Override
-				public String getCaption(TabOverviewKind item) {
+				public String getCaption(SubstanceConstants.TabOverviewKind item) {
 					return item.getName();
 				}
 			};
-			overviewKindCombo.setSelectedItem(LafWidgetUtilities2
+			overviewKindCombo.setSelectedItem(TabPreviewUtilities
 					.getTabPreviewPainter(jtp).getOverviewKind(jtp));
 			overviewKindCombo.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					mainTabPreviewPainter
-							.setTabOverviewKind((TabOverviewKind) overviewKindCombo
+							.setTabOverviewKind((SubstanceConstants.TabOverviewKind) overviewKindCombo
 									.getSelectedItem());
 				}
 			});

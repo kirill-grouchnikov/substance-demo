@@ -40,8 +40,8 @@ import java.util.Date;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
-import org.pushingpixels.lafwidget.LafWidgetUtilities;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.internal.utils.WidgetUtilities;
 
 /**
  * A simple panel that paints the current time on itself.
@@ -83,7 +83,7 @@ public class NumberedPanel extends JPanel {
 			int w = this.getWidth();
 			int h = this.getHeight();
 			Graphics2D graphics = (Graphics2D) g.create();
-			graphics.setComposite(LafWidgetUtilities.getAlphaComposite(this));
+			graphics.setComposite(WidgetUtilities.getAlphaComposite(this));
 
 			if ((UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel)
 					&& SubstanceLookAndFeel.getCurrentSkin(this)
@@ -94,11 +94,11 @@ public class NumberedPanel extends JPanel {
 			else
 				graphics.setColor(Color.white);
 			graphics.fillRect(0, 0, w, h);
-			graphics.setComposite(LafWidgetUtilities.getAlphaComposite(this,
+			graphics.setComposite(WidgetUtilities.getAlphaComposite(this,
 					0.6f));
 			graphics.setColor(this.getBackground());
 			graphics.fillRect(0, 0, w, h);
-			graphics.setComposite(LafWidgetUtilities.getAlphaComposite(this));
+			graphics.setComposite(WidgetUtilities.getAlphaComposite(this));
 			if ((UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel)
 					&& SubstanceLookAndFeel.getCurrentSkin(this)
 							.getActiveColorScheme(
