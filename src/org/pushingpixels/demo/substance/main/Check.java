@@ -107,20 +107,20 @@ import org.pushingpixels.demo.substance.main.check.TablePanel;
 import org.pushingpixels.demo.substance.main.check.TextFieldsPanel;
 import org.pushingpixels.demo.substance.main.check.TreePanel;
 import org.pushingpixels.demo.substance.main.check.VAlignmentPanel;
-import org.pushingpixels.demo.substance.main.check.svg.Edit_copy;
-import org.pushingpixels.demo.substance.main.check.svg.Edit_cut;
-import org.pushingpixels.demo.substance.main.check.svg.Edit_delete;
-import org.pushingpixels.demo.substance.main.check.svg.Edit_paste;
-import org.pushingpixels.demo.substance.main.check.svg.Edit_select_all;
-import org.pushingpixels.demo.substance.main.check.svg.Format_justify_center;
-import org.pushingpixels.demo.substance.main.check.svg.Format_justify_fill;
-import org.pushingpixels.demo.substance.main.check.svg.Format_justify_left;
-import org.pushingpixels.demo.substance.main.check.svg.Format_justify_right;
-import org.pushingpixels.demo.substance.main.check.svg.Format_text_bold;
-import org.pushingpixels.demo.substance.main.check.svg.Format_text_italic;
-import org.pushingpixels.demo.substance.main.check.svg.Format_text_strikethrough;
-import org.pushingpixels.demo.substance.main.check.svg.Format_text_underline;
-import org.pushingpixels.demo.substance.main.check.svg.Process_stop;
+import org.pushingpixels.demo.substance.main.check.svg.tango.edit_copy;
+import org.pushingpixels.demo.substance.main.check.svg.tango.edit_cut;
+import org.pushingpixels.demo.substance.main.check.svg.tango.edit_delete;
+import org.pushingpixels.demo.substance.main.check.svg.tango.edit_paste;
+import org.pushingpixels.demo.substance.main.check.svg.tango.edit_select_all;
+import org.pushingpixels.demo.substance.main.check.svg.tango.format_justify_center;
+import org.pushingpixels.demo.substance.main.check.svg.tango.format_justify_fill;
+import org.pushingpixels.demo.substance.main.check.svg.tango.format_justify_left;
+import org.pushingpixels.demo.substance.main.check.svg.tango.format_justify_right;
+import org.pushingpixels.demo.substance.main.check.svg.tango.format_text_bold;
+import org.pushingpixels.demo.substance.main.check.svg.tango.format_text_italic;
+import org.pushingpixels.demo.substance.main.check.svg.tango.format_text_strikethrough;
+import org.pushingpixels.demo.substance.main.check.svg.tango.format_text_underline;
+import org.pushingpixels.demo.substance.main.check.svg.tango.process_stop;
 import org.pushingpixels.substance.api.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.DecorationAreaType;
@@ -130,12 +130,12 @@ import org.pushingpixels.substance.api.SubstanceConstants.TabCloseKind;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstancePluginRepository;
 import org.pushingpixels.substance.api.SubstanceWidgetRepository;
+import org.pushingpixels.substance.api.hidpi.IsResizable;
 import org.pushingpixels.substance.api.skin.SubstanceGeminiLookAndFeel;
 import org.pushingpixels.substance.api.tabbed.TabCloseCallback;
 import org.pushingpixels.substance.api.tabbed.TabCloseListener;
 import org.pushingpixels.substance.api.tabbed.VetoableMultipleTabCloseListener;
 import org.pushingpixels.substance.api.tabbed.VetoableTabCloseListener;
-import org.pushingpixels.substance.internal.hidpi.IsResizable;
 import org.pushingpixels.substance.swingx.SubstanceSwingxPlugin;
 import org.pushingpixels.substance.tabbed.DefaultTabPreviewPainter;
 import org.pushingpixels.substance.tabbed.TabPreviewUtilities;
@@ -738,20 +738,20 @@ public class Check extends JFrame {
 	public static JToolBar getToolbar(String label, int size, boolean hasStrings) {
 		JToolBar toolBar = new JToolBar();
 
-		JButton buttonCut = new JButton(hasStrings ? "cut" : null, Edit_cut.of(size, size)); 
+		JButton buttonCut = new JButton(hasStrings ? "cut" : null, edit_cut.of(size, size)); 
 		buttonCut.putClientProperty(
 				SubstanceLookAndFeel.BUTTON_NO_MIN_SIZE_PROPERTY, Boolean.TRUE);
 		toolBar.add(buttonCut);
-		JButton buttonCopy = new JButton(hasStrings ? "copy" : null, Edit_copy.of(size, size));
+		JButton buttonCopy = new JButton(hasStrings ? "copy" : null, edit_copy.of(size, size));
 		buttonCopy.putClientProperty(
 				SubstanceLookAndFeel.BUTTON_NO_MIN_SIZE_PROPERTY, Boolean.TRUE);
 		buttonCopy.setEnabled(false);
 		toolBar.add(buttonCopy);
-		JButton buttonPaste = new JButton(Edit_paste.of(size, size));
+		JButton buttonPaste = new JButton(edit_paste.of(size, size));
 		toolBar.add(buttonPaste);
-		JButton buttonSelectAll = new JButton(Edit_select_all.of(size, size));
+		JButton buttonSelectAll = new JButton(edit_select_all.of(size, size));
 		toolBar.add(buttonSelectAll);
-		JButton buttonDelete = new JButton(Edit_delete.of(size, size));
+		JButton buttonDelete = new JButton(edit_delete.of(size, size));
 		toolBar.add(buttonDelete);
 		toolBar.addSeparator();
 
@@ -760,18 +760,18 @@ public class Check extends JFrame {
 		JToolBar innerToolbar = new JToolBar(JToolBar.HORIZONTAL);
 		innerToolbar.setFloatable(false);
 		JToggleButton buttonFormatCenter = new JToggleButton(
-				Format_justify_center.of(size, size));
+				format_justify_center.of(size, size));
 		buttonFormatCenter.putClientProperty(
 				SubstanceLookAndFeel.CORNER_RADIUS, Float.valueOf(5.0f));
 		innerToolbar.add(buttonFormatCenter);
 		JToggleButton buttonFormatLeft = new JToggleButton(
-				Format_justify_left.of(size, size));
+				format_justify_left.of(size, size));
 		innerToolbar.add(buttonFormatLeft);
 		JToggleButton buttonFormatRight = new JToggleButton(
-				Format_justify_right.of(size, size));
+				format_justify_right.of(size, size));
 		innerToolbar.add(buttonFormatRight);
 		JToggleButton buttonFormatFill = new JToggleButton(
-				Format_justify_fill.of(size, size));
+				format_justify_fill.of(size, size));
 		buttonFormatFill.putClientProperty(SubstanceLookAndFeel.CORNER_RADIUS,
 				Float.valueOf(0.0f));
 		innerToolbar.add(buttonFormatFill);
@@ -788,7 +788,7 @@ public class Check extends JFrame {
 			innerToolbar2.add(innerPanel, BorderLayout.CENTER);
 
 			final JToggleButton buttonStyleBold = new JToggleButton(
-					Format_text_bold.of(size, size));
+					format_text_bold.of(size, size));
 			Set<Side> rightSide = EnumSet.of(Side.RIGHT);
 			buttonStyleBold.putClientProperty(
 					SubstanceLookAndFeel.BUTTON_OPEN_SIDE_PROPERTY, rightSide);
@@ -796,21 +796,21 @@ public class Check extends JFrame {
 					SubstanceLookAndFeel.CORNER_RADIUS, Float.valueOf(3.0f));
 
 			final JToggleButton buttonStyleItalic = new JToggleButton(
-					Format_text_italic.of(size, size));
+					format_text_italic.of(size, size));
 			buttonStyleItalic.putClientProperty(
 					SubstanceLookAndFeel.CORNER_RADIUS, Float.valueOf(0.0f));
 			buttonStyleItalic.putClientProperty(
 					SubstanceLookAndFeel.BUTTON_OPEN_SIDE_PROPERTY, rightSide);
 
 			final JToggleButton buttonStyleUnderline = new JToggleButton(
-					Format_text_underline.of(size, size));
+					format_text_underline.of(size, size));
 			buttonStyleUnderline.putClientProperty(
 					SubstanceLookAndFeel.CORNER_RADIUS, Float.valueOf(0.0f));
 			buttonStyleUnderline.putClientProperty(
 					SubstanceLookAndFeel.BUTTON_OPEN_SIDE_PROPERTY, rightSide);
 
 			final JToggleButton buttonStyleStrikethrough = new JToggleButton(
-					Format_text_strikethrough.of(size, size));
+					format_text_strikethrough.of(size, size));
 			buttonStyleStrikethrough.putClientProperty(
 					SubstanceLookAndFeel.BUTTON_SIDE_PROPERTY, EnumSet
 							.of(Side.LEFT));
@@ -827,7 +827,7 @@ public class Check extends JFrame {
 		}
 
 		toolBar.add(Box.createGlue());
-		JButton buttonExit = new JButton(Process_stop.of(size, size));
+		JButton buttonExit = new JButton(process_stop.of(size, size));
 		buttonExit.setToolTipText("Closes the test application");
 		buttonExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

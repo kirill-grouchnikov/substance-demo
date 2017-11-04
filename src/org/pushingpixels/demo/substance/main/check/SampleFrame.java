@@ -71,6 +71,7 @@ import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.GeminiSkin;
+import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
@@ -378,7 +379,7 @@ public class SampleFrame extends JFrame {
 
 	protected void synchronize() {
 		SwingUtilities.invokeLater(() -> {
-			if (SubstanceLookAndFeel.isCurrentLookAndFeel()) {
+			if (SubstanceCoreUtilities.isCurrentLookAndFeel()) {
 				SampleFrame.this.setIconImage(SubstanceLogo.getLogoImage(
 						SubstanceLookAndFeel.getCurrentSkin(SampleFrame.this.getRootPane()).
 								getColorScheme(

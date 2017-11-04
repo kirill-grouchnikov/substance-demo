@@ -55,7 +55,6 @@ import javax.swing.SwingUtilities;
 
 import org.pushingpixels.substance.api.SubstanceConstants;
 import org.pushingpixels.substance.api.SubstanceConstants.TabContentPaneBorderKind;
-import org.pushingpixels.substance.api.SubstanceConstants.TabOverviewKind;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.tabbed.TabPreviewUtilities;
 

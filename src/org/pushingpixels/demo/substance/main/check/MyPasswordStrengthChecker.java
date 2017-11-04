@@ -30,7 +30,6 @@
 package org.pushingpixels.demo.substance.main.check;
 
 import org.pushingpixels.substance.api.SubstanceConstants;
-import org.pushingpixels.substance.api.SubstanceConstants.PasswordStrength;
 import org.pushingpixels.substance.api.password.PasswordStrengthChecker;
 
 /**

@@ -16,8 +16,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.FontUIResource;
 
-import org.pushingpixels.demo.substance.main.check.svg.View_zoom_in;
-import org.pushingpixels.demo.substance.main.check.svg.View_zoom_out;
+import org.pushingpixels.demo.substance.main.check.svg.tango.view_zoom_in;
+import org.pushingpixels.demo.substance.main.check.svg.tango.view_zoom_out;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.font.FontPolicy;
 import org.pushingpixels.substance.api.font.FontSet;
@@ -114,7 +114,7 @@ public class FontSizePanel {
 		builder.append(fontSizeLabel);
 		// fontSizeLabel.add(Box.createHorizontalStrut(5));
 
-		Icon zoomOutIcon = View_zoom_out.of(16, 16);
+		Icon zoomOutIcon = view_zoom_out.of(16, 16);
 		JLabel zoomOutLabel = new JLabel(zoomOutIcon);
 		builder.append(zoomOutLabel);
 
@@ -156,7 +156,7 @@ public class FontSizePanel {
 		});
 		builder.append(fontSizeSlider);
 
-		Icon zoomInIcon = View_zoom_in.of(16, 16);
+		Icon zoomInIcon = view_zoom_in.of(16, 16);
 		JLabel zoomInLabel = new JLabel(zoomInIcon);
 		builder.append(zoomInLabel);
 

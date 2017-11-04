@@ -47,10 +47,9 @@ import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 
 import org.pushingpixels.substance.api.SubstanceConstants;
-import org.pushingpixels.substance.api.SubstanceConstants.PasswordStrength;
-import org.pushingpixels.substance.api.password.PasswordStrengthChecker;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceWidget;
+import org.pushingpixels.substance.api.password.PasswordStrengthChecker;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;

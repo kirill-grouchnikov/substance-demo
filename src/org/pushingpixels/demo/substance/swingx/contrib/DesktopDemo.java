@@ -8,9 +8,10 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JTable;
 import javax.swing.JTree;
-import javax.swing.UIManager;
 
 import org.jdesktop.swingx.JXPanel;
+import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /*
  * InternalFrameDemo.java requires:
@@ -82,8 +83,7 @@ public class DesktopDemo extends JFrame {
 		// Make sure we have nice window decorations.
 		// JFrame.setDefaultLookAndFeelDecorated(true);
 		try {
-			UIManager
-					.setLookAndFeel("org.jvnet.substance.SubstanceLookAndFeel");
+		    SubstanceLookAndFeel.setSkin(new BusinessBlackSteelSkin());
 			// Create and set up the window.
 			DesktopDemo frame = new DesktopDemo();
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -98,10 +98,6 @@ public class DesktopDemo extends JFrame {
 	public static void main(String[] args) {
 		// Schedule a job for the event-dispatching thread:
 		// creating and showing this application's GUI.
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				createAndShowGUI();
-			}
-		});
+		javax.swing.SwingUtilities.invokeLater(() -> createAndShowGUI());
 	}
 }

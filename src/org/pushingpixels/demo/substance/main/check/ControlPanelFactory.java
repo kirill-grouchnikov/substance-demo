@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2008 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2017 Substance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -96,10 +96,10 @@ import org.pushingpixels.substance.api.SubstanceConstants.MenuGutterFillKind;
 import org.pushingpixels.substance.api.SubstanceConstants.SubstanceOptionPaneButtonAlignment;
 import org.pushingpixels.substance.api.SubstanceConstants.SubstanceOptionPaneButtonOrder;
 import org.pushingpixels.substance.api.SubstanceConstants.SubstanceWidgetType;
-import org.pushingpixels.substance.api.SubstanceConstants.TabOverviewKind;
-import org.pushingpixels.substance.api.painter.preview.DefaultPreviewPainter;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceWidget;
+import org.pushingpixels.substance.api.iconpack.SubstanceDefaultIconPack;
+import org.pushingpixels.substance.api.painter.preview.DefaultPreviewPainter;
 import org.pushingpixels.substance.api.skin.NebulaBrickWallSkin;
 import org.pushingpixels.substance.tabbed.TabPreviewUtilities;
 
@@ -421,17 +421,28 @@ public class ControlPanelFactory {
 		});
 		builder.append("Flat", isToolbarFlat);
 
-		builder.appendSeparator("Menu bar");
-		final JCheckBox menuSearch = new JCheckBox("Has menu search");
-		menuSearch.setSelected(false);
-		menuSearch.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				SubstanceLookAndFeel.setWidgetVisible(mainFrame.getRootPane(),
-						menuSearch.isSelected(),
-						SubstanceWidgetType.MENU_SEARCH);
-			}
-		});
-		builder.append("Menu search", menuSearch);
+        builder.appendSeparator("Menu bar");
+        final JCheckBox menuSearch = new JCheckBox("Has menu search");
+        menuSearch.setSelected(false);
+        menuSearch.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SubstanceLookAndFeel.setWidgetVisible(mainFrame.getRootPane(),
+                        menuSearch.isSelected(),
+                        SubstanceWidgetType.MENU_SEARCH);
+            }
+        });
+        builder.append("Menu search", menuSearch);
+
+        builder.appendSeparator("Icon pack");
+        final JCheckBox iconPack = new JCheckBox("Use custom icon pack");
+        iconPack.setSelected(false);
+        iconPack.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SubstanceLookAndFeel.setIconPack(iconPack.isSelected() ?
+                        new TangoIconPack() : new SubstanceDefaultIconPack());
+            }
+        });
+        builder.append("Icon pack", iconPack);
 
 		JPanel result = builder.getPanel();
 		result.setName("Main control panel");

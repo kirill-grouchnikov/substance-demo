@@ -32,7 +32,6 @@ package org.pushingpixels.demo.substance.main.check;
 import javax.swing.JTabbedPane;
 
 import org.pushingpixels.substance.api.SubstanceConstants;
-import org.pushingpixels.substance.api.SubstanceConstants.TabOverviewKind;
 import org.pushingpixels.substance.tabbed.DefaultTabPreviewPainter;
 
 /**

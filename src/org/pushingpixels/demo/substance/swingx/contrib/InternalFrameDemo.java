@@ -19,9 +19,10 @@ import javax.swing.JMenuItem;
 import javax.swing.JTable;
 import javax.swing.JTree;
 import javax.swing.KeyStroke;
-import javax.swing.UIManager;
 
 import org.jdesktop.swingx.JXPanel;
+import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /*
  * InternalFrameDemo.java requires:
@@ -58,7 +59,7 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
 				true);// iconifiable
 		ix.setSize(500, 500);
 		URL iUrl = InternalFrameDemo.class.getClassLoader().getResource(
-				"test/org.pushingpixels.substance.internal.contrib/image.jpg");
+				"org/pushingpixels/demo/substance/swingx/contrib/image.jpg");
 		ImageIcon icon = new ImageIcon(iUrl);
 		ix.setLayout(new BorderLayout());
 		ix.add(new JLabel(icon));
@@ -128,8 +129,7 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
 		// Make sure we have nice window decorations.
 		// JFrame.setDefaultLookAndFeelDecorated(true);
 		try {
-			UIManager
-					.setLookAndFeel("org.jvnet.substance.SubstanceLookAndFeel");
+		    SubstanceLookAndFeel.setSkin(new BusinessBlackSteelSkin());
 			// Create and set up the window.
 			InternalFrameDemo frame = new InternalFrameDemo();
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -234,7 +234,7 @@ public class InternalFrameDemo extends JFrame implements ActionListener {
 //			JPanel panel2 = new JPanel();
 //			panel2.setOpaque(false);
 //			URL iUrl = InternalFrameDemo.class.getClassLoader().getResource(
-//					"test/org.pushingpixels.substance.internal.contrib/image2.jpg");
+//					"org/pushingpixels/demo/substance/swingx/contrib/image2.jpg");
 //			JLabel label = new JLabel(new ImageIcon(iUrl));
 //			label.setOpaque(false);
 //			panel2.add(label);

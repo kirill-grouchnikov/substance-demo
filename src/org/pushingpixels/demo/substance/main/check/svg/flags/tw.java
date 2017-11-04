@@ -3,17 +3,14 @@ package org.pushingpixels.demo.substance.main.check.svg.flags;
 import java.awt.*;
 import java.awt.geom.*;
 
-import javax.swing.Icon;
-import javax.swing.plaf.UIResource;
-
-import org.pushingpixels.substance.internal.hidpi.IsHiDpiAware;
-import org.pushingpixels.substance.internal.hidpi.IsResizable;
+import org.pushingpixels.substance.api.hidpi.HiDpiAwareIcon;
+import org.pushingpixels.substance.api.iconpack.SubstanceIcon;
 
 /**
  * This class has been automatically generated using <a
- * href="https://flamingo.dev.java.net">Flamingo SVG transcoder</a>.
+ * href="https://github.com/kirill-grouchnikov/flamingo">Flamingo SVG transcoder</a>.
  */
-public class tw implements Icon, UIResource, IsResizable, IsHiDpiAware {
+public class tw implements SubstanceIcon {
 	/**
 	 * Paints the transcoded SVG image on the specified graphics context. You
 	 * can install a custom transformation on the graphics context to scale the
@@ -22,6 +19,7 @@ public class tw implements Icon, UIResource, IsResizable, IsHiDpiAware {
 	 * @param g
 	 *            Graphics context.
 	 */
+    @SuppressWarnings("unused")
 	public static void paint(Graphics2D g) {
         Shape shape = null;
         Paint paint = null;
@@ -45,7 +43,7 @@ g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, -0.0f, -0.0f));
 // _0
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_0 = g.getTransform();
-g.transform(new AffineTransform(0.9375f, 0.0f, 0.0f, 0.9375f, 0.0f, 0.0f));
+g.transform(new AffineTransform(1.032099962234497f, 0.0f, 0.0f, 1.032099962234497f, 0.0f, 0.0f));
 // _0_0
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_0_0 = g.getTransform();
@@ -54,9 +52,9 @@ g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 paint = new Color(222, 33, 16, 255);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(0.0, 0.0);
-((GeneralPath)shape).lineTo(768.0, 0.0);
-((GeneralPath)shape).lineTo(768.0, 512.0);
-((GeneralPath)shape).lineTo(0.0, 512.0);
+((GeneralPath)shape).lineTo(744.09, 0.0);
+((GeneralPath)shape).lineTo(744.09, 496.06);
+((GeneralPath)shape).lineTo(0.0, 496.06);
 ((GeneralPath)shape).closePath();
 g.setPaint(paint);
 g.fill(shape);
@@ -68,9 +66,9 @@ g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 paint = new Color(8, 57, 156, 255);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(0.0, 0.0);
-((GeneralPath)shape).lineTo(385.69, 0.0);
-((GeneralPath)shape).lineTo(385.69, 256.0);
-((GeneralPath)shape).lineTo(0.0, 256.0);
+((GeneralPath)shape).lineTo(373.69, 0.0);
+((GeneralPath)shape).lineTo(373.69, 248.03);
+((GeneralPath)shape).lineTo(0.0, 248.03);
 ((GeneralPath)shape).closePath();
 g.setPaint(paint);
 g.fill(shape);
@@ -81,30 +79,30 @@ g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_2
 paint = new Color(255, 255, 255, 255);
 shape = new GeneralPath();
-((GeneralPath)shape).moveTo(282.098, 178.555);
-((GeneralPath)shape).lineTo(234.76599, 168.82199);
-((GeneralPath)shape).lineTo(244.849, 216.08199);
-((GeneralPath)shape).lineTo(208.716, 183.99399);
-((GeneralPath)shape).lineTo(193.812, 229.96399);
-((GeneralPath)shape).lineTo(178.568, 184.09698);
-((GeneralPath)shape).lineTo(142.68199, 216.46399);
-((GeneralPath)shape).lineTo(152.415, 169.13199);
-((GeneralPath)shape).lineTo(105.155, 179.20499);
-((GeneralPath)shape).lineTo(137.243, 143.08199);
-((GeneralPath)shape).lineTo(91.273994, 128.17798);
-((GeneralPath)shape).lineTo(137.129, 112.933975);
-((GeneralPath)shape).lineTo(104.772995, 77.043976);
-((GeneralPath)shape).lineTo(152.105, 86.77397);
-((GeneralPath)shape).lineTo(142.032, 39.51197);
-((GeneralPath)shape).lineTo(178.155, 71.604965);
-((GeneralPath)shape).lineTo(193.059, 25.634964);
-((GeneralPath)shape).lineTo(208.30301, 71.493965);
-((GeneralPath)shape).lineTo(244.18901, 39.133965);
-((GeneralPath)shape).lineTo(234.45601, 86.46896);
-((GeneralPath)shape).lineTo(281.716, 76.38896);
-((GeneralPath)shape).lineTo(249.628, 112.520966);
-((GeneralPath)shape).lineTo(295.59802, 127.41396);
-((GeneralPath)shape).lineTo(249.74202, 142.65796);
+((GeneralPath)shape).moveTo(273.324, 173.001);
+((GeneralPath)shape).lineTo(227.464, 163.57101);
+((GeneralPath)shape).lineTo(237.23401, 209.36102);
+((GeneralPath)shape).lineTo(202.22401, 178.27103);
+((GeneralPath)shape).lineTo(187.78401, 222.81104);
+((GeneralPath)shape).lineTo(173.014, 178.37103);
+((GeneralPath)shape).lineTo(138.244, 209.73103);
+((GeneralPath)shape).lineTo(147.67401, 163.87103);
+((GeneralPath)shape).lineTo(101.88401, 173.63103);
+((GeneralPath)shape).lineTo(132.97401, 138.63103);
+((GeneralPath)shape).lineTo(88.43501, 124.191025);
+((GeneralPath)shape).lineTo(132.86502, 109.42102);
+((GeneralPath)shape).lineTo(101.51502, 74.648026);
+((GeneralPath)shape).lineTo(147.37503, 84.07503);
+((GeneralPath)shape).lineTo(137.61504, 38.283028);
+((GeneralPath)shape).lineTo(172.61504, 69.37803);
+((GeneralPath)shape).lineTo(187.05504, 24.838028);
+((GeneralPath)shape).lineTo(201.82504, 69.27003);
+((GeneralPath)shape).lineTo(236.59505, 37.916027);
+((GeneralPath)shape).lineTo(227.16504, 83.77902);
+((GeneralPath)shape).lineTo(272.95505, 74.012024);
+((GeneralPath)shape).lineTo(241.86505, 109.02202);
+((GeneralPath)shape).lineTo(286.40506, 123.45202);
+((GeneralPath)shape).lineTo(241.97507, 138.22202);
 ((GeneralPath)shape).closePath();
 g.setPaint(paint);
 g.fill(shape);
@@ -115,30 +113,30 @@ g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_3
 paint = new Color(0, 83, 135, 255);
 shape = new GeneralPath();
-((GeneralPath)shape).moveTo(238.47, 174.924);
-((GeneralPath)shape).lineTo(223.535, 182.856);
-((GeneralPath)shape).lineTo(208.965, 191.464);
-((GeneralPath)shape).lineTo(192.047, 190.88101);
-((GeneralPath)shape).lineTo(175.12799, 191.07901);
-((GeneralPath)shape).lineTo(160.76799, 182.13802);
-((GeneralPath)shape).lineTo(146.00899, 173.86302);
-((GeneralPath)shape).lineTo(138.05598, 158.95702);
-((GeneralPath)shape).lineTo(129.42499, 144.43701);
-((GeneralPath)shape).lineTo(129.999, 127.56301);
-((GeneralPath)shape).lineTo(129.81099, 110.68001);
-((GeneralPath)shape).lineTo(138.77599, 96.36001);
-((GeneralPath)shape).lineTo(147.07399, 81.64401);
-((GeneralPath)shape).lineTo(162.00899, 73.710014);
-((GeneralPath)shape).lineTo(176.57898, 65.10301);
-((GeneralPath)shape).lineTo(193.49799, 65.683014);
-((GeneralPath)shape).lineTo(210.42598, 65.49001);
-((GeneralPath)shape).lineTo(224.78798, 74.430016);
-((GeneralPath)shape).lineTo(239.53497, 82.70502);
-((GeneralPath)shape).lineTo(247.48798, 97.60602);
-((GeneralPath)shape).lineTo(256.11996, 112.12602);
-((GeneralPath)shape).lineTo(255.54596, 129.00003);
-((GeneralPath)shape).lineTo(255.73296, 145.88303);
-((GeneralPath)shape).lineTo(246.76796, 160.20602);
+((GeneralPath)shape).moveTo(231.045, 169.48);
+((GeneralPath)shape).lineTo(216.575, 177.164);
+((GeneralPath)shape).lineTo(202.458, 185.504);
+((GeneralPath)shape).lineTo(186.06699, 184.94);
+((GeneralPath)shape).lineTo(169.67499, 185.131);
+((GeneralPath)shape).lineTo(155.76099, 176.468);
+((GeneralPath)shape).lineTo(141.46298, 168.451);
+((GeneralPath)shape).lineTo(133.75699, 154.009);
+((GeneralPath)shape).lineTo(125.39499, 139.94);
+((GeneralPath)shape).lineTo(125.95099, 123.593);
+((GeneralPath)shape).lineTo(125.76899, 107.235);
+((GeneralPath)shape).lineTo(134.45499, 93.361);
+((GeneralPath)shape).lineTo(142.49399, 79.103);
+((GeneralPath)shape).lineTo(156.96399, 71.416);
+((GeneralPath)shape).lineTo(171.081, 63.076);
+((GeneralPath)shape).lineTo(187.472, 63.638);
+((GeneralPath)shape).lineTo(203.874, 63.452);
+((GeneralPath)shape).lineTo(217.788, 72.112);
+((GeneralPath)shape).lineTo(232.07599, 80.13);
+((GeneralPath)shape).lineTo(239.78198, 94.56799);
+((GeneralPath)shape).lineTo(248.14398, 108.63699);
+((GeneralPath)shape).lineTo(247.58798, 124.98399);
+((GeneralPath)shape).lineTo(247.76999, 141.342);
+((GeneralPath)shape).lineTo(239.08398, 155.219);
 ((GeneralPath)shape).closePath();
 g.setPaint(paint);
 g.fill(shape);
@@ -149,11 +147,11 @@ g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0_4
 paint = new Color(255, 255, 255, 255);
 shape = new GeneralPath();
-((GeneralPath)shape).moveTo(244.637, 128.28);
-((GeneralPath)shape).curveTo(244.637, 156.926, 221.415, 180.147, 192.771, 180.147);
-((GeneralPath)shape).curveTo(164.127, 180.147, 140.90399, 156.926, 140.90399, 128.281);
-((GeneralPath)shape).curveTo(140.90399, 99.63602, 164.12599, 76.41501, 192.771, 76.41501);
-((GeneralPath)shape).curveTo(221.416, 76.41501, 244.637, 99.63601, 244.637, 128.281);
+((GeneralPath)shape).moveTo(237.028, 124.291);
+((GeneralPath)shape).curveTo(237.028, 152.045, 214.52899, 174.544, 186.775, 174.544);
+((GeneralPath)shape).curveTo(159.021, 174.544, 136.522, 152.04501, 136.522, 124.29101);
+((GeneralPath)shape).curveTo(136.522, 96.537, 159.022, 74.03801, 186.775, 74.03801);
+((GeneralPath)shape).curveTo(214.52798, 74.03801, 237.02798, 96.53801, 237.02798, 124.29101);
 ((GeneralPath)shape).closePath();
 g.setPaint(paint);
 g.fill(shape);
@@ -169,8 +167,8 @@ g.setTransform(defaultTransform_);
      * 
      * @return The X of the bounding box of the original SVG image.
      */
-    public static int getOrigX() {
-        return 0;
+    public static double getOrigX() {
+        return 0.0;
     }
 
     /**
@@ -178,8 +176,8 @@ g.setTransform(defaultTransform_);
      * 
      * @return The Y of the bounding box of the original SVG image.
      */
-    public static int getOrigY() {
-        return 0;
+    public static double getOrigY() {
+        return 0.0;
     }
 
 	/**
@@ -187,8 +185,8 @@ g.setTransform(defaultTransform_);
 	 * 
 	 * @return The width of the bounding box of the original SVG image.
 	 */
-	public static int getOrigWidth() {
-		return 640;
+	public static double getOrigWidth() {
+		return 511.9834899902344;
 	}
 
 	/**
@@ -196,26 +194,26 @@ g.setTransform(defaultTransform_);
 	 * 
 	 * @return The height of the bounding box of the original SVG image.
 	 */
-	public static int getOrigHeight() {
-		return 480;
+	public static double getOrigHeight() {
+		return 511.9834899902344;
 	}
 
 	/**
 	 * The current width of this resizable icon.
 	 */
-	int width;
+	private int width;
 
 	/**
 	 * The current height of this resizable icon.
 	 */
-	int height;
+	private int height;
 
 	/**
 	 * Creates a new transcoded SVG image.
 	 */
 	public tw() {
-        this.width = getOrigWidth();
-        this.height = getOrigHeight();
+        this.width = (int) getOrigWidth();
+        this.height = (int) getOrigHeight();
 	}
 
 	/*
@@ -249,12 +247,6 @@ g.setTransform(defaultTransform_);
         return true;
     }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#paintIcon(java.awt.Component, java.awt.Graphics,
-	 * int, int)
-	 */
     @Override
 	public void paintIcon(Component c, Graphics g, int x, int y) {
 		Graphics2D g2d = (Graphics2D) g.create();
@@ -267,8 +259,25 @@ g.setTransform(defaultTransform_);
 		double coef = Math.min(coef1, coef2);
         g2d.clipRect(0, 0, this.width, this.height);
 		g2d.scale(coef, coef);
+        g2d.translate(-getOrigX(), -getOrigY());
+        if (coef1 != coef2) {
+            if (coef1 < coef2) {
+               int extraDy = (int) ((getOrigWidth() - getOrigHeight()) / 2.0);
+               g2d.translate(0, extraDy);
+            } else {
+               int extraDx = (int) ((getOrigHeight() - getOrigWidth()) / 2.0);
+               g2d.translate(extraDx, 0);
+            }
+        }
 		paint(g2d);
 		g2d.dispose();
+	}
+	
+	public static HiDpiAwareIcon of(int width, int height) {
+	   tw base = new tw();
+	   base.width = width;
+	   base.height = height;
+	   return new HiDpiAwareIcon(base);
 	}
 }
 
