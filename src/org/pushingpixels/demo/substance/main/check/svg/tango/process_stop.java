@@ -52,10 +52,12 @@ g.transform(new AffineTransform(1.1738029718399048f, 0.0f, 0.0f, 0.6000000238418
 paint = new RadialGradientPaint(new Point2D.Double(25.125, 36.75), 15.75f, new Point2D.Double(25.125, 36.75), new float[] {0.0f,1.0f}, new Color[] {new Color(0, 0, 0, 255),new Color(0, 0, 0, 0)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(1.0f, 0.0f, 0.0f, 0.5952379703521729f, -2.3006780688054245E-15f, 14.875f));
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(40.875, 36.75);
-((GeneralPath)shape).curveTo(40.875, 41.92767, 33.823486, 46.125, 25.125, 46.125);
-((GeneralPath)shape).curveTo(16.426516, 46.125, 9.375, 41.92767, 9.375, 36.75);
-((GeneralPath)shape).curveTo(9.375, 31.57233, 16.426516, 27.375, 25.125, 27.375);
-((GeneralPath)shape).curveTo(33.823486, 27.375, 40.875, 31.57233, 40.875, 36.75);
+((GeneralPath)shape).curveTo(40.900238, 40.109352, 37.90384, 43.21997, 33.020405, 44.904);
+((GeneralPath)shape).curveTo(28.136969, 46.588028, 22.113031, 46.588028, 17.229597, 44.904);
+((GeneralPath)shape).curveTo(12.346162, 43.21997, 9.34976, 40.109352, 9.375, 36.75);
+((GeneralPath)shape).curveTo(9.34976, 33.390648, 12.346162, 30.28003, 17.229597, 28.596);
+((GeneralPath)shape).curveTo(22.113031, 26.911972, 28.136969, 26.911972, 33.020405, 28.596);
+((GeneralPath)shape).curveTo(37.90384, 30.28003, 40.900238, 33.390648, 40.875, 36.75);
 ((GeneralPath)shape).closePath();
 g.setPaint(paint);
 g.fill(shape);
@@ -216,7 +218,7 @@ g.setTransform(defaultTransform_);
 	 * @return The height of the bounding box of the original SVG image.
 	 */
 	public static double getOrigHeight() {
-		return 47.25;
+		return 47.52781677246094;
 	}
 
 	/**

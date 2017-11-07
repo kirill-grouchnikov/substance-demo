@@ -81,7 +81,7 @@
 		<pathelement location="${substance.flamingo.basedir}/drop/${substance.version}/substance-flamingo-${substance.version}.jar" />
 		<pathelement location="${substance.swingx.basedir}/drop/${substance.version}/substance-swingx-${substance.version}.jar" />
 		<pathelement location="${substance.extras.basedir}/drop/${substance.version}/substance-extras-${substance.version}.jar" />
-		<pathelement location="${flamingo.basedir}/lib/batik-all.jar" />
+		<pathelement location="${flamingo.basedir}/lib/batik-all-1.9.jar" />
 		<pathelement location="${substance.basedir}/lib/test/fest-swing-1.2.jar" />
 		<pathelement location="${substance.basedir}/lib/test/fest-assert-1.2.jar" />
 	</path>

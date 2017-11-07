@@ -38,11 +38,14 @@ import org.pushingpixels.substance.api.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstancePluginRepository;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
+import org.pushingpixels.substance.flamingo.SubstanceFlamingoPlugin;
 
 public class SubstanceBreadCrumbTest extends BreadCrumbTest {
 	public static void main(String... args) {
 		JFrame.setDefaultLookAndFeelDecorated(true);
+		SubstancePluginRepository.getInstance().registerComponentPlugin(new SubstanceFlamingoPlugin());
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {

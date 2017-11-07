@@ -133,10 +133,12 @@ g.transform(new AffineTransform(0.61661297082901f, 0.0f, 0.0f, 0.440367013216018
 paint = new RadialGradientPaint(new Point2D.Double(23.5625, 40.4375), 19.5625f, new Point2D.Double(23.5625, 40.4375), new float[] {0.0f,1.0f}, new Color[] {new Color(0, 0, 0, 255),new Color(0, 0, 0, 0)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(1.0f, 0.0f, 0.0f, 0.34824299812316895f, 1.4398179704316877E-16f, 26.355430603027344f));
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(43.125, 40.4375);
-((GeneralPath)shape).curveTo(43.125, 44.19994, 34.36657, 47.25, 23.5625, 47.25);
-((GeneralPath)shape).curveTo(12.75843, 47.25, 4.0, 44.19994, 4.0, 40.4375);
-((GeneralPath)shape).curveTo(4.0, 36.67506, 12.75843, 33.625, 23.5625, 33.625);
-((GeneralPath)shape).curveTo(34.36657, 33.625, 43.125, 36.67506, 43.125, 40.4375);
+((GeneralPath)shape).curveTo(43.15635, 42.878628, 39.434628, 45.13901, 33.36909, 46.36274);
+((GeneralPath)shape).curveTo(27.303555, 47.586468, 19.821445, 47.586468, 13.755908, 46.36274);
+((GeneralPath)shape).curveTo(7.690371, 45.13901, 3.9686508, 42.878628, 4.0, 40.4375);
+((GeneralPath)shape).curveTo(3.9686508, 37.996372, 7.690371, 35.73599, 13.755908, 34.51226);
+((GeneralPath)shape).curveTo(19.821445, 33.288532, 27.303555, 33.288532, 33.36909, 34.51226);
+((GeneralPath)shape).curveTo(39.434628, 35.73599, 43.15635, 37.996372, 43.125, 40.4375);
 ((GeneralPath)shape).closePath();
 g.setPaint(paint);
 g.fill(shape);

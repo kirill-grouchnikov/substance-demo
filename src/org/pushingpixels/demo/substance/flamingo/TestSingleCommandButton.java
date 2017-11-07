@@ -15,60 +15,63 @@ import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.JCommandToggleButton;
 import org.pushingpixels.flamingo.api.svg.SvgBatikResizableIcon;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstancePluginRepository;
 import org.pushingpixels.substance.api.skin.OfficeSilver2007Skin;
+import org.pushingpixels.substance.flamingo.SubstanceFlamingoPlugin;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
 
 public class TestSingleCommandButton extends JFrame {
 
-	public TestSingleCommandButton() {
-		FormLayout lm = new FormLayout("left:pref, 4dlu, left:pref", "");
-		DefaultFormBuilder builder = new DefaultFormBuilder(lm);
-		builder.setDefaultDialogBorder();
+    public TestSingleCommandButton() {
+        FormLayout lm = new FormLayout("left:pref, 4dlu, left:pref", "");
+        DefaultFormBuilder builder = new DefaultFormBuilder(lm);
+        builder.setDefaultDialogBorder();
 
-		SvgBatikResizableIcon svgIcon = SvgBatikResizableIcon.getSvgIcon(
-				TestCommandButtonSizes.class.getClassLoader().getResource(
-						"test/svg/font-x-generic.svg"), new Dimension(16, 16));
-		svgIcon.addAsynchronousLoadListener((boolean success) -> {
-			if (success)
-				repaint();
-		});
-		JCommandButton cb = new JCommandButton("Command", svgIcon);
-		cb.setCommandButtonKind(CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION);
-		cb.setDisplayState(CommandButtonDisplayState.MEDIUM);
-		cb.setFlat(false);
+        SvgBatikResizableIcon svgIcon = SvgBatikResizableIcon
+                .getSvgIcon(TestCommandButtonSizes.class.getClassLoader()
+                        .getResource("test/svg/font-x-generic.svg"), new Dimension(16, 16));
+        svgIcon.addAsynchronousLoadListener((boolean success) -> {
+            if (success)
+                repaint();
+        });
+        JCommandButton cb = new JCommandButton("Command", svgIcon);
+        cb.setCommandButtonKind(CommandButtonKind.ACTION_AND_POPUP_MAIN_ACTION);
+        cb.setDisplayState(CommandButtonDisplayState.MEDIUM);
+        cb.setFlat(false);
 
-		JCommandToggleButton ctb = new JCommandToggleButton("ComToggle",
-				svgIcon);
-		ctb.setDisplayState(CommandButtonDisplayState.MEDIUM);
-		ctb.setFlat(false);
+        JCommandToggleButton ctb = new JCommandToggleButton("ComToggle", svgIcon);
+        ctb.setDisplayState(CommandButtonDisplayState.MEDIUM);
+        ctb.setFlat(false);
 
-		builder.append(cb, ctb);
+        builder.append(cb, ctb);
 
-		ImageIcon icon = new ImageIcon(Thread.currentThread().getContextClassLoader()
-				.getResource("test/substance/edit-paste.png"));
-		JButton b = new JButton("Regular", icon);
-		JToggleButton tb = new JToggleButton("RegToggle", icon);
-		
-		builder.append(b, tb);
+        ImageIcon icon = new ImageIcon(Thread.currentThread().getContextClassLoader()
+                .getResource("test/substance/edit-paste.png"));
+        JButton b = new JButton("Regular", icon);
+        JToggleButton tb = new JToggleButton("RegToggle", icon);
 
-		this.add(builder.getPanel(), BorderLayout.CENTER);
+        builder.append(b, tb);
 
-		this.setSize(400, 200);
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+        this.add(builder.getPanel(), BorderLayout.CENTER);
 
-	public static void main(String[] args) {
-		JFrame.setDefaultLookAndFeelDecorated(true);
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				SubstanceLookAndFeel.setSkin(new OfficeSilver2007Skin());
-				new TestSingleCommandButton().setVisible(true);
-			}
-		});
-	}
+        this.setSize(400, 200);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public static void main(String[] args) {
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                SubstanceLookAndFeel.setSkin(new OfficeSilver2007Skin());
+                SubstancePluginRepository.getInstance()
+                        .registerComponentPlugin(new SubstanceFlamingoPlugin());
+                new TestSingleCommandButton().setVisible(true);
+            }
+        });
+    }
 
 }

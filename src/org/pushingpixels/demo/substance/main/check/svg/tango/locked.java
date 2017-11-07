@@ -52,10 +52,12 @@ g.transform(new AffineTransform(1.4402250051498413f, 0.0f, 0.0f, 0.4190140068531
 paint = new RadialGradientPaint(new Point2D.Double(22.571428298950195, 30.85714340209961), 15.571428f, new Point2D.Double(22.571428298950195, 30.85714340209961), new float[] {0.0f,1.0f}, new Color[] {new Color(0, 0, 0, 255),new Color(0, 0, 0, 0)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(1.0f, 0.0f, 0.0f, 0.6513760089874268f, 4.75660880651309E-15f, 10.757539749145508f));
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(38.142857, 30.857143);
-((GeneralPath)shape).curveTo(38.142857, 36.45889, 31.171291, 41.0, 22.571428, 41.0);
-((GeneralPath)shape).curveTo(13.971566, 41.0, 7.0, 36.45889, 7.0, 30.857143);
-((GeneralPath)shape).curveTo(7.0, 25.255398, 13.971566, 20.714287, 22.571428, 20.714287);
-((GeneralPath)shape).curveTo(31.171291, 20.714287, 38.142857, 25.255398, 38.142857, 30.857143);
+((GeneralPath)shape).curveTo(38.16781, 34.491642, 35.205383, 37.857037, 30.377314, 39.678993);
+((GeneralPath)shape).curveTo(25.549248, 41.500954, 19.593609, 41.500954, 14.765542, 39.678993);
+((GeneralPath)shape).curveTo(9.937474, 37.857037, 6.9750466, 34.491642, 7.0, 30.857143);
+((GeneralPath)shape).curveTo(6.9750466, 27.222643, 9.937474, 23.85725, 14.765542, 22.035294);
+((GeneralPath)shape).curveTo(19.593609, 20.213335, 25.549248, 20.213335, 30.377314, 22.035294);
+((GeneralPath)shape).curveTo(35.205383, 23.85725, 38.16781, 27.222643, 38.142857, 30.857143);
 ((GeneralPath)shape).closePath();
 g.setPaint(paint);
 g.fill(shape);
@@ -305,7 +307,7 @@ g.setTransform(defaultTransform_);
      * @return The X of the bounding box of the original SVG image.
      */
     public static double getOrigX() {
-        return 1.5000025033950806;
+        return 1.4640640020370483;
     }
 
     /**
@@ -323,7 +325,7 @@ g.setTransform(defaultTransform_);
 	 * @return The width of the bounding box of the original SVG image.
 	 */
 	public static double getOrigWidth() {
-		return 44.85272216796875;
+		return 44.92459487915039;
 	}
 
 	/**
@@ -332,7 +334,7 @@ g.setTransform(defaultTransform_);
 	 * @return The height of the bounding box of the original SVG image.
 	 */
 	public static double getOrigHeight() {
-		return 47.000003814697266;
+		return 47.20991134643555;
 	}
 
 	/**
