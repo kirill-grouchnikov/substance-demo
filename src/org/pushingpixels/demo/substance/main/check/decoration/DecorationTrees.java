@@ -1,10 +1,19 @@
 package org.pushingpixels.demo.substance.main.check.decoration;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.util.Enumeration;
 
-import javax.swing.*;
-import javax.swing.tree.*;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTree;
+import javax.swing.SwingUtilities;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 
 import org.pushingpixels.demo.substance.main.check.SubstanceSkinComboSelector;
 import org.pushingpixels.substance.api.DecorationAreaType;

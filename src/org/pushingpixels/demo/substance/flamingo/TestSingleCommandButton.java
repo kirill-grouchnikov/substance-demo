@@ -13,7 +13,7 @@ import org.pushingpixels.flamingo.api.common.CommandButtonDisplayState;
 import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.JCommandToggleButton;
-import org.pushingpixels.flamingo.api.svg.SvgBatikResizableIcon;
+import org.pushingpixels.ibis.SvgBatikResizableIcon;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstancePluginRepository;
 import org.pushingpixels.substance.api.skin.OfficeSilver2007Skin;

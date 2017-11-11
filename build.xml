@@ -56,12 +56,15 @@
 	<property name="substance.swingx.basedir" value="${module.substance-demo.basedir}/../substance-swingx" />
 	<property name="substance.flamingo.basedir" value="${module.substance-demo.basedir}/../substance-flamingo" />
 	<property name="substance.extras.basedir" value="${module.substance-demo.basedir}/../substance-extras" />
+    <property name="ibis.basedir" value="${module.substance-demo.basedir}/../ibis" />
+    <property name="trident.basedir" value="${module.substance-demo.basedir}/../trident" />
 
 	<property name="substance.version" value="8.0.00-dev" />
 	<property name="substance.versionKey" value="8.0.0dev Wyoming" />
 	<property name="flamingo.version" value="6.0.00-dev" />
 	<property name="flamingo.versionKey" value="6.0.00dev Liadan" />
-	<property name="trident.version" value="1.4" />
+    <property name="trident.version" value="1.5.00-dev" />
+    <property name="ibis.version" value="1.0.00-dev" />
 
 	<path id="substance-demo.module.bootclasspath">
 		<!-- Paths to be included in compilation bootclasspath -->
@@ -72,7 +75,7 @@
 
 	<path id="substance-demo.module.classpath">
 		<path refid="${module.jdk.classpath.substance-demo}" />
-		<pathelement location="${substance.basedir}/lib/trident-${trident.version}.jar" />
+        <pathelement location="${trident.basedir}/drop/${trident.version}/trident-${trident.version}.jar" />
 		<pathelement location="${substance.swingx.basedir}/lib/swingx-all-1.6.4.jar" />
 		<pathelement location="${substance.basedir}/drop/${substance.version}/substance-${substance.version}.jar" />
 		<pathelement location="${flamingo.basedir}/drop/${flamingo.version}/flamingo-${flamingo.version}.jar" />
@@ -81,7 +84,8 @@
 		<pathelement location="${substance.flamingo.basedir}/drop/${substance.version}/substance-flamingo-${substance.version}.jar" />
 		<pathelement location="${substance.swingx.basedir}/drop/${substance.version}/substance-swingx-${substance.version}.jar" />
 		<pathelement location="${substance.extras.basedir}/drop/${substance.version}/substance-extras-${substance.version}.jar" />
-		<pathelement location="${flamingo.basedir}/lib/batik-all-1.9.jar" />
+		<pathelement location="${ibis.basedir}/lib/batik-all-1.9.jar" />
+        <pathelement location="${ibis.basedir}/drop/${ibis.version}/ibis-${ibis.version}.jar" />
 		<pathelement location="${substance.basedir}/lib/test/fest-swing-1.2.jar" />
 		<pathelement location="${substance.basedir}/lib/test/fest-assert-1.2.jar" />
 	</path>

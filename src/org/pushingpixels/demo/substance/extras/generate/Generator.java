@@ -28,6 +28,7 @@ public class Generator {
 			BufferedReader countReader = new BufferedReader(new FileReader(
 					counterFile));
 			currCount = Integer.parseInt(countReader.readLine()) + 1;
+			countReader.close();
 		}
 
 		int iterCount = 100;

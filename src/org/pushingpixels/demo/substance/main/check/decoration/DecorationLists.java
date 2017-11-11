@@ -1,8 +1,15 @@
 package org.pushingpixels.demo.substance.main.check.decoration;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import org.pushingpixels.demo.substance.main.check.SubstanceSkinComboSelector;
 import org.pushingpixels.substance.api.DecorationAreaType;

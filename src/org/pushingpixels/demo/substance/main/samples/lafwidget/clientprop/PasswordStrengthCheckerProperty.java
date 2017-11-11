@@ -42,10 +42,9 @@ import javax.swing.JPasswordField;
 import javax.swing.SwingUtilities;
 
 import org.pushingpixels.substance.api.SubstanceConstants;
-import org.pushingpixels.substance.api.SubstanceConstants.PasswordStrength;
-import org.pushingpixels.substance.api.password.PasswordStrengthChecker;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceWidget;
+import org.pushingpixels.substance.api.password.PasswordStrengthChecker;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /**
