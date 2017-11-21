@@ -43,6 +43,7 @@ import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
 
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.font.FontSet;
 
@@ -167,14 +168,14 @@ public class MyLocaleChangeListener implements ActionListener {
             frame.applyComponentOrientation(
                     ComponentOrientation.getOrientation(Locale.getDefault()));
             if (currLaf instanceof SubstanceLookAndFeel) {
-                SubstanceLookAndFeel.resetLabelBundle();
+                SubstanceCortex.GlobalScope.resetLabelBundle();
                 if ("CN".equals(countryCode)) {
-                    final FontSet currFontSet = SubstanceLookAndFeel.getFontPolicy()
+                    final FontSet currFontSet = SubstanceCortex.GlobalScope.getFontPolicy()
                             .getFontSet("Substance", null);
-                    SubstanceLookAndFeel.setFontPolicy(
+                    SubstanceCortex.GlobalScope.setFontPolicy(
                             (String lafName, UIDefaults table) -> new DialogFontSet(currFontSet));
                 } else {
-                    SubstanceLookAndFeel.setFontPolicy(null);
+                    SubstanceCortex.GlobalScope.setFontPolicy(null);
                 }
             }
             try {

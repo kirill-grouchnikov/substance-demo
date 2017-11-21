@@ -12,8 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import org.pushingpixels.demo.substance.main.check.SubstanceSkinComboSelector;
-import org.pushingpixels.substance.api.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 public class DecorationLists extends JFrame {
@@ -21,7 +21,7 @@ public class DecorationLists extends JFrame {
 		public ListPanel(String caption, DecorationAreaType decorationAreaType,
 				boolean isEnabled) {
 			super(new BorderLayout());
-			SubstanceLookAndFeel.setDecorationType(this, decorationAreaType);
+			SubstanceCortex.ComponentScope.setDecorationType(this, decorationAreaType);
 
 			JLabel captionLabel = new JLabel(" " + caption);
 			Font font = captionLabel.getFont();
@@ -73,7 +73,7 @@ public class DecorationLists extends JFrame {
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				SubstanceLookAndFeel.setSkin(new BusinessBlackSteelSkin());
+				SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
 				new DecorationLists().setVisible(true);
 			}
 		});

@@ -52,9 +52,10 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import org.pushingpixels.demo.substance.main.SubstanceLogo;
-import org.pushingpixels.substance.api.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSkin;
 
@@ -68,130 +69,122 @@ import com.jgoodies.forms.layout.Sizes;
  * @author Kirill Grouchnikov
  */
 public class SampleInternalFrame extends JInternalFrame {
-	/**
-	 * Creates the test internal frame.
-	 */
-	public SampleInternalFrame() {
-		this.setLayout(new BorderLayout());
-		JTabbedPane tabbed = new JTabbedPane();
-		this.add(tabbed, BorderLayout.CENTER);
+    /**
+     * Creates the test internal frame.
+     */
+    public SampleInternalFrame() {
+        this.setLayout(new BorderLayout());
+        JTabbedPane tabbed = new JTabbedPane();
+        this.add(tabbed, BorderLayout.CENTER);
 
-		tabbed.addTab("Regular", new JPanel());
+        tabbed.addTab("Regular", new JPanel());
 
-		JPanel samplePanel = new JPanel(new BorderLayout());
-		FormLayout lm = new FormLayout("fill:default:grow(1), 4dlu,"
-				+ "fill:default:grow(1)", "");
-		DefaultFormBuilder builder = new DefaultFormBuilder(lm,
-				new ScrollablePanel());
-		builder.setLineGapSize(Sizes.pixel(1));
-		builder.setBorder(new EmptyBorder(2, 2, 2, 2));
-		// lm.setColumnGroups(new int[][] { { 3, 5, 7 } });
+        JPanel samplePanel = new JPanel(new BorderLayout());
+        FormLayout lm = new FormLayout("fill:default:grow(1), 4dlu," + "fill:default:grow(1)", "");
+        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel());
+        builder.setLineGapSize(Sizes.pixel(1));
+        builder.setBorder(new EmptyBorder(2, 2, 2, 2));
+        // lm.setColumnGroups(new int[][] { { 3, 5, 7 } });
 
-		// TwoColumnPanel stuff = new TwoColumnPanel();
-		// stuff.setVerticalSpacing(4);
-		// stuff.setHorizontalSpacing(0);
+        // TwoColumnPanel stuff = new TwoColumnPanel();
+        // stuff.setVerticalSpacing(4);
+        // stuff.setHorizontalSpacing(0);
 
-		JCheckBox cb1 = new JCheckBox("Enabled selected");
-		cb1.setSelected(true);
-		JCheckBox cb2 = new JCheckBox("Disabled selected");
-		cb2.setSelected(true);
-		cb2.setEnabled(false);
-		JCheckBox cb3 = new JCheckBox("Enabled unselected");
-		// cb3.setEnabled(false);
-		JRadioButton rb1 = new JRadioButton("Enabled selected");
-		rb1.setSelected(true);
-		JRadioButton rb2 = new JRadioButton("Disabled selected");
-		rb2.setSelected(true);
-		rb2.setEnabled(false);
-		JRadioButton rb3 = new JRadioButton("Enabled unselected");
-		// rb3.setEnabled(false);
+        JCheckBox cb1 = new JCheckBox("Enabled selected");
+        cb1.setSelected(true);
+        JCheckBox cb2 = new JCheckBox("Disabled selected");
+        cb2.setSelected(true);
+        cb2.setEnabled(false);
+        JCheckBox cb3 = new JCheckBox("Enabled unselected");
+        // cb3.setEnabled(false);
+        JRadioButton rb1 = new JRadioButton("Enabled selected");
+        rb1.setSelected(true);
+        JRadioButton rb2 = new JRadioButton("Disabled selected");
+        rb2.setSelected(true);
+        rb2.setEnabled(false);
+        JRadioButton rb3 = new JRadioButton("Enabled unselected");
+        // rb3.setEnabled(false);
 
-		builder.append(cb1, rb1);
-		builder.append(cb2, rb2);
-		builder.append(cb3, rb3);
-		JComboBox combo = new JComboBox(new Object[] { "item1", "item2",
-				"item3", "item4" });
-		combo.setSelectedIndex(0);
-		combo.setEditable(true);
-		JTextField text = new JTextField("Text field");
-		text.setEditable(false);
-		builder.append(combo, text);
-		JPanel contentPanel = builder.getPanel();
-		contentPanel.setPreferredSize(new Dimension(
-				contentPanel.getPreferredSize().width,
-				contentPanel.getPreferredSize().height + 100));
-		// contentPanel.setOpaque(false);
-		contentPanel.setBorder(null);
-		// stuff.setBorder(null);
+        builder.append(cb1, rb1);
+        builder.append(cb2, rb2);
+        builder.append(cb3, rb3);
+        JComboBox combo = new JComboBox(new Object[] { "item1", "item2", "item3", "item4" });
+        combo.setSelectedIndex(0);
+        combo.setEditable(true);
+        JTextField text = new JTextField("Text field");
+        text.setEditable(false);
+        builder.append(combo, text);
+        JPanel contentPanel = builder.getPanel();
+        contentPanel.setPreferredSize(new Dimension(contentPanel.getPreferredSize().width,
+                contentPanel.getPreferredSize().height + 100));
+        // contentPanel.setOpaque(false);
+        contentPanel.setBorder(null);
+        // stuff.setBorder(null);
 
-		JScrollPane scroll = new JScrollPane(contentPanel,
-				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane scroll = new JScrollPane(contentPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-		scroll.setBorder(new EmptyBorder(0, 0, 0, 0));
-		samplePanel.add(scroll, BorderLayout.CENTER);
+        scroll.setBorder(new EmptyBorder(0, 0, 0, 0));
+        samplePanel.add(scroll, BorderLayout.CENTER);
 
-		JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		JButton prev = new JButton("prev");
-		JButton cancel = new JButton("cancel");
-		cancel.setEnabled(false);
-		JButton ok = new JButton("OK");
-		buttons.add(prev);
-		buttons.add(cancel);
-		buttons.add(ok);
+        JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JButton prev = new JButton("prev");
+        JButton cancel = new JButton("cancel");
+        cancel.setEnabled(false);
+        JButton ok = new JButton("OK");
+        buttons.add(prev);
+        buttons.add(cancel);
+        buttons.add(ok);
 
-		samplePanel.add(buttons, BorderLayout.SOUTH);
+        samplePanel.add(buttons, BorderLayout.SOUTH);
 
-		tabbed.addTab("Sample", samplePanel);
-		tabbed.setSelectedComponent(samplePanel);
-		tabbed.setOpaque(false);
-		JMenuBar jmb = new JMenuBar();
-		jmb.add(SampleMenuFactory.getSkinMenu());
+        tabbed.addTab("Sample", samplePanel);
+        tabbed.setSelectedComponent(samplePanel);
+        tabbed.setOpaque(false);
+        JMenuBar jmb = new JMenuBar();
+        jmb.add(SampleMenuFactory.getSkinMenu());
 
-		JMenu jm1 = new JMenu("Menu1");
-		jm1.setMnemonic('1');
-		int mcount = 0;
-		for (LinkedList<JMenuItem> miList : SampleMenuFactory
-				.getTestMenuItems()) {
-			if (mcount > 0) {
-				if (mcount % 2 == 0)
-					jm1.addSeparator();
-				else
-					jm1.add(new JSeparator());
-			}
-			for (JMenuItem menuItem : miList) {
-				jm1.add(menuItem);
-			}
-			mcount++;
-		}
-		jmb.add(jm1);
-		this.setJMenuBar(jmb);
+        JMenu jm1 = new JMenu("Menu1");
+        jm1.setMnemonic('1');
+        int mcount = 0;
+        for (LinkedList<JMenuItem> miList : SampleMenuFactory.getTestMenuItems()) {
+            if (mcount > 0) {
+                if (mcount % 2 == 0)
+                    jm1.addSeparator();
+                else
+                    jm1.add(new JSeparator());
+            }
+            for (JMenuItem menuItem : miList) {
+                jm1.add(menuItem);
+            }
+            mcount++;
+        }
+        jmb.add(jm1);
+        this.setJMenuBar(jmb);
 
-		this.setClosable(true);
-		this.setMaximizable(true);
-		this.setIconifiable(true);
-		this.setResizable(true);
+        this.setClosable(true);
+        this.setMaximizable(true);
+        this.setIconifiable(true);
+        this.setResizable(true);
 
-		synchronize();
-		SubstanceLookAndFeel.registerSkinChangeListener(() -> synchronize());
-		ok.requestFocusInWindow();
-	}
+        synchronize();
+        SubstanceCortex.GlobalScope.registerSkinChangeListener(this::synchronize);
+        ok.requestFocusInWindow();
+    }
 
-	/**
-	 * Synchronizes the frame icon with the current theme.
-	 */
-	protected void synchronize() {
-		SwingUtilities.invokeLater(() -> {
-			if (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel) {
-				SubstanceSkin currentSkin = SubstanceLookAndFeel
-						.getCurrentSkin(getRootPane());
-				setFrameIcon(SubstanceLogo.getLogoIcon(currentSkin
-						.getColorScheme(
-								DecorationAreaType.SECONDARY_TITLE_PANE,
-								ColorSchemeAssociationKind.FILL,
-								ComponentState.ENABLED)));
-				setTitle(currentSkin.getDisplayName());
-			}
-		});
-	}
+    /**
+     * Synchronizes the frame icon with the current theme.
+     */
+    protected void synchronize() {
+        SwingUtilities.invokeLater(() -> {
+            if (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel) {
+                SubstanceSkin currentSkin = SubstanceCortex.ComponentScope
+                        .getCurrentSkin(getRootPane());
+                setFrameIcon(SubstanceLogo.getLogoIcon(
+                        currentSkin.getColorScheme(DecorationAreaType.SECONDARY_TITLE_PANE,
+                                ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
+                setTitle(currentSkin.getDisplayName());
+            }
+        });
+    }
 }

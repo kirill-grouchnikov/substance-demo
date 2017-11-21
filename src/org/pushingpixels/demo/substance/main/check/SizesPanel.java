@@ -32,6 +32,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultListCellRenderer;
@@ -64,7 +65,7 @@ public class SizesPanel extends JPanel {
 		this.model = new LinkedList<Mapping>();
 		Font base = new Font("Tahoma", Font.PLAIN, 11);
 		if (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel) {
-			base = SubstanceLookAndFeel.getFontPolicy().getFontSet("Substance",
+			base = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet("Substance",
 					null).getControlFont();
 		}
 		final Font baseFinal = base;

@@ -37,7 +37,7 @@ import javax.swing.UIManager;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 
 import org.jdesktop.swingx.JXStatusBar;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.GraphiteSkin;
 
 public class TestStatusBar extends JFrame {
@@ -114,7 +114,7 @@ public class TestStatusBar extends JFrame {
 	public static void main(String[] args) throws Exception {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-			    SubstanceLookAndFeel.setSkin(new GraphiteSkin());
+			    SubstanceCortex.GlobalScope.setSkin(new GraphiteSkin());
 				new TestStatusBar().setVisible(true);
 			}
 		});

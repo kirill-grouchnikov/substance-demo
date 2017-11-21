@@ -41,69 +41,66 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.SwingUtilities;
 
-import org.pushingpixels.substance.api.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceLookAndFeel#setDecorationType(JComponent, org.pushingpixels.substance.api.DecorationAreaType)}
- * API.
+ * {@link SubstanceCortex.ComponentScope#setDecorationType(JComponent, DecorationAreaType)} API.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceLookAndFeel#setDecorationType(JComponent,
- *      org.pushingpixels.substance.api.DecorationAreaType)
+ * @see SubstanceCortex.ComponentScope#setDecorationType(JComponent, DecorationAreaType)
  */
 public class SetDecorationType extends JFrame {
-	/**
-	 * Creates the main frame for <code>this</code> sample.
-	 */
-	public SetDecorationType() {
-		super("Set decoration type");
+    /**
+     * Creates the main frame for <code>this</code> sample.
+     */
+    public SetDecorationType() {
+        super("Set decoration type");
 
-		this.setLayout(new BorderLayout());
+        this.setLayout(new BorderLayout());
 
-		JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		SubstanceLookAndFeel.setDecorationType(controls,
-				DecorationAreaType.GENERAL);
-		JToggleButton controlButton = new JToggleButton("control");
-		controlButton.setSelected(true);
-		JCheckBox controlCheckBox = new JCheckBox("control");
-		controlCheckBox.setSelected(true);
-		controls.add(new JLabel("GENERAL decoration:"));
-		controls.add(controlButton);
-		controls.add(controlCheckBox);
-		this.add(controls, BorderLayout.SOUTH);
+        JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        SubstanceCortex.ComponentScope.setDecorationType(controls, DecorationAreaType.GENERAL);
+        JToggleButton controlButton = new JToggleButton("control");
+        controlButton.setSelected(true);
+        JCheckBox controlCheckBox = new JCheckBox("control");
+        controlCheckBox.setSelected(true);
+        controls.add(new JLabel("GENERAL decoration:"));
+        controls.add(controlButton);
+        controls.add(controlCheckBox);
+        this.add(controls, BorderLayout.SOUTH);
 
-		JPanel content = new JPanel(new FlowLayout());
-		JToggleButton sampleButton = new JToggleButton("control");
-		sampleButton.setSelected(true);
-		JCheckBox sampleCheckBox = new JCheckBox("control");
-		sampleCheckBox.setSelected(true);
-		content.add(new JLabel("Default decoration:"));
-		content.add(sampleButton);
-		content.add(sampleCheckBox);
-		this.add(content, BorderLayout.CENTER);
+        JPanel content = new JPanel(new FlowLayout());
+        JToggleButton sampleButton = new JToggleButton("control");
+        sampleButton.setSelected(true);
+        JCheckBox sampleCheckBox = new JCheckBox("control");
+        sampleCheckBox.setSelected(true);
+        content.add(new JLabel("Default decoration:"));
+        content.add(sampleButton);
+        content.add(sampleCheckBox);
+        this.add(content, BorderLayout.CENTER);
 
-		this.setSize(400, 200);
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+        this.setSize(400, 200);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
 
-	/**
-	 * The main method for <code>this</code> sample. The arguments are ignored.
-	 * 
-	 * @param args
-	 *            Ignored.
-	 */
-	public static void main(String[] args) {
-		JFrame.setDefaultLookAndFeelDecorated(true);
-		JDialog.setDefaultLookAndFeelDecorated(true);
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				SubstanceLookAndFeel.setSkin(new BusinessBlackSteelSkin());
-				new SetDecorationType().setVisible(true);
-			}
-		});
-	}
+    /**
+     * The main method for <code>this</code> sample. The arguments are ignored.
+     * 
+     * @param args
+     *            Ignored.
+     */
+    public static void main(String[] args) {
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        JDialog.setDefaultLookAndFeelDecorated(true);
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
+                new SetDecorationType().setVisible(true);
+            }
+        });
+    }
 }

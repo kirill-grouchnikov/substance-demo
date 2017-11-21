@@ -37,97 +37,87 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.watermark.SubstanceWatermark;
 
 /**
- * Implementation of
- * {@link org.pushingpixels.substance.api.watermark.SubstanceWatermark}, drawing
+ * Implementation of {@link org.pushingpixels.substance.api.watermark.SubstanceWatermark}, drawing
  * vertical gradient.
  * 
  * @author Kirill Grouchnikov
  */
 public class SubstanceVerticalGradientWatermark implements SubstanceWatermark {
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.pushingpixels.substance.watermark.SubstanceWatermark#drawWatermarkImage(java
-	 * .awt.Graphics, int, int, int, int)
-	 */
-	public void drawWatermarkImage(Graphics g, Component c, int x, int y,
-			int width, int height) {
-		if (c != null)
-			if (!c.isDisplayable() || !c.isShowing())
-				return;
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.pushingpixels.substance.watermark.SubstanceWatermark#drawWatermarkImage(java
+     * .awt.Graphics, int, int, int, int)
+     */
+    public void drawWatermarkImage(Graphics g, Component c, int x, int y, int width, int height) {
+        if (c != null)
+            if (!c.isDisplayable() || !c.isShowing())
+                return;
 
-		Component parent = c;
-		if (parent != null) {
-			while (parent.getParent() != null)
-				parent = parent.getParent();
-		}
-		if (!parent.isShowing())
-			return;
+        Component parent = c;
+        if (parent != null) {
+            while (parent.getParent() != null)
+                parent = parent.getParent();
+        }
+        if (!parent.isShowing())
+            return;
 
-		int dx = (parent != null) ? c.getLocationOnScreen().x
-				- parent.getLocationOnScreen().x : 0;
-		int dy = (parent != null) ? c.getLocationOnScreen().y
-				- parent.getLocationOnScreen().y : 0;
-		// int dw = (parent != null) ? parent.getWidth() : width;
-		int dh = (parent != null) ? parent.getHeight() : height;
+        int dx = (parent != null) ? c.getLocationOnScreen().x - parent.getLocationOnScreen().x : 0;
+        int dy = (parent != null) ? c.getLocationOnScreen().y - parent.getLocationOnScreen().y : 0;
+        // int dw = (parent != null) ? parent.getWidth() : width;
+        int dh = (parent != null) ? parent.getHeight() : height;
 
-		Graphics2D graphics = (Graphics2D) g.create();
-		graphics.setPaint(new GradientPaint(x - dx, y - dy, Color.gray, x - dx,
-				y - dy + dh, SubstanceLookAndFeel.getCurrentSkin(c)
-						.getColorScheme(c, ComponentState.ENABLED)
-						.getMidColor()));
-		graphics.setComposite(AlphaComposite.getInstance(
-				AlphaComposite.SRC_OVER, 0.8f));
-		graphics.fillRect(x, y, width, height);
+        Graphics2D graphics = (Graphics2D) g.create();
+        graphics.setPaint(new GradientPaint(x - dx, y - dy, Color.gray, x - dx, y - dy + dh,
+                SubstanceCortex.ComponentScope.getCurrentSkin(c)
+                        .getColorScheme(c, ComponentState.ENABLED).getMidColor()));
+        graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f));
+        graphics.fillRect(x, y, width, height);
 
-		graphics.dispose();
-	}
+        graphics.dispose();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.pushingpixels.substance.watermark.SubstanceWatermark#updateWatermarkImage
-	 * (org.pushingpixels.substance.skin.SubstanceSkin)
-	 */
-	public boolean updateWatermarkImage(SubstanceSkin skin) {
-		return true;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.pushingpixels.substance.watermark.SubstanceWatermark#updateWatermarkImage
+     * (org.pushingpixels.substance.skin.SubstanceSkin)
+     */
+    public boolean updateWatermarkImage(SubstanceSkin skin) {
+        return true;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.pushingpixels.substance.api.watermark.SubstanceWatermark#previewWatermark
-	 * (java.awt.Graphics, org.pushingpixels.substance.api.SubstanceSkin, int, int, int,
-	 * int)
-	 */
-	@Override
-	public void previewWatermark(Graphics g, SubstanceSkin skin, int x, int y,
-			int width, int height) {
-		this.drawWatermarkImage(g, null, x, y, width, height);
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.pushingpixels.substance.api.watermark.SubstanceWatermark#previewWatermark
+     * (java.awt.Graphics, org.pushingpixels.substance.api.SubstanceSkin, int, int, int, int)
+     */
+    @Override
+    public void previewWatermark(Graphics g, SubstanceSkin skin, int x, int y, int width,
+            int height) {
+        this.drawWatermarkImage(g, null, x, y, width, height);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.watermark.SubstanceWatermark#getDisplayName()
-	 */
-	public String getDisplayName() {
-		return "Vertical Gradient";
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.pushingpixels.substance.watermark.SubstanceWatermark#getDisplayName()
+     */
+    public String getDisplayName() {
+        return "Vertical Gradient";
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.substance.watermark.SubstanceWatermark#dispose()
-	 */
-	public void dispose() {
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.pushingpixels.substance.watermark.SubstanceWatermark#dispose()
+     */
+    public void dispose() {
+    }
 }

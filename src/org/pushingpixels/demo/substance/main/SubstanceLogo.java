@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 
 import org.pushingpixels.demo.substance.main.check.substance;
-import org.pushingpixels.substance.api.SubstanceColorScheme;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.hidpi.HiDpiAwareIcon;
 
 public class SubstanceLogo {

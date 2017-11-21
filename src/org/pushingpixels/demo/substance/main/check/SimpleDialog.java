@@ -37,9 +37,10 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import org.pushingpixels.demo.substance.main.SubstanceLogo;
-import org.pushingpixels.substance.api.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
@@ -49,61 +50,59 @@ import org.pushingpixels.substance.api.skin.BusinessSkin;
  * @author Kirill Grouchnikov
  */
 public class SimpleDialog extends JDialog {
-	/**
-	 * Dialog button.
-	 */
-	public JButton b1;
+    /**
+     * Dialog button.
+     */
+    public JButton b1;
 
-	/**
-	 * Creates a simple dialog.
-	 */
-	public SimpleDialog() {
-		this.setLayout(new FlowLayout());
-		b1 = new JButton("regular") {
-			// @Override
-			// public void paint(Graphics g) {
-			// System.out.println("b1.paint focus:" + b1.isFocusOwner());
-			// super.paint(g);
-			// }
-		};
-		JButton b2 = new JButton("disabled");
-		b2.setEnabled(false);
-		JButton b3 = new JButton("default") {
-			// @Override
-			// public void paint(Graphics g) {
-			// System.out.println("b3.paint focus:" + b1.isFocusOwner());
-			// super.paint(g);
-			// }
-		};
-		this.add(b1);
-		this.add(b2);
-		this.add(b3);
+    /**
+     * Creates a simple dialog.
+     */
+    public SimpleDialog() {
+        this.setLayout(new FlowLayout());
+        b1 = new JButton("regular") {
+            // @Override
+            // public void paint(Graphics g) {
+            // System.out.println("b1.paint focus:" + b1.isFocusOwner());
+            // super.paint(g);
+            // }
+        };
+        JButton b2 = new JButton("disabled");
+        b2.setEnabled(false);
+        JButton b3 = new JButton("default") {
+            // @Override
+            // public void paint(Graphics g) {
+            // System.out.println("b3.paint focus:" + b1.isFocusOwner());
+            // super.paint(g);
+            // }
+        };
+        this.add(b1);
+        this.add(b2);
+        this.add(b3);
 
-		this.getRootPane().setDefaultButton(b3);
-		this.setTitle("Simple dialog");
-	}
+        this.getRootPane().setDefaultButton(b3);
+        this.setTitle("Simple dialog");
+    }
 
-	public static void main(String... args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				JDialog.setDefaultLookAndFeelDecorated(true);
-				SubstanceLookAndFeel.setSkin(new BusinessSkin());
-				SimpleDialog sd = new SimpleDialog();
-				if (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel) {
-					sd.setIconImage(SubstanceLogo
-							.getLogoImage(SubstanceLookAndFeel.getCurrentSkin(
-									sd.getRootPane()).getColorScheme(
-									DecorationAreaType.PRIMARY_TITLE_PANE,
-									ColorSchemeAssociationKind.FILL,
-									ComponentState.ENABLED)));
-				}
-				sd.setModal(false);
-				sd.pack();
-				sd.setLocationRelativeTo(null);
-				sd.setVisible(true);
-				sd.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			}
-		});
-	}
+    public static void main(String... args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                JDialog.setDefaultLookAndFeelDecorated(true);
+                SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
+                SimpleDialog sd = new SimpleDialog();
+                if (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel) {
+                    sd.setIconImage(SubstanceLogo.getLogoImage(SubstanceCortex.ComponentScope
+                            .getCurrentSkin(sd.getRootPane())
+                            .getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
+                                    ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
+                }
+                sd.setModal(false);
+                sd.pack();
+                sd.setLocationRelativeTo(null);
+                sd.setVisible(true);
+                sd.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+            }
+        });
+    }
 }

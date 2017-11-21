@@ -16,7 +16,7 @@ import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonPopupOrientationKind;
 import org.pushingpixels.flamingo.api.common.JCommandMenuButton;
 import org.pushingpixels.flamingo.api.common.popup.JCommandPopupMenu;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.GeminiSkin;
 
 public class MultiLevelMenu extends JFrame {
@@ -69,7 +69,7 @@ public class MultiLevelMenu extends JFrame {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				SubstanceLookAndFeel.setSkin(new GeminiSkin());
+				SubstanceCortex.GlobalScope.setSkin(new GeminiSkin());
 				JFrame.setDefaultLookAndFeelDecorated(true);
 
 				new MultiLevelMenu().setVisible(true);

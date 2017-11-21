@@ -36,7 +36,7 @@ import javax.swing.JList;
 import javax.swing.SwingUtilities;
 
 import org.pushingpixels.demo.flamingo.bcb.SvnBreadCrumbTest;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultComboBoxRenderer;
 import org.pushingpixels.substance.api.skin.BusinessBlueSteelSkin;
 
@@ -61,7 +61,7 @@ public class SubstanceSvnBrowser extends SvnBreadCrumbTest {
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				SubstanceLookAndFeel.setSkin(new BusinessBlueSteelSkin());
+				SubstanceCortex.GlobalScope.setSkin(new BusinessBlueSteelSkin());
 				SubstanceSvnBrowser test = new SubstanceSvnBrowser();
 				test.setSize(500, 420);
 				test.setLocation(300, 100);

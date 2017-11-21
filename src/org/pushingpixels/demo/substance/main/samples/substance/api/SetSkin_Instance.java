@@ -40,17 +40,17 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceLookAndFeel#setSkin(org.pushingpixels.substance.skin.SubstanceSkin)}
+ * {@link SubstanceCortex.GlobalScope#setSkin(org.pushingpixels.substance.skin.SubstanceSkin)}
  * API.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceLookAndFeel#setSkin(org.pushingpixels.substance.skin.SubstanceSkin)
+ * @see SubstanceCortex.GlobalScope#setSkin(org.pushingpixels.substance.skin.SubstanceSkin)
  */
 public class SetSkin_Instance extends JFrame {
 	/**
@@ -69,7 +69,7 @@ public class SetSkin_Instance extends JFrame {
 					public void run() {
 						changeSkin.setEnabled(false);
 						// set new skin by instance
-						SubstanceLookAndFeel.setSkin(new BusinessSkin());
+						SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
 						repaint();
 					}
 				});
@@ -95,7 +95,7 @@ public class SetSkin_Instance extends JFrame {
 		JDialog.setDefaultLookAndFeelDecorated(true);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				SubstanceLookAndFeel.setSkin(new BusinessBlackSteelSkin());
+				SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
 				new SetSkin_Instance().setVisible(true);
 			}
 		});

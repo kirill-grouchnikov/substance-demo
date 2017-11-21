@@ -25,6 +25,7 @@ import javax.swing.SpinnerListModel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
@@ -130,7 +131,7 @@ public class VAlignmentPanel extends ControllablePanel implements Deferrable {
 		String fontName = "Tahoma";
 		Font font = new Font(fontName, Font.PLAIN, size);
 		if (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel) {
-			Font base = SubstanceLookAndFeel.getFontPolicy().getFontSet(
+			Font base = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet(
 					"Substance", null).getControlFont();
 			fontName = base.getFamily();
 			font = base.deriveFont((float) size);
@@ -197,7 +198,7 @@ public class VAlignmentPanel extends ControllablePanel implements Deferrable {
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				SubstanceLookAndFeel.setSkin(new BusinessBlackSteelSkin());
+			    SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
 				JFrame frame = new JFrame("Alignment");
 				frame.setSize(600, 400);
 				frame.setLocationRelativeTo(null);

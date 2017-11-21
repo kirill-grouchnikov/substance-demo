@@ -57,8 +57,8 @@ import org.pushingpixels.demo.substance.main.check.svg.flags.il;
 import org.pushingpixels.demo.substance.main.check.svg.flags.it;
 import org.pushingpixels.demo.substance.main.check.svg.flags.ru;
 import org.pushingpixels.demo.substance.main.check.svg.flags.se;
-import org.pushingpixels.substance.api.SubstanceConstants.FocusKind;
-import org.pushingpixels.substance.api.SubstanceConstants.Side;
+import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
+import org.pushingpixels.substance.api.SubstanceSlices.Side;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceWidget;
 

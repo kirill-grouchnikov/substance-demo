@@ -17,8 +17,7 @@ import org.pushingpixels.flamingo.api.common.JCommandButton;
 import org.pushingpixels.flamingo.api.common.JCommandButton.CommandButtonKind;
 import org.pushingpixels.flamingo.api.common.JCommandToggleButton;
 import org.pushingpixels.flamingo.api.common.icon.ResizableIcon;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.SubstancePluginRepository;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.OfficeSilver2007Skin;
 import org.pushingpixels.substance.flamingo.SubstanceFlamingoPlugin;
 
@@ -136,9 +135,8 @@ public class TestCommandButtonSizes extends JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                SubstanceLookAndFeel.setSkin(new OfficeSilver2007Skin());
-                SubstancePluginRepository.getInstance()
-                        .registerComponentPlugin(new SubstanceFlamingoPlugin());
+                SubstanceCortex.GlobalScope.setSkin(new OfficeSilver2007Skin());
+                SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceFlamingoPlugin());
                 new TestCommandButtonSizes().setVisible(true);
             }
         });

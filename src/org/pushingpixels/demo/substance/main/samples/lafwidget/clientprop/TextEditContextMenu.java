@@ -40,7 +40,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
@@ -96,7 +96,7 @@ public class TextEditContextMenu extends JFrame {
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				SubstanceLookAndFeel.setSkin(new BusinessBlackSteelSkin());
+				SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
 				new TextEditContextMenu().setVisible(true);
 			}
 		});

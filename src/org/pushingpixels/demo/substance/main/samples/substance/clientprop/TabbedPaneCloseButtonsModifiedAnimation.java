@@ -42,6 +42,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
@@ -120,7 +121,7 @@ public class TabbedPaneCloseButtonsModifiedAnimation extends JFrame {
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				SubstanceLookAndFeel.setSkin(new BusinessBlackSteelSkin());
+				SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
 				new TabbedPaneCloseButtonsModifiedAnimation().setVisible(true);
 			}
 		});

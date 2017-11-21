@@ -31,8 +31,8 @@ package org.pushingpixels.demo.substance.main.check;
 
 import javax.swing.JTabbedPane;
 
-import org.pushingpixels.substance.api.SubstanceConstants;
 import org.pushingpixels.substance.tabbed.DefaultTabPreviewPainter;
+import org.pushingpixels.substance.tabbed.TabOverviewDialogWidget.TabOverviewKind;
 
 /**
  * A custom tab preview painter for the test application.
@@ -43,7 +43,7 @@ public class MyTabPreviewPainter extends DefaultTabPreviewPainter {
 	/**
 	 * The current tab overview kind.
 	 */
-	protected SubstanceConstants.TabOverviewKind tabOverviewKind;
+	protected TabOverviewKind tabOverviewKind;
 
 	/**
 	 * Sets the tab overview kind.
@@ -51,17 +51,12 @@ public class MyTabPreviewPainter extends DefaultTabPreviewPainter {
 	 * @param tabOverviewKind
 	 *            New tab overview kind.
 	 */
-	public void setTabOverviewKind(SubstanceConstants.TabOverviewKind tabOverviewKind) {
+	public void setTabOverviewKind(TabOverviewKind tabOverviewKind) {
 		this.tabOverviewKind = tabOverviewKind;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.pushingpixels.lafwidget.tabbed.TabPreviewPainter#getOverviewKind(javax.swing.JTabbedPane)
-	 */
 	@Override
-	public SubstanceConstants.TabOverviewKind getOverviewKind(JTabbedPane tabPane) {
+	public TabOverviewKind getOverviewKind(JTabbedPane tabPane) {
 		if (this.tabOverviewKind == null)
 			return super.getOverviewKind(tabPane);
 		return this.tabOverviewKind;

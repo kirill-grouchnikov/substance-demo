@@ -29,7 +29,7 @@
  */
 package org.pushingpixels.demo.substance.main.check;
 
-import org.pushingpixels.substance.api.SubstanceConstants;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.password.PasswordStrengthChecker;
 
 /**
@@ -43,15 +43,15 @@ public class MyPasswordStrengthChecker implements PasswordStrengthChecker {
 	 * 
 	 * @see org.pushingpixels.lafwidget.text.PasswordStrengthChecker#getStrength(char[])
 	 */
-	public SubstanceConstants.PasswordStrength getStrength(char[] password) {
+	public SubstanceSlices.PasswordStrength getStrength(char[] password) {
 		if (password == null)
-			return SubstanceConstants.PasswordStrength.WEAK;
+			return SubstanceSlices.PasswordStrength.WEAK;
 		int length = password.length;
 		if (length < 3)
-			return SubstanceConstants.PasswordStrength.WEAK;
+			return SubstanceSlices.PasswordStrength.WEAK;
 		if (length < 6)
-			return SubstanceConstants.PasswordStrength.MEDIUM;
-		return SubstanceConstants.PasswordStrength.STRONG;
+			return SubstanceSlices.PasswordStrength.MEDIUM;
+		return SubstanceSlices.PasswordStrength.STRONG;
 	}
 
 	/*
@@ -59,12 +59,12 @@ public class MyPasswordStrengthChecker implements PasswordStrengthChecker {
 	 * 
 	 * @see org.pushingpixels.lafwidget.text.PasswordStrengthChecker#getDescription(org.pushingpixels.lafwidget.utils.LafConstants.PasswordStrength)
 	 */
-	public String getDescription(SubstanceConstants.PasswordStrength strength) {
-		if (strength == SubstanceConstants.PasswordStrength.WEAK)
+	public String getDescription(SubstanceSlices.PasswordStrength strength) {
+		if (strength == SubstanceSlices.PasswordStrength.WEAK)
 			return "<html>This password is <b>way</b> too weak</html>";
-		if (strength == SubstanceConstants.PasswordStrength.MEDIUM)
+		if (strength == SubstanceSlices.PasswordStrength.MEDIUM)
 			return "<html>Come on, you can do<br> a little better than that</html>";
-		if (strength == SubstanceConstants.PasswordStrength.STRONG)
+		if (strength == SubstanceSlices.PasswordStrength.STRONG)
 			return "OK";
 		return null;
 	}

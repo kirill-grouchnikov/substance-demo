@@ -19,78 +19,75 @@ import org.jdesktop.swingx.JXStatusBar;
 import org.jdesktop.swingx.plaf.basic.BasicStatusBarUI;
 import org.pushingpixels.demo.substance.main.SubstanceLogo;
 import org.pushingpixels.demo.substance.main.check.SampleMenuFactory;
-import org.pushingpixels.substance.api.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.GeminiSkin;
 
 public class TestDatePicker extends JFrame {
-	public TestDatePicker() {
-		super("Date pickers galore");
+    public TestDatePicker() {
+        super("Date pickers galore");
 
-		this.setLayout(new BorderLayout());
+        this.setLayout(new BorderLayout());
 
-		JToolBar toolbar = new JToolBar();
-		toolbar.setFloatable(true);
-		toolbar.add(new JLabel("In a toolbar"));
-		toolbar.add(Box.createHorizontalStrut(8));
-		toolbar.add(new JXDatePicker(new Date()));
-		this.add(toolbar, BorderLayout.NORTH);
+        JToolBar toolbar = new JToolBar();
+        toolbar.setFloatable(true);
+        toolbar.add(new JLabel("In a toolbar"));
+        toolbar.add(Box.createHorizontalStrut(8));
+        toolbar.add(new JXDatePicker(new Date()));
+        this.add(toolbar, BorderLayout.NORTH);
 
-		JPanel left = new JPanel();
-		left.setLayout(new BoxLayout(left, BoxLayout.Y_AXIS));
-		left.setBorder(new EmptyBorder(0, 4, 0, 4));
-		left.add(Box.createVerticalStrut(30));
-		left.add(new JLabel("In a sidebar"));
-		left.add(new JXDatePicker(new Date()));
-		SubstanceLookAndFeel
-				.setDecorationType(left, DecorationAreaType.GENERAL);
-		this.add(left, BorderLayout.WEST);
+        JPanel left = new JPanel();
+        left.setLayout(new BoxLayout(left, BoxLayout.Y_AXIS));
+        left.setBorder(new EmptyBorder(0, 4, 0, 4));
+        left.add(Box.createVerticalStrut(30));
+        left.add(new JLabel("In a sidebar"));
+        left.add(new JXDatePicker(new Date()));
+        SubstanceCortex.ComponentScope.setDecorationType(left, DecorationAreaType.GENERAL);
+        this.add(left, BorderLayout.WEST);
 
-		JPanel center = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		center.setBorder(new EmptyBorder(40, 0, 0, 0));
-		center.add(new JLabel("General"));
-		center.add(new JXDatePicker(new Date()));
-		this.add(center, BorderLayout.CENTER);
+        JPanel center = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        center.setBorder(new EmptyBorder(40, 0, 0, 0));
+        center.add(new JLabel("General"));
+        center.add(new JXDatePicker(new Date()));
+        this.add(center, BorderLayout.CENTER);
 
-		JXStatusBar statusBar = new JXStatusBar();
-		statusBar.putClientProperty(BasicStatusBarUI.AUTO_ADD_SEPARATOR, false);
-		statusBar.add(new JLabel("In a status bar"));
-		statusBar.add(Box.createHorizontalStrut(8));
-		statusBar.add(new JXDatePicker(new Date()));
-		this.add(statusBar, BorderLayout.SOUTH);
+        JXStatusBar statusBar = new JXStatusBar();
+        statusBar.putClientProperty(BasicStatusBarUI.AUTO_ADD_SEPARATOR, false);
+        statusBar.add(new JLabel("In a status bar"));
+        statusBar.add(Box.createHorizontalStrut(8));
+        statusBar.add(new JXDatePicker(new Date()));
+        this.add(statusBar, BorderLayout.SOUTH);
 
-		this.setIconImage(SubstanceLogo
-				.getLogoImage(SubstanceLookAndFeel.getCurrentSkin(
-						this.getRootPane())
-						.getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
-								ColorSchemeAssociationKind.FILL,
-								ComponentState.ENABLED)));
-		SubstanceLookAndFeel.registerSkinChangeListener(
-				() -> SwingUtilities.invokeLater(() -> setIconImage(SubstanceLogo.getLogoImage(
-						SubstanceLookAndFeel.getCurrentSkin(getRootPane()).getColorScheme(
-								DecorationAreaType.PRIMARY_TITLE_PANE,
-								ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)))));				
+        this.setIconImage(SubstanceLogo
+                .getLogoImage(SubstanceCortex.ComponentScope.getCurrentSkin(this.getRootPane())
+                        .getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
+                                ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
+        SubstanceCortex.GlobalScope.registerSkinChangeListener(
+                () -> SwingUtilities.invokeLater(() -> setIconImage(SubstanceLogo.getLogoImage(
+                        SubstanceCortex.ComponentScope.getCurrentSkin(getRootPane()).getColorScheme(
+                                DecorationAreaType.PRIMARY_TITLE_PANE,
+                                ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)))));
 
-		JMenuBar jmb = new JMenuBar();
-		jmb.add(SampleMenuFactory.getSkinMenu());
-		jmb.add(SampleMenuFactory.getTransformMenu());
-		this.setJMenuBar(jmb);
+        JMenuBar jmb = new JMenuBar();
+        jmb.add(SampleMenuFactory.getSkinMenu());
+        jmb.add(SampleMenuFactory.getTransformMenu());
+        this.setJMenuBar(jmb);
 
-		this.setSize(450, 300);
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	}
+        this.setSize(450, 300);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }
 
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				JFrame.setDefaultLookAndFeelDecorated(true);
-				SubstanceLookAndFeel.setSkin(new GeminiSkin());
-				new TestDatePicker().setVisible(true);
-			}
-		});
-	}
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                JFrame.setDefaultLookAndFeelDecorated(true);
+                SubstanceCortex.GlobalScope.setSkin(new GeminiSkin());
+                new TestDatePicker().setVisible(true);
+            }
+        });
+    }
 }

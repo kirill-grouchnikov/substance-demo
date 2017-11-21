@@ -49,7 +49,8 @@ import javax.swing.UIManager;
 import org.pushingpixels.demo.substance.main.Check;
 import org.pushingpixels.demo.substance.main.check.svg.flags.mx;
 import org.pushingpixels.demo.substance.main.check.svg.flags.se;
-import org.pushingpixels.substance.api.SubstanceConstants.MenuGutterFillKind;
+import org.pushingpixels.substance.api.SubstanceSlices.MenuGutterFillKind;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultComboBoxRenderer;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
@@ -130,7 +131,7 @@ public class MenuGutterFillKindProperty extends JFrame {
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				SubstanceLookAndFeel.setSkin(new BusinessBlackSteelSkin());
+				SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
 				new MenuGutterFillKindProperty().setVisible(true);
 			}
 		});

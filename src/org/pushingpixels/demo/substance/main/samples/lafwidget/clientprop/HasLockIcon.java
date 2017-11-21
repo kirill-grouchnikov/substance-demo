@@ -41,6 +41,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
@@ -103,7 +104,7 @@ public class HasLockIcon extends JFrame {
 			public void run() {
 				UIManager.put(SubstanceLookAndFeel.SHOW_EXTRA_WIDGETS,
 						Boolean.TRUE);
-				SubstanceLookAndFeel.setSkin(new BusinessBlackSteelSkin());
+				SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
 				new HasLockIcon().setVisible(true);
 			}
 		});

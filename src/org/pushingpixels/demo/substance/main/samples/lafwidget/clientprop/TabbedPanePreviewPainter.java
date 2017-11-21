@@ -46,7 +46,7 @@ import org.pushingpixels.demo.substance.main.Check;
 import org.pushingpixels.demo.substance.main.check.svg.flags.hk;
 import org.pushingpixels.demo.substance.main.check.svg.flags.mx;
 import org.pushingpixels.demo.substance.main.check.svg.flags.se;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 import org.pushingpixels.substance.tabbed.DefaultTabPreviewPainter;
 import org.pushingpixels.substance.tabbed.TabPreviewUtilities;
@@ -119,7 +119,7 @@ public class TabbedPanePreviewPainter extends JFrame {
         JFrame.setDefaultLookAndFeelDecorated(true);
         JDialog.setDefaultLookAndFeelDecorated(true);
         SwingUtilities.invokeLater(() -> {
-            SubstanceLookAndFeel.setSkin(new BusinessBlackSteelSkin());
+            SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
             new TabbedPanePreviewPainter().setVisible(true);
         });
     }

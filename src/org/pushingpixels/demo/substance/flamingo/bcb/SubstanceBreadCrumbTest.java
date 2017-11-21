@@ -34,32 +34,31 @@ import javax.swing.SwingUtilities;
 
 import org.pushingpixels.demo.flamingo.bcb.BreadCrumbTest;
 import org.pushingpixels.demo.substance.flamingo.SubstanceLogo;
-import org.pushingpixels.substance.api.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.SubstancePluginRepository;
+import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 import org.pushingpixels.substance.flamingo.SubstanceFlamingoPlugin;
 
 public class SubstanceBreadCrumbTest extends BreadCrumbTest {
 	public static void main(String... args) {
 		JFrame.setDefaultLookAndFeelDecorated(true);
-		SubstancePluginRepository.getInstance().registerComponentPlugin(new SubstanceFlamingoPlugin());
+		SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceFlamingoPlugin());
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				SubstanceLookAndFeel.setSkin(new BusinessSkin());
+				SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
 				SubstanceBreadCrumbTest test = new SubstanceBreadCrumbTest();
 
 				test.setIconImage(SubstanceLogo
-						.getLogoImage(SubstanceLookAndFeel.getCurrentSkin(
+						.getLogoImage(SubstanceCortex.ComponentScope.getCurrentSkin(
 								test.getRootPane()).getColorScheme(
 								DecorationAreaType.PRIMARY_TITLE_PANE,
 								ColorSchemeAssociationKind.FILL,
 								ComponentState.ENABLED)));
 
-				SubstanceLookAndFeel.setDecorationType(test.bar,
+				SubstanceCortex.ComponentScope.setDecorationType(test.bar,
 						DecorationAreaType.HEADER);
 				test.setSize(500, 420);
 				test.setLocation(300, 100);

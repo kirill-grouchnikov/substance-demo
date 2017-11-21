@@ -39,6 +39,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.skin.AutumnSkin;
@@ -47,10 +48,10 @@ import org.pushingpixels.substance.api.skin.GraphiteSkin;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceLookAndFeel#getCurrentSkin(java.awt.Component)} API.
+ * {@link SubstanceCortex.ComponentScope#getCurrentSkin(java.awt.Component)} API.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceLookAndFeel#getCurrentSkin(java.awt.Component)
+ * @see SubstanceCortex.ComponentScope#getCurrentSkin(java.awt.Component)
  */
 public class GetCurrentSkin extends JFrame {
 	/**
@@ -111,7 +112,7 @@ public class GetCurrentSkin extends JFrame {
 					public void run() {
 						JOptionPane.showMessageDialog(sampleFrame,
 								"Skin of this button is "
-										+ SubstanceLookAndFeel.getCurrentSkin(
+										+ SubstanceCortex.ComponentScope.getCurrentSkin(
 												button).getDisplayName());
 					}
 				});
@@ -142,7 +143,7 @@ public class GetCurrentSkin extends JFrame {
 		JDialog.setDefaultLookAndFeelDecorated(true);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				SubstanceLookAndFeel.setSkin(new BusinessBlackSteelSkin());
+				SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
 				new GetCurrentSkin().setVisible(true);
 			}
 		});

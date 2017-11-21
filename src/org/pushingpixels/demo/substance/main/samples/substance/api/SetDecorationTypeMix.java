@@ -42,67 +42,65 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import org.pushingpixels.substance.api.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessBlueSteelSkin;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceLookAndFeel#setDecorationType(JComponent, DecorationAreaType)}
- * API called on different components.
+ * {@link SubstanceCortex.ComponentScope#setDecorationType(JComponent, DecorationAreaType)} API
+ * called on different components.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceLookAndFeel#setDecorationType(JComponent, DecorationAreaType)
+ * @see SubstanceCortex.ComponentScope#setDecorationType(JComponent, DecorationAreaType)
  */
 public class SetDecorationTypeMix extends JFrame {
-	/**
-	 * Creates the main frame for <code>this</code> sample.
-	 */
-	public SetDecorationTypeMix() {
-		super("Mix decoration types");
+    /**
+     * Creates the main frame for <code>this</code> sample.
+     */
+    public SetDecorationTypeMix() {
+        super("Mix decoration types");
 
-		this.setLayout(new BorderLayout());
+        this.setLayout(new BorderLayout());
 
-		JTabbedPane tabs = new JTabbedPane();
-		SubstanceLookAndFeel.setDecorationType(tabs, DecorationAreaType.HEADER);
+        JTabbedPane tabs = new JTabbedPane();
+        SubstanceCortex.ComponentScope.setDecorationType(tabs, DecorationAreaType.HEADER);
 
-		JPanel tab1 = new JPanel(new FlowLayout());
-		tab1.add(new JTextField("sample"));
-		tab1.add(new JComboBox(new Object[] { "sample" }));
-		SubstanceLookAndFeel
-				.setDecorationType(tab1, DecorationAreaType.GENERAL);
+        JPanel tab1 = new JPanel(new FlowLayout());
+        tab1.add(new JTextField("sample"));
+        tab1.add(new JComboBox(new Object[] { "sample" }));
+        SubstanceCortex.ComponentScope.setDecorationType(tab1, DecorationAreaType.GENERAL);
 
-		JPanel tab2 = new JPanel(new FlowLayout());
-		tab2.add(new JTextField("sample2"));
-		tab2.add(new JComboBox(new Object[] { "sample2" }));
-		SubstanceLookAndFeel
-				.setDecorationType(tab2, DecorationAreaType.GENERAL);
+        JPanel tab2 = new JPanel(new FlowLayout());
+        tab2.add(new JTextField("sample2"));
+        tab2.add(new JComboBox(new Object[] { "sample2" }));
+        SubstanceCortex.ComponentScope.setDecorationType(tab2, DecorationAreaType.GENERAL);
 
-		tabs.addTab("tab1", tab1);
-		tabs.addTab("tab2", tab2);
+        tabs.addTab("tab1", tab1);
+        tabs.addTab("tab2", tab2);
 
-		this.add(tabs, BorderLayout.CENTER);
+        this.add(tabs, BorderLayout.CENTER);
 
-		this.setSize(400, 200);
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+        this.setSize(400, 200);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
 
-	/**
-	 * The main method for <code>this</code> sample. The arguments are ignored.
-	 * 
-	 * @param args
-	 *            Ignored.
-	 */
-	public static void main(String[] args) {
-		JFrame.setDefaultLookAndFeelDecorated(true);
-		JDialog.setDefaultLookAndFeelDecorated(true);
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				SubstanceLookAndFeel.setSkin(new BusinessBlueSteelSkin());
-				UIManager.put("TabbedPane.contentOpaque", Boolean.TRUE);
-				new SetDecorationTypeMix().setVisible(true);
-			}
-		});
-	}
+    /**
+     * The main method for <code>this</code> sample. The arguments are ignored.
+     * 
+     * @param args
+     *            Ignored.
+     */
+    public static void main(String[] args) {
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        JDialog.setDefaultLookAndFeelDecorated(true);
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                SubstanceCortex.GlobalScope.setSkin(new BusinessBlueSteelSkin());
+                UIManager.put("TabbedPane.contentOpaque", Boolean.TRUE);
+                new SetDecorationTypeMix().setVisible(true);
+            }
+        });
+    }
 }

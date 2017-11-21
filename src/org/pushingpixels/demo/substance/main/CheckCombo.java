@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.GeminiSkin;
 
@@ -42,7 +43,7 @@ public class CheckCombo extends JFrame {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				SubstanceLookAndFeel.setSkin(new GeminiSkin());
+				SubstanceCortex.GlobalScope.setSkin(new GeminiSkin());
 				new CheckCombo().setVisible(true);
 			}
 		});

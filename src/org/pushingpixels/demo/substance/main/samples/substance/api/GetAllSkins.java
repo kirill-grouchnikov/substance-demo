@@ -41,17 +41,17 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultComboBoxRenderer;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 import org.pushingpixels.substance.api.skin.SkinInfo;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceLookAndFeel#getAllSkins()} API.
+ * {@link SubstanceCortex.GlobalScope#getAllSkins()} API.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceLookAndFeel#getAllSkins()
+ * @see SubstanceCortex.GlobalScope#getAllSkins()
  */
 public class GetAllSkins extends JFrame {
 	/**
@@ -66,7 +66,7 @@ public class GetAllSkins extends JFrame {
 		// Get all skins and set the vector as a model
 		// for combobox.
 		final JComboBox cb = new JComboBox(new Vector<SkinInfo>(
-				SubstanceLookAndFeel.getAllSkins().values()));
+		        SubstanceCortex.GlobalScope.getAllSkins().values()));
 		cb.setRenderer(new SubstanceDefaultComboBoxRenderer(cb) {
 			@Override
 			public Component getListCellRendererComponent(JList list,
@@ -97,7 +97,7 @@ public class GetAllSkins extends JFrame {
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				SubstanceLookAndFeel.setSkin(new BusinessBlackSteelSkin());
+			    SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
 				new GetAllSkins().setVisible(true);
 			}
 		});

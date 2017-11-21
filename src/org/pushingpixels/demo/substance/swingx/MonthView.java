@@ -28,7 +28,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import org.jdesktop.swingx.JXDatePicker;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.GeminiSkin;
 import org.pushingpixels.substance.api.skin.SubstanceRavenLookAndFeel;
 
@@ -64,7 +64,7 @@ public class MonthView extends JFrame {
 	public static void main(String[] args) throws Exception {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				SubstanceLookAndFeel.setSkin(new GeminiSkin());
+				SubstanceCortex.GlobalScope.setSkin(new GeminiSkin());
 				new MonthView().setVisible(true);
 			}
 		});

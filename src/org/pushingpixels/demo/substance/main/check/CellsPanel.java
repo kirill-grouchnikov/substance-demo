@@ -22,7 +22,8 @@ import org.pushingpixels.demo.substance.main.check.command.ConfigurationCommand;
 import org.pushingpixels.demo.substance.main.check.command.CreationCommand;
 import org.pushingpixels.demo.substance.main.check.command.DisableCommand;
 import org.pushingpixels.demo.substance.main.check.command.DisableViewportCommand;
-import org.pushingpixels.substance.api.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
@@ -225,22 +226,22 @@ public class CellsPanel extends JPanel implements Deferrable {
 
 		Component[] row = new Component[4];
 		row[0] = creationCmd.create();
-		SubstanceLookAndFeel.setDecorationType(((JComponent) row[0]),
+		SubstanceCortex.ComponentScope.setDecorationType(((JComponent) row[0]),
 				DecorationAreaType.NONE);
 		row[0].setName(row[0].getName() + ": NONE");
 
 		row[1] = creationCmd.create();
-		SubstanceLookAndFeel.setDecorationType(((JComponent) row[1]),
+		SubstanceCortex.ComponentScope.setDecorationType(((JComponent) row[1]),
 				DecorationAreaType.GENERAL);
 		row[1].setName(row[1].getName() + ": GENERAL");
 
 		row[2] = creationCmd.create();
-		SubstanceLookAndFeel.setDecorationType(((JComponent) row[2]),
+		SubstanceCortex.ComponentScope.setDecorationType(((JComponent) row[2]),
 				DecorationAreaType.HEADER);
 		row[2].setName(row[2].getName() + ": HEADER");
 
 		row[3] = creationCmd.create();
-		SubstanceLookAndFeel.setDecorationType(((JComponent) row[3]),
+		SubstanceCortex.ComponentScope.setDecorationType(((JComponent) row[3]),
 				DecorationAreaType.FOOTER);
 		row[3].setName(row[3].getName() + ": FOOTER");
 

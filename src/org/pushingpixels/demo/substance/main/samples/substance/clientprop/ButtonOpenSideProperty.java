@@ -36,8 +36,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import org.pushingpixels.substance.api.SubstanceConstants;
-import org.pushingpixels.substance.api.SubstanceConstants.Side;
+import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.api.SubstanceSlices.Side;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
@@ -61,24 +62,24 @@ public class ButtonOpenSideProperty extends JFrame {
 		// mark button to have open and straight left side
 		// using side constant
 		buttonA.putClientProperty(SubstanceLookAndFeel.BUTTON_SIDE_PROPERTY,
-				SubstanceConstants.Side.LEFT);
+				SubstanceSlices.Side.LEFT);
 		buttonA.putClientProperty(
 				SubstanceLookAndFeel.BUTTON_OPEN_SIDE_PROPERTY,
-				SubstanceConstants.Side.LEFT);
+				SubstanceSlices.Side.LEFT);
 
 		JButton buttonB = new JButton("right only");
 		// mark button to have open and straight right side using side constant
 		buttonB.putClientProperty(SubstanceLookAndFeel.BUTTON_SIDE_PROPERTY,
-				SubstanceConstants.Side.RIGHT);
+				SubstanceSlices.Side.RIGHT);
 		buttonB.putClientProperty(
 				SubstanceLookAndFeel.BUTTON_OPEN_SIDE_PROPERTY,
-				SubstanceConstants.Side.RIGHT);
+				SubstanceSlices.Side.RIGHT);
 
 		JButton buttonC = new JButton("left+top");
 		// mark button to have open and straight left and top sides
 		// using set of side constants
-		EnumSet<Side> leftTopSides = EnumSet.of(SubstanceConstants.Side.LEFT,
-				SubstanceConstants.Side.TOP);
+		EnumSet<Side> leftTopSides = EnumSet.of(SubstanceSlices.Side.LEFT,
+				SubstanceSlices.Side.TOP);
 		buttonC.putClientProperty(SubstanceLookAndFeel.BUTTON_SIDE_PROPERTY,
 				leftTopSides);
 		buttonC.putClientProperty(
@@ -88,7 +89,7 @@ public class ButtonOpenSideProperty extends JFrame {
 		// mark button to have open and straight right and bottom sides
 		// using set of side constants
 		EnumSet<Side> rightBottomSides = EnumSet.of(
-				SubstanceConstants.Side.RIGHT, SubstanceConstants.Side.BOTTOM);
+				SubstanceSlices.Side.RIGHT, SubstanceSlices.Side.BOTTOM);
 		buttonD.putClientProperty(SubstanceLookAndFeel.BUTTON_SIDE_PROPERTY,
 				rightBottomSides);
 		buttonD.putClientProperty(
@@ -115,7 +116,7 @@ public class ButtonOpenSideProperty extends JFrame {
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				SubstanceLookAndFeel.setSkin(new BusinessBlackSteelSkin());
+			    SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
 				new ButtonOpenSideProperty().setVisible(true);
 			}
 		});

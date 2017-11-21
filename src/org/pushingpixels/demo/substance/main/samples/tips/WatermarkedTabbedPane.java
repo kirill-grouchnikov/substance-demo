@@ -40,8 +40,9 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
-import org.pushingpixels.substance.api.SubstanceConstants;
-import org.pushingpixels.substance.api.SubstanceConstants.ImageWatermarkKind;
+import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.api.SubstanceSlices.ImageWatermarkKind;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 import org.pushingpixels.substance.api.watermark.SubstanceImageWatermark;
@@ -68,7 +69,7 @@ public class WatermarkedTabbedPane extends JFrame {
 		final JTabbedPane jtp = new JTabbedPane();
 		jtp.putClientProperty(
 				SubstanceLookAndFeel.TABBED_PANE_CONTENT_BORDER_KIND,
-				SubstanceConstants.TabContentPaneBorderKind.SINGLE_PLACEMENT);
+				SubstanceSlices.TabContentPaneBorderKind.SINGLE_PLACEMENT);
 
 		jtp.addTab("Tab 1", new JPanel());
 		jtp.setTabComponentAt(0, new TabControl("System", "Description"));
@@ -110,7 +111,7 @@ public class WatermarkedTabbedPane extends JFrame {
 			@Override
 			public void run() {
 				try {
-					SubstanceLookAndFeel.setSkin(new MySkin());
+					SubstanceCortex.GlobalScope.setSkin(new MySkin());
 					new WatermarkedTabbedPane().setVisible(true);
 				} catch (Exception exc) {
 					exc.printStackTrace();

@@ -10,7 +10,7 @@ import javax.swing.JTable;
 import javax.swing.JTree;
 
 import org.jdesktop.swingx.JXPanel;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /*
@@ -83,7 +83,7 @@ public class DesktopDemo extends JFrame {
 		// Make sure we have nice window decorations.
 		// JFrame.setDefaultLookAndFeelDecorated(true);
 		try {
-		    SubstanceLookAndFeel.setSkin(new BusinessBlackSteelSkin());
+		    SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
 			// Create and set up the window.
 			DesktopDemo frame = new DesktopDemo();
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

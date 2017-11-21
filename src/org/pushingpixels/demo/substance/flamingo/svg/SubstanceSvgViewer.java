@@ -33,21 +33,20 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import org.pushingpixels.demo.flamingo.svg.SvgViewer;
-import org.pushingpixels.substance.api.AnimationConfigurationManager;
-import org.pushingpixels.substance.api.AnimationFacet;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 public class SubstanceSvgViewer extends SvgViewer {
 	public static void main(String... args) {
 		JFrame.setDefaultLookAndFeelDecorated(true);
-		AnimationConfigurationManager.getInstance().allowAnimations(
+		SubstanceCortex.GlobalScope.allowAnimations(
 				AnimationFacet.GHOSTING_ICON_ROLLOVER);
 
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				SubstanceLookAndFeel.setSkin(new BusinessSkin());
+				SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
 				SubstanceSvgViewer test = new SubstanceSvgViewer();
 				test.setSize(640, 480);
 				test.setLocationRelativeTo(null);

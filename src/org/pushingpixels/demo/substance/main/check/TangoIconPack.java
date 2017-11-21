@@ -62,7 +62,7 @@ import org.pushingpixels.demo.substance.main.check.svg.tango.text_x_generic;
 import org.pushingpixels.demo.substance.main.check.svg.tango.user_home;
 import org.pushingpixels.demo.substance.main.check.svg.tango.view_fullscreen;
 import org.pushingpixels.demo.substance.main.check.svg.tango.view_refresh;
-import org.pushingpixels.substance.api.SubstanceColorScheme;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.hidpi.HiDpiAwareIcon;
 import org.pushingpixels.substance.api.iconpack.SubstanceIconPack;
 

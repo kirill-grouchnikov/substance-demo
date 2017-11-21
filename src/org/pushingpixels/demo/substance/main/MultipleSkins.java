@@ -40,6 +40,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import org.pushingpixels.demo.substance.main.check.SampleFrame;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.skin.AutumnSkin;
@@ -65,7 +66,7 @@ public class MultipleSkins {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				SubstanceLookAndFeel.setSkin(new BusinessBlackSteelSkin());
+				SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
 				JFrame.setDefaultLookAndFeelDecorated(true);
 
 				GraphicsEnvironment ge = GraphicsEnvironment

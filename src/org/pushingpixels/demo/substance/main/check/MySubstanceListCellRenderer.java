@@ -36,7 +36,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 
 import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultListCellRenderer;
 
 public class MySubstanceListCellRenderer extends
@@ -75,7 +75,7 @@ public class MySubstanceListCellRenderer extends
 			result.setEnabled(false);
 			ComponentState state = isSelected ? ComponentState.DISABLED_SELECTED
 					: ComponentState.DISABLED_UNSELECTED;
-			result.setForeground(SubstanceLookAndFeel.getCurrentSkin(list)
+			result.setForeground(SubstanceCortex.ComponentScope.getCurrentSkin(list)
 					.getColorScheme(list, state).getForegroundColor());
 			result.setBackground(new Color(255, 196, 196));
 			((JLabel) result).setText(value + " [disabled by renderer]");

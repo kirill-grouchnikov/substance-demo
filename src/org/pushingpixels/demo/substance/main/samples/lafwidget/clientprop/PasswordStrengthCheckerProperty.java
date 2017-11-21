@@ -41,8 +41,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.SwingUtilities;
 
-import org.pushingpixels.substance.api.SubstanceConstants;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.api.password.PasswordStrengthChecker;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
@@ -78,25 +78,25 @@ public class PasswordStrengthCheckerProperty extends JFrame {
 				if (hasPasswordStrengthChecker.isSelected()) {
 					jpf.putClientProperty(SubstanceWidget.PASSWORD_STRENGTH_CHECKER,
 							new PasswordStrengthChecker() {
-								public SubstanceConstants.PasswordStrength getStrength(
+								public SubstanceSlices.PasswordStrength getStrength(
 										char[] password) {
 									if (password == null)
-										return SubstanceConstants.PasswordStrength.WEAK;
+										return SubstanceSlices.PasswordStrength.WEAK;
 									int length = password.length;
 									if (length < 3)
-										return SubstanceConstants.PasswordStrength.WEAK;
+										return SubstanceSlices.PasswordStrength.WEAK;
 									if (length < 6)
-										return SubstanceConstants.PasswordStrength.MEDIUM;
-									return SubstanceConstants.PasswordStrength.STRONG;
+										return SubstanceSlices.PasswordStrength.MEDIUM;
+									return SubstanceSlices.PasswordStrength.STRONG;
 								}
 
 								public String getDescription(
-										SubstanceConstants.PasswordStrength strength) {
-									if (strength == SubstanceConstants.PasswordStrength.WEAK)
+										SubstanceSlices.PasswordStrength strength) {
+									if (strength == SubstanceSlices.PasswordStrength.WEAK)
 										return "<html>This password is <b>way</b> too weak</html>";
-									if (strength == SubstanceConstants.PasswordStrength.MEDIUM)
+									if (strength == SubstanceSlices.PasswordStrength.MEDIUM)
 										return "<html>Come on, you can do<br> a little better than that</html>";
-									if (strength == SubstanceConstants.PasswordStrength.STRONG)
+									if (strength == SubstanceSlices.PasswordStrength.STRONG)
 										return "OK";
 									return null;
 								}
@@ -126,7 +126,7 @@ public class PasswordStrengthCheckerProperty extends JFrame {
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				SubstanceLookAndFeel.setSkin(new BusinessBlackSteelSkin());
+				SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
 				new PasswordStrengthCheckerProperty().setVisible(true);
 			}
 		});

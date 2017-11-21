@@ -79,16 +79,16 @@ import org.pushingpixels.demo.substance.main.check.svg.flags.tr;
 import org.pushingpixels.demo.substance.main.check.svg.flags.tw;
 import org.pushingpixels.demo.substance.main.check.svg.flags.us;
 import org.pushingpixels.demo.substance.main.check.svg.flags.vn;
-import org.pushingpixels.substance.api.ColorSchemeTransform;
 import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceColorScheme;
 import org.pushingpixels.substance.api.SubstanceColorSchemeBundle;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
+import org.pushingpixels.substance.api.colorscheme.ColorSchemeTransform;
 import org.pushingpixels.substance.api.colorscheme.LightGrayColorScheme;
 import org.pushingpixels.substance.api.colorscheme.MetallicColorScheme;
 import org.pushingpixels.substance.api.colorscheme.OrangeColorScheme;
+import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
 import org.pushingpixels.substance.api.painter.border.ClassicBorderPainter;
 import org.pushingpixels.substance.api.painter.decoration.ArcDecorationPainter;
 import org.pushingpixels.substance.api.painter.fill.GlassFillPainter;
@@ -266,12 +266,12 @@ public class SampleMenuFactory {
      */
     public static JMenu getSkinMenu() {
         JMenu jmSkin = new JMenu("Skins");
-        Map<String, SkinInfo> skinMap = SubstanceLookAndFeel.getAllSkins();
+        Map<String, SkinInfo> skinMap = SubstanceCortex.GlobalScope.getAllSkins();
         for (final Map.Entry<String, SkinInfo> entry : skinMap.entrySet()) {
             JMenuItem jmiSkin = new JMenuItem(entry.getValue().getDisplayName());
             jmiSkin.addActionListener((ActionEvent e) -> {
                 String skinClassName = entry.getValue().getClassName();
-                boolean status = SubstanceLookAndFeel.setSkin(skinClassName);
+                boolean status = SubstanceCortex.GlobalScope.setSkin(skinClassName);
                 if (!status) {
                     System.out.println("Failed to set " + skinClassName);
                 }
@@ -283,7 +283,8 @@ public class SampleMenuFactory {
         jmSkin.addSeparator();
         final CustomSkin customSkin = new CustomSkin();
         JMenuItem jmiSkin = new JMenuItem(customSkin.getDisplayName());
-        jmiSkin.addActionListener((ActionEvent e) -> SubstanceLookAndFeel.setSkin(customSkin));
+        jmiSkin.addActionListener(
+                (ActionEvent e) -> SubstanceCortex.GlobalScope.setSkin(customSkin));
 
         jmSkin.add(jmiSkin);
 
@@ -769,9 +770,9 @@ public class SampleMenuFactory {
         public void actionPerformed(ActionEvent e) {
             SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
-                    SubstanceSkin newSkin = SubstanceLookAndFeel.getCurrentSkin(null)
+                    SubstanceSkin newSkin = SubstanceCortex.GlobalScope.getCurrentSkin()
                             .transform(transform, name);
-                    SubstanceLookAndFeel.setSkin(newSkin);
+                    SubstanceCortex.GlobalScope.setSkin(newSkin);
                 }
             });
         }

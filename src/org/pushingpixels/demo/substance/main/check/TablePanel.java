@@ -78,8 +78,8 @@ import org.pushingpixels.demo.substance.main.check.svg.flags.jp;
 import org.pushingpixels.demo.substance.main.check.svg.flags.mx;
 import org.pushingpixels.demo.substance.main.check.svg.flags.nl;
 import org.pushingpixels.demo.substance.main.check.svg.flags.no;
-import org.pushingpixels.substance.api.AnimationConfigurationManager;
-import org.pushingpixels.substance.api.AnimationFacet;
+import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultTableCellRenderer;
 import org.pushingpixels.trident.Timeline;
@@ -580,43 +580,29 @@ public class TablePanel extends ControllablePanel implements Deferrable {
 
 		builder.append("Resize mode", resizeModeCombo);
 
-		final JCheckBox hasRollovers = new JCheckBox("Has rollover effect");
-		hasRollovers.setSelected(AnimationConfigurationManager.getInstance()
-				.isAnimationAllowed(AnimationFacet.ROLLOVER, this.table));
-		hasRollovers.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (hasRollovers.isSelected()) {
-					AnimationConfigurationManager.getInstance()
-							.allowAnimations(AnimationFacet.ROLLOVER,
-									TablePanel.this.table);
-				} else {
-					AnimationConfigurationManager.getInstance()
-							.disallowAnimations(AnimationFacet.ROLLOVER,
-									TablePanel.this.table);
-				}
-			}
-		});
-		builder.append("Rollovers", hasRollovers);
+        final JCheckBox hasRollovers = new JCheckBox("Has rollover effect");
+        hasRollovers.setSelected(SubstanceCortex.ComponentScope
+                .isAnimationAllowed(table, AnimationFacet.ROLLOVER));
+        hasRollovers.addActionListener((ActionEvent e) -> {
+            if (hasRollovers.isSelected()) {
+                SubstanceCortex.ComponentScope.allowAnimations(table, AnimationFacet.ROLLOVER);
+            } else {
+                SubstanceCortex.ComponentScope.disallowAnimations(table, AnimationFacet.ROLLOVER);
+            }
+        });
+        builder.append("Rollovers", hasRollovers);
 
-		final JCheckBox hasSelectionAnimations = new JCheckBox(
-				"Has selection effect");
-		hasSelectionAnimations.setSelected(AnimationConfigurationManager
-				.getInstance().isAnimationAllowed(AnimationFacet.SELECTION,
-						this.table));
-		hasSelectionAnimations.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (hasSelectionAnimations.isSelected()) {
-					AnimationConfigurationManager.getInstance()
-							.allowAnimations(AnimationFacet.SELECTION,
-									TablePanel.this.table);
-				} else {
-					AnimationConfigurationManager.getInstance()
-							.disallowAnimations(AnimationFacet.SELECTION,
-									TablePanel.this.table);
-				}
-			}
-		});
-		builder.append("Selections", hasSelectionAnimations);
+        final JCheckBox hasSelectionAnimations = new JCheckBox("Has selection effect");
+        hasSelectionAnimations.setSelected(SubstanceCortex.ComponentScope
+                .isAnimationAllowed(table, AnimationFacet.SELECTION));
+        hasSelectionAnimations.addActionListener((ActionEvent e) -> {
+            if (hasSelectionAnimations.isSelected()) {
+                SubstanceCortex.ComponentScope.allowAnimations(table, AnimationFacet.SELECTION);
+            } else {
+                SubstanceCortex.ComponentScope.disallowAnimations(table, AnimationFacet.SELECTION);
+            }
+        });
+        builder.append("Selections", hasSelectionAnimations);
 
 		builder.appendSeparator("Font settings");
 		JButton tahoma12 = new JButton("Tahoma 12");

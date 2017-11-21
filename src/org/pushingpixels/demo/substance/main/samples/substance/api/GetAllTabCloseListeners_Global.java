@@ -44,6 +44,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 import org.pushingpixels.substance.api.tabbed.TabCloseListener;
@@ -51,10 +52,10 @@ import org.pushingpixels.substance.api.tabbed.VetoableMultipleTabCloseListener;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceLookAndFeel#getAllTabCloseListeners()} API.
+ * {@link SubstanceCortex.GlobalScope#getAllTabCloseListeners()} API.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceLookAndFeel#getAllTabCloseListeners()
+ * @see SubstanceCortex.GlobalScope#getAllTabCloseListeners()
  */
 public class GetAllTabCloseListeners_Global extends JFrame {
 	/**
@@ -74,7 +75,7 @@ public class GetAllTabCloseListeners_Global extends JFrame {
 				SubstanceLookAndFeel.TABBED_PANE_CLOSE_BUTTONS_PROPERTY,
 				Boolean.TRUE);
 
-		SubstanceLookAndFeel.registerTabCloseChangeListener(null,
+		SubstanceCortex.GlobalScope.registerTabCloseChangeListener(
 				new TabCloseListener() {
 					public void tabClosing(JTabbedPane tabbedPane,
 							Component tabComponent) {
@@ -87,7 +88,7 @@ public class GetAllTabCloseListeners_Global extends JFrame {
 					}
 				});
 
-		SubstanceLookAndFeel.registerTabCloseChangeListener(jtp,
+		SubstanceCortex.ComponentScope.registerTabCloseChangeListener(jtp,
 				new VetoableMultipleTabCloseListener() {
 					public void tabsClosed(JTabbedPane tabbedPane,
 							Set<Component> tabComponents) {
@@ -115,7 +116,7 @@ public class GetAllTabCloseListeners_Global extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(
 						GetAllTabCloseListeners_Global.this,
-						SubstanceLookAndFeel.getAllTabCloseListeners().size()
+						SubstanceCortex.GlobalScope.getAllTabCloseListeners().size()
 								+ " global tab close listeners registered");
 			}
 		});
@@ -139,7 +140,7 @@ public class GetAllTabCloseListeners_Global extends JFrame {
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				SubstanceLookAndFeel.setSkin(new BusinessBlackSteelSkin());
+			    SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
 				new GetAllTabCloseListeners_Global().setVisible(true);
 			}
 		});

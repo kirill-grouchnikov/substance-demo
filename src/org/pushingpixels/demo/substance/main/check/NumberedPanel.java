@@ -40,6 +40,7 @@ import java.util.Date;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.internal.utils.WidgetUtilities;
 
@@ -49,89 +50,86 @@ import org.pushingpixels.substance.internal.utils.WidgetUtilities;
  * @author Kirill Grouchnikov
  */
 public class NumberedPanel extends JPanel {
-	/**
-	 * Panel that paints the current time and has a custom colored background.
-	 * 
-	 * @author Kirill Grouchnikov
-	 */
-	protected static class ColoredNumberedPanel extends JPanel {
-		/**
-		 * Panel ID number.
-		 */
-		private int number;
+    /**
+     * Panel that paints the current time and has a custom colored background.
+     * 
+     * @author Kirill Grouchnikov
+     */
+    protected static class ColoredNumberedPanel extends JPanel {
+        /**
+         * Panel ID number.
+         */
+        private int number;
 
-		/**
-		 * Creates a new panel.
-		 * 
-		 * @param number
-		 *            Panel ID number.
-		 */
-		public ColoredNumberedPanel(int number) {
-			this.number = number;
-			this.setBackground(new Color(255 - (int) (50.0 * Math.random()),
-					255 - (int) (50.0 * Math.random()),
-					255 - (int) (50.0 * Math.random())));
-		}
+        /**
+         * Creates a new panel.
+         * 
+         * @param number
+         *            Panel ID number.
+         */
+        public ColoredNumberedPanel(int number) {
+            this.number = number;
+            this.setBackground(new Color(255 - (int) (50.0 * Math.random()),
+                    255 - (int) (50.0 * Math.random()), 255 - (int) (50.0 * Math.random())));
+        }
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
-		 */
-		@Override
-		protected void paintComponent(Graphics g) {
-			int w = this.getWidth();
-			int h = this.getHeight();
-			Graphics2D graphics = (Graphics2D) g.create();
-			graphics.setComposite(WidgetUtilities.getAlphaComposite(this));
+        /*
+         * (non-Javadoc)
+         * 
+         * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+         */
+        @Override
+        protected void paintComponent(Graphics g) {
+            int w = this.getWidth();
+            int h = this.getHeight();
+            Graphics2D graphics = (Graphics2D) g.create();
+            graphics.setComposite(WidgetUtilities.getAlphaComposite(this));
 
-			if ((UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel)
-					&& SubstanceLookAndFeel.getCurrentSkin(this)
-							.getActiveColorScheme(
-									SubstanceLookAndFeel
-											.getDecorationType(this)).isDark())
-				graphics.setColor(Color.black);
-			else
-				graphics.setColor(Color.white);
-			graphics.fillRect(0, 0, w, h);
-			graphics.setComposite(WidgetUtilities.getAlphaComposite(this,
-					0.6f));
-			graphics.setColor(this.getBackground());
-			graphics.fillRect(0, 0, w, h);
-			graphics.setComposite(WidgetUtilities.getAlphaComposite(this));
-			if ((UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel)
-					&& SubstanceLookAndFeel.getCurrentSkin(this)
-							.getActiveColorScheme(
-									SubstanceLookAndFeel
-											.getDecorationType(this)).isDark())
-				graphics.setColor(Color.white);
-			else
-				graphics.setColor(Color.black);
-			int size = Math.min(60, Math.min(w, h) / 2);
-			graphics.setFont(new Font("Arial", Font.BOLD, size));
-			graphics
-					.drawString("" + number, (w - size) / 2, (h / 2 + size) / 2);
+            if ((UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel)
+                    && SubstanceCortex.ComponentScope.getCurrentSkin(this)
+                            .getActiveColorScheme(
+                                    SubstanceCortex.ComponentScope.getDecorationType(this))
+                            .isDark())
+                graphics.setColor(Color.black);
+            else
+                graphics.setColor(Color.white);
+            graphics.fillRect(0, 0, w, h);
+            graphics.setComposite(WidgetUtilities.getAlphaComposite(this, 0.6f));
+            graphics.setColor(this.getBackground());
+            graphics.fillRect(0, 0, w, h);
+            graphics.setComposite(WidgetUtilities.getAlphaComposite(this));
+            if ((UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel)
+                    && SubstanceCortex.ComponentScope.getCurrentSkin(this)
+                            .getActiveColorScheme(
+                                    SubstanceCortex.ComponentScope.getDecorationType(this))
+                            .isDark())
+                graphics.setColor(Color.white);
+            else
+                graphics.setColor(Color.black);
+            int size = Math.min(60, Math.min(w, h) / 2);
+            graphics.setFont(new Font("Arial", Font.BOLD, size));
+            graphics.drawString("" + number, (w - size) / 2, (h / 2 + size) / 2);
 
-			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss.SSS");
-			String currDate = sdf.format(new Date());
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss.SSS");
+            String currDate = sdf.format(new Date());
 
-			int size2 = Math.min(50, Math.min(w, h) / 3);
-			graphics.setFont(new Font("Arial", Font.BOLD, size2));
-			int timeLen = graphics.getFontMetrics().stringWidth(currDate);
-			graphics.drawString(currDate, (w - timeLen) / 2, (h + size) / 2);
+            int size2 = Math.min(50, Math.min(w, h) / 3);
+            graphics.setFont(new Font("Arial", Font.BOLD, size2));
+            int timeLen = graphics.getFontMetrics().stringWidth(currDate);
+            graphics.drawString(currDate, (w - timeLen) / 2, (h + size) / 2);
 
-			graphics.dispose();
-		}
-	}
+            graphics.dispose();
+        }
+    }
 
-	/**
-	 * Creates a new panel.
-	 * 
-	 * @param number
-	 *            Panel ID number.
-	 */
-	public NumberedPanel(int number) {
-		this.setLayout(new BorderLayout());
-		this.add(new ColoredNumberedPanel(number));
-	}
+    /**
+     * Creates a new panel.
+     * 
+     * @param number
+     *            Panel ID number.
+     */
+    public NumberedPanel(int number) {
+        this.setLayout(new BorderLayout());
+        this.add(new ColoredNumberedPanel(number));
+    }
 }

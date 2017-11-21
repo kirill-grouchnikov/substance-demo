@@ -39,19 +39,19 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 import org.pushingpixels.substance.api.tabbed.VetoableTabCloseListener;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceLookAndFeel#registerTabCloseChangeListener(JTabbedPane, org.pushingpixels.substance.tabbed.BaseTabCloseListener)}
+ * {@link SubstanceCortex.ComponentScope#registerTabCloseChangeListener(JTabbedPane, org.pushingpixels.substance.api.tabbed.BaseTabCloseListener)}
  * API with registering a vetoable tab close listener that listens on single tab
  * closing on a specific tabbed pane.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceLookAndFeel#registerTabCloseChangeListener(JTabbedPane,
- *      org.pushingpixels.substance.tabbed.BaseTabCloseListener)
+ * @see SubstanceCortex.ComponentScope#registerTabCloseChangeListeneSubstanceCortex.ComponentScope
  */
 public class RegisterTabCloseChangeListener_SpecificSingleVetoable extends
 		JFrame {
@@ -73,7 +73,7 @@ public class RegisterTabCloseChangeListener_SpecificSingleVetoable extends
 				Boolean.TRUE);
 
 		// register tab close listener on the specific tabbed pane.
-		SubstanceLookAndFeel.registerTabCloseChangeListener(jtp,
+		SubstanceCortex.ComponentScope.registerTabCloseChangeListener(jtp,
 				new VetoableTabCloseListener() {
 					public void tabClosing(JTabbedPane tabbedPane,
 							Component tabComponent) {
@@ -119,7 +119,7 @@ public class RegisterTabCloseChangeListener_SpecificSingleVetoable extends
 		JDialog.setDefaultLookAndFeelDecorated(true);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				SubstanceLookAndFeel.setSkin(new BusinessBlackSteelSkin());
+			    SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
 				new RegisterTabCloseChangeListener_SpecificSingleVetoable()
 						.setVisible(true);
 			}

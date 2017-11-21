@@ -121,15 +121,13 @@ import org.pushingpixels.demo.substance.main.check.svg.tango.format_text_italic;
 import org.pushingpixels.demo.substance.main.check.svg.tango.format_text_strikethrough;
 import org.pushingpixels.demo.substance.main.check.svg.tango.format_text_underline;
 import org.pushingpixels.demo.substance.main.check.svg.tango.process_stop;
-import org.pushingpixels.substance.api.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceConstants;
-import org.pushingpixels.substance.api.SubstanceConstants.Side;
-import org.pushingpixels.substance.api.SubstanceConstants.TabCloseKind;
+import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceSlices.Side;
+import org.pushingpixels.substance.api.SubstanceSlices.TabCloseKind;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.SubstancePluginRepository;
-import org.pushingpixels.substance.api.SubstanceWidgetRepository;
 import org.pushingpixels.substance.api.hidpi.IsResizable;
 import org.pushingpixels.substance.api.skin.SubstanceGeminiLookAndFeel;
 import org.pushingpixels.substance.api.tabbed.TabCloseCallback;
@@ -138,6 +136,7 @@ import org.pushingpixels.substance.api.tabbed.VetoableMultipleTabCloseListener;
 import org.pushingpixels.substance.api.tabbed.VetoableTabCloseListener;
 import org.pushingpixels.substance.swingx.SubstanceSwingxPlugin;
 import org.pushingpixels.substance.tabbed.DefaultTabPreviewPainter;
+import org.pushingpixels.substance.tabbed.TabOverviewDialogWidget.TabOverviewKind;
 import org.pushingpixels.substance.tabbed.TabPreviewUtilities;
 
 public class Check extends JFrame {
@@ -158,16 +157,16 @@ public class Check extends JFrame {
 				"Substance test with very very very very very very very very very very very very very very long title");
 
 		if (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel) {
-			setIconImage(SubstanceLogo.getLogoImage(SubstanceLookAndFeel
+			setIconImage(SubstanceLogo.getLogoImage(SubstanceCortex.ComponentScope
 					.getCurrentSkin(this.getRootPane()).getColorScheme(
 							DecorationAreaType.PRIMARY_TITLE_PANE,
 							ColorSchemeAssociationKind.FILL,
 							ComponentState.ENABLED)));
 		}
-		SubstanceLookAndFeel.registerSkinChangeListener(() ->
+		SubstanceCortex.GlobalScope.registerSkinChangeListener(() ->
 				SwingUtilities.invokeLater(() ->
 						setIconImage(SubstanceLogo.getLogoImage(
-								SubstanceLookAndFeel.getCurrentSkin(Check.this.getRootPane())
+						        SubstanceCortex.ComponentScope.getCurrentSkin(Check.this.getRootPane())
 										.getColorScheme(
 												DecorationAreaType.PRIMARY_TITLE_PANE,
 												ColorSchemeAssociationKind.FILL,
@@ -227,7 +226,7 @@ public class Check extends JFrame {
 		final JScrollPane scrollPane = new JScrollPane(taskPaneContainer,
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		SubstanceLookAndFeel.setDecorationType(scrollPane,
+		SubstanceCortex.ComponentScope.setDecorationType(scrollPane,
 				DecorationAreaType.GENERAL);
 		// scrollPane.setOpaque(false);
 		// scrollPane.getViewport().setOpaque(false);
@@ -472,7 +471,7 @@ public class Check extends JFrame {
 
 		jtp.putClientProperty(SubstanceLookAndFeel.TABBED_PANE_CLOSE_CALLBACK,
 				closeCallbackMain);
-		SubstanceLookAndFeel
+		SubstanceCortex.GlobalScope
 				.registerTabCloseChangeListener(new TabCloseListener() {
 					public void tabClosed(JTabbedPane tabbedPane,
 							Component tabComponent) {
@@ -485,7 +484,7 @@ public class Check extends JFrame {
 					}
 				});
 
-		SubstanceLookAndFeel.registerTabCloseChangeListener(jtp,
+		SubstanceCortex.ComponentScope.registerTabCloseChangeListener(jtp,
 				new VetoableTabCloseListener() {
 					public void tabClosed(JTabbedPane tabbedPane,
 							Component tabComponent) {
@@ -512,7 +511,7 @@ public class Check extends JFrame {
 					}
 				});
 
-		SubstanceLookAndFeel.registerTabCloseChangeListener(jtp,
+		SubstanceCortex.ComponentScope.registerTabCloseChangeListener(jtp,
 				new VetoableMultipleTabCloseListener() {
 					public void tabsClosed(JTabbedPane tabbedPane,
 							Set<Component> tabComponents) {
@@ -625,14 +624,14 @@ public class Check extends JFrame {
 	}
 
 	public static void main(String[] args) {
-        SubstancePluginRepository.getInstance().registerComponentPlugin(new SubstanceSwingxPlugin());
-        SubstanceWidgetRepository.getRepository().registerWidget(
+	    SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceSwingxPlugin());
+	    SubstanceCortex.GlobalScope.registerWidget(
                 "org.pushingpixels.substance.tabbed.TabHoverPreviewWidget", 
                 JTabbedPane.class, false);
-        SubstanceWidgetRepository.getRepository().registerWidget(
+	    SubstanceCortex.GlobalScope.registerWidget(
                 "org.pushingpixels.substance.tabbed.TabOverviewDialogWidget", 
                 JTabbedPane.class, false);
-        SubstanceWidgetRepository.getRepository().registerWidget(
+	    SubstanceCortex.GlobalScope.registerWidget(
                 "org.pushingpixels.substance.tabbed.TabPagerWidget", 
                 JTabbedPane.class, false);
 		SwingUtilities.invokeLater(new Runnable() {
@@ -652,7 +651,7 @@ public class Check extends JFrame {
 					e.printStackTrace();
 				}
 
-				SubstanceLookAndFeel.setToUseConstantThemesOnDialogs(true);
+				SubstanceCortex.GlobalScope.setToUseConstantThemesOnDialogs(true);
 				UIManager.put(SubstanceLookAndFeel.TABBED_PANE_CLOSE_BUTTONS_PROPERTY,
 						Boolean.TRUE);
 				UIManager.put(SubstanceLookAndFeel.SHOW_EXTRA_WIDGETS,
@@ -890,14 +889,14 @@ public class Check extends JFrame {
 
 	public static class MyMainTabPreviewPainter extends
 			DefaultTabPreviewPainter {
-		protected SubstanceConstants.TabOverviewKind tabOverviewKind;
+		protected TabOverviewKind tabOverviewKind;
 
-		public void setTabOverviewKind(SubstanceConstants.TabOverviewKind tabOverviewKind) {
+		public void setTabOverviewKind(TabOverviewKind tabOverviewKind) {
 			this.tabOverviewKind = tabOverviewKind;
 		}
 
 		@Override
-		public SubstanceConstants.TabOverviewKind getOverviewKind(JTabbedPane tabPane) {
+		public TabOverviewKind getOverviewKind(JTabbedPane tabPane) {
 			if (tabOverviewKind == null)
 				return super.getOverviewKind(tabPane);
 			return tabOverviewKind;

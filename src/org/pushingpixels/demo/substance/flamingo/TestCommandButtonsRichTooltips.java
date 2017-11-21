@@ -4,8 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.SubstancePluginRepository;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.OfficeBlue2007Skin;
 import org.pushingpixels.substance.flamingo.SubstanceFlamingoPlugin;
 
@@ -19,9 +18,8 @@ public class TestCommandButtonsRichTooltips
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                SubstanceLookAndFeel.setSkin(new OfficeBlue2007Skin());
-                SubstancePluginRepository.getInstance()
-                        .registerComponentPlugin(new SubstanceFlamingoPlugin());
+                SubstanceCortex.GlobalScope.setSkin(new OfficeBlue2007Skin());
+                SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceFlamingoPlugin());
                 TestCommandButtonsRichTooltips frame = new TestCommandButtonsRichTooltips();
                 frame.setSize(800, 400);
                 frame.setLocationRelativeTo(null);

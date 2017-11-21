@@ -16,8 +16,8 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
 import org.pushingpixels.demo.substance.main.check.SubstanceSkinComboSelector;
-import org.pushingpixels.substance.api.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.MistSilverSkin;
 
 public class DecorationTrees extends JFrame {
@@ -25,7 +25,7 @@ public class DecorationTrees extends JFrame {
 		public TreePanel(String caption, DecorationAreaType decorationAreaType,
 				boolean isEnabled) {
 			super(new BorderLayout());
-			SubstanceLookAndFeel.setDecorationType(this, decorationAreaType);
+			SubstanceCortex.ComponentScope.setDecorationType(this, decorationAreaType);
 
 			JLabel captionLabel = new JLabel(" " + caption);
 			Font font = captionLabel.getFont();
@@ -137,7 +137,7 @@ public class DecorationTrees extends JFrame {
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				SubstanceLookAndFeel.setSkin(new MistSilverSkin());
+				SubstanceCortex.GlobalScope.setSkin(new MistSilverSkin());
 				new DecorationTrees().setVisible(true);
 			}
 		});

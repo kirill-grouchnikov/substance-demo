@@ -37,76 +37,71 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 import org.pushingpixels.substance.api.tabbed.TabCloseListener;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceLookAndFeel#registerTabCloseChangeListener(JTabbedPane, org.pushingpixels.substance.tabbed.BaseTabCloseListener)}
- * API with registering a tab close listener that listens on single tab closing
- * on a specific tabbed pane.
+ * {@link SubstanceCortex.ComponentScope#registerTabCloseChangeListener(JTabbedPane, org.pushingpixels.substance.api.tabbed.BaseTabCloseListener)}
+ * API with registering a tab close listener that listens on single tab closing on a specific tabbed
+ * pane.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceLookAndFeel#registerTabCloseChangeListener(JTabbedPane,
- *      org.pushingpixels.substance.tabbed.BaseTabCloseListener)
+ * @see SubstanceCortex.ComponentScope#registerTabCloseChangeListener(JTabbedPane,
+ *      org.pushingpixels.substance.api.tabbed.BaseTabCloseListener)
  */
 public class RegisterTabCloseChangeListener_SpecificSingle extends JFrame {
-	/**
-	 * Creates the main frame for <code>this</code> sample.
-	 */
-	public RegisterTabCloseChangeListener_SpecificSingle() {
-		super("Register tab close listener");
+    /**
+     * Creates the main frame for <code>this</code> sample.
+     */
+    public RegisterTabCloseChangeListener_SpecificSingle() {
+        super("Register tab close listener");
 
-		this.setLayout(new BorderLayout());
+        this.setLayout(new BorderLayout());
 
-		JTabbedPane jtp = new JTabbedPane();
-		jtp.addTab("tab1", new JPanel());
-		jtp.addTab("tab2", new JPanel());
-		jtp.addTab("tab3", new JPanel());
+        JTabbedPane jtp = new JTabbedPane();
+        jtp.addTab("tab1", new JPanel());
+        jtp.addTab("tab2", new JPanel());
+        jtp.addTab("tab3", new JPanel());
 
-		jtp.putClientProperty(
-				SubstanceLookAndFeel.TABBED_PANE_CLOSE_BUTTONS_PROPERTY,
-				Boolean.TRUE);
+        jtp.putClientProperty(SubstanceLookAndFeel.TABBED_PANE_CLOSE_BUTTONS_PROPERTY,
+                Boolean.TRUE);
 
-		// register tab close listener on the specific tabbed pane.
-		SubstanceLookAndFeel.registerTabCloseChangeListener(jtp,
-				new TabCloseListener() {
-					public void tabClosing(JTabbedPane tabbedPane,
-							Component tabComponent) {
-						System.out.println("Tab "
-								+ tabbedPane.getTitleAt(tabbedPane
-										.indexOfComponent(tabComponent))
-								+ " closing");
-					}
+        // register tab close listener on the specific tabbed pane.
+        SubstanceCortex.ComponentScope.registerTabCloseChangeListener(jtp, new TabCloseListener() {
+            public void tabClosing(JTabbedPane tabbedPane, Component tabComponent) {
+                System.out.println(
+                        "Tab " + tabbedPane.getTitleAt(tabbedPane.indexOfComponent(tabComponent))
+                                + " closing");
+            }
 
-					public void tabClosed(JTabbedPane tabbedPane,
-							Component tabComponent) {
-						System.out.println("Tab closed");
-					}
-				});
+            public void tabClosed(JTabbedPane tabbedPane, Component tabComponent) {
+                System.out.println("Tab closed");
+            }
+        });
 
-		this.add(jtp, BorderLayout.CENTER);
+        this.add(jtp, BorderLayout.CENTER);
 
-		this.setSize(400, 200);
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+        this.setSize(400, 200);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
 
-	/**
-	 * The main method for <code>this</code> sample. The arguments are ignored.
-	 * 
-	 * @param args
-	 *            Ignored.
-	 */
-	public static void main(String[] args) {
-		JFrame.setDefaultLookAndFeelDecorated(true);
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				SubstanceLookAndFeel.setSkin(new BusinessBlackSteelSkin());
-				new RegisterTabCloseChangeListener_SpecificSingle()
-						.setVisible(true);
-			}
-		});
-	}
+    /**
+     * The main method for <code>this</code> sample. The arguments are ignored.
+     * 
+     * @param args
+     *            Ignored.
+     */
+    public static void main(String[] args) {
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
+                new RegisterTabCloseChangeListener_SpecificSingle().setVisible(true);
+            }
+        });
+    }
 }

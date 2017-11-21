@@ -36,7 +36,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import org.pushingpixels.substance.api.SubstanceConstants;
+import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
@@ -60,27 +61,27 @@ public class ButtonSideProperty extends JFrame {
 		// Mark button to have straight left side
 		// using side constant
 		buttonA.putClientProperty(SubstanceLookAndFeel.BUTTON_SIDE_PROPERTY,
-				SubstanceConstants.Side.LEFT);
+				SubstanceSlices.Side.LEFT);
 
 		JButton buttonB = new JButton("right only");
 		// Mark button to have straight right side
 		// using side constant
 		buttonB.putClientProperty(SubstanceLookAndFeel.BUTTON_SIDE_PROPERTY,
-				SubstanceConstants.Side.RIGHT);
+				SubstanceSlices.Side.RIGHT);
 
 		JButton buttonC = new JButton("left+top");
 		// Mark button to have straight left and top sides
 		// using set of side constants
 		buttonC.putClientProperty(SubstanceLookAndFeel.BUTTON_SIDE_PROPERTY,
-				EnumSet.of(SubstanceConstants.Side.LEFT,
-						SubstanceConstants.Side.TOP));
+				EnumSet.of(SubstanceSlices.Side.LEFT,
+						SubstanceSlices.Side.TOP));
 
 		JButton buttonD = new JButton("right+bottom");
 		// Mark button to have straight right and bottom sides
 		// using set of side constants
 		buttonD.putClientProperty(SubstanceLookAndFeel.BUTTON_SIDE_PROPERTY,
-				EnumSet.of(SubstanceConstants.Side.RIGHT,
-						SubstanceConstants.Side.BOTTOM));
+				EnumSet.of(SubstanceSlices.Side.RIGHT,
+						SubstanceSlices.Side.BOTTOM));
 
 		this.add(buttonA);
 		this.add(buttonB);
@@ -102,7 +103,7 @@ public class ButtonSideProperty extends JFrame {
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				SubstanceLookAndFeel.setSkin(new BusinessBlackSteelSkin());
+			    SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
 				new ButtonSideProperty().setVisible(true);
 			}
 		});

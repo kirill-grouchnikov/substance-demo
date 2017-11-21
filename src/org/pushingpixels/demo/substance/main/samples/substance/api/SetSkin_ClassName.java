@@ -40,15 +40,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceLookAndFeel#setSkin(String)} API.
+ * {@link SubstanceCortex.GlobalScope#setSkin(String)} API.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceLookAndFeel#setSkin(String)
+ * @see SubstanceCortex.GlobalScope#setSkin(String)
  */
 public class SetSkin_ClassName extends JFrame {
 	/**
@@ -67,7 +67,7 @@ public class SetSkin_ClassName extends JFrame {
 					public void run() {
 						changeSkin.setEnabled(false);
 						// set new skin by class name
-						SubstanceLookAndFeel
+						SubstanceCortex.GlobalScope
 								.setSkin("org.pushingpixels.substance.api.skin.BusinessSkin");
 						repaint();
 					}
@@ -94,7 +94,7 @@ public class SetSkin_ClassName extends JFrame {
 		JDialog.setDefaultLookAndFeelDecorated(true);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				SubstanceLookAndFeel.setSkin(new BusinessBlackSteelSkin());
+			    SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
 				new SetSkin_ClassName().setVisible(true);
 			}
 		});

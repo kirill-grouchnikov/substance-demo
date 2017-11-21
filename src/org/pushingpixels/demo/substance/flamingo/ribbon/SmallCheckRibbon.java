@@ -51,7 +51,7 @@ import org.pushingpixels.flamingo.api.ribbon.JFlowRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup;
 import org.pushingpixels.flamingo.api.ribbon.RibbonTask;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.OfficeBlue2007Skin;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
@@ -145,7 +145,7 @@ public class SmallCheckRibbon extends BasicCheckRibbon {
 
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				SubstanceLookAndFeel.setSkin(new OfficeBlue2007Skin());
+				SubstanceCortex.GlobalScope.setSkin(new OfficeBlue2007Skin());
 
 				SmallCheckRibbon c = new SmallCheckRibbon();
 				c.configureRibbon();

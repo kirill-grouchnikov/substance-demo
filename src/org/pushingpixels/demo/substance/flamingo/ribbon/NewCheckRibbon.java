@@ -58,12 +58,11 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import org.pushingpixels.demo.flamingo.ribbon.BasicCheckRibbon;
-import org.pushingpixels.substance.api.AnimationConfigurationManager;
-import org.pushingpixels.substance.api.AnimationFacet;
-import org.pushingpixels.substance.api.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceConstants.SubstanceWidgetType;
+import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceSlices.SubstanceWidgetType;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.SubstancePluginRepository;
 import org.pushingpixels.substance.api.skin.OfficeBlue2007Skin;
 import org.pushingpixels.substance.flamingo.SubstanceFlamingoPlugin;
 import org.pushingpixels.substance.flamingo.ribbon.gallery.oob.SubstanceRibbonTask;
@@ -80,7 +79,7 @@ public class NewCheckRibbon extends BasicCheckRibbon {
     @Override
     protected void configureStatusBar() {
         super.configureStatusBar();
-        SubstanceLookAndFeel.setDecorationType(this.statusBar, DecorationAreaType.FOOTER);
+        SubstanceCortex.ComponentScope.setDecorationType(this.statusBar, DecorationAreaType.FOOTER);
     }
 
     @Override
@@ -102,11 +101,9 @@ public class NewCheckRibbon extends BasicCheckRibbon {
         useGlowingIconsCheckBox.addActionListener((ActionEvent e) -> {
             SwingUtilities.invokeLater(() -> {
                 if (useGlowingIconsCheckBox.isSelected()) {
-                    AnimationConfigurationManager.getInstance()
-                            .allowAnimations(AnimationFacet.ICON_GLOW);
+                    SubstanceCortex.GlobalScope.allowAnimations(AnimationFacet.ICON_GLOW);
                 } else {
-                    AnimationConfigurationManager.getInstance()
-                            .disallowAnimations(AnimationFacet.ICON_GLOW);
+                    SubstanceCortex.GlobalScope.disallowAnimations(AnimationFacet.ICON_GLOW);
                 }
                 SwingUtilities.updateComponentTreeUI(NewCheckRibbon.this);
                 repaint();
@@ -117,14 +114,14 @@ public class NewCheckRibbon extends BasicCheckRibbon {
         final JCheckBox heapPanel = new JCheckBox("show");
         heapPanel.setSelected(false);
         heapPanel.addActionListener((ActionEvent e) -> {
-            SubstanceLookAndFeel.setWidgetVisible(getRootPane(), heapPanel.isSelected(),
+            SubstanceCortex.WindowScope.setWidgetVisible(this, heapPanel.isSelected(),
                     SubstanceWidgetType.TITLE_PANE_HEAP_STATUS);
         });
         formBuilder.append("Heap panel", heapPanel);
     }
 
     public static void main(String[] args) {
-        SubstancePluginRepository.getInstance().registerComponentPlugin(new SubstanceFlamingoPlugin());
+        SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceFlamingoPlugin());
         for (Window w : Window.getWindows()) {
             String wTitle = null;
             JRootPane rootPane = null;
@@ -193,7 +190,7 @@ public class NewCheckRibbon extends BasicCheckRibbon {
 
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                SubstanceLookAndFeel.setSkin(new OfficeBlue2007Skin());
+                SubstanceCortex.GlobalScope.setSkin(new OfficeBlue2007Skin());
                 NewCheckRibbon c = new NewCheckRibbon();
                 c.configureRibbon();
                 c.applyComponentOrientation(

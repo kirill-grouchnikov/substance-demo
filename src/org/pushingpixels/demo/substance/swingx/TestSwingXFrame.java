@@ -68,345 +68,334 @@ import org.jdesktop.swingx.tips.TipOfTheDayModel;
 import org.pushingpixels.demo.substance.main.SubstanceLogo;
 import org.pushingpixels.demo.substance.main.check.SampleMenuFactory;
 import org.pushingpixels.demo.substance.main.check.statusbar.FontSizePanel;
-import org.pushingpixels.substance.api.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.font.FontPolicy;
 import org.pushingpixels.substance.api.font.FontSet;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 public class TestSwingXFrame extends JFrame {
-	private static class WrapperFontSet implements FontSet {
-		private int extra;
+    private static class WrapperFontSet implements FontSet {
+        private int extra;
 
-		private FontSet delegate;
+        private FontSet delegate;
 
-		public WrapperFontSet(FontSet delegate, int extra) {
-			super();
-			this.delegate = delegate;
-			this.extra = extra;
-		}
+        public WrapperFontSet(FontSet delegate, int extra) {
+            super();
+            this.delegate = delegate;
+            this.extra = extra;
+        }
 
-		private FontUIResource getWrappedFont(FontUIResource systemFont) {
-			return new FontUIResource(systemFont.getFontName(), systemFont
-					.getStyle(), systemFont.getSize() + this.extra);
-		}
+        private FontUIResource getWrappedFont(FontUIResource systemFont) {
+            return new FontUIResource(systemFont.getFontName(), systemFont.getStyle(),
+                    systemFont.getSize() + this.extra);
+        }
 
-		public FontUIResource getControlFont() {
-			return this.getWrappedFont(this.delegate.getControlFont());
-		}
+        public FontUIResource getControlFont() {
+            return this.getWrappedFont(this.delegate.getControlFont());
+        }
 
-		public FontUIResource getMenuFont() {
-			return this.getWrappedFont(this.delegate.getMenuFont());
-		}
+        public FontUIResource getMenuFont() {
+            return this.getWrappedFont(this.delegate.getMenuFont());
+        }
 
-		public FontUIResource getMessageFont() {
-			return this.getWrappedFont(this.delegate.getMessageFont());
-		}
+        public FontUIResource getMessageFont() {
+            return this.getWrappedFont(this.delegate.getMessageFont());
+        }
 
-		public FontUIResource getSmallFont() {
-			return this.getWrappedFont(this.delegate.getSmallFont());
-		}
+        public FontUIResource getSmallFont() {
+            return this.getWrappedFont(this.delegate.getSmallFont());
+        }
 
-		public FontUIResource getTitleFont() {
-			return this.getWrappedFont(this.delegate.getTitleFont());
-		}
+        public FontUIResource getTitleFont() {
+            return this.getWrappedFont(this.delegate.getTitleFont());
+        }
 
-		public FontUIResource getWindowTitleFont() {
-			// FontUIResource f = this.getWrappedFont(this.delegate
-			// .getWindowTitleFont());
-			// return new FontUIResource(f.deriveFont(Font.BOLD, f.getSize() +
-			// 1));
-			return this.getWrappedFont(this.delegate.getWindowTitleFont());
-		}
-	}
+        public FontUIResource getWindowTitleFont() {
+            // FontUIResource f = this.getWrappedFont(this.delegate
+            // .getWindowTitleFont());
+            // return new FontUIResource(f.deriveFont(Font.BOLD, f.getSize() +
+            // 1));
+            return this.getWrappedFont(this.delegate.getWindowTitleFont());
+        }
+    }
 
-	TestSwingXFrame() {
-		super("SwingX testing bed");
+    TestSwingXFrame() {
+        super("SwingX testing bed");
 
-		this.setIconImage(
-				SubstanceLogo.getLogoImage(SubstanceLookAndFeel.getCurrentSkin(this.getRootPane())
-						.getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
-								ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
-		SubstanceLookAndFeel.registerSkinChangeListener(
-				() -> SwingUtilities.invokeLater(() -> setIconImage(SubstanceLogo.getLogoImage(
-						SubstanceLookAndFeel.getCurrentSkin(getRootPane()).getColorScheme(
-								DecorationAreaType.PRIMARY_TITLE_PANE,
-								ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)))));
+        this.setIconImage(
+                SubstanceLogo.getLogoImage(SubstanceCortex.ComponentScope.getCurrentSkin(this.getRootPane())
+                        .getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
+                                ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
+        SubstanceCortex.GlobalScope.registerSkinChangeListener(
+                () -> SwingUtilities.invokeLater(() -> setIconImage(SubstanceLogo.getLogoImage(
+                        SubstanceCortex.ComponentScope.getCurrentSkin(getRootPane()).getColorScheme(
+                                DecorationAreaType.PRIMARY_TITLE_PANE,
+                                ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)))));
 
-		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DAY_OF_MONTH, 4);
-		Date[] unselDates = new Date[3];
-		unselDates[0] = cal.getTime();
-		cal.add(Calendar.DAY_OF_MONTH, 3);
-		unselDates[1] = cal.getTime();
-		cal.add(Calendar.DAY_OF_MONTH, 3);
-		unselDates[2] = cal.getTime();
-		long[] flaggedDates = new long[3];
-		cal.add(Calendar.DAY_OF_MONTH, 1);
-		flaggedDates[0] = cal.getTimeInMillis();
-		cal.add(Calendar.DAY_OF_MONTH, 2);
-		flaggedDates[1] = cal.getTimeInMillis();
-		cal.add(Calendar.DAY_OF_MONTH, 2);
-		flaggedDates[2] = cal.getTimeInMillis();
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_MONTH, 4);
+        Date[] unselDates = new Date[3];
+        unselDates[0] = cal.getTime();
+        cal.add(Calendar.DAY_OF_MONTH, 3);
+        unselDates[1] = cal.getTime();
+        cal.add(Calendar.DAY_OF_MONTH, 3);
+        unselDates[2] = cal.getTime();
+        long[] flaggedDates = new long[3];
+        cal.add(Calendar.DAY_OF_MONTH, 1);
+        flaggedDates[0] = cal.getTimeInMillis();
+        cal.add(Calendar.DAY_OF_MONTH, 2);
+        flaggedDates[1] = cal.getTimeInMillis();
+        cal.add(Calendar.DAY_OF_MONTH, 2);
+        flaggedDates[2] = cal.getTimeInMillis();
 
-		JXTaskPaneContainer taskPaneContainer = new JXTaskPaneContainer() {
-			@Override
-			public boolean getScrollableTracksViewportWidth() {
-				return false;
-			}
-		};
+        JXTaskPaneContainer taskPaneContainer = new JXTaskPaneContainer() {
+            @Override
+            public boolean getScrollableTracksViewportWidth() {
+                return false;
+            }
+        };
 
-		JXTaskPane taskPane = new JXTaskPane();
-		taskPane.setTitle("JXMonthView and JXDatePicker");
-		taskPaneContainer.add(taskPane);
-		JXMonthView monthView = new JXMonthView();
-		// monthView.setFlaggedDates(flaggedDates);
-		// monthView.setUnselectableDates(unselDates);
-		monthView.setShowingLeadingDays(true);
-		monthView.setShowingTrailingDays(true);
-		monthView.setShowingWeekNumber(true);
-		monthView
-				.setSelectionMode(DateSelectionModel.SelectionMode.MULTIPLE_INTERVAL_SELECTION);
-		monthView.setDayForeground(Calendar.SUNDAY, Color.blue);
-		monthView.setTraversable(true);
-		// monthView.setFlaggedDates(unselDates);
-		taskPane.add(monthView);
+        JXTaskPane taskPane = new JXTaskPane();
+        taskPane.setTitle("JXMonthView and JXDatePicker");
+        taskPaneContainer.add(taskPane);
+        JXMonthView monthView = new JXMonthView();
+        // monthView.setFlaggedDates(flaggedDates);
+        // monthView.setUnselectableDates(unselDates);
+        monthView.setShowingLeadingDays(true);
+        monthView.setShowingTrailingDays(true);
+        monthView.setShowingWeekNumber(true);
+        monthView.setSelectionMode(DateSelectionModel.SelectionMode.MULTIPLE_INTERVAL_SELECTION);
+        monthView.setDayForeground(Calendar.SUNDAY, Color.blue);
+        monthView.setTraversable(true);
+        // monthView.setFlaggedDates(unselDates);
+        taskPane.add(monthView);
 
-		JXDatePicker datePicker = new JXDatePicker();
-		datePicker.getMonthView().setUnselectableDates(unselDates);
-		taskPane.add(datePicker);
+        JXDatePicker datePicker = new JXDatePicker();
+        datePicker.getMonthView().setUnselectableDates(unselDates);
+        taskPane.add(datePicker);
 
-		taskPane = new JXTaskPane();
-		taskPane.setTitle("JXHyperlink and JXTitledSeparator");
-		taskPane.setSpecial(true);
-		taskPaneContainer.add(taskPane);
-		JXHyperlink link = new JXHyperlink();
-		link.setText("My first link");
-		taskPane.add(link);
-		taskPane.add(new JXTitledSeparator("Titled separator"));
+        taskPane = new JXTaskPane();
+        taskPane.setTitle("JXHyperlink and JXTitledSeparator");
+        taskPane.setSpecial(true);
+        taskPaneContainer.add(taskPane);
+        JXHyperlink link = new JXHyperlink();
+        link.setText("My first link");
+        taskPane.add(link);
+        taskPane.add(new JXTitledSeparator("Titled separator"));
 
-		JXTaskPane taskPaneVarious = new JXTaskPane();
-		taskPaneVarious.setTitle("Various SwingX components");
-		taskPaneContainer.add(taskPaneVarious);
-		JButton headerButton = new JButton("Test JXHeader");
-		headerButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JDialog dialog = new JDialog(TestSwingXFrame.this,
-						"JXHeader test", true);
-				JXHeader header = new JXHeader();
-				header.setTitle("Sample header title");
-				header
-						.setDescription("Sample long long\nlong header description");
-				dialog.add(header, BorderLayout.NORTH);
-				dialog.add(new JPanel() {
-					@Override
-					public Dimension getPreferredSize() {
-						return new Dimension(400, 200);
-					}
-				}, BorderLayout.CENTER);
-				dialog.pack();
-				dialog.setLocationRelativeTo(TestSwingXFrame.this);
-				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-				dialog.setVisible(true);
-			}
-		});
-		taskPaneVarious.add(headerButton);
+        JXTaskPane taskPaneVarious = new JXTaskPane();
+        taskPaneVarious.setTitle("Various SwingX components");
+        taskPaneContainer.add(taskPaneVarious);
+        JButton headerButton = new JButton("Test JXHeader");
+        headerButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JDialog dialog = new JDialog(TestSwingXFrame.this, "JXHeader test", true);
+                JXHeader header = new JXHeader();
+                header.setTitle("Sample header title");
+                header.setDescription("Sample long long\nlong header description");
+                dialog.add(header, BorderLayout.NORTH);
+                dialog.add(new JPanel() {
+                    @Override
+                    public Dimension getPreferredSize() {
+                        return new Dimension(400, 200);
+                    }
+                }, BorderLayout.CENTER);
+                dialog.pack();
+                dialog.setLocationRelativeTo(TestSwingXFrame.this);
+                dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                dialog.setVisible(true);
+            }
+        });
+        taskPaneVarious.add(headerButton);
 
-		JButton showLoginDialog = new JButton("Show JXLoginDialog");
-		showLoginDialog.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JXLoginPane loginPane = new JXLoginPane();
-				loginPane.setMessage("Sample login message");
-				loginPane.setBannerText("Sample banner");
-				JXLoginPane.showLoginDialog(TestSwingXFrame.this, loginPane);
-			}
-		});
-		taskPaneVarious.add(showLoginDialog);
+        JButton showLoginDialog = new JButton("Show JXLoginDialog");
+        showLoginDialog.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JXLoginPane loginPane = new JXLoginPane();
+                loginPane.setMessage("Sample login message");
+                loginPane.setBannerText("Sample banner");
+                JXLoginPane.showLoginDialog(TestSwingXFrame.this, loginPane);
+            }
+        });
+        taskPaneVarious.add(showLoginDialog);
 
-		JButton showTopOfTheDayDialog = new JButton("Show JXTipOfTheDay");
-		showTopOfTheDayDialog.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Properties tips = new Properties();
-				try {
-					tips.load(TestSwingXFrame.class.getClassLoader()
-							.getResourceAsStream("test/tips.properties"));
-				} catch (Exception exc) {
-				}
+        JButton showTopOfTheDayDialog = new JButton("Show JXTipOfTheDay");
+        showTopOfTheDayDialog.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Properties tips = new Properties();
+                try {
+                    tips.load(TestSwingXFrame.class.getClassLoader()
+                            .getResourceAsStream("test/tips.properties"));
+                } catch (Exception exc) {
+                }
 
-				TipOfTheDayModel model = TipLoader.load(tips);
-				JXTipOfTheDay totd = new JXTipOfTheDay(model);
+                TipOfTheDayModel model = TipLoader.load(tips);
+                JXTipOfTheDay totd = new JXTipOfTheDay(model);
 
-				totd.showDialog(TestSwingXFrame.this);
-			}
-		});
-		taskPaneVarious.add(showTopOfTheDayDialog);
+                totd.showDialog(TestSwingXFrame.this);
+            }
+        });
+        taskPaneVarious.add(showTopOfTheDayDialog);
 
-		JButton titledPanelButton = new JButton("Test JXTitledPanel");
-		titledPanelButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFrame dialog = new JFrame("JXTitledPanel test");
-				dialog.add(new JXTitledPanel("Left panel"), BorderLayout.WEST);
-				JPanel center = new JPanel(new GridLayout(2, 1, 0, 0));
-				center.add(new JXTitledPanel("Top panel"));
-				center.add(new JXTitledPanel("Bottom panel"));
-				dialog.add(center, BorderLayout.CENTER);
-				dialog.setSize(600, 300);
-				dialog.setLocationRelativeTo(TestSwingXFrame.this);
-				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-				dialog.setVisible(true);
-			}
-		});
-		taskPaneVarious.add(titledPanelButton);
+        JButton titledPanelButton = new JButton("Test JXTitledPanel");
+        titledPanelButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFrame dialog = new JFrame("JXTitledPanel test");
+                dialog.add(new JXTitledPanel("Left panel"), BorderLayout.WEST);
+                JPanel center = new JPanel(new GridLayout(2, 1, 0, 0));
+                center.add(new JXTitledPanel("Top panel"));
+                center.add(new JXTitledPanel("Bottom panel"));
+                dialog.add(center, BorderLayout.CENTER);
+                dialog.setSize(600, 300);
+                dialog.setLocationRelativeTo(TestSwingXFrame.this);
+                dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                dialog.setVisible(true);
+            }
+        });
+        taskPaneVarious.add(titledPanelButton);
 
-		JButton errorPaneButton = new JButton("Test JXErrorPane");
-		errorPaneButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					new URL("some wrong URL string");
-				} catch (MalformedURLException murle) {
-					String msg = "<html>An error just happened. Possible reasons:"
-							+ "<ol><li>Development team hoped nobody would notice."
-							+ "<li>The testers missed this scenario. Wait, we don't have testers."
-							+ "<li>Didn't your momma teach you not to use Linux?"
-							+ "</ol>"
-							+ "In any case, it's all open source so it's all good. Fix it yourself.";
-					String details = "<html>Web resources should begin with \"http://\""
-							+ " and cannot contain any spaces. Below are a few"
-							+ " more guidelines.<ul></ul></html>";
-					JXErrorPane.showDialog(TestSwingXFrame.this, new ErrorInfo(
-							"Reformatting the disk complete", msg, details,
-							null, murle, null, null));
-				}
-			}
-		});
-		taskPaneVarious.add(errorPaneButton);
+        JButton errorPaneButton = new JButton("Test JXErrorPane");
+        errorPaneButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    new URL("some wrong URL string");
+                } catch (MalformedURLException murle) {
+                    String msg = "<html>An error just happened. Possible reasons:"
+                            + "<ol><li>Development team hoped nobody would notice."
+                            + "<li>The testers missed this scenario. Wait, we don't have testers."
+                            + "<li>Didn't your momma teach you not to use Linux?" + "</ol>"
+                            + "In any case, it's all open source so it's all good. Fix it yourself.";
+                    String details = "<html>Web resources should begin with \"http://\""
+                            + " and cannot contain any spaces. Below are a few"
+                            + " more guidelines.<ul></ul></html>";
+                    JXErrorPane.showDialog(TestSwingXFrame.this,
+                            new ErrorInfo("Reformatting the disk complete", msg, details, null,
+                                    murle, null, null));
+                }
+            }
+        });
+        taskPaneVarious.add(errorPaneButton);
 
-		taskPaneVarious.add(new JTextField("Field 1"));
+        taskPaneVarious.add(new JTextField("Field 1"));
 
-		JScrollPane scrollPane = new JScrollPane(taskPaneContainer);
-		scrollPane.setBorder(new EmptyBorder(0, 0, 0, 0));
-		this.add(scrollPane, BorderLayout.WEST);
+        JScrollPane scrollPane = new JScrollPane(taskPaneContainer);
+        scrollPane.setBorder(new EmptyBorder(0, 0, 0, 0));
+        this.add(scrollPane, BorderLayout.WEST);
 
-		final JTabbedPane mainPane = new JTabbedPane();
-		mainPane.addTab("JXTable", new TablePanel());
-		mainPane.addTab("JXTreeTable", new TreeTablePanel());
-		this.add(mainPane, BorderLayout.CENTER);
+        final JTabbedPane mainPane = new JTabbedPane();
+        mainPane.addTab("JXTable", new TablePanel());
+        mainPane.addTab("JXTreeTable", new TreeTablePanel());
+        this.add(mainPane, BorderLayout.CENTER);
 
-		JXStatusBar statusBar = new JXStatusBar();
-		this.add(statusBar, BorderLayout.SOUTH);
+        JXStatusBar statusBar = new JXStatusBar();
+        this.add(statusBar, BorderLayout.SOUTH);
 
-		// final JLabel statusLabel = new JLabel("");
-		// JXStatusBar.Constraint cStatusLabel = new JXStatusBar.Constraint();
-		// cStatusLabel.setFixedWidth(100);
-		// statusBar.add(statusLabel, cStatusLabel);
-		// try {
-		// Toolkit.getDefaultToolkit().addAWTEventListener(
-		// new AWTEventListener() {
-		// public void eventDispatched(AWTEvent event) {
-		// if (event instanceof MouseEvent) {
-		// MouseEvent me = (MouseEvent) event;
-		// if (me.getID() == MouseEvent.MOUSE_MOVED) {
-		// Point p = me.getPoint();
-		// statusLabel.setText(p.x + ":" + p.y);
-		// }
-		// }
-		// }
-		// }, AWTEvent.MOUSE_MOTION_EVENT_MASK);
-		// } catch (AccessControlException ace) {
-		// // running in JNLP - ignore
-		// }
+        // final JLabel statusLabel = new JLabel("");
+        // JXStatusBar.Constraint cStatusLabel = new JXStatusBar.Constraint();
+        // cStatusLabel.setFixedWidth(100);
+        // statusBar.add(statusLabel, cStatusLabel);
+        // try {
+        // Toolkit.getDefaultToolkit().addAWTEventListener(
+        // new AWTEventListener() {
+        // public void eventDispatched(AWTEvent event) {
+        // if (event instanceof MouseEvent) {
+        // MouseEvent me = (MouseEvent) event;
+        // if (me.getID() == MouseEvent.MOUSE_MOVED) {
+        // Point p = me.getPoint();
+        // statusLabel.setText(p.x + ":" + p.y);
+        // }
+        // }
+        // }
+        // }, AWTEvent.MOUSE_MOTION_EVENT_MASK);
+        // } catch (AccessControlException ace) {
+        // // running in JNLP - ignore
+        // }
 
-		JXStatusBar.Constraint c2 = new JXStatusBar.Constraint(
-				JXStatusBar.Constraint.ResizeBehavior.FILL);
-		final JLabel tabLabel = new JLabel("");
-		statusBar.add(tabLabel, c2);
-		mainPane.getModel().addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				int selectedIndex = mainPane.getSelectedIndex();
-				if (selectedIndex < 0)
-					tabLabel.setText("No selected tab");
-				else
-					tabLabel.setText("Tab "
-							+ mainPane.getTitleAt(selectedIndex) + " selected");
-			}
-		});
+        JXStatusBar.Constraint c2 = new JXStatusBar.Constraint(
+                JXStatusBar.Constraint.ResizeBehavior.FILL);
+        final JLabel tabLabel = new JLabel("");
+        statusBar.add(tabLabel, c2);
+        mainPane.getModel().addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                int selectedIndex = mainPane.getSelectedIndex();
+                if (selectedIndex < 0)
+                    tabLabel.setText("No selected tab");
+                else
+                    tabLabel.setText("Tab " + mainPane.getTitleAt(selectedIndex) + " selected");
+            }
+        });
 
-		final JSlider fontSizeSlider = new JSlider(-3, 6, 0);
-		fontSizeSlider.setFocusable(false);
-		fontSizeSlider.setOpaque(false);
-		fontSizeSlider
-				.setToolTipText("Controls the global font set size. Resets Substance as the current LAF.");
-		fontSizeSlider.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				// if the value is adjusting - ignore. This is done
-				// to make CPU usage better.
-				if (!fontSizeSlider.getModel().getValueIsAdjusting()) {
-					final int newValue = fontSizeSlider.getValue();
-					SwingUtilities.invokeLater(new Runnable() {
-						public void run() {
-							SubstanceLookAndFeel.setFontPolicy(null);
-							final FontSet substanceCoreFontSet = SubstanceLookAndFeel
-									.getFontPolicy().getFontSet("Substance",
-											null);
-							FontPolicy newFontPolicy = new FontPolicy() {
-								public FontSet getFontSet(String lafName,
-										UIDefaults table) {
-									return new WrapperFontSet(
-											substanceCoreFontSet, newValue);
-								}
-							};
+        final JSlider fontSizeSlider = new JSlider(-3, 6, 0);
+        fontSizeSlider.setFocusable(false);
+        fontSizeSlider.setOpaque(false);
+        fontSizeSlider.setToolTipText(
+                "Controls the global font set size. Resets Substance as the current LAF.");
+        fontSizeSlider.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                // if the value is adjusting - ignore. This is done
+                // to make CPU usage better.
+                if (!fontSizeSlider.getModel().getValueIsAdjusting()) {
+                    final int newValue = fontSizeSlider.getValue();
+                    SwingUtilities.invokeLater(new Runnable() {
+                        public void run() {
+                            SubstanceCortex.GlobalScope.setFontPolicy(null);
+                            final FontSet substanceCoreFontSet = SubstanceCortex.GlobalScope
+                                    .getFontPolicy().getFontSet("Substance", null);
+                            FontPolicy newFontPolicy = new FontPolicy() {
+                                public FontSet getFontSet(String lafName, UIDefaults table) {
+                                    return new WrapperFontSet(substanceCoreFontSet, newValue);
+                                }
+                            };
 
-							try {
-								TestSwingXFrame.this
-										.setCursor(Cursor
-												.getPredefinedCursor(Cursor.WAIT_CURSOR));
-								SubstanceLookAndFeel
-										.setFontPolicy(newFontPolicy);
-								TestSwingXFrame.this.setCursor(Cursor
-										.getDefaultCursor());
-							} catch (Exception exc) {
-								exc.printStackTrace();
-							}
-						}
-					});
-				}
-			}
-		});
+                            try {
+                                TestSwingXFrame.this
+                                        .setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                                SubstanceCortex.GlobalScope.setFontPolicy(newFontPolicy);
+                                TestSwingXFrame.this.setCursor(Cursor.getDefaultCursor());
+                            } catch (Exception exc) {
+                                exc.printStackTrace();
+                            }
+                        }
+                    });
+                }
+            }
+        });
 
-		JPanel fontSizePanel = FontSizePanel.getPanel();
-		JXStatusBar.Constraint fontSizePanelConstraints = new JXStatusBar.Constraint();
-		fontSizePanelConstraints.setFixedWidth(350);
-		statusBar.add(fontSizePanel, fontSizePanelConstraints);
+        JPanel fontSizePanel = FontSizePanel.getPanel();
+        JXStatusBar.Constraint fontSizePanelConstraints = new JXStatusBar.Constraint();
+        fontSizePanelConstraints.setFixedWidth(350);
+        statusBar.add(fontSizePanel, fontSizePanelConstraints);
 
-		this.setSize(1080, 800);
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(1080, 800);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		// LAF changing
-		JMenuBar jmb = new JMenuBar();
-		jmb.add(SampleMenuFactory.getLookAndFeelMenu(this));
-		this.setJMenuBar(jmb);
+        // LAF changing
+        JMenuBar jmb = new JMenuBar();
+        jmb.add(SampleMenuFactory.getLookAndFeelMenu(this));
+        this.setJMenuBar(jmb);
 
-		JToolBar toolbar = new JToolBar();
-		JXDatePicker datePickerToolBar = new JXDatePicker();
-		toolbar.add(datePickerToolBar);
+        JToolBar toolbar = new JToolBar();
+        JXDatePicker datePickerToolBar = new JXDatePicker();
+        toolbar.add(datePickerToolBar);
 
-		this.add(toolbar, BorderLayout.NORTH);
+        this.add(toolbar, BorderLayout.NORTH);
 
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
 
-	public static void main(String[] args) {
-		JDialog.setDefaultLookAndFeelDecorated(true);
-		JFrame.setDefaultLookAndFeelDecorated(true);
+    public static void main(String[] args) {
+        JDialog.setDefaultLookAndFeelDecorated(true);
+        JFrame.setDefaultLookAndFeelDecorated(true);
 
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				SubstanceLookAndFeel.setSkin(new BusinessBlackSteelSkin());
-				new TestSwingXFrame().setVisible(true);
-			}
-		});
-	}
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
+                new TestSwingXFrame().setVisible(true);
+            }
+        });
+    }
 }

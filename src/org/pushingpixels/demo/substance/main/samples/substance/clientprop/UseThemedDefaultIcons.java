@@ -42,6 +42,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.GraphiteSkin;
 
@@ -117,7 +118,7 @@ public class UseThemedDefaultIcons extends JFrame {
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				SubstanceLookAndFeel.setSkin(new GraphiteSkin());
+				SubstanceCortex.GlobalScope.setSkin(new GraphiteSkin());
 				new UseThemedDefaultIcons().setVisible(true);
 			}
 		});

@@ -41,7 +41,8 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
-import org.pushingpixels.substance.api.SubstanceConstants.TabCloseKind;
+import org.pushingpixels.substance.api.SubstanceSlices.TabCloseKind;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 import org.pushingpixels.substance.api.tabbed.TabCloseCallback;
@@ -49,143 +50,131 @@ import org.pushingpixels.substance.api.tabbed.VetoableMultipleTabCloseListener;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceLookAndFeel#registerTabCloseChangeListener(JTabbedPane, org.pushingpixels.substance.tabbed.BaseTabCloseListener)}
- * API with registering a vetoable tab close listener that listens on multiple
- * tab closing on a specific tabbed pane.
+ * {@link SubstanceCortex.ComponentScope#registerTabCloseChangeListener(JTabbedPane, org.pushingpixels.substance.api.tabbed.BaseTabCloseListener)}
+ * API with registering a vetoable tab close listener that listens on multiple tab closing on a
+ * specific tabbed pane.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceLookAndFeel#registerTabCloseChangeListener(JTabbedPane,
- *      org.pushingpixels.substance.tabbed.BaseTabCloseListener)
+ * @see SubstanceCortex.ComponentScope#registerTabCloseChangeListener(JTabbedPane,
+ *      org.pushingpixels.substance.api.tabbed.BaseTabCloseListener)
  */
-public class RegisterTabCloseChangeListener_SpecificMultipleVetoable extends
-		JFrame {
-	/**
-	 * Creates the main frame for <code>this</code> sample.
-	 */
-	public RegisterTabCloseChangeListener_SpecificMultipleVetoable() {
-		super("Register tab close listener");
+public class RegisterTabCloseChangeListener_SpecificMultipleVetoable extends JFrame {
+    /**
+     * Creates the main frame for <code>this</code> sample.
+     */
+    public RegisterTabCloseChangeListener_SpecificMultipleVetoable() {
+        super("Register tab close listener");
 
-		this.setLayout(new BorderLayout());
+        this.setLayout(new BorderLayout());
 
-		JTabbedPane jtp = new JTabbedPane();
-		jtp.addTab("tab1", new JPanel());
-		jtp.addTab("tab2", new JPanel());
-		jtp.addTab("tab3", new JPanel());
+        JTabbedPane jtp = new JTabbedPane();
+        jtp.addTab("tab1", new JPanel());
+        jtp.addTab("tab2", new JPanel());
+        jtp.addTab("tab3", new JPanel());
 
-		jtp.putClientProperty(
-				SubstanceLookAndFeel.TABBED_PANE_CLOSE_BUTTONS_PROPERTY,
-				Boolean.TRUE);
+        jtp.putClientProperty(SubstanceLookAndFeel.TABBED_PANE_CLOSE_BUTTONS_PROPERTY,
+                Boolean.TRUE);
 
-		// create a custom implementation of TabCloseCallback interface.
-		TabCloseCallback closeCallback = new TabCloseCallback() {
-			public TabCloseKind onAreaClick(JTabbedPane tabbedPane,
-					int tabIndex, MouseEvent mouseEvent) {
-				if (mouseEvent.getButton() != MouseEvent.BUTTON3)
-					return TabCloseKind.NONE;
-				if (mouseEvent.isShiftDown()) {
-					return TabCloseKind.ALL;
-				}
-				return TabCloseKind.THIS;
-			}
+        // create a custom implementation of TabCloseCallback interface.
+        TabCloseCallback closeCallback = new TabCloseCallback() {
+            public TabCloseKind onAreaClick(JTabbedPane tabbedPane, int tabIndex,
+                    MouseEvent mouseEvent) {
+                if (mouseEvent.getButton() != MouseEvent.BUTTON3)
+                    return TabCloseKind.NONE;
+                if (mouseEvent.isShiftDown()) {
+                    return TabCloseKind.ALL;
+                }
+                return TabCloseKind.THIS;
+            }
 
-			public TabCloseKind onCloseButtonClick(JTabbedPane tabbedPane,
-					int tabIndex, MouseEvent mouseEvent) {
-				if (mouseEvent.isAltDown()) {
-					return TabCloseKind.ALL_BUT_THIS;
-				}
-				if (mouseEvent.isShiftDown()) {
-					return TabCloseKind.ALL;
-				}
-				return TabCloseKind.THIS;
-			}
+            public TabCloseKind onCloseButtonClick(JTabbedPane tabbedPane, int tabIndex,
+                    MouseEvent mouseEvent) {
+                if (mouseEvent.isAltDown()) {
+                    return TabCloseKind.ALL_BUT_THIS;
+                }
+                if (mouseEvent.isShiftDown()) {
+                    return TabCloseKind.ALL;
+                }
+                return TabCloseKind.THIS;
+            }
 
-			public String getAreaTooltip(JTabbedPane tabbedPane, int tabIndex) {
-				return null;
-			}
+            public String getAreaTooltip(JTabbedPane tabbedPane, int tabIndex) {
+                return null;
+            }
 
-			public String getCloseButtonTooltip(JTabbedPane tabbedPane,
-					int tabIndex) {
-				StringBuffer result = new StringBuffer();
-				result.append("<html><body>");
-				result.append("Mouse click closes <b>"
-						+ tabbedPane.getTitleAt(tabIndex) + "</b> tab");
-				result
-						.append("<br><b>Alt</b>-Mouse click closes all tabs but <b>"
-								+ tabbedPane.getTitleAt(tabIndex) + "</b> tab");
-				result.append("<br><b>Shift</b>-Mouse click closes all tabs");
-				result.append("</body></html>");
-				return result.toString();
-			}
-		};
+            public String getCloseButtonTooltip(JTabbedPane tabbedPane, int tabIndex) {
+                StringBuffer result = new StringBuffer();
+                result.append("<html><body>");
+                result.append(
+                        "Mouse click closes <b>" + tabbedPane.getTitleAt(tabIndex) + "</b> tab");
+                result.append("<br><b>Alt</b>-Mouse click closes all tabs but <b>"
+                        + tabbedPane.getTitleAt(tabIndex) + "</b> tab");
+                result.append("<br><b>Shift</b>-Mouse click closes all tabs");
+                result.append("</body></html>");
+                return result.toString();
+            }
+        };
 
-		// register the callback on the tabbed pane
-		jtp.putClientProperty(SubstanceLookAndFeel.TABBED_PANE_CLOSE_CALLBACK,
-				closeCallback);
+        // register the callback on the tabbed pane
+        jtp.putClientProperty(SubstanceLookAndFeel.TABBED_PANE_CLOSE_CALLBACK, closeCallback);
 
-		// register tab close listener on the specific tabbed pane.
-		SubstanceLookAndFeel.registerTabCloseChangeListener(jtp,
-				new VetoableMultipleTabCloseListener() {
-					public void tabsClosing(JTabbedPane tabbedPane,
-							Set<Component> tabComponents) {
-						StringBuffer sb = new StringBuffer("Tab (s)");
-						String sep = " [";
-						for (Component comp : tabComponents) {
-							sb.append(sep);
-							sep = ", ";
-							sb.append(tabbedPane.getTitleAt(tabbedPane
-									.indexOfComponent(comp)));
-						}
-						sb.append("] closing");
-						System.out.println(sb.toString());
-					}
+        // register tab close listener on the specific tabbed pane.
+        SubstanceCortex.ComponentScope.registerTabCloseChangeListener(jtp,
+                new VetoableMultipleTabCloseListener() {
+                    public void tabsClosing(JTabbedPane tabbedPane, Set<Component> tabComponents) {
+                        StringBuffer sb = new StringBuffer("Tab (s)");
+                        String sep = " [";
+                        for (Component comp : tabComponents) {
+                            sb.append(sep);
+                            sep = ", ";
+                            sb.append(tabbedPane.getTitleAt(tabbedPane.indexOfComponent(comp)));
+                        }
+                        sb.append("] closing");
+                        System.out.println(sb.toString());
+                    }
 
-					public void tabsClosed(JTabbedPane tabbedPane,
-							Set<Component> tabComponents) {
-						System.out.println(tabComponents.size()
-								+ " tab(s) closed");
-					}
+                    public void tabsClosed(JTabbedPane tabbedPane, Set<Component> tabComponents) {
+                        System.out.println(tabComponents.size() + " tab(s) closed");
+                    }
 
-					public boolean vetoTabsClosing(JTabbedPane tabbedPane,
-							Set<Component> tabComponents) {
-						StringBuffer sb = new StringBuffer("");
-						String sep = "[";
-						for (Component comp : tabComponents) {
-							sb.append(sep);
-							sep = ", ";
-							sb.append(tabbedPane.getTitleAt(tabbedPane
-									.indexOfComponent(comp)));
-						}
-						sb.append("]");
-						return (JOptionPane
-								.showConfirmDialog(
-										RegisterTabCloseChangeListener_SpecificMultipleVetoable.this,
-										"Are you sure you want to close "
-												+ sb.toString() + "?") != JOptionPane.YES_OPTION);
-					}
-				});
+                    public boolean vetoTabsClosing(JTabbedPane tabbedPane,
+                            Set<Component> tabComponents) {
+                        StringBuffer sb = new StringBuffer("");
+                        String sep = "[";
+                        for (Component comp : tabComponents) {
+                            sb.append(sep);
+                            sep = ", ";
+                            sb.append(tabbedPane.getTitleAt(tabbedPane.indexOfComponent(comp)));
+                        }
+                        sb.append("]");
+                        return (JOptionPane.showConfirmDialog(
+                                RegisterTabCloseChangeListener_SpecificMultipleVetoable.this,
+                                "Are you sure you want to close " + sb.toString()
+                                        + "?") != JOptionPane.YES_OPTION);
+                    }
+                });
 
-		this.add(jtp, BorderLayout.CENTER);
+        this.add(jtp, BorderLayout.CENTER);
 
-		this.setSize(400, 200);
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+        this.setSize(400, 200);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
 
-	/**
-	 * The main method for <code>this</code> sample. The arguments are ignored.
-	 * 
-	 * @param args
-	 *            Ignored.
-	 */
-	public static void main(String[] args) {
-		JFrame.setDefaultLookAndFeelDecorated(true);
-		JDialog.setDefaultLookAndFeelDecorated(true);
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				SubstanceLookAndFeel.setSkin(new BusinessBlackSteelSkin());
-				new RegisterTabCloseChangeListener_SpecificMultipleVetoable()
-						.setVisible(true);
-			}
-		});
-	}
+    /**
+     * The main method for <code>this</code> sample. The arguments are ignored.
+     * 
+     * @param args
+     *            Ignored.
+     */
+    public static void main(String[] args) {
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        JDialog.setDefaultLookAndFeelDecorated(true);
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
+                new RegisterTabCloseChangeListener_SpecificMultipleVetoable().setVisible(true);
+            }
+        });
+    }
 }

@@ -14,8 +14,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 import org.pushingpixels.demo.substance.main.check.SubstanceSkinComboSelector;
-import org.pushingpixels.substance.api.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.MistSilverSkin;
 
 public class DecorationTables extends JFrame {
@@ -23,7 +23,7 @@ public class DecorationTables extends JFrame {
 		public TablePanel(String caption,
 				DecorationAreaType decorationAreaType, boolean isEnabled) {
 			super(new BorderLayout());
-			SubstanceLookAndFeel.setDecorationType(this, decorationAreaType);
+			SubstanceCortex.ComponentScope.setDecorationType(this, decorationAreaType);
 
 			JLabel captionLabel = new JLabel(" " + caption);
 			Font font = captionLabel.getFont();
@@ -78,7 +78,7 @@ public class DecorationTables extends JFrame {
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				SubstanceLookAndFeel.setSkin(new MistSilverSkin());
+				SubstanceCortex.GlobalScope.setSkin(new MistSilverSkin());
 				new DecorationTables().setVisible(true);
 			}
 		});
