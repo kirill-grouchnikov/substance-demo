@@ -47,59 +47,55 @@ import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 import org.pushingpixels.substance.api.skin.SkinInfo;
 
 /**
- * Test application that shows the use of the
- * {@link SubstanceCortex.GlobalScope#getAllSkins()} API.
+ * Test application that shows the use of the {@link SubstanceCortex.GlobalScope#getAllSkins()} API.
  * 
  * @author Kirill Grouchnikov
  * @see SubstanceCortex.GlobalScope#getAllSkins()
  */
 public class GetAllSkins extends JFrame {
-	/**
-	 * Creates the main frame for <code>this</code> sample.
-	 */
-	public GetAllSkins() {
-		super("Get all skins");
+    /**
+     * Creates the main frame for <code>this</code> sample.
+     */
+    public GetAllSkins() {
+        super("Get all skins");
 
-		setLayout(new BorderLayout());
+        setLayout(new BorderLayout());
 
-		final JPanel panel = new JPanel(new FlowLayout());
-		// Get all skins and set the vector as a model
-		// for combobox.
-		final JComboBox cb = new JComboBox(new Vector<SkinInfo>(
-		        SubstanceCortex.GlobalScope.getAllSkins().values()));
-		cb.setRenderer(new SubstanceDefaultComboBoxRenderer(cb) {
-			@Override
-			public Component getListCellRendererComponent(JList list,
-					Object value, int index, boolean isSelected,
-					boolean cellHasFocus) {
-				SkinInfo si = (SkinInfo) value;
-				return super.getListCellRendererComponent(list, si
-						.getDisplayName(), index, isSelected, cellHasFocus);
-			}
-		});
-		panel.add(new JLabel("All skins:"));
-		panel.add(cb);
+        final JPanel panel = new JPanel(new FlowLayout());
+        // Get all skins and set the vector as a model
+        // for combobox.
+        final JComboBox cb = new JComboBox(
+                new Vector<SkinInfo>(SubstanceCortex.GlobalScope.getAllSkins().values()));
+        cb.setRenderer(new SubstanceDefaultComboBoxRenderer(cb) {
+            @Override
+            public Component getListCellRendererComponent(JList list, Object value, int index,
+                    boolean isSelected, boolean cellHasFocus) {
+                SkinInfo si = (SkinInfo) value;
+                return super.getListCellRendererComponent(list, si.getDisplayName(), index,
+                        isSelected, cellHasFocus);
+            }
+        });
+        panel.add(new JLabel("All skins:"));
+        panel.add(cb);
 
-		this.add(panel, BorderLayout.CENTER);
+        this.add(panel, BorderLayout.CENTER);
 
-		this.setSize(400, 200);
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+        this.setSize(400, 200);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
 
-	/**
-	 * The main method for <code>this</code> sample. The arguments are ignored.
-	 * 
-	 * @param args
-	 *            Ignored.
-	 */
-	public static void main(String[] args) {
-		JFrame.setDefaultLookAndFeelDecorated(true);
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-			    SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-				new GetAllSkins().setVisible(true);
-			}
-		});
-	}
+    /**
+     * The main method for <code>this</code> sample. The arguments are ignored.
+     * 
+     * @param args
+     *            Ignored.
+     */
+    public static void main(String[] args) {
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
+            new GetAllSkins().setVisible(true);
+        });
+    }
 }

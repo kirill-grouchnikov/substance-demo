@@ -31,8 +31,8 @@ package org.pushingpixels.demo.substance.main.check;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -47,8 +47,8 @@ import org.pushingpixels.demo.substance.main.check.command.ClientPropertyCommand
 import org.pushingpixels.demo.substance.main.check.command.ConfigurationCommand;
 import org.pushingpixels.demo.substance.main.check.command.CreationCommand;
 import org.pushingpixels.demo.substance.main.check.command.DisableCommand;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.SubstanceWidget;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
@@ -59,94 +59,72 @@ import com.jgoodies.forms.layout.FormLayout;
  * @author Kirill Grouchnikov
  */
 public class SpinnerPanel extends JPanel {
-	/**
-	 * Creates a test panel with spinners.
-	 */
-	public SpinnerPanel() {
-		this.setLayout(new BorderLayout());
+    /**
+     * Creates a test panel with spinners.
+     */
+    public SpinnerPanel() {
+        this.setLayout(new BorderLayout());
 
-		FormLayout lm = new FormLayout("right:pref, 4dlu, left:pref:grow", "");
-		DefaultFormBuilder builder = new DefaultFormBuilder(lm,
-				new ScrollablePanel());
-		builder.setDefaultDialogBorder();
+        FormLayout lm = new FormLayout("right:pref, 4dlu, left:pref:grow", "");
+        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel());
+        builder.setDefaultDialogBorder();
 
-		CreationCommand<Component> basicCr = new CreationCommand<Component>() {
-			public Component create() {
-				JSpinner basicSpinner = new JSpinner(new SpinnerNumberModel());
-				return basicSpinner;
-			}
-		};
-		CreationCommand<Component> dateCr = new CreationCommand<Component>() {
-			public Component create() {
-				JSpinner dateEnSpinner = new JSpinner(new SpinnerDateModel());
-				return dateEnSpinner;
-			}
-		};
-		CreationCommand<Component> weekdaysCr = new CreationCommand<Component>() {
-			public Component create() {
-				String weekdaysEn[] = new String[] { "Sunday", "Monday",
-						"Tuesday", "Wednesday", "Thursday", "Friday",
-						"Saturday" };
-				JSpinner listEnSpinner = new JSpinner(new SpinnerListModel(
-						weekdaysEn));
-				return listEnSpinner;
-			}
-		};
-		CreationCommand<Component> numberCr = new CreationCommand<Component>() {
-			public Component create() {
-				JSpinner numberEnSpinner = new JSpinner(new SpinnerNumberModel(
-						0, 0, 100, 5));
-				return numberEnSpinner;
-			}
-		};
+        CreationCommand<JSpinner> basicCr = () -> new JSpinner(new SpinnerNumberModel());
+        CreationCommand<JSpinner> dateCr = () -> new JSpinner(new SpinnerDateModel());
+        CreationCommand<JSpinner> weekdaysCr = () -> {
+            String weekdaysEn[] = new String[] { "Sunday", "Monday", "Tuesday", "Wednesday",
+                            "Thursday", "Friday", "Saturday" };
+            return new JSpinner(new SpinnerListModel(weekdaysEn));
+        };
+        CreationCommand<JSpinner> numberCr = () -> new JSpinner(
+                new SpinnerNumberModel(0, 0, 100, 5));
 
-		builder.appendSeparator("Enabled");
-		addSpinner(builder, "Basic", basicCr, null);
-		addSpinner(builder, "Date", dateCr, null);
-		addSpinner(builder, "Weekdays", weekdaysCr, null);
-		addSpinner(builder, "Weekdays select on focus", weekdaysCr,
-				new ClientPropertyCommand(SubstanceWidget.TEXT_SELECT_ON_FOCUS,
-						Boolean.TRUE));
-		addSpinner(builder, "Number", numberCr, null);
-		addSpinner(builder, "Number flat", numberCr, new ClientPropertyCommand(
-				SubstanceLookAndFeel.FLAT_PROPERTY, Boolean.TRUE));
-		addSpinner(builder, "Number never", numberCr,
-				new ClientPropertyCommand(
-						SubstanceLookAndFeel.BUTTON_PAINT_NEVER_PROPERTY,
-						Boolean.TRUE));
-		addSpinner(builder, "Number pink", numberCr,
-				new BackgroundColorCommand(new Color(255, 128, 128)));
+        builder.appendSeparator("Enabled");
+        addSpinner(builder, "Basic", basicCr, null);
+        addSpinner(builder, "Date", dateCr, null);
+        addSpinner(builder, "Weekdays", weekdaysCr, null);
+        addSpinner(builder, "Weekdays select on focus", weekdaysCr,
+                (JComponent control) -> SubstanceCortex.ComponentOrParentChainScope
+                        .setSelectTextOnFocus(control, true));
+        addSpinner(builder, "Number", numberCr, null);
+        addSpinner(builder, "Number flat", numberCr,
+                new ClientPropertyCommand(SubstanceLookAndFeel.FLAT_PROPERTY, Boolean.TRUE));
+        addSpinner(builder, "Number never", numberCr, new ClientPropertyCommand(
+                SubstanceLookAndFeel.BUTTON_PAINT_NEVER_PROPERTY, Boolean.TRUE));
+        addSpinner(builder, "Number pink", numberCr,
+                new BackgroundColorCommand(new Color(255, 128, 128)));
 
-		builder.appendSeparator("Disabled");
-		addSpinner(builder, "Basic", basicCr, new DisableCommand());
-		addSpinner(builder, "Date", dateCr, new DisableCommand());
-		addSpinner(builder, "Weekdays", weekdaysCr, new DisableCommand());
-		addSpinner(builder, "Weekdays select on focus", weekdaysCr,
-				new ChainCommand<Component>(new ClientPropertyCommand(
-						SubstanceWidget.TEXT_SELECT_ON_FOCUS, Boolean.TRUE),
-						new DisableCommand()));
-		addSpinner(builder, "Number", numberCr, new DisableCommand());
-		addSpinner(builder, "Number flat", numberCr,
-				new ChainCommand<Component>(new ClientPropertyCommand(
-						SubstanceLookAndFeel.FLAT_PROPERTY, Boolean.TRUE),
-						new DisableCommand()));
+        builder.appendSeparator("Disabled");
+        addSpinner(builder, "Basic", basicCr, new DisableCommand());
+        addSpinner(builder, "Date", dateCr, new DisableCommand());
+        addSpinner(builder, "Weekdays", weekdaysCr, new DisableCommand());
+        addSpinner(builder, "Weekdays select on focus", weekdaysCr,
+                new ChainCommand<JComponent>(
+                        (JComponent control) -> SubstanceCortex.ComponentOrParentChainScope
+                                .setSelectTextOnFocus(control, true),
+                        new DisableCommand()));
+        addSpinner(builder, "Number", numberCr, new DisableCommand());
+        addSpinner(builder, "Number flat", numberCr,
+                new ChainCommand<JComponent>(
+                        new ClientPropertyCommand(SubstanceLookAndFeel.FLAT_PROPERTY, Boolean.TRUE),
+                        new DisableCommand()));
 
-		this.add(new JScrollPane(builder.getPanel()), BorderLayout.CENTER);
-	}
+        this.add(new JScrollPane(builder.getPanel()), BorderLayout.CENTER);
+    }
 
-	private void addSpinner(DefaultFormBuilder builder, String label,
-			CreationCommand<Component> creationCmd,
-			ConfigurationCommand<Component> configurationCmd) {
+    private void addSpinner(DefaultFormBuilder builder, String label,
+            CreationCommand<JSpinner> creationCmd,
+            ConfigurationCommand<JComponent> configurationCmd) {
 
-		Component comp = creationCmd.create();
+        JSpinner comp = creationCmd.create();
 
-		if (configurationCmd != null) {
-			configurationCmd.configure(comp);
-		}
+        if (configurationCmd != null) {
+            configurationCmd.configure(comp);
+        }
 
-		JLabel jl = new JLabel(label);
-		builder.append(jl);
-		builder.append(comp);
-	}
+        JLabel jl = new JLabel(label);
+        builder.append(jl);
+        builder.append(comp);
+    }
 
 }

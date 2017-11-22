@@ -1,8 +1,8 @@
 package org.pushingpixels.demo.substance.main.check.command;
 
-import java.awt.Component;
 import java.beans.PropertyVetoException;
 
+import javax.swing.JComponent;
 import javax.swing.JInternalFrame;
 
 /**
@@ -10,20 +10,19 @@ import javax.swing.JInternalFrame;
  * 
  * @author Kirill Grouchnikov
  */
-public class MinimizeInternalFrameCommand implements
-		ConfigurationCommand<Component> {
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-	 */
-	public void configure(Component ab) {
-		if (ab instanceof JInternalFrame) {
-			JInternalFrame jif = (JInternalFrame) ab;
-			try {
-				jif.setIcon(true);
-			} catch (PropertyVetoException pve) {
-			}
-		}
-	}
+public class MinimizeInternalFrameCommand implements ConfigurationCommand<JComponent> {
+    /*
+     * (non-Javadoc)
+     * 
+     * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
+     */
+    public void configure(JComponent ab) {
+        if (ab instanceof JInternalFrame) {
+            JInternalFrame jif = (JInternalFrame) ab;
+            try {
+                jif.setIcon(true);
+            } catch (PropertyVetoException pve) {
+            }
+        }
+    }
 }

@@ -31,56 +31,80 @@ package org.pushingpixels.demo.substance.main.samples.substance.api;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
 
 import javax.swing.JCheckBox;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JToggleButton;
+import javax.swing.JPasswordField;
 import javax.swing.SwingUtilities;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
+import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.api.password.PasswordStrengthChecker;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceCortex.ComponentScope#setDecorationType(JComponent, DecorationAreaType)} API.
+ * {@link SubstanceCortex.ComponentScope#setPasswordStrengthChecker(JPasswordField, PasswordStrengthChecker)}
+ * API.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceCortex.ComponentScope#setDecorationType(JComponent, DecorationAreaType)
+ * @see SubstanceCortex.ComponentScope#setPasswordStrengthChecker(JPasswordField,
+ *      PasswordStrengthChecker)
  */
-public class SetDecorationType extends JFrame {
+public class PasswordStrengthCheckerProperty extends JFrame {
     /**
      * Creates the main frame for <code>this</code> sample.
      */
-    public SetDecorationType() {
-        super("Set decoration type");
+    public PasswordStrengthCheckerProperty() {
+        super("Password strength checker");
 
         this.setLayout(new BorderLayout());
+        final JPanel panel = new JPanel(new FlowLayout());
+        this.add(panel, BorderLayout.CENTER);
+
+        final JPasswordField jpf = new JPasswordField();
+        jpf.setColumns(20);
+        panel.add(new JLabel("Start typing password"));
+        panel.add(jpf);
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        SubstanceCortex.ComponentScope.setDecorationType(controls, DecorationAreaType.GENERAL);
-        JToggleButton controlButton = new JToggleButton("control");
-        controlButton.setSelected(true);
-        JCheckBox controlCheckBox = new JCheckBox("control");
-        controlCheckBox.setSelected(true);
-        controls.add(new JLabel("GENERAL decoration:"));
-        controls.add(controlButton);
-        controls.add(controlCheckBox);
-        this.add(controls, BorderLayout.SOUTH);
+        final JCheckBox hasPasswordStrengthChecker = new JCheckBox("Has password strength checker");
+        hasPasswordStrengthChecker.addActionListener((ActionEvent e) -> {
+            if (hasPasswordStrengthChecker.isSelected()) {
+                SubstanceCortex.ComponentScope.setPasswordStrengthChecker(jpf,
+                        new PasswordStrengthChecker() {
+                            public SubstanceSlices.PasswordStrength getStrength(char[] password) {
+                                if (password == null)
+                                    return SubstanceSlices.PasswordStrength.WEAK;
+                                int length = password.length;
+                                if (length < 3)
+                                    return SubstanceSlices.PasswordStrength.WEAK;
+                                if (length < 6)
+                                    return SubstanceSlices.PasswordStrength.MEDIUM;
+                                return SubstanceSlices.PasswordStrength.STRONG;
+                            }
 
-        JPanel content = new JPanel(new FlowLayout());
-        JToggleButton sampleButton = new JToggleButton("control");
-        sampleButton.setSelected(true);
-        JCheckBox sampleCheckBox = new JCheckBox("control");
-        sampleCheckBox.setSelected(true);
-        content.add(new JLabel("Default decoration:"));
-        content.add(sampleButton);
-        content.add(sampleCheckBox);
-        this.add(content, BorderLayout.CENTER);
+                            public String getDescription(
+                                    SubstanceSlices.PasswordStrength strength) {
+                                if (strength == SubstanceSlices.PasswordStrength.WEAK)
+                                    return "<html>This password is <b>way</b> too weak</html>";
+                                if (strength == SubstanceSlices.PasswordStrength.MEDIUM)
+                                    return "<html>Come on, you can do<br> a little better than that</html>";
+                                if (strength == SubstanceSlices.PasswordStrength.STRONG)
+                                    return "OK";
+                                return null;
+                            }
+                        });
+            } else {
+                SubstanceCortex.ComponentScope.setPasswordStrengthChecker(jpf, null);
+            }
+        });
+
+        controls.add(hasPasswordStrengthChecker);
+        this.add(controls, BorderLayout.SOUTH);
 
         this.setSize(400, 200);
         this.setLocationRelativeTo(null);
@@ -95,10 +119,9 @@ public class SetDecorationType extends JFrame {
      */
     public static void main(String[] args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
-        JDialog.setDefaultLookAndFeelDecorated(true);
         SwingUtilities.invokeLater(() -> {
             SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-            new SetDecorationType().setVisible(true);
+            new PasswordStrengthCheckerProperty().setVisible(true);
         });
     }
 }

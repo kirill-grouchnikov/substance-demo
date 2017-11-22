@@ -34,7 +34,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultListCellRenderer;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
@@ -133,7 +132,7 @@ public class SizesPanel extends JPanel {
 			public JComponent create(int fontSize) {
 				JTextField result = new JTextField("size " + fontSize);
 				result.setEditable(false);
-				result.putClientProperty(SubstanceWidget.HAS_LOCK_ICON, Boolean.TRUE);
+				SubstanceCortex.ComponentScope.setLockIconVisible(result, true);
 				result.setFont(baseFinal.deriveFont((float) fontSize));
 				return result;
 			}

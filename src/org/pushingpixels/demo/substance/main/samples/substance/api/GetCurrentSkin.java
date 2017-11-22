@@ -31,7 +31,6 @@ package org.pushingpixels.demo.substance.main.samples.substance.api;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -54,98 +53,66 @@ import org.pushingpixels.substance.api.skin.GraphiteSkin;
  * @see SubstanceCortex.ComponentScope#getCurrentSkin(java.awt.Component)
  */
 public class GetCurrentSkin extends JFrame {
-	/**
-	 * Creates the main frame for <code>this</code> sample.
-	 */
-	public GetCurrentSkin() {
-		super("Per-window skins");
+    /**
+     * Creates the main frame for <code>this</code> sample.
+     */
+    public GetCurrentSkin() {
+        super("Per-window skins");
 
-		this.setLayout(new FlowLayout());
+        this.setLayout(new FlowLayout());
 
-		JButton autumnSkin = new JButton("Autumn skin");
-		autumnSkin.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				SwingUtilities.invokeLater(new Runnable() {
-					@Override
-					public void run() {
-						openSampleFrame(new AutumnSkin());
-					}
-				});
-			}
-		});
-		this.add(autumnSkin);
+        JButton autumnSkin = new JButton("Autumn skin");
+        autumnSkin.addActionListener((ActionEvent e) -> SwingUtilities
+                .invokeLater(() -> openSampleFrame(new AutumnSkin())));
+        this.add(autumnSkin);
 
-		JButton ravenGraphiteSkin = new JButton("Graphite skin");
-		ravenGraphiteSkin.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				SwingUtilities.invokeLater(new Runnable() {
-					@Override
-					public void run() {
-						openSampleFrame(new GraphiteSkin());
-					}
-				});
-			}
-		});
-		this.add(ravenGraphiteSkin);
-		this.setSize(400, 200);
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+        JButton graphiteSkin = new JButton("Graphite skin");
+        graphiteSkin.addActionListener((ActionEvent e) -> SwingUtilities
+                .invokeLater(() -> openSampleFrame(new GraphiteSkin())));
+        this.add(graphiteSkin);
+        this.setSize(400, 200);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
 
-	/**
-	 * Opens a sample frame under the specified skin.
-	 * 
-	 * @param skin
-	 *            Skin.
-	 */
-	private void openSampleFrame(SubstanceSkin skin) {
-		final JFrame sampleFrame = new JFrame(skin.getDisplayName());
-		sampleFrame.setLayout(new FlowLayout());
-		final JButton button = new JButton("Get skin");
-		button.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				SwingUtilities.invokeLater(new Runnable() {
-					@Override
-					public void run() {
-						JOptionPane.showMessageDialog(sampleFrame,
-								"Skin of this button is "
-										+ SubstanceCortex.ComponentScope.getCurrentSkin(
-												button).getDisplayName());
-					}
-				});
-			}
-		});
+    /**
+     * Opens a sample frame under the specified skin.
+     * 
+     * @param skin
+     *            Skin.
+     */
+    private void openSampleFrame(SubstanceSkin skin) {
+        final JFrame sampleFrame = new JFrame(skin.getDisplayName());
+        sampleFrame.setLayout(new FlowLayout());
+        final JButton button = new JButton("Get skin");
+        button.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(
+                () -> JOptionPane.showMessageDialog(sampleFrame, "Skin of this button is "
+                        + SubstanceCortex.ComponentScope.getCurrentSkin(button).getDisplayName())));
 
-		sampleFrame.add(button);
+        sampleFrame.add(button);
 
-		sampleFrame.setVisible(true);
-		sampleFrame.setSize(200, 100);
-		sampleFrame.setLocationRelativeTo(null);
-		sampleFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        sampleFrame.setVisible(true);
+        sampleFrame.setSize(200, 100);
+        sampleFrame.setLocationRelativeTo(null);
+        sampleFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-		sampleFrame.getRootPane().putClientProperty(
-				SubstanceLookAndFeel.SKIN_PROPERTY, skin);
-		SwingUtilities.updateComponentTreeUI(sampleFrame);
-		sampleFrame.repaint();
-	}
+        sampleFrame.getRootPane().putClientProperty(SubstanceLookAndFeel.SKIN_PROPERTY, skin);
+        SwingUtilities.updateComponentTreeUI(sampleFrame);
+        sampleFrame.repaint();
+    }
 
-	/**
-	 * The main method for <code>this</code> sample. The arguments are ignored.
-	 * 
-	 * @param args
-	 *            Ignored.
-	 */
-	public static void main(String[] args) {
-		JFrame.setDefaultLookAndFeelDecorated(true);
-		JDialog.setDefaultLookAndFeelDecorated(true);
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-				new GetCurrentSkin().setVisible(true);
-			}
-		});
-	}
+    /**
+     * The main method for <code>this</code> sample. The arguments are ignored.
+     * 
+     * @param args
+     *            Ignored.
+     */
+    public static void main(String[] args) {
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        JDialog.setDefaultLookAndFeelDecorated(true);
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
+            new GetCurrentSkin().setVisible(true);
+        });
+    }
 }

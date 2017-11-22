@@ -56,16 +56,16 @@ public class CellsPanel extends JPanel implements Deferrable {
 		builderCells.append(new JLabel("HEADER"), new JLabel("FOOTER"));
 
 		builderCells.appendSeparator("Lists");
-		addControlRow(builderCells, "List", new CreationCommand<Component>() {
-			public Component create() {
+		addControlRow(builderCells, "List", new CreationCommand<JComponent>() {
+			public JComponent create() {
 				JList list = new JList(new Object[] { "entry1", "entry2",
 						"entry3" });
 				return list;
 			}
 		}, null);
 		addControlRow(builderCells, "List watermark",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JList list = new JList(new Object[] { "entry1",
 								"entry2", "entry3" });
 						return list;
@@ -73,16 +73,16 @@ public class CellsPanel extends JPanel implements Deferrable {
 				}, new ClientPropertyCommand(
 						SubstanceLookAndFeel.WATERMARK_VISIBLE, Boolean.TRUE));
 		addControlRow(builderCells, "List disabled",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JList list = new JList(new Object[] { "entry1",
 								"entry2", "entry3" });
 						return list;
 					}
 				}, new DisableCommand());
 
-		CreationCommand<Component> tableCreationCmd = new CreationCommand<Component>() {
-			public Component create() {
+		CreationCommand<JComponent> tableCreationCmd = new CreationCommand<JComponent>() {
+			public JComponent create() {
 				final JTable table = new JTable(new Object[][] {
 						{ "entry11", "entry12", "entry13" },
 						{ "entry21", "entry22", "entry23" },
@@ -118,7 +118,7 @@ public class CellsPanel extends JPanel implements Deferrable {
 		addControlRow(builderCells, "Table disabled", tableCreationCmd,
 				new DisableViewportCommand());
 
-		CreationCommand<Component> treeCreationCmd = new CreationCommand<Component>() {
+		CreationCommand<JComponent> treeCreationCmd = new CreationCommand<JComponent>() {
 			public void expandAll(JTree tree, boolean expand) {
 				TreeNode root = (TreeNode) tree.getModel().getRoot();
 
@@ -145,7 +145,7 @@ public class CellsPanel extends JPanel implements Deferrable {
 				}
 			}
 
-			public Component create() {
+			public JComponent create() {
 				DefaultMutableTreeNode root = new DefaultMutableTreeNode("root");
 				DefaultMutableTreeNode son1 = new DefaultMutableTreeNode("son1");
 				DefaultMutableTreeNode son2 = new DefaultMutableTreeNode("son2");
@@ -221,10 +221,10 @@ public class CellsPanel extends JPanel implements Deferrable {
 	 *            Configuration command to apply.
 	 */
 	private void addControlRow(DefaultFormBuilder builder, String label,
-			CreationCommand<Component> creationCmd,
-			ConfigurationCommand<Component> configurationCmd) {
+			CreationCommand<JComponent> creationCmd,
+			ConfigurationCommand<JComponent> configurationCmd) {
 
-		Component[] row = new Component[4];
+	    JComponent[] row = new JComponent[4];
 		row[0] = creationCmd.create();
 		SubstanceCortex.ComponentScope.setDecorationType(((JComponent) row[0]),
 				DecorationAreaType.NONE);
@@ -246,7 +246,7 @@ public class CellsPanel extends JPanel implements Deferrable {
 		row[3].setName(row[3].getName() + ": FOOTER");
 
 		if (configurationCmd != null) {
-			for (Component comp : row) {
+			for (JComponent comp : row) {
 				configurationCmd.configure(comp);
 			}
 		}

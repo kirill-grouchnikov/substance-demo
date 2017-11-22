@@ -32,7 +32,6 @@ package org.pushingpixels.demo.substance.main.samples.substance.api;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -46,58 +45,49 @@ import org.pushingpixels.substance.api.skin.BusinessSkin;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceCortex.GlobalScope#setSkin(org.pushingpixels.substance.skin.SubstanceSkin)}
- * API.
+ * {@link SubstanceCortex.GlobalScope#setSkin(org.pushingpixels.substance.skin.SubstanceSkin)} API.
  * 
  * @author Kirill Grouchnikov
  * @see SubstanceCortex.GlobalScope#setSkin(org.pushingpixels.substance.skin.SubstanceSkin)
  */
 public class SetSkin_Instance extends JFrame {
-	/**
-	 * Creates the main frame for <code>this</code> sample.
-	 */
-	public SetSkin_Instance() {
-		super("Set skin");
+    /**
+     * Creates the main frame for <code>this</code> sample.
+     */
+    public SetSkin_Instance() {
+        super("Set skin");
 
-		this.setLayout(new BorderLayout());
+        this.setLayout(new BorderLayout());
 
-		JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		final JButton changeSkin = new JButton("Change skin");
-		changeSkin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				SwingUtilities.invokeLater(new Runnable() {
-					public void run() {
-						changeSkin.setEnabled(false);
-						// set new skin by instance
-						SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
-						repaint();
-					}
-				});
-			}
-		});
-		controls.add(changeSkin);
+        JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        final JButton changeSkin = new JButton("Change skin");
+        changeSkin.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            changeSkin.setEnabled(false);
+            // set new skin by instance
+            SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
+            repaint();
+        }));
+        controls.add(changeSkin);
 
-		this.add(controls, BorderLayout.SOUTH);
+        this.add(controls, BorderLayout.SOUTH);
 
-		this.setSize(400, 200);
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+        this.setSize(400, 200);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
 
-	/**
-	 * The main method for <code>this</code> sample. The arguments are ignored.
-	 * 
-	 * @param args
-	 *            Ignored.
-	 */
-	public static void main(String[] args) {
-		JFrame.setDefaultLookAndFeelDecorated(true);
-		JDialog.setDefaultLookAndFeelDecorated(true);
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-				new SetSkin_Instance().setVisible(true);
-			}
-		});
-	}
+    /**
+     * The main method for <code>this</code> sample. The arguments are ignored.
+     * 
+     * @param args
+     *            Ignored.
+     */
+    public static void main(String[] args) {
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        JDialog.setDefaultLookAndFeelDecorated(true);
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
+            new SetSkin_Instance().setVisible(true);
+        });
+    }
 }

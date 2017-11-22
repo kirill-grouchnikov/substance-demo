@@ -27,81 +27,68 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package org.pushingpixels.demo.substance.main.samples.lafwidget.clientprop;
+package org.pushingpixels.demo.substance.main.samples.substance.api;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JCheckBox;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
+import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
-import org.pushingpixels.demo.substance.main.Check;
-import org.pushingpixels.demo.substance.main.check.svg.flags.hk;
-import org.pushingpixels.demo.substance.main.check.svg.flags.mx;
-import org.pushingpixels.demo.substance.main.check.svg.flags.se;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
-import org.pushingpixels.substance.tabbed.DefaultTabPreviewPainter;
-import org.pushingpixels.substance.tabbed.TabPreviewUtilities;
 
 /**
  * Test application that shows the use of the
- * {@link TabPreviewUtilities#TABBED_PANE_PREVIEW_PAINTER} client property.
+ * {@link SubstanceCortex.ComponentScope#setAutomaticScrollPresence(JScrollPane, Boolean)} API.
  * 
  * @author Kirill Grouchnikov
- * @see {@link TabPreviewUtilities#TABBED_PANE_PREVIEW_PAINTER}
+ * @see SubstanceCortex.ComponentScope#setAutomaticScrollPresence(JScrollPane, Boolean)
  */
-public class TabbedPanePreviewPainter extends JFrame {
+public class AutoScroll extends JFrame {
     /**
      * Creates the main frame for <code>this</code> sample.
      */
-    public TabbedPanePreviewPainter() {
-        super("Tabbed pane preview painter");
+    public AutoScroll() {
+        super("Auto scroll");
 
         this.setLayout(new BorderLayout());
 
-        final JTabbedPane jtp = new JTabbedPane();
-        jtp.addTab("First", Check.configure(new mx(), 21, 16), new JPanel() {
+        // Create panel with custom painting logic - simple diagonal fill.
+        JPanel samplePanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
-                g.setColor(new Color(255, 200, 200));
-                g.fillRect(0, 0, getWidth(), getHeight());
+                Graphics2D graphics = (Graphics2D) g.create();
+                graphics.setPaint(new GradientPaint(0, 0, new Color(100, 100, 255), getWidth(),
+                        getHeight(), new Color(255, 100, 100)));
+                graphics.fillRect(0, 0, getWidth(), getHeight());
+                graphics.dispose();
             }
-        });
-        jtp.addTab("Second", Check.configure(new se(), 21, 16), new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                g.setColor(new Color(200, 255, 200));
-                g.fillRect(0, 0, getWidth(), getHeight());
-            }
-        });
-        jtp.addTab("Third", Check.configure(new hk(), 21, 16), new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                g.setColor(new Color(200, 200, 255));
-                g.fillRect(0, 0, getWidth(), getHeight());
-            }
-        });
+        };
+        samplePanel.setPreferredSize(new Dimension(800, 400));
+        samplePanel.setSize(this.getPreferredSize());
+        samplePanel.setMinimumSize(this.getPreferredSize());
 
-        this.add(jtp, BorderLayout.CENTER);
+        final JScrollPane scrollPane = new JScrollPane(samplePanel);
+        this.add(scrollPane, BorderLayout.CENTER);
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        final JCheckBox hasPreview = new JCheckBox("Has preview");
-        hasPreview.addActionListener((ActionEvent e) -> {
-            jtp.putClientProperty(TabPreviewUtilities.TABBED_PANE_PREVIEW_PAINTER,
-                    hasPreview.isSelected() ? new DefaultTabPreviewPainter() : null);
-            jtp.revalidate();
-            jtp.repaint();
-        });
-
-        controls.add(hasPreview);
+        final JCheckBox hasAutoScroll = new JCheckBox("has auto scroll");
+        hasAutoScroll.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.ComponentScope.setAutomaticScrollPresence(scrollPane,
+                    hasAutoScroll.isSelected());
+            repaint();
+        }));
+        controls.add(hasAutoScroll);
         this.add(controls, BorderLayout.SOUTH);
 
         this.setSize(400, 200);
@@ -117,10 +104,9 @@ public class TabbedPanePreviewPainter extends JFrame {
      */
     public static void main(String[] args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
-        JDialog.setDefaultLookAndFeelDecorated(true);
         SwingUtilities.invokeLater(() -> {
             SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-            new TabbedPanePreviewPainter().setVisible(true);
+            new AutoScroll().setVisible(true);
         });
     }
 }

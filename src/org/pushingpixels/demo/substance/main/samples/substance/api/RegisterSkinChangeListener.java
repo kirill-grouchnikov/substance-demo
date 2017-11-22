@@ -32,7 +32,6 @@ package org.pushingpixels.demo.substance.main.samples.substance.api;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.Vector;
 
 import javax.swing.JComboBox;
@@ -72,29 +71,21 @@ public class RegisterSkinChangeListener extends JFrame {
                 new Vector<String>(SubstanceCortex.GlobalScope.getAllSkins().keySet()));
         cb.setSelectedIndex(-1);
 
-        cb.addItemListener(new ItemListener() {
-            public void itemStateChanged(ItemEvent evt) {
-                // Get the affected item
-                final Object item = evt.getItem();
+        cb.addItemListener((ItemEvent evt) -> {
+            // Get the affected item
+            final Object item = evt.getItem();
 
-                if (evt.getStateChange() == ItemEvent.SELECTED) {
-                    SwingUtilities.invokeLater(new Runnable() {
-                        public void run() {
-                            try {
-                                // Get the skin info object based on
-                                // the selected skin display name
-                                SkinInfo skinInfo = SubstanceCortex.GlobalScope.getAllSkins()
-                                        .get(item);
-                                // Set the global skin based on the
-                                // skin class name.
-                                SubstanceCortex.GlobalScope.setSkin(skinInfo.getClassName());
-                                SwingUtilities
-                                        .updateComponentTreeUI(RegisterSkinChangeListener.this);
-                            } catch (Exception exc) {
-                            }
-                        };
-                    });
-                }
+            if (evt.getStateChange() == ItemEvent.SELECTED) {
+                SwingUtilities.invokeLater(() -> {
+                    try {
+                        // Get the skin info object based on the selected skin display name
+                        SkinInfo skinInfo = SubstanceCortex.GlobalScope.getAllSkins().get(item);
+                        // Set the global skin based on the skin class name.
+                        SubstanceCortex.GlobalScope.setSkin(skinInfo.getClassName());
+                        SwingUtilities.updateComponentTreeUI(RegisterSkinChangeListener.this);
+                    } catch (Exception exc) {
+                    }
+                });
             }
         });
 
@@ -103,13 +94,10 @@ public class RegisterSkinChangeListener extends JFrame {
 
         this.add(panel, BorderLayout.CENTER);
 
-        // register listener
-        SubstanceCortex.GlobalScope.registerSkinChangeListener(() -> {
-            // show dialog with skin changed message.
-            SwingUtilities.invokeLater(() -> {
-                JOptionPane.showMessageDialog(RegisterSkinChangeListener.this, "Skin changed");
-            });
-        });
+        // register listener to show a dialog with skin changed message.
+        SubstanceCortex.GlobalScope
+                .registerSkinChangeListener(() -> SwingUtilities.invokeLater(() -> JOptionPane
+                        .showMessageDialog(RegisterSkinChangeListener.this, "Skin changed")));
 
         this.setSize(400, 200);
         this.setLocationRelativeTo(null);
@@ -125,11 +113,9 @@ public class RegisterSkinChangeListener extends JFrame {
     public static void main(String[] args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
         JDialog.setDefaultLookAndFeelDecorated(true);
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-                new RegisterSkinChangeListener().setVisible(true);
-            }
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
+            new RegisterSkinChangeListener().setVisible(true);
         });
     }
 }

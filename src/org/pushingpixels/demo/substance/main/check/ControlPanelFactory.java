@@ -86,6 +86,8 @@ import org.pushingpixels.demo.substance.main.check.svg.ic_help_black_24px;
 import org.pushingpixels.demo.substance.main.check.svg.ic_info_black_24px;
 import org.pushingpixels.demo.substance.main.check.svg.ic_warning_black_24px;
 import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
@@ -94,9 +96,6 @@ import org.pushingpixels.substance.api.SubstanceSlices.MenuGutterFillKind;
 import org.pushingpixels.substance.api.SubstanceSlices.SubstanceOptionPaneButtonAlignment;
 import org.pushingpixels.substance.api.SubstanceSlices.SubstanceOptionPaneButtonOrder;
 import org.pushingpixels.substance.api.SubstanceSlices.SubstanceWidgetType;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.api.iconpack.SubstanceDefaultIconPack;
 import org.pushingpixels.substance.api.painter.preview.DefaultPreviewPainter;
 import org.pushingpixels.substance.api.skin.NebulaBrickWallSkin;
@@ -674,59 +673,49 @@ public class ControlPanelFactory {
         builder.appendSeparator("Default buttons");
 
         JButton openDisposable = new JButton("Open");
-        openDisposable.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        if (disposableDialog != null) {
-                            disposableDialog.setVisible(true);
-                            return;
-                        }
-                        disposableDialog = new JDialog();
-                        disposableDialog.setTitle("Disposable");
+        openDisposable.addActionListener((ActionEvent e) -> {
+            SwingUtilities.invokeLater(() -> {
+                if (disposableDialog != null) {
+                    disposableDialog.setVisible(true);
+                    return;
+                }
+                disposableDialog = new JDialog();
+                disposableDialog.setTitle("Disposable");
 
-                        JTree tree = new JTree();
-                        JScrollPane jsp = new JScrollPane(tree,
-                                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-                                JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-                        jsp.putClientProperty(SubstanceWidget.COMPONENT_PREVIEW_PAINTER,
-                                new DefaultPreviewPainter());
+                JTree tree = new JTree();
+                JScrollPane jsp = new JScrollPane(tree, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                        JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+                SubstanceCortex.ComponentOrParentScope.setComponentPreviewPainter(jsp,
+                        new DefaultPreviewPainter());
 
-                        disposableDialog.setLayout(new BorderLayout());
-                        disposableDialog.add(jsp, BorderLayout.CENTER);
+                disposableDialog.setLayout(new BorderLayout());
+                disposableDialog.add(jsp, BorderLayout.CENTER);
 
-                        disposableDialog.setSize(200, 100);
-                        disposableDialog.setLocationRelativeTo(null);
-                        disposableDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-                        disposableDialog.setVisible(true);
-                    }
-                });
-            };
+                disposableDialog.setSize(200, 100);
+                disposableDialog.setLocationRelativeTo(null);
+                disposableDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                disposableDialog.setVisible(true);
+            });
         });
         builder.append("Disposable dialog", openDisposable);
 
         JButton launchFrameDialogWithIcon = new JButton("Open");
-        launchFrameDialogWithIcon.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        SimpleDialog sd = new SimpleDialog();
-                        if (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel) {
-                            sd.setIconImage(SubstanceLogo.getLogoImage(
-                                    SubstanceCortex.ComponentScope.getCurrentSkin(sd.getRootPane())
-                                            .getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
-                                                    ColorSchemeAssociationKind.FILL,
-                                                    ComponentState.ENABLED)));
-                        }
-                        sd.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
-                        sd.setModal(false);
-                        sd.pack();
-                        sd.setLocationRelativeTo(null);
-                        sd.setVisible(true);
-                        sd.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-                    }
-                });
-            };
+        launchFrameDialogWithIcon.addActionListener((ActionEvent e) -> {
+            SwingUtilities.invokeLater(() -> {
+                SimpleDialog sd = new SimpleDialog();
+                if (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel) {
+                    sd.setIconImage(SubstanceLogo.getLogoImage(SubstanceCortex.ComponentScope
+                            .getCurrentSkin(sd.getRootPane())
+                            .getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
+                                    ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
+                }
+                sd.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
+                sd.setModal(false);
+                sd.pack();
+                sd.setLocationRelativeTo(null);
+                sd.setVisible(true);
+                sd.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+            });
         });
         builder.append("Dialog with icon", launchFrameDialogWithIcon);
 
@@ -782,50 +771,44 @@ public class ControlPanelFactory {
         builder.append("Close the dialog", bcd);
 
         JButton buttonDialogCloseOnEsc = new JButton("Show");
-        buttonDialogCloseOnEsc.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        final JDialog dialog = new JDialog((Frame) null, "Click ESC to dispose");
-                        dialog.setSize(200, 200);
-                        dialog.setLayout(new BorderLayout());
+        buttonDialogCloseOnEsc.addActionListener((ActionEvent e) -> {
+            SwingUtilities.invokeLater(() -> {
+                final JDialog dialog = new JDialog((Frame) null, "Click ESC to dispose");
+                dialog.setSize(200, 200);
+                dialog.setLayout(new BorderLayout());
 
-                        JPanel myContentPane = new JPanel();
-                        myContentPane.setLayout(new BorderLayout());
-                        dialog.setContentPane(myContentPane);
+                JPanel myContentPane = new JPanel();
+                myContentPane.setLayout(new BorderLayout());
+                dialog.setContentPane(myContentPane);
 
-                        JTabbedPane tabs = new JTabbedPane();
-                        JPanel tab1 = new JPanel(new FlowLayout());
-                        tab1.add(new JLabel("test"));
-                        JTextField tab1TextField = new JTextField("some text");
-                        tab1TextField.putClientProperty(SubstanceWidget.TEXT_FLIP_SELECT_ON_ESCAPE,
-                                Boolean.TRUE);
-                        tab1.add(tab1TextField);
-                        tabs.addTab("Foo", tab1);
-                        JPanel tab2 = new JPanel(new FlowLayout());
-                        tab2.add(new JButton("Test"));
-                        tabs.addTab("Bar", tab2);
-                        dialog.add(tabs, BorderLayout.CENTER);
+                JTabbedPane tabs = new JTabbedPane();
+                JPanel tab1 = new JPanel(new FlowLayout());
+                tab1.add(new JLabel("test"));
+                JTextField tab1TextField = new JTextField("some text");
+                SubstanceCortex.ComponentScope.setFlipTextSelectionOnEscape(tab1TextField, true);
+                tab1.add(tab1TextField);
+                tabs.addTab("Foo", tab1);
+                JPanel tab2 = new JPanel(new FlowLayout());
+                tab2.add(new JButton("Test"));
+                tabs.addTab("Bar", tab2);
+                dialog.add(tabs, BorderLayout.CENTER);
 
-                        dialog.add(new JLabel("Press Esc to close dialog"), BorderLayout.NORTH);
+                dialog.add(new JLabel("Press Esc to close dialog"), BorderLayout.NORTH);
 
-                        // connect "Esc" key with disposing the dialog
-                        String actionName = "VK_ESCAPE";
-                        Action action = new AbstractAction(actionName) {
-                            public void actionPerformed(ActionEvent e) {
-                                dialog.dispose();
-                            }
-                        };
-                        myContentPane.getActionMap().put(actionName, action);
-                        myContentPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-                                KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0),
-                                actionName);
-
-                        dialog.setLocationRelativeTo(null);
-                        dialog.setVisible(true);
+                // connect "Esc" key with disposing the dialog
+                String actionName = "VK_ESCAPE";
+                Action action = new AbstractAction(actionName) {
+                    public void actionPerformed(ActionEvent e) {
+                        dialog.dispose();
                     }
-                });
-            }
+                };
+                myContentPane.getActionMap().put(actionName, action);
+                myContentPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+                        KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0), actionName);
+
+                dialog.setLocationRelativeTo(null);
+                dialog.setVisible(true);
+            });
         });
         builder.append("Dialog with ESC close", buttonDialogCloseOnEsc);
 

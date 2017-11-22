@@ -27,12 +27,11 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package org.pushingpixels.demo.substance.main.samples.lafwidget.clientprop;
+package org.pushingpixels.demo.substance.main.samples.substance.api;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -43,70 +42,61 @@ import javax.swing.UIManager;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /**
- * Test application that shows the use of the {@link SubstanceWidget#HAS_LOCK_ICON}
- * client property.
+ * Test application that shows the use of the
+ * {@link SubstanceCortex.ComponentScope#setLockIconVisible(javax.swing.JComponent, Boolean)} API.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceWidget#HAS_LOCK_ICON
+ * @see SubstanceCortex.ComponentScope#setLockIconVisible(javax.swing.JComponent, Boolean)
  */
 public class HasLockIcon extends JFrame {
-	/**
-	 * Creates the main frame for <code>this</code> sample.
-	 */
-	public HasLockIcon() {
-		super("Has lock icon");
+    /**
+     * Creates the main frame for <code>this</code> sample.
+     */
+    public HasLockIcon() {
+        super("Has lock icon");
 
-		this.setLayout(new BorderLayout());
+        this.setLayout(new BorderLayout());
 
-		final JTextField jtf = new JTextField("sample text");
-		jtf.setEditable(false);
-		jtf.setColumns(20);
+        final JTextField jtf = new JTextField("sample text");
+        jtf.setEditable(false);
+        jtf.setColumns(20);
 
-		JPanel main = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		this.add(main, BorderLayout.CENTER);
-		main.add(jtf);
+        JPanel main = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        this.add(main, BorderLayout.CENTER);
+        main.add(jtf);
 
-		JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
-		final JCheckBox hasLockIcon = new JCheckBox("Has lock icon");
-		hasLockIcon.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				jtf.putClientProperty(SubstanceWidget.HAS_LOCK_ICON, hasLockIcon
-						.isSelected() ? Boolean.TRUE : null);
-			}
-		});
+        final JCheckBox hasLockIcon = new JCheckBox("Has lock icon");
+        hasLockIcon.addActionListener((ActionEvent e) -> SubstanceCortex.ComponentScope
+                .setLockIconVisible(jtf, hasLockIcon.isSelected()));
 
-		controls.add(hasLockIcon);
-		this.add(controls, BorderLayout.SOUTH);
+        controls.add(hasLockIcon);
+        this.add(controls, BorderLayout.SOUTH);
 
-		this.setSize(400, 200);
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+        this.setSize(400, 200);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
 
-	/**
-	 * The main method for <code>this</code> sample. The arguments are ignored.
-	 * 
-	 * @param args
-	 *            Ignored.
-	 * @throws Exception
-	 *             If some exception occured. Note that there is no special
-	 *             treatment of exception conditions in <code>this</code> sample
-	 *             code.
-	 */
-	public static void main(String[] args) throws Exception {
-		JFrame.setDefaultLookAndFeelDecorated(true);
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				UIManager.put(SubstanceLookAndFeel.SHOW_EXTRA_WIDGETS,
-						Boolean.TRUE);
-				SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-				new HasLockIcon().setVisible(true);
-			}
-		});
-	}
+    /**
+     * The main method for <code>this</code> sample. The arguments are ignored.
+     * 
+     * @param args
+     *            Ignored.
+     * @throws Exception
+     *             If some exception occured. Note that there is no special treatment of exception
+     *             conditions in <code>this</code> sample code.
+     */
+    public static void main(String[] args) throws Exception {
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
+            UIManager.put(SubstanceLookAndFeel.SHOW_EXTRA_WIDGETS, Boolean.TRUE);
+            new HasLockIcon().setVisible(true);
+        });
+    }
 }

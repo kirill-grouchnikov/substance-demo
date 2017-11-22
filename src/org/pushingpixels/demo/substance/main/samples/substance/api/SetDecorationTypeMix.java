@@ -42,8 +42,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.skin.BusinessBlueSteelSkin;
 
 /**
@@ -95,12 +95,10 @@ public class SetDecorationTypeMix extends JFrame {
     public static void main(String[] args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
         JDialog.setDefaultLookAndFeelDecorated(true);
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                SubstanceCortex.GlobalScope.setSkin(new BusinessBlueSteelSkin());
-                UIManager.put("TabbedPane.contentOpaque", Boolean.TRUE);
-                new SetDecorationTypeMix().setVisible(true);
-            }
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new BusinessBlueSteelSkin());
+            UIManager.put("TabbedPane.contentOpaque", Boolean.TRUE);
+            new SetDecorationTypeMix().setVisible(true);
         });
     }
 }

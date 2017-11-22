@@ -39,9 +39,9 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
-import org.pushingpixels.substance.api.SubstanceSlices.TabCloseKind;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices.TabCloseKind;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 import org.pushingpixels.substance.api.tabbed.MultipleTabCloseListener;
 import org.pushingpixels.substance.api.tabbed.TabCloseCallback;
@@ -149,11 +149,9 @@ public class RegisterTabCloseChangeListener_GeneralMultiple extends JFrame {
      */
     public static void main(String[] args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-                new RegisterTabCloseChangeListener_GeneralMultiple().setVisible(true);
-            }
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
+            new RegisterTabCloseChangeListener_GeneralMultiple().setVisible(true);
         });
     }
 }

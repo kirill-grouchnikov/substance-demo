@@ -45,6 +45,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JDesktopPane;
 import javax.swing.JEditorPane;
 import javax.swing.JFormattedTextField;
@@ -143,7 +144,7 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 	 *            Configuration command to apply.
 	 */
 	private void addButtonRow(DefaultFormBuilder builder, String label,
-			Icon icon, ConfigurationCommand<Component> configurationCmd) {
+			Icon icon, ConfigurationCommand<JComponent> configurationCmd) {
 		AbstractButton[] row = this.getRow();
 		if (configurationCmd != null) {
 			for (AbstractButton ab : row) {
@@ -174,10 +175,10 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 	 *            Configuration command to apply.
 	 */
 	private void addControlRow(DefaultFormBuilder builder, String label,
-			CreationCommand<Component> creationCmd,
-			ConfigurationCommand<Component> configurationCmd) {
+			CreationCommand<JComponent> creationCmd,
+			ConfigurationCommand<JComponent> configurationCmd) {
 
-		Component[] row = new Component[4];
+	    JComponent[] row = new JComponent[4];
 		row[0] = creationCmd.create();
 		row[0].setBackground(Color.yellow);
 		row[0].setName(row[0].getName() + ": yellow backgr");
@@ -193,7 +194,7 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 		row[3].setName(row[3].getName() + ": darker green backgr");
 
 		if (configurationCmd != null) {
-			for (Component comp : row) {
+			for (JComponent comp : row) {
 				configurationCmd.configure(comp);
 			}
 		}
@@ -206,7 +207,7 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 
 	private void addInternalFrame(JDesktopPane desktopPane,
 			CreationCommand creationCommand,
-			ConfigurationCommand<Component> configCommand) {
+			ConfigurationCommand<JComponent> configCommand) {
 		JInternalFrame jif = (JInternalFrame) creationCommand.create();
 		desktopPane.add(jif);
 		configCommand.configure(jif);
@@ -256,60 +257,60 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 				.addButtonRow(builderButtons, "Selected", null,
 						new SelectCommand());
 		this.addButtonRow(builderButtons, "Disabled selected", null,
-				new ChainCommand<Component>(new DisableCommand(),
+				new ChainCommand<JComponent>(new DisableCommand(),
 						new SelectCommand()));
 
 		builderButtons.appendSeparator("Background settings");
 		this.addButtonRow(builderButtons, "Yellow", null,
 				new BackgroundColorCommand(Color.yellow));
 		this.addButtonRow(builderButtons, "Yellow flat", null,
-				new ChainCommand<Component>(new BackgroundColorCommand(
+				new ChainCommand<JComponent>(new BackgroundColorCommand(
 						Color.yellow), new ClientPropertyCommand(
 						SubstanceLookAndFeel.FLAT_PROPERTY, Boolean.TRUE)));
 		this.addButtonRow(builderButtons, "Yellow disabled", null,
-				new ChainCommand<Component>(new BackgroundColorCommand(
+				new ChainCommand<JComponent>(new BackgroundColorCommand(
 						Color.yellow), new DisableCommand()));
 		this.addButtonRow(builderButtons, "Yellow selected", null,
-				new ChainCommand<Component>(new BackgroundColorCommand(
+				new ChainCommand<JComponent>(new BackgroundColorCommand(
 						Color.yellow), new SelectCommand()));
 		this.addButtonRow(builderButtons, "Yellow disabled selected", null,
-				new ChainCommand<Component>(new BackgroundColorCommand(
+				new ChainCommand<JComponent>(new BackgroundColorCommand(
 						Color.yellow), new SelectCommand(),
 						new DisableCommand()));
 		this.addButtonRow(builderButtons, "Red", null,
 				new BackgroundColorCommand(Color.red));
 		this.addButtonRow(builderButtons, "Red disabled", null,
-				new ChainCommand<Component>(new BackgroundColorCommand(
+				new ChainCommand<JComponent>(new BackgroundColorCommand(
 						Color.red), new DisableCommand()));
 		this.addButtonRow(builderButtons, "Red selected", null,
-				new ChainCommand<Component>(new BackgroundColorCommand(
+				new ChainCommand<JComponent>(new BackgroundColorCommand(
 						Color.red), new SelectCommand()));
 		this.addButtonRow(builderButtons, "Red disabled selected", null,
-				new ChainCommand<Component>(new BackgroundColorCommand(
+				new ChainCommand<JComponent>(new BackgroundColorCommand(
 						Color.red), new SelectCommand(), new DisableCommand()));
 		this.addButtonRow(builderButtons, "Green", null,
 				new BackgroundColorCommand(Color.green));
 		this.addButtonRow(builderButtons, "Green disabled", null,
-				new ChainCommand<Component>(new BackgroundColorCommand(
+				new ChainCommand<JComponent>(new BackgroundColorCommand(
 						Color.green), new DisableCommand()));
 		this.addButtonRow(builderButtons, "Green selected", null,
-				new ChainCommand<Component>(new BackgroundColorCommand(
+				new ChainCommand<JComponent>(new BackgroundColorCommand(
 						Color.green), new SelectCommand()));
 		this
 				.addButtonRow(builderButtons, "Green disabled selected", null,
-						new ChainCommand<Component>(new BackgroundColorCommand(
+						new ChainCommand<JComponent>(new BackgroundColorCommand(
 								Color.green), new SelectCommand(),
 								new DisableCommand()));
 		this.addButtonRow(builderButtons, "Dark Green", null,
 				new BackgroundColorCommand(Color.green.darker()));
 		this.addButtonRow(builderButtons, "Dark Green disabled", null,
-				new ChainCommand<Component>(new BackgroundColorCommand(
+				new ChainCommand<JComponent>(new BackgroundColorCommand(
 						Color.green.darker()), new DisableCommand()));
 		this.addButtonRow(builderButtons, "Dark Green selected", null,
-				new ChainCommand<Component>(new BackgroundColorCommand(
+				new ChainCommand<JComponent>(new BackgroundColorCommand(
 						Color.green.darker()), new SelectCommand()));
 		this.addButtonRow(builderButtons, "Dark Green disabled selected", null,
-				new ChainCommand<Component>(new BackgroundColorCommand(
+				new ChainCommand<JComponent>(new BackgroundColorCommand(
 						Color.green.darker()), new SelectCommand(),
 						new DisableCommand()));
 
@@ -317,121 +318,121 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 		this.addButtonRow(builderButtons, "Yellow", null,
 				new ForegroundColorCommand(Color.yellow));
 		this.addButtonRow(builderButtons, "Yellow disabled", null,
-				new ChainCommand<Component>(new ForegroundColorCommand(
+				new ChainCommand<JComponent>(new ForegroundColorCommand(
 						Color.yellow), new DisableCommand()));
 		this.addButtonRow(builderButtons, "Yellow selected", null,
-				new ChainCommand<Component>(new ForegroundColorCommand(
+				new ChainCommand<JComponent>(new ForegroundColorCommand(
 						Color.yellow), new SelectCommand()));
 		this.addButtonRow(builderButtons, "Yellow disabled selected", null,
-				new ChainCommand<Component>(new ForegroundColorCommand(
+				new ChainCommand<JComponent>(new ForegroundColorCommand(
 						Color.yellow), new SelectCommand(),
 						new DisableCommand()));
 		this.addButtonRow(builderButtons, "Red", null,
 				new ForegroundColorCommand(Color.red));
 		this.addButtonRow(builderButtons, "Red disabled", null,
-				new ChainCommand<Component>(new ForegroundColorCommand(
+				new ChainCommand<JComponent>(new ForegroundColorCommand(
 						Color.red), new DisableCommand()));
 		this.addButtonRow(builderButtons, "Red selected", null,
-				new ChainCommand<Component>(new ForegroundColorCommand(
+				new ChainCommand<JComponent>(new ForegroundColorCommand(
 						Color.red), new SelectCommand()));
 		this.addButtonRow(builderButtons, "Red disabled selected", null,
-				new ChainCommand<Component>(new ForegroundColorCommand(
+				new ChainCommand<JComponent>(new ForegroundColorCommand(
 						Color.red), new SelectCommand(), new DisableCommand()));
 		this.addButtonRow(builderButtons, "Green", null,
 				new ForegroundColorCommand(Color.green));
 		this.addButtonRow(builderButtons, "Green disabled", null,
-				new ChainCommand<Component>(new ForegroundColorCommand(
+				new ChainCommand<JComponent>(new ForegroundColorCommand(
 						Color.green), new DisableCommand()));
 		this.addButtonRow(builderButtons, "Green selected", null,
-				new ChainCommand<Component>(new ForegroundColorCommand(
+				new ChainCommand<JComponent>(new ForegroundColorCommand(
 						Color.green), new SelectCommand()));
 		this
 				.addButtonRow(builderButtons, "Green disabled selected", null,
-						new ChainCommand<Component>(new ForegroundColorCommand(
+						new ChainCommand<JComponent>(new ForegroundColorCommand(
 								Color.green), new SelectCommand(),
 								new DisableCommand()));
 		this.addButtonRow(builderButtons, "Dark Green", null,
 				new ForegroundColorCommand(Color.green.darker()));
 		this.addButtonRow(builderButtons, "Dark Green disabled", null,
-				new ChainCommand<Component>(new ForegroundColorCommand(
+				new ChainCommand<JComponent>(new ForegroundColorCommand(
 						Color.green.darker()), new DisableCommand()));
 		this.addButtonRow(builderButtons, "Dark Green selected", null,
-				new ChainCommand<Component>(new ForegroundColorCommand(
+				new ChainCommand<JComponent>(new ForegroundColorCommand(
 						Color.green.darker()), new SelectCommand()));
 		this.addButtonRow(builderButtons, "Dark Green disabled selected", null,
-				new ChainCommand<Component>(new ForegroundColorCommand(
+				new ChainCommand<JComponent>(new ForegroundColorCommand(
 						Color.green.darker()), new SelectCommand(),
 						new DisableCommand()));
 
 		builderButtons.appendSeparator("Combined settings");
 		this.addButtonRow(builderButtons, "Blue/yellow", null,
-				new ChainCommand<Component>(new ForegroundColorCommand(
+				new ChainCommand<JComponent>(new ForegroundColorCommand(
 						Color.blue), new BackgroundColorCommand(Color.yellow)));
 		this.addButtonRow(builderButtons, "Blue/yellow disabled", null,
-				new ChainCommand<Component>(new ForegroundColorCommand(
+				new ChainCommand<JComponent>(new ForegroundColorCommand(
 						Color.blue), new BackgroundColorCommand(Color.yellow),
 						new DisableCommand()));
 		this.addButtonRow(builderButtons, "Blue/yellow selected", null,
-				new ChainCommand<Component>(new ForegroundColorCommand(
+				new ChainCommand<JComponent>(new ForegroundColorCommand(
 						Color.blue), new BackgroundColorCommand(Color.yellow),
 						new SelectCommand()));
 		this.addButtonRow(builderButtons, "Blue/yellow disabled selected",
-				null, new ChainCommand<Component>(new ForegroundColorCommand(
+				null, new ChainCommand<JComponent>(new ForegroundColorCommand(
 						Color.blue), new BackgroundColorCommand(Color.yellow),
 						new SelectCommand(), new DisableCommand()));
 		this.addButtonRow(builderButtons, "Red/light green", null,
-				new ChainCommand<Component>(new ForegroundColorCommand(
+				new ChainCommand<JComponent>(new ForegroundColorCommand(
 						Color.red), new BackgroundColorCommand(Color.green
 						.brighter())));
 		this.addButtonRow(builderButtons, "Red/light green disabled", null,
-				new ChainCommand<Component>(new ForegroundColorCommand(
+				new ChainCommand<JComponent>(new ForegroundColorCommand(
 						Color.red), new BackgroundColorCommand(Color.green
 						.brighter()), new DisableCommand()));
 		this.addButtonRow(builderButtons, "Red/light green selected", null,
-				new ChainCommand<Component>(new ForegroundColorCommand(
+				new ChainCommand<JComponent>(new ForegroundColorCommand(
 						Color.red), new BackgroundColorCommand(Color.green
 						.brighter()), new SelectCommand()));
 		this
 				.addButtonRow(builderButtons,
 						"Red/light green disabled selected", null,
-						new ChainCommand<Component>(new ForegroundColorCommand(
+						new ChainCommand<JComponent>(new ForegroundColorCommand(
 								Color.red), new BackgroundColorCommand(
 								Color.green.brighter()), new SelectCommand(),
 								new DisableCommand()));
 		this.addButtonRow(builderButtons, "Dark yellow/blue", null,
-				new ChainCommand<Component>(new ForegroundColorCommand(
+				new ChainCommand<JComponent>(new ForegroundColorCommand(
 						Color.yellow.darker()), new BackgroundColorCommand(
 						Color.blue)));
 		this.addButtonRow(builderButtons, "Dark yellow/blue disabled", null,
-				new ChainCommand<Component>(new ForegroundColorCommand(
+				new ChainCommand<JComponent>(new ForegroundColorCommand(
 						Color.yellow.darker()), new BackgroundColorCommand(
 						Color.blue), new DisableCommand()));
 		this.addButtonRow(builderButtons, "Dark yellow/blue selected", null,
-				new ChainCommand<Component>(new ForegroundColorCommand(
+				new ChainCommand<JComponent>(new ForegroundColorCommand(
 						Color.yellow.darker()), new BackgroundColorCommand(
 						Color.blue), new SelectCommand()));
 		this
 				.addButtonRow(builderButtons,
 						"Dark yellow/blue disabled selected", null,
-						new ChainCommand<Component>(new ForegroundColorCommand(
+						new ChainCommand<JComponent>(new ForegroundColorCommand(
 								Color.yellow.darker()),
 								new BackgroundColorCommand(Color.blue),
 								new SelectCommand(), new DisableCommand()));
 		this.addButtonRow(builderButtons, "Dark green/magenta", null,
-				new ChainCommand<Component>(new ForegroundColorCommand(
+				new ChainCommand<JComponent>(new ForegroundColorCommand(
 						Color.green.darker()), new BackgroundColorCommand(
 						Color.magenta)));
 		this.addButtonRow(builderButtons, "Dark green/magenta disabled", null,
-				new ChainCommand<Component>(new ForegroundColorCommand(
+				new ChainCommand<JComponent>(new ForegroundColorCommand(
 						Color.green.darker()), new BackgroundColorCommand(
 						Color.magenta), new DisableCommand()));
 		this.addButtonRow(builderButtons, "Dark green/magenta selected", null,
-				new ChainCommand<Component>(new ForegroundColorCommand(
+				new ChainCommand<JComponent>(new ForegroundColorCommand(
 						Color.green.darker()), new BackgroundColorCommand(
 						Color.magenta), new SelectCommand()));
 		this.addButtonRow(builderButtons,
 				"Dark green/magenta disabled selected", null,
-				new ChainCommand<Component>(new ForegroundColorCommand(
+				new ChainCommand<JComponent>(new ForegroundColorCommand(
 						Color.green.darker()), new BackgroundColorCommand(
 						Color.magenta), new SelectCommand(),
 						new DisableCommand()));
@@ -458,19 +459,19 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 
 		builderOther.appendSeparator("Labels");
 		addControlRow(builderOther, "Regular",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						return new JLabel("label");
 					}
 				}, null);
 		addControlRow(builderOther, "Disabled",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						return new JLabel("label");
 					}
 				}, new DisableCommand());
-		addControlRow(builderOther, "HTML", new CreationCommand<Component>() {
-			public Component create() {
+		addControlRow(builderOther, "HTML", new CreationCommand<JComponent>() {
+			public JComponent create() {
 				return new JLabel(
 						"<html>text <b>text</b> <font color='red'>text</font>");
 			}
@@ -478,22 +479,22 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 
 		builderOther.appendSeparator("Sliders");
 		addControlRow(builderOther, "Regular",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						return new JSlider(0, 100, 50);
 					}
 				}, null);
 		addControlRow(builderOther, "Disabled",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						return new JSlider(0, 100, 50);
 					}
 				}, new DisableCommand());
 
 		builderOther.appendSeparator("Progress bars");
 		addControlRow(builderOther, "Regular",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JProgressBar jpb = new JProgressBar(0, 100);
 						jpb.setIndeterminate(false);
 						jpb.setValue(50);
@@ -502,8 +503,8 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 					}
 				}, null);
 		addControlRow(builderOther, "Disabled",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JProgressBar jpb = new JProgressBar(0, 100);
 						jpb.setIndeterminate(false);
 						jpb.setValue(50);
@@ -512,8 +513,8 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 					}
 				}, new DisableCommand());
 		addControlRow(builderOther, "Custom foreground",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JProgressBar jpb = new JProgressBar(0, 100);
 						jpb.setIndeterminate(false);
 						jpb.setValue(50);
@@ -522,27 +523,27 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 					}
 				}, new ForegroundColorCommand(Color.red));
 		addControlRow(builderOther, "Disabled with foreground",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JProgressBar jpb = new JProgressBar(0, 100);
 						jpb.setIndeterminate(false);
 						jpb.setValue(50);
 						jpb.setStringPainted(true);
 						return jpb;
 					}
-				}, new ChainCommand<Component>(new DisableCommand(),
+				}, new ChainCommand<JComponent>(new DisableCommand(),
 						new ForegroundColorCommand(Color.red)));
 		addControlRow(builderOther, "Indeterminate",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JProgressBar jpb = new JProgressBar(0, 100);
 						jpb.setIndeterminate(true);
 						return jpb;
 					}
 				}, null);
 		addControlRow(builderOther, "Indeterminate disabled",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JProgressBar jpb = new JProgressBar(0, 100);
 						jpb.setIndeterminate(true);
 						return jpb;
@@ -551,15 +552,15 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 
 		builderOther.appendSeparator("Combo boxes");
 		addControlRow(builderOther, "Regular",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JComboBox jcb = new JComboBox(new Object[] { "Ester",
 								"Jordi", "Jordina", "Jorge", "Sergi" });
 						return jcb;
 					}
 				}, null);
-		addControlRow(builderOther, "Flat", new CreationCommand<Component>() {
-			public Component create() {
+		addControlRow(builderOther, "Flat", new CreationCommand<JComponent>() {
+			public JComponent create() {
 				JComboBox jcb = new JComboBox(new Object[] { "Ester", "Jordi",
 						"Jordina", "Jorge", "Sergi" });
 				return jcb;
@@ -567,16 +568,16 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 		}, new ClientPropertyCommand(SubstanceLookAndFeel.FLAT_PROPERTY,
 				Boolean.TRUE));
 		addControlRow(builderOther, "Disabled",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JComboBox jcb = new JComboBox(new Object[] { "Ester",
 								"Jordi", "Jordina", "Jorge", "Sergi" });
 						return jcb;
 					}
 				}, new DisableCommand());
 		addControlRow(builderOther, "Editable",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JComboBox jcb = new JComboBox(new Object[] { "Ester",
 								"Jordi", "Jordina", "Jorge", "Sergi" });
 						jcb.setEditable(true);
@@ -584,8 +585,8 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 					}
 				}, null);
 		addControlRow(builderOther, "Disabled editable",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JComboBox jcb = new JComboBox(new Object[] { "Ester",
 								"Jordi", "Jordina", "Jorge", "Sergi" });
 						jcb.setEditable(true);
@@ -593,8 +594,8 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 					}
 				}, new DisableCommand());
 
-		CreationCommand<Component> spinnerCreationCmd = new CreationCommand<Component>() {
-			public Component create() {
+		CreationCommand<JComponent> spinnerCreationCmd = new CreationCommand<JComponent>() {
+			public JComponent create() {
 				JSpinner s = new JSpinner(new SpinnerListModel(new Object[] {
 						"sample0", "sample", "sample2" }));
 				s.getModel().setValue("sample");
@@ -630,30 +631,30 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 		builderText.append(new JLabel("Green"), new JLabel("Dark green"));
 
 		builderText.appendSeparator("Text fields");
-		addControlRow(builderText, "Regular", new CreationCommand<Component>() {
-			public Component create() {
+		addControlRow(builderText, "Regular", new CreationCommand<JComponent>() {
+			public JComponent create() {
 				JTextField field = new JTextField("test", 15);
 				return field;
 			}
 		}, null);
 		addControlRow(builderText, "Watermark",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JTextField field = new JTextField("test", 15);
 						return field;
 					}
 				}, new ClientPropertyCommand(
 						SubstanceLookAndFeel.WATERMARK_VISIBLE, Boolean.TRUE));
 		addControlRow(builderText, "Disabled",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JTextField field = new JTextField("test", 15);
 						return field;
 					}
 				}, new DisableCommand());
 		addControlRow(builderText, "Not editable",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JTextField field = new JTextField("test", 15);
 						field.setEditable(false);
 						return field;
@@ -661,8 +662,8 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 				}, null);
 
 		builderText.appendSeparator("Formatted text fields");
-		addControlRow(builderText, "Regular", new CreationCommand<Component>() {
-			public Component create() {
+		addControlRow(builderText, "Regular", new CreationCommand<JComponent>() {
+			public JComponent create() {
 				JFormattedTextField field = new JFormattedTextField(
 						new DecimalFormat("#,##0.0000"));
 				field.setText("2,430.0000");
@@ -670,8 +671,8 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 			}
 		}, null);
 		addControlRow(builderText, "Watermark",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JFormattedTextField field = new JFormattedTextField(
 								new DecimalFormat("#,##0.0000"));
 						field.setText("2,430.0000");
@@ -680,8 +681,8 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 				}, new ClientPropertyCommand(
 						SubstanceLookAndFeel.WATERMARK_VISIBLE, Boolean.TRUE));
 		addControlRow(builderText, "Disabled",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JFormattedTextField field = new JFormattedTextField(
 								new DecimalFormat("#,##0.0000"));
 						field.setText("2,430.0000");
@@ -689,8 +690,8 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 					}
 				}, new DisableCommand());
 		addControlRow(builderText, "Not editable",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JFormattedTextField field = new JFormattedTextField(
 								new DecimalFormat("#,##0.0000"));
 						field.setText("2,430.0000");
@@ -700,15 +701,15 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 				}, null);
 
 		builderText.appendSeparator("Password fields");
-		addControlRow(builderText, "Regular", new CreationCommand<Component>() {
-			public Component create() {
+		addControlRow(builderText, "Regular", new CreationCommand<JComponent>() {
+			public JComponent create() {
 				JPasswordField field = new JPasswordField("password", 15);
 				return field;
 			}
 		}, null);
 		addControlRow(builderText, "Watermark",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JPasswordField field = new JPasswordField("password",
 								15);
 						return field;
@@ -716,16 +717,16 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 				}, new ClientPropertyCommand(
 						SubstanceLookAndFeel.WATERMARK_VISIBLE, Boolean.TRUE));
 		addControlRow(builderText, "Disabled",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JPasswordField field = new JPasswordField("password",
 								15);
 						return field;
 					}
 				}, new DisableCommand());
 		addControlRow(builderText, "Not editable",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JPasswordField field = new JPasswordField("password",
 								15);
 						field.setEditable(false);
@@ -734,16 +735,16 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 				}, null);
 
 		builderText.appendSeparator("Editor panes");
-		addControlRow(builderText, "Regular", new CreationCommand<Component>() {
-			public Component create() {
+		addControlRow(builderText, "Regular", new CreationCommand<JComponent>() {
+			public JComponent create() {
 				JEditorPane pane = new JEditorPane("text/html;",
 						"Sample <b>content</b><br> <u>text</u>");
 				return pane;
 			}
 		}, null);
 		addControlRow(builderText, "Watermark",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JEditorPane pane = new JEditorPane("text/html;",
 								"Sample <b>content</b><br> <u>text</u>");
 						return pane;
@@ -751,16 +752,16 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 				}, new ClientPropertyCommand(
 						SubstanceLookAndFeel.WATERMARK_VISIBLE, Boolean.TRUE));
 		addControlRow(builderText, "Disabled",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JEditorPane pane = new JEditorPane("text/html;",
 								"Sample <b>content</b><br> <u>text</u>");
 						return pane;
 					}
 				}, new DisableCommand());
 		addControlRow(builderText, "Not editable",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JEditorPane pane = new JEditorPane("text/html;",
 								"Sample <b>content</b><br> <u>text</u>");
 						pane.setEditable(false);
@@ -769,15 +770,15 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 				}, null);
 
 		builderText.appendSeparator("Text areas");
-		addControlRow(builderText, "Regular", new CreationCommand<Component>() {
-			public Component create() {
+		addControlRow(builderText, "Regular", new CreationCommand<JComponent>() {
+			public JComponent create() {
 				JTextArea area = new JTextArea("Sample content text", 3, 15);
 				return area;
 			}
 		}, null);
 		addControlRow(builderText, "Watermark",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JTextArea area = new JTextArea("Sample content text",
 								3, 15);
 						return area;
@@ -785,16 +786,16 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 				}, new ClientPropertyCommand(
 						SubstanceLookAndFeel.WATERMARK_VISIBLE, Boolean.TRUE));
 		addControlRow(builderText, "Disabled",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JTextArea area = new JTextArea("Sample content text",
 								3, 15);
 						return area;
 					}
 				}, new DisableCommand());
 		addControlRow(builderText, "Not editable",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JTextArea area = new JTextArea("Sample content text",
 								3, 15);
 						area.setEditable(false);
@@ -803,8 +804,8 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 				}, null);
 
 		builderText.appendSeparator("Text panes");
-		addControlRow(builderText, "Regular", new CreationCommand<Component>() {
-			public Component create() {
+		addControlRow(builderText, "Regular", new CreationCommand<JComponent>() {
+			public JComponent create() {
 				JTextPane pane = new JTextPane();
 				pane.replaceSelection("Sample content text");
 				pane.setPreferredSize(new Dimension(120, 40));
@@ -812,8 +813,8 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 			}
 		}, null);
 		addControlRow(builderText, "Watermark",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JTextPane pane = new JTextPane();
 						pane.replaceSelection("Sample content text");
 						pane.setPreferredSize(new Dimension(120, 40));
@@ -822,8 +823,8 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 				}, new ClientPropertyCommand(
 						SubstanceLookAndFeel.WATERMARK_VISIBLE, Boolean.TRUE));
 		addControlRow(builderText, "Disabled",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JTextPane pane = new JTextPane();
 						pane.replaceSelection("Sample content text");
 						pane.setPreferredSize(new Dimension(120, 40));
@@ -831,8 +832,8 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 					}
 				}, new DisableCommand());
 		addControlRow(builderText, "Not editable",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JTextPane pane = new JTextPane();
 						pane.replaceSelection("Sample content text");
 						pane.setPreferredSize(new Dimension(120, 40));
@@ -866,16 +867,16 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 		builderCells.append(new JLabel("Green"), new JLabel("Dark green"));
 
 		builderCells.appendSeparator("Lists");
-		addControlRow(builderCells, "List", new CreationCommand<Component>() {
-			public Component create() {
+		addControlRow(builderCells, "List", new CreationCommand<JComponent>() {
+			public JComponent create() {
 				JList list = new JList(new Object[] { "entry1", "entry2",
 						"entry3" });
 				return list;
 			}
 		}, null);
 		addControlRow(builderCells, "List watermark",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JList list = new JList(new Object[] { "entry1",
 								"entry2", "entry3" });
 						return list;
@@ -883,16 +884,16 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 				}, new ClientPropertyCommand(
 						SubstanceLookAndFeel.WATERMARK_VISIBLE, Boolean.TRUE));
 		addControlRow(builderCells, "List disabled",
-				new CreationCommand<Component>() {
-					public Component create() {
+				new CreationCommand<JComponent>() {
+					public JComponent create() {
 						JList list = new JList(new Object[] { "entry1",
 								"entry2", "entry3" });
 						return list;
 					}
 				}, new DisableCommand());
 
-		CreationCommand<Component> tableCreationCmd = new CreationCommand<Component>() {
-			public Component create() {
+		CreationCommand<JComponent> tableCreationCmd = new CreationCommand<JComponent>() {
+			public JComponent create() {
 				final JTable table = new JTable(new Object[][] {
 						{ "entry11", "entry12", "entry13" },
 						{ "entry21", "entry22", "entry23" },
@@ -928,7 +929,7 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 		addControlRow(builderCells, "Table disabled", tableCreationCmd,
 				new DisableViewportCommand());
 
-		CreationCommand<Component> treeCreationCmd = new CreationCommand<Component>() {
+		CreationCommand<JComponent> treeCreationCmd = new CreationCommand<JComponent>() {
 			public void expandAll(JTree tree, boolean expand) {
 				TreeNode root = (TreeNode) tree.getModel().getRoot();
 
@@ -955,7 +956,7 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 				}
 			}
 
-			public Component create() {
+			public JComponent create() {
 				DefaultMutableTreeNode root = new DefaultMutableTreeNode("root");
 				DefaultMutableTreeNode son1 = new DefaultMutableTreeNode("son1");
 				DefaultMutableTreeNode son2 = new DefaultMutableTreeNode("son2");
@@ -1012,8 +1013,8 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 		jspCells.getViewport().setOpaque(false);
 
 		JDesktopPane desktopPane = new JDesktopPane();
-		CreationCommand<Component> internalFrameCreationCmd = new CreationCommand<Component>() {
-			public Component create() {
+		CreationCommand<JComponent> internalFrameCreationCmd = new CreationCommand<JComponent>() {
+			public JComponent create() {
 				JInternalFrame jif = new JInternalFrame("Internal frame");
 				jif.setLayout(new FlowLayout());
 				JButton button = new JButton("red button");
@@ -1064,19 +1065,19 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
 			}
 		};
 		addInternalFrame(desktopPane, internalFrameCreationCmd,
-				new ChainCommand<Component>(new BackgroundColorCommand(
+				new ChainCommand<JComponent>(new BackgroundColorCommand(
 						Color.yellow), new SetBoundsCommand(new Rectangle(0, 0,
 						200, 100))));
 		addInternalFrame(desktopPane, internalFrameCreationCmd,
-				new ChainCommand<Component>(new BackgroundColorCommand(
+				new ChainCommand<JComponent>(new BackgroundColorCommand(
 						Color.green), new SetBoundsCommand(new Rectangle(250,
 						0, 200, 100))));
 		addInternalFrame(desktopPane, internalFrameCreationCmd,
-				new ChainCommand<Component>(new BackgroundColorCommand(
+				new ChainCommand<JComponent>(new BackgroundColorCommand(
 						Color.yellow), new SetBoundsCommand(new Rectangle(0,
 						150, 200, 100)), new MinimizeInternalFrameCommand()));
 		addInternalFrame(desktopPane, internalFrameCreationCmd,
-				new ChainCommand<Component>(new BackgroundColorCommand(
+				new ChainCommand<JComponent>(new BackgroundColorCommand(
 						Color.green), new SetBoundsCommand(new Rectangle(250,
 						150, 200, 100)), new MinimizeInternalFrameCommand()));
 		desktopPane.setBackground(Color.blue);

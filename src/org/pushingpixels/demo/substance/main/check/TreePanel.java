@@ -54,8 +54,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.pushingpixels.demo.substance.main.Check;
 import org.pushingpixels.demo.substance.main.check.svg.flags.se;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultTreeCellRenderer;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
@@ -67,227 +67,210 @@ import com.jgoodies.forms.layout.FormLayout;
  * @author Kirill Grouchnikov
  */
 public class TreePanel extends ControllablePanel {
-	/**
-	 * The cell renderer for the tree. Uses HTML for bold text on selected row
-	 * and custom icon on selected row.
-	 * 
-	 * @author Kirill Grouchnikov
-	 */
-	private static class TestTreeCellRenderer extends
-			SubstanceDefaultTreeCellRenderer {
-		@Override
-		public Component getTreeCellRendererComponent(JTree tree, Object value,
-				boolean sel, boolean expanded, boolean leaf, int row,
-				boolean hasFocus) {
-			JLabel result = (JLabel) super.getTreeCellRendererComponent(tree,
-					value, sel, expanded, leaf, row, hasFocus);
-			if (sel) {
-				result.setText("<html><b>" + getText() + "</b></html>");
-				result.setIcon(Check.configure(new se(), 21, 16));
-			}
-			return result;
-		}
-	}
+    /**
+     * The cell renderer for the tree. Uses HTML for bold text on selected row and custom icon on
+     * selected row.
+     * 
+     * @author Kirill Grouchnikov
+     */
+    private static class TestTreeCellRenderer extends SubstanceDefaultTreeCellRenderer {
+        @Override
+        public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel,
+                boolean expanded, boolean leaf, int row, boolean hasFocus) {
+            JLabel result = (JLabel) super.getTreeCellRendererComponent(tree, value, sel, expanded,
+                    leaf, row, hasFocus);
+            if (sel) {
+                result.setText("<html><b>" + getText() + "</b></html>");
+                result.setIcon(Check.configure(new se(), 21, 16));
+            }
+            return result;
+        }
+    }
 
-	/**
-	 * The tree component.
-	 */
-	private JTree tree;
+    /**
+     * The tree component.
+     */
+    private JTree tree;
 
-	/**
-	 * The scroll pane that contains the tree.
-	 */
-	private JScrollPane jsp;
+    /**
+     * The scroll pane that contains the tree.
+     */
+    private JScrollPane jsp;
 
-	/**
-	 * Creates the tree panel.
-	 */
-	public TreePanel() {
-		this.setLayout(new BorderLayout());
+    /**
+     * Creates the tree panel.
+     */
+    public TreePanel() {
+        this.setLayout(new BorderLayout());
 
-		DefaultMutableTreeNode root = new DefaultMutableTreeNode("root");
-		DefaultMutableTreeNode son1 = new DefaultMutableTreeNode("son1");
-		DefaultMutableTreeNode son2 = new DefaultMutableTreeNode("son2");
-		DefaultMutableTreeNode son3 = new DefaultMutableTreeNode("son3");
-		DefaultMutableTreeNode gson11 = new DefaultMutableTreeNode("gson11");
-		DefaultMutableTreeNode gson12 = new DefaultMutableTreeNode("gson12");
-		DefaultMutableTreeNode gson21 = new DefaultMutableTreeNode("gson21");
-		DefaultMutableTreeNode gson22 = new DefaultMutableTreeNode("gson22");
-		DefaultMutableTreeNode gson31 = new DefaultMutableTreeNode("gson31");
-		DefaultMutableTreeNode gson32 = new DefaultMutableTreeNode("gson32");
-		DefaultMutableTreeNode ggson111 = new DefaultMutableTreeNode("ggson111");
-		DefaultMutableTreeNode ggson112 = new DefaultMutableTreeNode("ggson112");
-		DefaultMutableTreeNode ggson113 = new DefaultMutableTreeNode("ggson113");
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode("root");
+        DefaultMutableTreeNode son1 = new DefaultMutableTreeNode("son1");
+        DefaultMutableTreeNode son2 = new DefaultMutableTreeNode("son2");
+        DefaultMutableTreeNode son3 = new DefaultMutableTreeNode("son3");
+        DefaultMutableTreeNode gson11 = new DefaultMutableTreeNode("gson11");
+        DefaultMutableTreeNode gson12 = new DefaultMutableTreeNode("gson12");
+        DefaultMutableTreeNode gson21 = new DefaultMutableTreeNode("gson21");
+        DefaultMutableTreeNode gson22 = new DefaultMutableTreeNode("gson22");
+        DefaultMutableTreeNode gson31 = new DefaultMutableTreeNode("gson31");
+        DefaultMutableTreeNode gson32 = new DefaultMutableTreeNode("gson32");
+        DefaultMutableTreeNode ggson111 = new DefaultMutableTreeNode("ggson111");
+        DefaultMutableTreeNode ggson112 = new DefaultMutableTreeNode("ggson112");
+        DefaultMutableTreeNode ggson113 = new DefaultMutableTreeNode("ggson113");
 
-		gson11.add(ggson111);
-		gson11.add(ggson112);
-		gson11.add(ggson113);
-		son1.add(gson11);
-		son1.add(gson12);
-		son2.add(gson21);
-		son2.add(gson22);
-		son3.add(gson31);
-		son3.add(gson32);
-		root.add(son1);
-		root.add(son2);
-		root.add(son3);
+        gson11.add(ggson111);
+        gson11.add(ggson112);
+        gson11.add(ggson113);
+        son1.add(gson11);
+        son1.add(gson12);
+        son2.add(gson21);
+        son2.add(gson22);
+        son3.add(gson31);
+        son3.add(gson32);
+        root.add(son1);
+        root.add(son2);
+        root.add(son3);
 
-		this.tree = new JTree(root);
+        this.tree = new JTree(root);
 
-		this.tree.setTransferHandler(new TransferHandler() {
-			@Override
-			public boolean canImport(TransferSupport support) {
-				return true;
-			}
+        this.tree.setTransferHandler(new TransferHandler() {
+            @Override
+            public boolean canImport(TransferSupport support) {
+                return true;
+            }
 
-			@Override
-			public boolean canImport(JComponent comp,
-					DataFlavor[] transferFlavors) {
-				return true;
-			}
+            @Override
+            public boolean canImport(JComponent comp, DataFlavor[] transferFlavors) {
+                return true;
+            }
 
-			@Override
-			public boolean importData(JComponent comp, Transferable t) {
-				return false;
-			}
+            @Override
+            public boolean importData(JComponent comp, Transferable t) {
+                return false;
+            }
 
-			@Override
-			public boolean importData(TransferSupport support) {
-				return false;
-			}
-		});
-		this.tree.setDropMode(DropMode.ON);
+            @Override
+            public boolean importData(TransferSupport support) {
+                return false;
+            }
+        });
+        this.tree.setDropMode(DropMode.ON);
 
-		// {
-		// public Insets getInsets() {
-		// return new Insets(5, 5, 5, 5);
-		// }
-		// };
-		// this.tree.setCellRenderer(new TestTreeCellRenderer());
-		this.tree.putClientProperty(SubstanceWidget.TREE_AUTO_DND_SUPPORT,
-				Boolean.TRUE);
-		this.jsp = new JScrollPane(this.tree);
-		this.jsp.setBorder(new EmptyBorder(0, 0, 0, 0));
-		this.add(this.jsp, BorderLayout.CENTER);
+        SubstanceCortex.ComponentScope.setAutomaticDragAndDropSupportPresence(this.tree, true);
+        this.jsp = new JScrollPane(this.tree);
+        this.jsp.setBorder(new EmptyBorder(0, 0, 0, 0));
+        this.add(this.jsp, BorderLayout.CENTER);
 
-		FormLayout lm = new FormLayout("right:pref, 4dlu, fill:pref:grow", "");
-		DefaultFormBuilder builder = new DefaultFormBuilder(lm,
-				new ScrollablePanel());
-		builder.appendSeparator("General");
+        FormLayout lm = new FormLayout("right:pref, 4dlu, fill:pref:grow", "");
+        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel());
+        builder.appendSeparator("General");
 
-		final JCheckBox isEnabled = new JCheckBox("is enabled");
-		isEnabled.setSelected(tree.isEnabled());
-		isEnabled.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tree.setEnabled(isEnabled.isSelected());
-			}
-		});
-		builder.append("Enabled", isEnabled);
+        final JCheckBox isEnabled = new JCheckBox("is enabled");
+        isEnabled.setSelected(tree.isEnabled());
+        isEnabled.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                tree.setEnabled(isEnabled.isSelected());
+            }
+        });
+        builder.append("Enabled", isEnabled);
 
-		final JCheckBox isOpaque = new JCheckBox("is opaque");
-		isOpaque.setSelected(tree.isOpaque());
-		isOpaque.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tree.setOpaque(isOpaque.isSelected());
-				tree.repaint();
-			}
-		});
-		builder.append("Opacity", isOpaque);
+        final JCheckBox isOpaque = new JCheckBox("is opaque");
+        isOpaque.setSelected(tree.isOpaque());
+        isOpaque.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                tree.setOpaque(isOpaque.isSelected());
+                tree.repaint();
+            }
+        });
+        builder.append("Opacity", isOpaque);
 
-		final JCheckBox isEditable = new JCheckBox("is editable");
-		isEditable.setSelected(tree.isEditable());
-		isEditable.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tree.setEditable(isEditable.isSelected());
-			}
-		});
-		builder.append("Editable", isEditable);
+        final JCheckBox isEditable = new JCheckBox("is editable");
+        isEditable.setSelected(tree.isEditable());
+        isEditable.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                tree.setEditable(isEditable.isSelected());
+            }
+        });
+        builder.append("Editable", isEditable);
 
-		final JCheckBox isDragEnabled = new JCheckBox("is drag enabled");
-		isDragEnabled.setSelected(tree.getDragEnabled());
-		isDragEnabled.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tree.setDragEnabled(isDragEnabled.isSelected());
-			}
-		});
-		builder.append("Drag enabled", isDragEnabled);
+        final JCheckBox isDragEnabled = new JCheckBox("is drag enabled");
+        isDragEnabled.setSelected(tree.getDragEnabled());
+        isDragEnabled.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                tree.setDragEnabled(isDragEnabled.isSelected());
+            }
+        });
+        builder.append("Drag enabled", isDragEnabled);
 
-		final JCheckBox watermarkBleed = new JCheckBox("is visible");
-		watermarkBleed.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tree.putClientProperty(SubstanceLookAndFeel.WATERMARK_VISIBLE,
-						Boolean.valueOf(watermarkBleed.isSelected()));
-				jsp.putClientProperty(SubstanceLookAndFeel.WATERMARK_VISIBLE,
-						Boolean.valueOf(watermarkBleed.isSelected()));
-				tree.repaint();
-			}
-		});
-		builder.append("Watermark", watermarkBleed);
+        final JCheckBox watermarkBleed = new JCheckBox("is visible");
+        watermarkBleed.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                tree.putClientProperty(SubstanceLookAndFeel.WATERMARK_VISIBLE,
+                        Boolean.valueOf(watermarkBleed.isSelected()));
+                jsp.putClientProperty(SubstanceLookAndFeel.WATERMARK_VISIBLE,
+                        Boolean.valueOf(watermarkBleed.isSelected()));
+                tree.repaint();
+            }
+        });
+        builder.append("Watermark", watermarkBleed);
 
-		final JCheckBox isWrappedInScrollPane = new JCheckBox(
-				"is in scroll pane");
-		isWrappedInScrollPane.setSelected(true);
-		isWrappedInScrollPane.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (isWrappedInScrollPane.isSelected()) {
-					remove(tree);
-					jsp.setViewportView(tree);
-					add(jsp, BorderLayout.CENTER);
-				} else {
-					remove(jsp);
-					add(tree, BorderLayout.CENTER);
-				}
-				revalidate();
-				repaint();
-			}
-		});
-		builder.append("Container", isWrappedInScrollPane);
+        final JCheckBox isWrappedInScrollPane = new JCheckBox("is in scroll pane");
+        isWrappedInScrollPane.setSelected(true);
+        isWrappedInScrollPane.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (isWrappedInScrollPane.isSelected()) {
+                    remove(tree);
+                    jsp.setViewportView(tree);
+                    add(jsp, BorderLayout.CENTER);
+                } else {
+                    remove(jsp);
+                    add(tree, BorderLayout.CENTER);
+                }
+                revalidate();
+                repaint();
+            }
+        });
+        builder.append("Container", isWrappedInScrollPane);
 
-		final JCheckBox rendererCB = new JCheckBox("has custom renderer");
-		rendererCB.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				SwingUtilities.invokeLater(new Runnable() {
-					public void run() {
-						if (rendererCB.isSelected()) {
-							tree.setCellRenderer(new TestTreeCellRenderer());
-						} else {
-							tree
-									.setCellRenderer(new SubstanceDefaultTreeCellRenderer());
-						}
-					}
-				});
-			}
-		});
-		builder.append("Renderer", rendererCB);
+        final JCheckBox rendererCB = new JCheckBox("has custom renderer");
+        rendererCB.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        if (rendererCB.isSelected()) {
+                            tree.setCellRenderer(new TestTreeCellRenderer());
+                        } else {
+                            tree.setCellRenderer(new SubstanceDefaultTreeCellRenderer());
+                        }
+                    }
+                });
+            }
+        });
+        builder.append("Renderer", rendererCB);
 
-		builder.appendSeparator("Insets");
-		Insets ins = tree.getInsets();
-		final JSpinner topInsets = new JSpinner(new SpinnerNumberModel(ins.top,
-				0, 10, 1));
-		final JSpinner leftInsets = new JSpinner(new SpinnerNumberModel(
-				ins.left, 0, 10, 1));
-		final JSpinner bottomInsets = new JSpinner(new SpinnerNumberModel(
-				ins.bottom, 0, 10, 1));
-		final JSpinner rightInsets = new JSpinner(new SpinnerNumberModel(
-				ins.right, 0, 10, 1));
-		builder.append("Top", topInsets);
-		builder.append("Left", leftInsets);
-		builder.append("Bottom", bottomInsets);
-		builder.append("Right", rightInsets);
+        builder.appendSeparator("Insets");
+        Insets ins = tree.getInsets();
+        final JSpinner topInsets = new JSpinner(new SpinnerNumberModel(ins.top, 0, 10, 1));
+        final JSpinner leftInsets = new JSpinner(new SpinnerNumberModel(ins.left, 0, 10, 1));
+        final JSpinner bottomInsets = new JSpinner(new SpinnerNumberModel(ins.bottom, 0, 10, 1));
+        final JSpinner rightInsets = new JSpinner(new SpinnerNumberModel(ins.right, 0, 10, 1));
+        builder.append("Top", topInsets);
+        builder.append("Left", leftInsets);
+        builder.append("Bottom", bottomInsets);
+        builder.append("Right", rightInsets);
 
-		ChangeListener cl = new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				tree.setBorder(new EmptyBorder((Integer) topInsets.getValue(),
-						(Integer) leftInsets.getValue(), (Integer) bottomInsets
-								.getValue(), (Integer) rightInsets.getValue()));
-			}
-		};
-		topInsets.addChangeListener(cl);
-		leftInsets.addChangeListener(cl);
-		bottomInsets.addChangeListener(cl);
-		rightInsets.addChangeListener(cl);
+        ChangeListener cl = new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                tree.setBorder(new EmptyBorder((Integer) topInsets.getValue(),
+                        (Integer) leftInsets.getValue(), (Integer) bottomInsets.getValue(),
+                        (Integer) rightInsets.getValue()));
+            }
+        };
+        topInsets.addChangeListener(cl);
+        leftInsets.addChangeListener(cl);
+        bottomInsets.addChangeListener(cl);
+        rightInsets.addChangeListener(cl);
 
-		this.controlPanel = builder.getPanel();
-		// this.tree.setEditable(true);
-	}
+        this.controlPanel = builder.getPanel();
+        // this.tree.setEditable(true);
+    }
 }

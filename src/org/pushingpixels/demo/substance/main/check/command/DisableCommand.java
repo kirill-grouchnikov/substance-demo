@@ -1,6 +1,6 @@
 package org.pushingpixels.demo.substance.main.check.command;
 
-import java.awt.Component;
+import javax.swing.JComponent;
 
 
 /**
@@ -8,13 +8,13 @@ import java.awt.Component;
  * 
  * @author Kirill Grouchnikov
  */
-public class DisableCommand implements ConfigurationCommand<Component> {
+public class DisableCommand implements ConfigurationCommand<JComponent> {
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
 	 */
-	public void configure(Component ab) {
+	public void configure(JComponent ab) {
 		ab.setEnabled(false);
 	}
 }

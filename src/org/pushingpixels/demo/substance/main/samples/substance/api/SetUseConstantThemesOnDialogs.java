@@ -32,7 +32,6 @@ package org.pushingpixels.demo.substance.main.samples.substance.api;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -68,42 +67,30 @@ public class SetUseConstantThemesOnDialogs extends JFrame {
         JPanel buttonPanel = new JPanel(new FlowLayout());
         JButton bopi = new JButton("Info", new ImageIcon(
                 cl.getResource(packageName.replace('.', '/') + "/dialog-information.png")));
-        bopi.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(SetUseConstantThemesOnDialogs.this,
-                        "Sample info message", "Sample title", JOptionPane.INFORMATION_MESSAGE);
-            }
-        });
+        bopi.addActionListener(
+                (ActionEvent e) -> JOptionPane.showMessageDialog(SetUseConstantThemesOnDialogs.this,
+                        "Sample info message", "Sample title", JOptionPane.INFORMATION_MESSAGE));
         buttonPanel.add(bopi);
 
         JButton bope = new JButton("Show",
                 new ImageIcon(cl.getResource(packageName.replace('.', '/') + "/dialog-error.png")));
-        bope.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(SetUseConstantThemesOnDialogs.this,
-                        "Sample error message", "Sample title", JOptionPane.ERROR_MESSAGE);
-            }
-        });
+        bope.addActionListener(
+                (ActionEvent e) -> JOptionPane.showMessageDialog(SetUseConstantThemesOnDialogs.this,
+                        "Sample error message", "Sample title", JOptionPane.ERROR_MESSAGE));
         buttonPanel.add(bope);
 
         JButton bopw = new JButton("Show", new ImageIcon(
                 cl.getResource(packageName.replace('.', '/') + "/dialog-warning.png")));
-        bopw.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(SetUseConstantThemesOnDialogs.this,
-                        "Sample warning message", "Sample title", JOptionPane.WARNING_MESSAGE);
-            }
-        });
+        bopw.addActionListener(
+                (ActionEvent e) -> JOptionPane.showMessageDialog(SetUseConstantThemesOnDialogs.this,
+                        "Sample warning message", "Sample title", JOptionPane.WARNING_MESSAGE));
         buttonPanel.add(bopw);
 
         JButton bopq = new JButton("Show",
                 new ImageIcon(cl.getResource(packageName.replace('.', '/') + "/help-browser.png")));
-        bopq.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(SetUseConstantThemesOnDialogs.this,
-                        "Sample question message", "Sample title", JOptionPane.QUESTION_MESSAGE);
-            }
-        });
+        bopq.addActionListener(
+                (ActionEvent e) -> JOptionPane.showMessageDialog(SetUseConstantThemesOnDialogs.this,
+                        "Sample question message", "Sample title", JOptionPane.QUESTION_MESSAGE));
         buttonPanel.add(bopq);
 
         this.add(buttonPanel, BorderLayout.CENTER);
@@ -113,16 +100,9 @@ public class SetUseConstantThemesOnDialogs extends JFrame {
                 "Use constant themes on dialogs");
         useConstantThemesOnDialogs
                 .setSelected(SubstanceCortex.GlobalScope.isToUseConstantThemesOnDialogs());
-        useConstantThemesOnDialogs.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        SubstanceCortex.GlobalScope.setToUseConstantThemesOnDialogs(
-                                useConstantThemesOnDialogs.isSelected());
-                    }
-                });
-            }
-        });
+        useConstantThemesOnDialogs.addActionListener(
+                (ActionEvent e) -> SwingUtilities.invokeLater(() -> SubstanceCortex.GlobalScope
+                        .setToUseConstantThemesOnDialogs(useConstantThemesOnDialogs.isSelected())));
         controls.add(useConstantThemesOnDialogs);
         this.add(controls, BorderLayout.SOUTH);
 
@@ -140,11 +120,9 @@ public class SetUseConstantThemesOnDialogs extends JFrame {
     public static void main(String[] args) {
         JDialog.setDefaultLookAndFeelDecorated(true);
         JFrame.setDefaultLookAndFeelDecorated(true);
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                SubstanceCortex.GlobalScope.setSkin(new NebulaSkin());
-                new SetUseConstantThemesOnDialogs().setVisible(true);
-            }
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new NebulaSkin());
+            new SetUseConstantThemesOnDialogs().setVisible(true);
         });
     }
 }

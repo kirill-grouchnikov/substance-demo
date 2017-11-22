@@ -32,7 +32,6 @@ package org.pushingpixels.demo.substance.main.samples.substance.api;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -45,8 +44,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.skin.BusinessBlueSteelSkin;
 
 /**
@@ -87,24 +86,14 @@ public class GetDecorationType extends JFrame {
 
         JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JButton getTypes = new JButton("Get types");
-        getTypes.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        DecorationAreaType tabsType = SubstanceCortex.ComponentScope
-                                .getDecorationType(tabs);
-                        DecorationAreaType comboType = SubstanceCortex.ComponentScope
-                                .getDecorationType(combo);
-                        JOptionPane.showMessageDialog(GetDecorationType.this,
-                                "Tabbed pane: " + tabsType.getDisplayName() + "\n" + "Combo box: "
-                                        + comboType.getDisplayName());
+        getTypes.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            DecorationAreaType tabsType = SubstanceCortex.ComponentScope.getDecorationType(tabs);
+            DecorationAreaType comboType = SubstanceCortex.ComponentScope.getDecorationType(combo);
+            JOptionPane.showMessageDialog(GetDecorationType.this,
+                    "Tabbed pane: " + tabsType.getDisplayName() + "\n" + "Combo box: "
+                            + comboType.getDisplayName());
 
-                    }
-                });
-            }
-        });
+        }));
         controlPanel.add(getTypes);
         this.add(controlPanel, BorderLayout.SOUTH);
 
@@ -122,12 +111,10 @@ public class GetDecorationType extends JFrame {
     public static void main(String[] args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
         JDialog.setDefaultLookAndFeelDecorated(true);
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                SubstanceCortex.GlobalScope.setSkin(new BusinessBlueSteelSkin());
-                UIManager.put("TabbedPane.contentOpaque", Boolean.TRUE);
-                new GetDecorationType().setVisible(true);
-            }
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new BusinessBlueSteelSkin());
+            UIManager.put("TabbedPane.contentOpaque", Boolean.TRUE);
+            new GetDecorationType().setVisible(true);
         });
     }
 }

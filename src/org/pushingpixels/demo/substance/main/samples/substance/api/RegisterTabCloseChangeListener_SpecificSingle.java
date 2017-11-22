@@ -97,11 +97,9 @@ public class RegisterTabCloseChangeListener_SpecificSingle extends JFrame {
      */
     public static void main(String[] args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-                new RegisterTabCloseChangeListener_SpecificSingle().setVisible(true);
-            }
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
+            new RegisterTabCloseChangeListener_SpecificSingle().setVisible(true);
         });
     }
 }

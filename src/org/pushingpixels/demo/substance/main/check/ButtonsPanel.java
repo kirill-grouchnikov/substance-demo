@@ -30,7 +30,6 @@
 package org.pushingpixels.demo.substance.main.check;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.Insets;
 import java.util.EnumSet;
@@ -39,6 +38,7 @@ import javax.swing.AbstractButton;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -57,10 +57,10 @@ import org.pushingpixels.demo.substance.main.check.svg.flags.il;
 import org.pushingpixels.demo.substance.main.check.svg.flags.it;
 import org.pushingpixels.demo.substance.main.check.svg.flags.ru;
 import org.pushingpixels.demo.substance.main.check.svg.flags.se;
+import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
 import org.pushingpixels.substance.api.SubstanceSlices.Side;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.SubstanceWidget;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
@@ -506,7 +506,7 @@ public class ButtonsPanel extends JPanel {
 		this.addRow(builder, "Disabled", null, new DisableCommand());
 		this.addRow(builder, "Selected", null, new SelectCommand());
 		this.addRow(builder, "Disabled selected", null,
-				new ChainCommand<Component>(new DisableCommand(),
+				new ChainCommand<JComponent>(new DisableCommand(),
 						new SelectCommand()));
 		this.addRow(builder, "HTML text", null, new TextCommand(
 				"<html>text <b>text</b> <font color='red'>text</font>"));
@@ -610,7 +610,7 @@ public class ButtonsPanel extends JPanel {
 
 		JPanel panel = builder.getPanel();
 		JScrollPane jsp = new JScrollPane(panel);
-		jsp.putClientProperty(SubstanceWidget.AUTO_SCROLL, Boolean.TRUE);
+		SubstanceCortex.ComponentScope.setAutomaticScrollPresence(jsp, true);
 		this.add(jsp, BorderLayout.CENTER);
 	}
 }

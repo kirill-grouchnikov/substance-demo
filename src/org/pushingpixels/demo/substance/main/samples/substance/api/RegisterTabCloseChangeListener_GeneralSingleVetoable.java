@@ -107,11 +107,9 @@ public class RegisterTabCloseChangeListener_GeneralSingleVetoable extends JFrame
     public static void main(String[] args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
         JDialog.setDefaultLookAndFeelDecorated(true);
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-                new RegisterTabCloseChangeListener_GeneralSingleVetoable().setVisible(true);
-            }
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
+            new RegisterTabCloseChangeListener_GeneralSingleVetoable().setVisible(true);
         });
     }
 }

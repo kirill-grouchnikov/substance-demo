@@ -85,12 +85,9 @@ public class SetWidgetVisible extends JFrame {
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         final JCheckBox showMenuSearchPanels = new JCheckBox("Show menu search panels");
         showMenuSearchPanels.setSelected(false);
-        showMenuSearchPanels.addActionListener((ActionEvent e) -> {
-            SwingUtilities.invokeLater(() -> {
-                SubstanceCortex.WindowScope.setWidgetVisible(SetWidgetVisible.this,
-                        showMenuSearchPanels.isSelected(), SubstanceWidgetType.MENU_SEARCH);
-            });
-        });
+        showMenuSearchPanels.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(
+                () -> SubstanceCortex.WindowScope.setWidgetVisible(SetWidgetVisible.this,
+                        showMenuSearchPanels.isSelected(), SubstanceWidgetType.MENU_SEARCH)));
         controls.add(showMenuSearchPanels);
         this.add(controls, BorderLayout.SOUTH);
 
@@ -107,11 +104,9 @@ public class SetWidgetVisible extends JFrame {
      */
     public static void main(String[] args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-                new SetWidgetVisible().setVisible(true);
-            }
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
+            new SetWidgetVisible().setVisible(true);
         });
     }
 }

@@ -33,7 +33,6 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -96,18 +95,11 @@ public class UnregisterTabCloseChangeListener_Specific extends JFrame {
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         final JButton unregisterListener = new JButton("Unregister listener");
-        unregisterListener.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        unregisterListener.setEnabled(false);
-                        // unregister listener
-                        SubstanceCortex.ComponentScope.unregisterTabCloseChangeListener(jtp,
-                                listener);
-                    }
-                });
-            }
-        });
+        unregisterListener.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            unregisterListener.setEnabled(false);
+            // unregister listener
+            SubstanceCortex.ComponentScope.unregisterTabCloseChangeListener(jtp, listener);
+        }));
         controls.add(unregisterListener);
         this.add(controls, BorderLayout.SOUTH);
 
@@ -124,11 +116,9 @@ public class UnregisterTabCloseChangeListener_Specific extends JFrame {
      */
     public static void main(String[] args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-                new UnregisterTabCloseChangeListener_Specific().setVisible(true);
-            }
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
+            new UnregisterTabCloseChangeListener_Specific().setVisible(true);
         });
     }
 }

@@ -1,14 +1,15 @@
 package org.pushingpixels.demo.substance.main.check.command;
 
-import java.awt.Component;
 import java.awt.Rectangle;
+
+import javax.swing.JComponent;
 
 /**
  * A configure command that sets bounds for the specified component.
  * 
  * @author Kirill Grouchnikov
  */
-public class SetBoundsCommand implements ConfigurationCommand<Component> {
+public class SetBoundsCommand implements ConfigurationCommand<JComponent> {
 	/**
 	 * Component bounds to set.
 	 */
@@ -29,7 +30,7 @@ public class SetBoundsCommand implements ConfigurationCommand<Component> {
 	 * 
 	 * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
 	 */
-	public void configure(Component comp) {
+	public void configure(JComponent comp) {
 		comp.setBounds(this.bounds);
 	}
 }

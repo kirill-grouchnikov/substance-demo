@@ -42,7 +42,6 @@ import javax.swing.JSlider;
 import javax.swing.SwingUtilities;
 import javax.swing.UIDefaults;
 import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.plaf.FontUIResource;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
@@ -51,8 +50,8 @@ import org.pushingpixels.substance.api.font.FontSet;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /**
- * Test application that shows the use of the {@link SubstanceCortex.GlobalScope#setFontPolicy(FontPolicy)}
- * API.
+ * Test application that shows the use of the
+ * {@link SubstanceCortex.GlobalScope#setFontPolicy(FontPolicy)} API.
  * 
  * @author Kirill Grouchnikov
  * @see SubstanceCortex.GlobalScope#setFontPolicy(FontPolicy)
@@ -140,39 +139,35 @@ public class SetFontPolicy extends JFrame {
         fontSizeSlider.setPaintLabels(true);
         fontSizeSlider.setMajorTickSpacing(1);
         fontSizeSlider.setToolTipText("Controls the global font set size");
-        fontSizeSlider.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                // if the value is adjusting - ignore. This is done
-                // to make CPU usage better.
-                if (!fontSizeSlider.getModel().getValueIsAdjusting()) {
-                    final int newValue = fontSizeSlider.getValue();
-                    SwingUtilities.invokeLater(new Runnable() {
-                        public void run() {
-                            // reset the base font policy to null - this
-                            // restores the original font policy (default size).
-                            SubstanceCortex.GlobalScope.setFontPolicy(null);
-                            // Get the default font set
-                            final FontSet substanceCoreFontSet = SubstanceCortex.GlobalScope
-                                    .getFontPolicy().getFontSet("Substance", null);
-                            // Create the wrapper font set
-                            FontPolicy newFontPolicy = new FontPolicy() {
-                                public FontSet getFontSet(String lafName, UIDefaults table) {
-                                    return new WrapperFontSet(substanceCoreFontSet, newValue);
-                                }
-                            };
-
-                            try {
-                                SetFontPolicy.this
-                                        .setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-                                // set the new font policy
-                                SubstanceCortex.GlobalScope.setFontPolicy(newFontPolicy);
-                                SetFontPolicy.this.setCursor(Cursor.getDefaultCursor());
-                            } catch (Exception exc) {
-                                exc.printStackTrace();
-                            }
+        fontSizeSlider.addChangeListener((ChangeEvent e) -> {
+            // if the value is adjusting - ignore. This is done
+            // to make CPU usage better.
+            if (!fontSizeSlider.getModel().getValueIsAdjusting()) {
+                final int newValue = fontSizeSlider.getValue();
+                SwingUtilities.invokeLater(() -> {
+                    // reset the base font policy to null - this
+                    // restores the original font policy (default size).
+                    SubstanceCortex.GlobalScope.setFontPolicy(null);
+                    // Get the default font set
+                    final FontSet substanceCoreFontSet = SubstanceCortex.GlobalScope.getFontPolicy()
+                            .getFontSet("Substance", null);
+                    // Create the wrapper font set
+                    FontPolicy newFontPolicy = new FontPolicy() {
+                        public FontSet getFontSet(String lafName, UIDefaults table) {
+                            return new WrapperFontSet(substanceCoreFontSet, newValue);
                         }
-                    });
-                }
+                    };
+
+                    try {
+                        SetFontPolicy.this
+                                .setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                        // set the new font policy
+                        SubstanceCortex.GlobalScope.setFontPolicy(newFontPolicy);
+                        SetFontPolicy.this.setCursor(Cursor.getDefaultCursor());
+                    } catch (Exception exc) {
+                        exc.printStackTrace();
+                    }
+                });
             }
         });
         panel.add(fontSizeSlider);
@@ -196,11 +191,9 @@ public class SetFontPolicy extends JFrame {
     public static void main(String[] args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
         JDialog.setDefaultLookAndFeelDecorated(true);
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-                new SetFontPolicy().setVisible(true);
-            }
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
+            new SetFontPolicy().setVisible(true);
         });
     }
 }

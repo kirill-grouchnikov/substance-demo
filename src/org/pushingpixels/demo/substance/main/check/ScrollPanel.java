@@ -43,8 +43,8 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.LineBorder;
 
 import org.pushingpixels.demo.substance.main.Check;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.api.SubstanceWidget;
 import org.pushingpixels.substance.api.painter.preview.DefaultPreviewPainter;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
@@ -56,119 +56,105 @@ import com.jgoodies.forms.layout.FormLayout;
  * @author Kirill Grouchnikov
  */
 public class ScrollPanel extends ControllablePanel {
-	/**
-	 * Scroll panel.
-	 */
-	private JScrollPane sp;
+    /**
+     * Scroll panel.
+     */
+    private JScrollPane sp;
 
-	/**
-	 * The inner panel.
-	 */
-	private JPanel panel;
+    /**
+     * The inner panel.
+     */
+    private JPanel panel;
 
-	/**
-	 * Creates the scroll panel for the test application.
-	 */
-	public ScrollPanel() {
-		this.panel = new CheckeredPanel();
-		this.sp = new JScrollPane(this.panel,
-				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		this.setLayout(new BorderLayout());
-		this.add(this.sp, BorderLayout.CENTER);
+    /**
+     * Creates the scroll panel for the test application.
+     */
+    public ScrollPanel() {
+        this.panel = new CheckeredPanel();
+        this.sp = new JScrollPane(this.panel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        this.setLayout(new BorderLayout());
+        this.add(this.sp, BorderLayout.CENTER);
 
-		FormLayout lm = new FormLayout("right:pref, 4dlu, fill:pref:grow", "");
-		DefaultFormBuilder builder = new DefaultFormBuilder(lm,
-				new ScrollablePanel());
+        FormLayout lm = new FormLayout("right:pref, 4dlu, fill:pref:grow", "");
+        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel());
 
-		builder.appendSeparator("General settings");
-		final JCheckBox isEnabled = new JCheckBox("is enabled");
-		isEnabled.setSelected(true);
-		isEnabled.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				boolean toEnable = isEnabled.isSelected();
-				sp.setEnabled(toEnable);
-				updateEnabledState(sp, toEnable);
-				Check.out("Scroll pane is " + toEnable);
-			}
-		});
-		builder.append("Enabled", isEnabled);
+        builder.appendSeparator("General settings");
+        final JCheckBox isEnabled = new JCheckBox("is enabled");
+        isEnabled.setSelected(true);
+        isEnabled.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                boolean toEnable = isEnabled.isSelected();
+                sp.setEnabled(toEnable);
+                updateEnabledState(sp, toEnable);
+                Check.out("Scroll pane is " + toEnable);
+            }
+        });
+        builder.append("Enabled", isEnabled);
 
-		final JCheckBox hasNullBorder = new JCheckBox("Has null border");
-		hasNullBorder.setSelected(false);
-		hasNullBorder.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (hasNullBorder.isSelected())
-					sp.setBorder(null);
-				else
-					sp.setBorder(new LineBorder(Color.red));
-				sp.repaint();
-			}
-		});
-		builder.append("Border", hasNullBorder);
+        final JCheckBox hasNullBorder = new JCheckBox("Has null border");
+        hasNullBorder.setSelected(false);
+        hasNullBorder.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (hasNullBorder.isSelected())
+                    sp.setBorder(null);
+                else
+                    sp.setBorder(new LineBorder(Color.red));
+                sp.repaint();
+            }
+        });
+        builder.append("Border", hasNullBorder);
 
-		final JCheckBox hasPreview = new JCheckBox("Has preview");
-		hasPreview.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				sp.putClientProperty(SubstanceWidget.COMPONENT_PREVIEW_PAINTER,
-						hasPreview.isSelected() ? new DefaultPreviewPainter()
-								: null);
-			}
-		});
-		builder.append("Preview", hasPreview);
+        final JCheckBox hasPreview = new JCheckBox("Has preview");
+        hasPreview.addActionListener((ActionEvent e) -> SubstanceCortex.ComponentOrParentScope
+                .setComponentPreviewPainter(sp,
+                        hasPreview.isSelected() ? new DefaultPreviewPainter() : null));
+        builder.append("Preview", hasPreview);
 
-		final JCheckBox hasAutoScroll = new JCheckBox("Has auto scroll");
-		hasAutoScroll.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				sp.putClientProperty(SubstanceWidget.AUTO_SCROLL, hasAutoScroll
-						.isSelected() ? Boolean.TRUE : null);
-			}
-		});
-		builder.append("Auto scroll", hasAutoScroll);
+        final JCheckBox hasAutoScroll = new JCheckBox("Has auto scroll");
+        hasAutoScroll.addActionListener((ActionEvent e) -> SubstanceCortex.ComponentScope
+                .setAutomaticScrollPresence(sp, hasAutoScroll.isSelected()));
+        builder.append("Auto scroll", hasAutoScroll);
 
-		builder.appendSeparator("Scroll buttons settings");
+        builder.appendSeparator("Scroll buttons settings");
 
-		final JCheckBox isFlat = new JCheckBox("Is flat");
-		isFlat.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				sp.putClientProperty(SubstanceLookAndFeel.FLAT_PROPERTY, isFlat
-						.isSelected() ? Boolean.TRUE : null);
-				sp.repaint();
-			}
-		});
-		builder.append("Flat", isFlat);
+        final JCheckBox isFlat = new JCheckBox("Is flat");
+        isFlat.addActionListener((ActionEvent e) -> {
+            sp.putClientProperty(SubstanceLookAndFeel.FLAT_PROPERTY,
+                    isFlat.isSelected() ? Boolean.TRUE : null);
+            sp.repaint();
+        });
+        builder.append("Flat", isFlat);
 
-		final JCheckBox isNever = new JCheckBox("Is never painted");
-		isNever.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				sp.putClientProperty(
-						SubstanceLookAndFeel.BUTTON_PAINT_NEVER_PROPERTY,
-						isNever.isSelected() ? Boolean.TRUE : null);
-				sp.repaint();
-			}
-		});
-		builder.append("Never", isNever);
+        final JCheckBox isNever = new JCheckBox("Is never painted");
+        isNever.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                sp.putClientProperty(SubstanceLookAndFeel.BUTTON_PAINT_NEVER_PROPERTY,
+                        isNever.isSelected() ? Boolean.TRUE : null);
+                sp.repaint();
+            }
+        });
+        builder.append("Never", isNever);
 
-		this.controlPanel = builder.getPanel();
-	}
+        this.controlPanel = builder.getPanel();
+    }
 
-	/**
-	 * Recursively updates the enabled state of the specified container and its
-	 * children.
-	 * 
-	 * @param c
-	 *            Container.
-	 * @param enabled
-	 *            New value for the enabled status.
-	 */
-	void updateEnabledState(Container c, boolean enabled) {
-		for (int counter = c.getComponentCount() - 1; counter >= 0; counter--) {
-			Component child = c.getComponent(counter);
+    /**
+     * Recursively updates the enabled state of the specified container and its children.
+     * 
+     * @param c
+     *            Container.
+     * @param enabled
+     *            New value for the enabled status.
+     */
+    void updateEnabledState(Container c, boolean enabled) {
+        for (int counter = c.getComponentCount() - 1; counter >= 0; counter--) {
+            Component child = c.getComponent(counter);
 
-			child.setEnabled(enabled);
-			if (child instanceof Container) {
-				updateEnabledState((Container) child, enabled);
-			}
-		}
-	}
+            child.setEnabled(enabled);
+            if (child instanceof Container) {
+                updateEnabledState((Container) child, enabled);
+            }
+        }
+    }
 }

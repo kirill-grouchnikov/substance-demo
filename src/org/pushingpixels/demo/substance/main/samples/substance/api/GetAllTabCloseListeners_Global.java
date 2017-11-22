@@ -58,91 +58,82 @@ import org.pushingpixels.substance.api.tabbed.VetoableMultipleTabCloseListener;
  * @see SubstanceCortex.GlobalScope#getAllTabCloseListeners()
  */
 public class GetAllTabCloseListeners_Global extends JFrame {
-	/**
-	 * Creates the main frame for <code>this</code> sample.
-	 */
-	public GetAllTabCloseListeners_Global() {
-		super("Get all tab close listeners");
+    /**
+     * Creates the main frame for <code>this</code> sample.
+     */
+    public GetAllTabCloseListeners_Global() {
+        super("Get all tab close listeners");
 
-		this.setLayout(new BorderLayout());
+        this.setLayout(new BorderLayout());
 
-		final JTabbedPane jtp = new JTabbedPane();
-		jtp.addTab("tab1", new JPanel());
-		jtp.addTab("tab2", new JPanel());
-		jtp.addTab("tab3", new JPanel());
+        final JTabbedPane jtp = new JTabbedPane();
+        jtp.addTab("tab1", new JPanel());
+        jtp.addTab("tab2", new JPanel());
+        jtp.addTab("tab3", new JPanel());
 
-		jtp.putClientProperty(
-				SubstanceLookAndFeel.TABBED_PANE_CLOSE_BUTTONS_PROPERTY,
-				Boolean.TRUE);
+        jtp.putClientProperty(SubstanceLookAndFeel.TABBED_PANE_CLOSE_BUTTONS_PROPERTY,
+                Boolean.TRUE);
 
-		SubstanceCortex.GlobalScope.registerTabCloseChangeListener(
-				new TabCloseListener() {
-					public void tabClosing(JTabbedPane tabbedPane,
-							Component tabComponent) {
-						System.out.println("Tab closing");
-					}
+        SubstanceCortex.GlobalScope.registerTabCloseChangeListener(new TabCloseListener() {
+            public void tabClosing(JTabbedPane tabbedPane, Component tabComponent) {
+                System.out.println("Tab closing");
+            }
 
-					public void tabClosed(JTabbedPane tabbedPane,
-							Component tabComponent) {
-						System.out.println("Tab closed");
-					}
-				});
+            public void tabClosed(JTabbedPane tabbedPane, Component tabComponent) {
+                System.out.println("Tab closed");
+            }
+        });
 
-		SubstanceCortex.ComponentScope.registerTabCloseChangeListener(jtp,
-				new VetoableMultipleTabCloseListener() {
-					public void tabsClosed(JTabbedPane tabbedPane,
-							Set<Component> tabComponents) {
-						System.out.println("Tabs closed");
-					}
+        SubstanceCortex.ComponentScope.registerTabCloseChangeListener(jtp,
+                new VetoableMultipleTabCloseListener() {
+                    public void tabsClosed(JTabbedPane tabbedPane, Set<Component> tabComponents) {
+                        System.out.println("Tabs closed");
+                    }
 
-					public void tabsClosing(JTabbedPane tabbedPane,
-							Set<Component> tabComponents) {
-						System.out.println("Tabs closing");
-					}
+                    public void tabsClosing(JTabbedPane tabbedPane, Set<Component> tabComponents) {
+                        System.out.println("Tabs closing");
+                    }
 
-					public boolean vetoTabsClosing(JTabbedPane tabbedPane,
-							Set<Component> tabComponents) {
-						System.out.println("Vetoing tabs closing");
-						return true;
-					}
-				});
+                    public boolean vetoTabsClosing(JTabbedPane tabbedPane,
+                            Set<Component> tabComponents) {
+                        System.out.println("Vetoing tabs closing");
+                        return true;
+                    }
+                });
 
-		this.add(jtp, BorderLayout.CENTER);
+        this.add(jtp, BorderLayout.CENTER);
 
-		JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
-		JButton getTabCloseListeners = new JButton("Get tab close listeners");
-		getTabCloseListeners.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(
-						GetAllTabCloseListeners_Global.this,
-						SubstanceCortex.GlobalScope.getAllTabCloseListeners().size()
-								+ " global tab close listeners registered");
-			}
-		});
+        JButton getTabCloseListeners = new JButton("Get tab close listeners");
+        getTabCloseListeners.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(GetAllTabCloseListeners_Global.this,
+                        SubstanceCortex.GlobalScope.getAllTabCloseListeners().size()
+                                + " global tab close listeners registered");
+            }
+        });
 
-		controls.add(getTabCloseListeners);
-		this.add(controls, BorderLayout.SOUTH);
+        controls.add(getTabCloseListeners);
+        this.add(controls, BorderLayout.SOUTH);
 
-		this.setSize(400, 200);
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+        this.setSize(400, 200);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
 
-	/**
-	 * The main method for <code>this</code> sample. The arguments are ignored.
-	 * 
-	 * @param args
-	 *            Ignored.
-	 */
-	public static void main(String[] args) {
-		JDialog.setDefaultLookAndFeelDecorated(true);
-		JFrame.setDefaultLookAndFeelDecorated(true);
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-			    SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-				new GetAllTabCloseListeners_Global().setVisible(true);
-			}
-		});
-	}
+    /**
+     * The main method for <code>this</code> sample. The arguments are ignored.
+     * 
+     * @param args
+     *            Ignored.
+     */
+    public static void main(String[] args) {
+        JDialog.setDefaultLookAndFeelDecorated(true);
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
+            new GetAllTabCloseListeners_Global().setVisible(true);
+        });
+    }
 }

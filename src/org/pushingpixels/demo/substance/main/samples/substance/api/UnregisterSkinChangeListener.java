@@ -103,13 +103,11 @@ public class UnregisterSkinChangeListener extends JFrame {
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         final JButton unregisterListener = new JButton("Unregister listener");
-        unregisterListener.addActionListener((ActionEvent e) -> {
-            SwingUtilities.invokeLater(() -> {
-                unregisterListener.setEnabled(false);
-                // unregister listener
-                SubstanceCortex.GlobalScope.unregisterSkinChangeListener(listener);
-            });
-        });
+        unregisterListener.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            unregisterListener.setEnabled(false);
+            // unregister listener
+            SubstanceCortex.GlobalScope.unregisterSkinChangeListener(listener);
+        }));
         controls.add(unregisterListener);
         this.add(controls, BorderLayout.SOUTH);
 
@@ -137,11 +135,9 @@ public class UnregisterSkinChangeListener extends JFrame {
     public static void main(String[] args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
         JDialog.setDefaultLookAndFeelDecorated(true);
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-                new UnregisterSkinChangeListener().setVisible(true);
-            }
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
+            new UnregisterSkinChangeListener().setVisible(true);
         });
     }
 }
