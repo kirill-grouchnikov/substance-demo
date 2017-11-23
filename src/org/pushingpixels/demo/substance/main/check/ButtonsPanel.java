@@ -47,7 +47,6 @@ import javax.swing.JToggleButton;
 
 import org.pushingpixels.demo.substance.main.Check;
 import org.pushingpixels.demo.substance.main.check.command.ChainCommand;
-import org.pushingpixels.demo.substance.main.check.command.ClientPropertyCommand;
 import org.pushingpixels.demo.substance.main.check.command.ConfigurationCommand;
 import org.pushingpixels.demo.substance.main.check.command.DisableCommand;
 import org.pushingpixels.demo.substance.main.check.command.SelectCommand;
@@ -58,7 +57,6 @@ import org.pushingpixels.demo.substance.main.check.svg.flags.it;
 import org.pushingpixels.demo.substance.main.check.svg.flags.ru;
 import org.pushingpixels.demo.substance.main.check.svg.flags.se;
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
 import org.pushingpixels.substance.api.SubstanceSlices.Side;
 
@@ -66,551 +64,429 @@ import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * Test application panel for testing {@link JButton}, {@link JToggleButton},
- * {@link JRadioButton} and {@link JCheckBox} components.
+ * Test application panel for testing {@link JButton}, {@link JToggleButton}, {@link JRadioButton}
+ * and {@link JCheckBox} components.
  * 
  * @author Kirill Grouchnikov
  */
 public class ButtonsPanel extends JPanel {
-	/**
-	 * The default button.
-	 */
-	public JButton defaultButton;
+    /**
+     * The default button.
+     */
+    public JButton defaultButton;
 
-	/**
-	 * A configure command that removes the focus painting from the specified
-	 * button.
-	 * 
-	 * @author Kirill Grouchnikov
-	 */
-	private class NoFocusCommand implements
-			ConfigurationCommand<AbstractButton> {
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-		 */
-		public void configure(AbstractButton ab) {
-			ab.setFocusPainted(false);
-		}
-	}
+    /**
+     * A configure command that removes the focus painting from the specified button.
+     * 
+     * @author Kirill Grouchnikov
+     */
+    private class NoFocusCommand implements ConfigurationCommand<AbstractButton> {
+        /*
+         * (non-Javadoc)
+         * 
+         * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
+         */
+        public void configure(AbstractButton ab) {
+            ab.setFocusPainted(false);
+        }
+    }
 
-	/**
-	 * A configure command that sets the specified focus painting kind the
-	 * specified button.
-	 * 
-	 * @author Kirill Grouchnikov
-	 */
-	private class FocusKindCommand implements
-			ConfigurationCommand<AbstractButton> {
-		/**
-		 * Focus painting kind.
-		 */
-		private FocusKind focusKind;
+    /**
+     * A configure command that sets a 5-pixel margin on the specified button.
+     * 
+     * @author Kirill Grouchnikov
+     */
+    private class MarginCommand implements ConfigurationCommand<AbstractButton> {
+        /*
+         * (non-Javadoc)
+         * 
+         * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
+         */
+        public void configure(AbstractButton ab) {
+            ab.setMargin(new Insets(5, 5, 5, 5));
+        }
+    }
 
-		/**
-		 * Creates the focus painting configuration command.
-		 * 
-		 * @param focusKind
-		 *            Focus painting kind.
-		 */
-		public FocusKindCommand(FocusKind focusKind) {
-			this.focusKind = focusKind;
-		}
+    /**
+     * A configure command that sets the specified text on the specified button.
+     * 
+     * @author Kirill Grouchnikov
+     */
+    private class TextCommand implements ConfigurationCommand<AbstractButton> {
+        /**
+         * Text to set.
+         */
+        private String text;
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-		 */
-		public void configure(AbstractButton ab) {
-			ab.putClientProperty(SubstanceLookAndFeel.FOCUS_KIND, focusKind);
-		}
-	}
+        /**
+         * Creates a text configuration command.
+         * 
+         * @param text
+         *            Text to set.
+         */
+        public TextCommand(String text) {
+            this.text = text;
+        }
 
-	/**
-	 * A configure command that marks the specified button to not have minimum
-	 * size.
-	 * 
-	 * @author Kirill Grouchnikov
-	 */
-	private class NoMinSizeCommand implements
-			ConfigurationCommand<AbstractButton> {
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-		 */
-		public void configure(AbstractButton ab) {
-			ab.putClientProperty(
-					SubstanceLookAndFeel.BUTTON_NO_MIN_SIZE_PROPERTY,
-					Boolean.TRUE);
-		}
-	}
+        /*
+         * (non-Javadoc)
+         * 
+         * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
+         */
+        public void configure(AbstractButton ab) {
+            ab.setText(this.text);
+        }
+    }
 
-	/**
-	 * A configure command that sets a 5-pixel margin on the specified button.
-	 * 
-	 * @author Kirill Grouchnikov
-	 */
-	private class MarginCommand implements ConfigurationCommand<AbstractButton> {
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-		 */
-		public void configure(AbstractButton ab) {
-			ab.setMargin(new Insets(5, 5, 5, 5));
-		}
-	}
+    /**
+     * A configure command that sets the specified tooltip text on the specified button.
+     * 
+     * @author Kirill Grouchnikov
+     */
+    private class TooltipTextCommand implements ConfigurationCommand<AbstractButton> {
+        /**
+         * Tooltip text to set.
+         */
+        private String tooltipText;
 
-	/**
-	 * A configure command that sets straight sides on the specified button.
-	 * 
-	 * @author Kirill Grouchnikov
-	 */
-	private class StraightSideCommand implements
-			ConfigurationCommand<AbstractButton> {
-		/**
-		 * Straight sides object.
-		 */
-		private Object sideObj;
+        /**
+         * Creates a tooltip text configuration command.
+         * 
+         * @param tooltipText
+         *            Tooltip text to set.
+         */
+        public TooltipTextCommand(String tooltipText) {
+            this.tooltipText = tooltipText;
+        }
 
-		/**
-		 * Creates a straight side configuration command.
-		 * 
-		 * @param sideObj
-		 *            Straight side object.
-		 */
-		public StraightSideCommand(Object sideObj) {
-			this.sideObj = sideObj;
-		}
+        /*
+         * (non-Javadoc)
+         * 
+         * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
+         */
+        public void configure(AbstractButton ab) {
+            ab.setToolTipText(this.tooltipText);
+        }
+    }
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-		 */
-		public void configure(AbstractButton ab) {
-			ab.putClientProperty(SubstanceLookAndFeel.BUTTON_SIDE_PROPERTY,
-					this.sideObj);
-		}
-	}
+    /**
+     * A configure command that sets a popup menu handler on the specified button.
+     * 
+     * @author Kirill Grouchnikov
+     */
+    private class PopupMenuCommand implements ConfigurationCommand<AbstractButton> {
+        /*
+         * (non-Javadoc)
+         * 
+         * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
+         */
+        public void configure(AbstractButton ab) {
+            ab.addMouseListener(new MousePopupListener(ab));
+        }
+    }
 
-	/**
-	 * A configure command that sets open sides on the specified button.
-	 * 
-	 * @author Kirill Grouchnikov
-	 */
-	private class OpenSideCommand implements
-			ConfigurationCommand<AbstractButton> {
-		/**
-		 * Open sides object.
-		 */
-		private Object sideObj;
+    /**
+     * A configure command that sets the specified font on the specified button.
+     * 
+     * @author Kirill Grouchnikov
+     */
+    private class FontCommand implements ConfigurationCommand<AbstractButton> {
+        /**
+         * Font to set.
+         */
+        private Font font;
 
-		/**
-		 * Creates an open side configuration command.
-		 * 
-		 * @param sideObj
-		 *            Open side object.
-		 */
-		public OpenSideCommand(Object sideObj) {
-			this.sideObj = sideObj;
-		}
+        /**
+         * Creates a font configuration command.
+         * 
+         * @param font
+         *            Font to set.
+         */
+        public FontCommand(Font font) {
+            this.font = font;
+        }
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-		 */
-		public void configure(AbstractButton ab) {
-			ab.putClientProperty(
-					SubstanceLookAndFeel.BUTTON_OPEN_SIDE_PROPERTY,
-					this.sideObj);
-		}
-	}
+        /*
+         * (non-Javadoc)
+         * 
+         * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
+         */
+        public void configure(AbstractButton ab) {
+            ab.setFont(this.font);
+        }
+    }
 
-	/**
-	 * A configure command that sets the specified text on the specified button.
-	 * 
-	 * @author Kirill Grouchnikov
-	 */
-	private class TextCommand implements ConfigurationCommand<AbstractButton> {
-		/**
-		 * Text to set.
-		 */
-		private String text;
+    /**
+     * A configure command that sets the specified icon on the specified button.
+     * 
+     * @author Kirill Grouchnikov
+     */
+    private class IconCommand implements ConfigurationCommand<AbstractButton> {
+        /**
+         * Icon to set.
+         */
+        private Icon icon;
 
-		/**
-		 * Creates a text configuration command.
-		 * 
-		 * @param text
-		 *            Text to set.
-		 */
-		public TextCommand(String text) {
-			this.text = text;
-		}
+        /**
+         * Creates an icon configuration command.
+         * 
+         * @param icon
+         *            Icon to set.
+         */
+        public IconCommand(Icon icon) {
+            this.icon = icon;
+        }
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-		 */
-		public void configure(AbstractButton ab) {
-			ab.setText(this.text);
-		}
-	}
+        /*
+         * (non-Javadoc)
+         * 
+         * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
+         */
+        public void configure(AbstractButton ab) {
+            if ((ab instanceof JRadioButton) || (ab instanceof JCheckBox))
+                return;
+            ab.setIcon(this.icon);
+        }
+    }
 
-	/**
-	 * A configure command that sets the specified tooltip text on the specified
-	 * button.
-	 * 
-	 * @author Kirill Grouchnikov
-	 */
-	private class TooltipTextCommand implements
-			ConfigurationCommand<AbstractButton> {
-		/**
-		 * Tooltip text to set.
-		 */
-		private String tooltipText;
+    /**
+     * A configure command that marks the button to not have content area filled.
+     * 
+     * @author Kirill Grouchnikov
+     */
+    private class NoContentAreaFilledCommand implements ConfigurationCommand<AbstractButton> {
+        /*
+         * (non-Javadoc)
+         * 
+         * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
+         */
+        public void configure(AbstractButton ab) {
+            ab.setContentAreaFilled(false);
+        }
+    }
 
-		/**
-		 * Creates a tooltip text configuration command.
-		 * 
-		 * @param tooltipText
-		 *            Tooltip text to set.
-		 */
-		public TooltipTextCommand(String tooltipText) {
-			this.tooltipText = tooltipText;
-		}
+    /**
+     * A configure command that marks the button to not have border painted.
+     * 
+     * @author Kirill Grouchnikov
+     */
+    private class NoBorderPaintedCommand implements ConfigurationCommand<AbstractButton> {
+        /*
+         * (non-Javadoc)
+         * 
+         * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
+         */
+        public void configure(AbstractButton ab) {
+            ab.setBorderPainted(false);
+        }
+    }
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-		 */
-		public void configure(AbstractButton ab) {
-			ab.setToolTipText(this.tooltipText);
-		}
-	}
+    /**
+     * Returns a row of buttons, consisting of {@link JButton}, {@link JToggleButton},
+     * {@link JCheckBox} and {@link JRadioButton} in default states.
+     * 
+     * @return A row of buttons, consisting of {@link JButton}, {@link JToggleButton},
+     *         {@link JCheckBox} and {@link JRadioButton} in default states.
+     */
+    private AbstractButton[] getRow() {
+        AbstractButton[] result = new AbstractButton[4];
+        result[0] = new JButton("sample");
+        result[0].setName("Button " + rowCount);
+        result[1] = new JToggleButton("sample");
+        result[1].setName("Toggle " + rowCount);
+        result[2] = new JCheckBox("sample");
+        result[2].setName("Check " + rowCount);
+        result[3] = new JRadioButton("sample");
+        result[3].setName("Radio " + rowCount);
+        rowCount++;
+        return result;
+    }
 
-	/**
-	 * A configure command that sets a popup menu handler on the specified
-	 * button.
-	 * 
-	 * @author Kirill Grouchnikov
-	 */
-	private class PopupMenuCommand implements
-			ConfigurationCommand<AbstractButton> {
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-		 */
-		public void configure(AbstractButton ab) {
-			ab.addMouseListener(new MousePopupListener(ab));
-		}
-	}
+    private int rowCount = 0;
 
-	/**
-	 * A configure command that sets the specified font on the specified button.
-	 * 
-	 * @author Kirill Grouchnikov
-	 */
-	private class FontCommand implements ConfigurationCommand<AbstractButton> {
-		/**
-		 * Font to set.
-		 */
-		private Font font;
+    /**
+     * Adds a row of buttons configured with the specified text, icon and configuration command.
+     * 
+     * @param builder
+     *            Form builder.
+     * @param label
+     *            Text to set.
+     * @param icon
+     *            Icon to set.
+     * @param cmd
+     *            Configuration command to apply.
+     */
+    private void addRow(DefaultFormBuilder builder, String label, Icon icon,
+            ConfigurationCommand<? super AbstractButton> cmd) {
+        AbstractButton[] row = this.getRow();
+        if (cmd != null) {
+            for (AbstractButton ab : row) {
+                cmd.configure(ab);
+            }
+        }
 
-		/**
-		 * Creates a font configuration command.
-		 * 
-		 * @param font
-		 *            Font to set.
-		 */
-		public FontCommand(Font font) {
-			this.font = font;
-		}
+        JLabel jl = new JLabel(label);
+        if (icon != null)
+            jl.setIcon(icon);
+        builder.append(jl);
+        for (AbstractButton ab : row)
+            builder.append(ab);
+    }
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-		 */
-		public void configure(AbstractButton ab) {
-			ab.setFont(this.font);
-		}
-	}
+    /**
+     * Creates a new button panel.
+     */
+    @SuppressWarnings("unchecked")
+    public ButtonsPanel() {
+        this.setLayout(new BorderLayout());
 
-	/**
-	 * A configure command that sets the specified icon on the specified button.
-	 * 
-	 * @author Kirill Grouchnikov
-	 */
-	private class IconCommand implements ConfigurationCommand<AbstractButton> {
-		/**
-		 * Icon to set.
-		 */
-		private Icon icon;
+        FormLayout lm = new FormLayout("right:pref, 10dlu, left:pref:grow(1), 4dlu,"
+                + "left:pref:grow(1), 4dlu, left:pref:grow(1), " + "4dlu, left:pref:grow(1)", "");
+        lm.setColumnGroups(new int[][] { { 3, 5, 7, 9 } });
+        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel());
+        builder.setDefaultDialogBorder();
 
-		/**
-		 * Creates an icon configuration command.
-		 * 
-		 * @param icon
-		 *            Icon to set.
-		 */
-		public IconCommand(Icon icon) {
-			this.icon = icon;
-		}
+        builder.append("");
+        JLabel bLabel = new JLabel("Buttons");
+        bLabel.setIcon(Check.getIcon("JButtonColor16"));
+        JLabel tbLabel = new JLabel("Toggle buttons");
+        tbLabel.setIcon(Check.getIcon("JToggleButtonColor16"));
+        JLabel cbLabel = new JLabel("Check boxes");
+        cbLabel.setIcon(Check.getIcon("JCheckBoxColor16"));
+        JLabel rbLabel = new JLabel("Radio buttons");
+        rbLabel.setIcon(Check.getIcon("JRadioButtonColor16"));
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-		 */
-		public void configure(AbstractButton ab) {
-			if ((ab instanceof JRadioButton) || (ab instanceof JCheckBox))
-				return;
-			ab.setIcon(this.icon);
-		}
-	}
+        // bLabel.setFont(bLabel.getFont().deriveFont(Font.BOLD));
+        // tbLabel.setFont(rbLabel.getFont().deriveFont(Font.BOLD));
+        // cbLabel.setFont(cbLabel.getFont().deriveFont(Font.BOLD));
+        // rbLabel.setFont(rbLabel.getFont().deriveFont(Font.BOLD));
 
-	/**
-	 * A configure command that marks the button to not have content area
-	 * filled.
-	 * 
-	 * @author Kirill Grouchnikov
-	 */
-	private class NoContentAreaFilledCommand implements
-			ConfigurationCommand<AbstractButton> {
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-		 */
-		public void configure(AbstractButton ab) {
-			ab.setContentAreaFilled(false);
-		}
-	}
+        builder.append(bLabel, tbLabel);
+        builder.append(cbLabel, rbLabel);
 
-	/**
-	 * A configure command that marks the button to not have border painted.
-	 * 
-	 * @author Kirill Grouchnikov
-	 */
-	private class NoBorderPaintedCommand implements
-			ConfigurationCommand<AbstractButton> {
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see test.check.ConfigurationCommand#invoke(java.lang.Object)
-		 */
-		public void configure(AbstractButton ab) {
-			ab.setBorderPainted(false);
-		}
-	}
+        builder.appendSeparator("Regular settings");
+        this.addRow(builder, "Enabled", null, null);
+        this.addRow(builder, "Disabled", null, new DisableCommand());
+        this.addRow(builder, "Selected", null, new SelectCommand());
+        this.addRow(builder, "Disabled selected", null,
+                new ChainCommand<JComponent>(new DisableCommand(), new SelectCommand()));
+        this.addRow(builder, "HTML text", null,
+                new TextCommand("<html>text <b>text</b> <font color='red'>text</font>"));
+        this.addRow(builder, "Long text", null, new TextCommand("Some long long text"));
+        this.addRow(builder, "With tooltip", null, new TooltipTextCommand("Sample tooltip"));
+        this.addRow(builder, "Disabled with tooltip", null,
+                new ChainCommand(new TooltipTextCommand("Sample tooltip"), new DisableCommand()));
+        this.addRow(builder, "Popup menu", null, new PopupMenuCommand());
+        this.addRow(builder, "With icon", Check.configure(new se(), 21, 16),
+                new IconCommand(Check.configure(new se(), 21, 16)));
 
-	/**
-	 * Returns a row of buttons, consisting of {@link JButton},
-	 * {@link JToggleButton}, {@link JCheckBox} and {@link JRadioButton} in
-	 * default states.
-	 * 
-	 * @return A row of buttons, consisting of {@link JButton},
-	 *         {@link JToggleButton}, {@link JCheckBox} and {@link JRadioButton}
-	 *         in default states.
-	 */
-	private AbstractButton[] getRow() {
-		AbstractButton[] result = new AbstractButton[4];
-		result[0] = new JButton("sample");
-		result[0].setName("Button " + rowCount);
-		result[1] = new JToggleButton("sample");
-		result[1].setName("Toggle " + rowCount);
-		result[2] = new JCheckBox("sample");
-		result[2].setName("Check " + rowCount);
-		result[3] = new JRadioButton("sample");
-		result[3].setName("Radio " + rowCount);
-		rowCount++;
-		return result;
-	}
+        builder.appendSeparator("Focus indications");
+        this.addRow(builder, "No focus painted", null, new NoFocusCommand());
+        this.addRow(builder, "None", null,
+                (AbstractButton ab) -> SubstanceCortex.ComponentOrParentChainScope.setFocusKind(ab,
+                        FocusKind.NONE));
+        this.addRow(builder, "Text", null,
+                (AbstractButton ab) -> SubstanceCortex.ComponentOrParentChainScope.setFocusKind(ab,
+                        FocusKind.TEXT));
+        this.addRow(builder, "All", null,
+                (AbstractButton ab) -> SubstanceCortex.ComponentOrParentChainScope.setFocusKind(ab,
+                        FocusKind.ALL));
+        this.addRow(builder, "All inner", null,
+                (AbstractButton ab) -> SubstanceCortex.ComponentOrParentChainScope.setFocusKind(ab,
+                        FocusKind.ALL_INNER));
+        this.addRow(builder, "All strong inner", null,
+                (AbstractButton ab) -> SubstanceCortex.ComponentOrParentChainScope.setFocusKind(ab,
+                        FocusKind.ALL_STRONG_INNER));
+        this.addRow(builder, "Underline", null,
+                (AbstractButton ab) -> SubstanceCortex.ComponentOrParentChainScope.setFocusKind(ab,
+                        FocusKind.UNDERLINE));
+        this.addRow(builder, "Strong underline", null,
+                (AbstractButton ab) -> SubstanceCortex.ComponentOrParentChainScope.setFocusKind(ab,
+                        FocusKind.STRONG_UNDERLINE));
 
-	private int rowCount = 0;
+        builder.appendSeparator("Size settings");
+        this.addRow(builder, "No min size", null,
+                (AbstractButton ab) -> SubstanceCortex.ComponentOrParentScope
+                        .setButtonIgnoreMinimumSize(ab, true));
+        this.addRow(builder, "Custom margin", null, new MarginCommand());
 
-	/**
-	 * Adds a row of buttons configured with the specified text, icon and
-	 * configuration command.
-	 * 
-	 * @param builder
-	 *            Form builder.
-	 * @param label
-	 *            Text to set.
-	 * @param icon
-	 *            Icon to set.
-	 * @param cmd
-	 *            Configuration command to apply.
-	 */
-	private void addRow(DefaultFormBuilder builder, String label, Icon icon,
-			ConfigurationCommand<? super AbstractButton> cmd) {
-		AbstractButton[] row = this.getRow();
-		if (cmd != null) {
-			for (AbstractButton ab : row) {
-				cmd.configure(ab);
-			}
-		}
+        builder.appendSeparator("Side settings");
+        this.addRow(builder, "Straight top", null,
+                (AbstractButton ab) -> SubstanceCortex.ComponentScope.setButtonStraightSide(ab,
+                        Side.TOP));
+        this.addRow(builder, "Straight bottom", null,
+                (AbstractButton ab) -> SubstanceCortex.ComponentScope.setButtonStraightSide(ab,
+                        Side.BOTTOM));
+        this.addRow(builder, "Straight left", null,
+                (AbstractButton ab) -> SubstanceCortex.ComponentScope.setButtonStraightSides(ab,
+                        EnumSet.of(Side.LEFT)));
+        this.addRow(builder, "Straight right", null,
+                (AbstractButton ab) -> SubstanceCortex.ComponentScope.setButtonStraightSides(ab,
+                        EnumSet.of(Side.RIGHT)));
 
-		JLabel jl = new JLabel(label);
-		if (icon != null)
-			jl.setIcon(icon);
-		builder.append(jl);
-		for (AbstractButton ab : row)
-			builder.append(ab);
-	}
+        this.addRow(builder, "Open top", null,
+                new ChainCommand<AbstractButton>(
+                        (AbstractButton ab) -> SubstanceCortex.ComponentScope
+                                .setButtonStraightSide(ab, Side.TOP),
+                        (AbstractButton ab) -> SubstanceCortex.ComponentScope.setButtonOpenSide(ab,
+                                Side.TOP)));
+        this.addRow(builder, "Open bottom", null,
+                new ChainCommand<AbstractButton>(
+                        (AbstractButton ab) -> SubstanceCortex.ComponentScope
+                                .setButtonStraightSide(ab, Side.BOTTOM),
+                        (AbstractButton ab) -> SubstanceCortex.ComponentScope.setButtonOpenSide(ab,
+                                Side.BOTTOM)));
+        this.addRow(builder, "Open left", null,
+                new ChainCommand<AbstractButton>(
+                        (AbstractButton ab) -> SubstanceCortex.ComponentScope
+                                .setButtonStraightSides(ab, EnumSet.of(Side.LEFT)),
+                        (AbstractButton ab) -> SubstanceCortex.ComponentScope.setButtonOpenSides(ab,
+                                EnumSet.of(Side.LEFT))));
+        this.addRow(builder, "Open right", null,
+                new ChainCommand<AbstractButton>(
+                        (AbstractButton ab) -> SubstanceCortex.ComponentScope
+                                .setButtonStraightSides(ab, EnumSet.of(Side.RIGHT)),
+                        (AbstractButton ab) -> SubstanceCortex.ComponentScope.setButtonOpenSides(ab,
+                                EnumSet.of(Side.RIGHT))));
 
-	/**
-	 * Creates a new button panel.
-	 */
-	@SuppressWarnings("unchecked")
-	public ButtonsPanel() {
-		this.setLayout(new BorderLayout());
+        builder.appendSeparator("Unicode texts");
+        this.addRow(builder, "Hebrew", null,
+                new ChainCommand<AbstractButton>(new TextCommand("\u05D0\u05D1\u05D2"),
+                        new IconCommand(Check.configure(new il(), 21, 16))));
+        this.addRow(builder, "Chinese", null,
+                new ChainCommand<AbstractButton>(
+                        new FontCommand(new Font("Arial Unicode MS", Font.PLAIN, 11)),
+                        new TextCommand("\u4E01\u4E02\u4E03"),
+                        new IconCommand(Check.configure(new cn(), 21, 16))));
+        this.addRow(builder, "Cyrillic", null,
+                new ChainCommand<AbstractButton>(new TextCommand("\u0430\u0431\u0432"),
+                        new IconCommand(Check.configure(new ru(), 21, 16))));
+        this.addRow(builder, "Greek", null,
+                new ChainCommand<AbstractButton>(new TextCommand("\u03B1\u03B2\u03B3"),
+                        new IconCommand(Check.configure(new gr(), 21, 16))));
+        this.addRow(builder, "Latin", null,
+                new ChainCommand<AbstractButton>(new TextCommand("\u00E6\u00F0\u0127\u2248"),
+                        new IconCommand(Check.configure(new it(), 21, 16))));
 
-		FormLayout lm = new FormLayout(
-				"right:pref, 10dlu, left:pref:grow(1), 4dlu,"
-						+ "left:pref:grow(1), 4dlu, left:pref:grow(1), "
-						+ "4dlu, left:pref:grow(1)", "");
-		lm.setColumnGroups(new int[][] { { 3, 5, 7, 9 } });
-		DefaultFormBuilder builder = new DefaultFormBuilder(lm,
-				new ScrollablePanel());
-		builder.setDefaultDialogBorder();
+        builder.appendSeparator("Misc settings");
+        this.addRow(builder, "No content area", null, new NoContentAreaFilledCommand());
+        this.addRow(builder, "No border", null, new NoBorderPaintedCommand());
+        this.addRow(builder, "No background", null, new ChainCommand<AbstractButton>(
+                new NoContentAreaFilledCommand(), new NoBorderPaintedCommand()));
+        this.addRow(builder, "Flat", null, (JComponent jc) -> SubstanceCortex.ComponentOrParentScope
+                .setFlatBackground(jc, true));
+        this.addRow(builder, "Never", null,
+                (JComponent jc) -> SubstanceCortex.ComponentOrParentScope
+                        .setButtonNeverPaintBackground(jc, true));
 
-		builder.append("");
-		JLabel bLabel = new JLabel("Buttons");
-		bLabel.setIcon(Check.getIcon("JButtonColor16"));
-		JLabel tbLabel = new JLabel("Toggle buttons");
-		tbLabel.setIcon(Check.getIcon("JToggleButtonColor16"));
-		JLabel cbLabel = new JLabel("Check boxes");
-		cbLabel.setIcon(Check.getIcon("JCheckBoxColor16"));
-		JLabel rbLabel = new JLabel("Radio buttons");
-		rbLabel.setIcon(Check.getIcon("JRadioButtonColor16"));
+        this.addRow(builder, "Fixed font", null,
+                new FontCommand(new Font("Arial", Font.PLAIN, 12)));
+        this.addRow(builder, "Null text", null, new TextCommand(null));
+        this.addRow(builder, "Empty text", null, new TextCommand(""));
 
-		// bLabel.setFont(bLabel.getFont().deriveFont(Font.BOLD));
-		// tbLabel.setFont(rbLabel.getFont().deriveFont(Font.BOLD));
-		// cbLabel.setFont(cbLabel.getFont().deriveFont(Font.BOLD));
-		// rbLabel.setFont(rbLabel.getFont().deriveFont(Font.BOLD));
-
-		builder.append(bLabel, tbLabel);
-		builder.append(cbLabel, rbLabel);
-
-		builder.appendSeparator("Regular settings");
-		this.addRow(builder, "Enabled", null, null);
-		this.addRow(builder, "Disabled", null, new DisableCommand());
-		this.addRow(builder, "Selected", null, new SelectCommand());
-		this.addRow(builder, "Disabled selected", null,
-				new ChainCommand<JComponent>(new DisableCommand(),
-						new SelectCommand()));
-		this.addRow(builder, "HTML text", null, new TextCommand(
-				"<html>text <b>text</b> <font color='red'>text</font>"));
-		this.addRow(builder, "Long text", null, new TextCommand(
-				"Some long long text"));
-		this.addRow(builder, "With tooltip", null, new TooltipTextCommand(
-				"Sample tooltip"));
-		this
-				.addRow(builder, "Disabled with tooltip", null,
-						new ChainCommand(new TooltipTextCommand(
-								"Sample tooltip"), new DisableCommand()));
-		this.addRow(builder, "Popup menu", null, new PopupMenuCommand());
-		this.addRow(builder, "With icon", Check.configure(new se(), 21, 16),
-				new IconCommand(Check.configure(new se(), 21, 16)));
-
-		builder.appendSeparator("Focus indications");
-		this.addRow(builder, "No focus painted", null, new NoFocusCommand());
-		this
-				.addRow(builder, "None", null, new FocusKindCommand(
-						FocusKind.NONE));
-		this
-				.addRow(builder, "Text", null, new FocusKindCommand(
-						FocusKind.TEXT));
-		this.addRow(builder, "All", null, new FocusKindCommand(FocusKind.ALL));
-		this.addRow(builder, "All inner", null, new FocusKindCommand(
-				FocusKind.ALL_INNER));
-		this.addRow(builder, "All strong inner", null, new FocusKindCommand(
-				FocusKind.ALL_STRONG_INNER));
-		this.addRow(builder, "Underline", null, new FocusKindCommand(
-				FocusKind.UNDERLINE));
-		this.addRow(builder, "Strong underline", null, new FocusKindCommand(
-				FocusKind.STRONG_UNDERLINE));
-
-		builder.appendSeparator("Size settings");
-		this.addRow(builder, "No min size", null, new NoMinSizeCommand());
-		this.addRow(builder, "Custom margin", null, new MarginCommand());
-
-		builder.appendSeparator("Side settings");
-		this.addRow(builder, "Straight top", null, new StraightSideCommand(
-				Side.TOP));
-		this.addRow(builder, "Straight bottom", null, new StraightSideCommand(
-				Side.BOTTOM));
-		this.addRow(builder, "Straight left", null, new StraightSideCommand(
-				EnumSet.of(Side.LEFT)));
-		this.addRow(builder, "Straight right", null, new StraightSideCommand(
-				EnumSet.of(Side.RIGHT)));
-
-		this.addRow(builder, "Open top", null,
-				new ChainCommand<AbstractButton>(new StraightSideCommand(
-						Side.TOP), new OpenSideCommand(Side.TOP)));
-		this.addRow(builder, "Open bottom", null,
-				new ChainCommand<AbstractButton>(new StraightSideCommand(
-						Side.BOTTOM), new OpenSideCommand(Side.BOTTOM)));
-		this.addRow(builder, "Open left", null,
-				new ChainCommand<AbstractButton>(new StraightSideCommand(
-						EnumSet.of(Side.LEFT)), new OpenSideCommand(EnumSet
-						.of(Side.LEFT))));
-		this.addRow(builder, "Open right", null,
-				new ChainCommand<AbstractButton>(new StraightSideCommand(
-						EnumSet.of(Side.RIGHT)), new OpenSideCommand(EnumSet
-						.of(Side.RIGHT))));
-
-		builder.appendSeparator("Unicode texts");
-		this.addRow(builder, "Hebrew", null, new ChainCommand<AbstractButton>(
-				new TextCommand("\u05D0\u05D1\u05D2"), 
-				new IconCommand(Check.configure(new il(), 21, 16))));
-		this.addRow(builder, "Chinese", null, new ChainCommand<AbstractButton>(
-				new FontCommand(new Font("Arial Unicode MS", Font.PLAIN, 11)),
-				new TextCommand("\u4E01\u4E02\u4E03"), 
-				new IconCommand(Check.configure(new cn(), 21, 16))));
-		this.addRow(builder, "Cyrillic", null,
-				new ChainCommand<AbstractButton>(new TextCommand(
-						"\u0430\u0431\u0432"),
-						new IconCommand(Check.configure(new ru(), 21, 16))));
-		this.addRow(builder, "Greek", null, new ChainCommand<AbstractButton>(
-				new TextCommand("\u03B1\u03B2\u03B3"), 
-				new IconCommand(Check.configure(new gr(), 21, 16))));
-		this.addRow(builder, "Latin", null, new ChainCommand<AbstractButton>(
-				new TextCommand("\u00E6\u00F0\u0127\u2248"), 
-				new IconCommand(Check.configure(new it(), 21, 16))));
-
-		builder.appendSeparator("Misc settings");
-		this.addRow(builder, "No content area", null,
-				new NoContentAreaFilledCommand());
-		this.addRow(builder, "No border", null, new NoBorderPaintedCommand());
-		this.addRow(builder, "No background", null,
-				new ChainCommand<AbstractButton>(
-						new NoContentAreaFilledCommand(),
-						new NoBorderPaintedCommand()));
-		this.addRow(builder, "Flat", null, new ClientPropertyCommand(
-				SubstanceLookAndFeel.FLAT_PROPERTY, Boolean.TRUE));
-		this
-				.addRow(builder, "Never", null, new ClientPropertyCommand(
-						SubstanceLookAndFeel.BUTTON_PAINT_NEVER_PROPERTY,
-						Boolean.TRUE));
-
-		this.addRow(builder, "Fixed font", null, new FontCommand(new Font(
-				"Arial", Font.PLAIN, 12)));
-		this.addRow(builder, "Null text", null, new TextCommand(null));
-		this.addRow(builder, "Empty text", null, new TextCommand(""));
-
-		JPanel panel = builder.getPanel();
-		JScrollPane jsp = new JScrollPane(panel);
-		SubstanceCortex.ComponentScope.setAutomaticScrollPresence(jsp, true);
-		this.add(jsp, BorderLayout.CENTER);
-	}
+        JPanel panel = builder.getPanel();
+        JScrollPane jsp = new JScrollPane(panel);
+        SubstanceCortex.ComponentScope.setAutomaticScrollPresence(jsp, true);
+        this.add(jsp, BorderLayout.CENTER);
+    }
 }

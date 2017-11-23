@@ -27,78 +27,82 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package org.pushingpixels.demo.substance.main.samples.substance.api;
+package org.pushingpixels.demo.substance.main.samples.substance.extras.api;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
+import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 
-import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
+import org.pushingpixels.demo.substance.main.Check;
+import org.pushingpixels.demo.substance.main.check.svg.flags.hk;
+import org.pushingpixels.demo.substance.main.check.svg.flags.mx;
+import org.pushingpixels.demo.substance.main.check.svg.flags.se;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
-import org.pushingpixels.substance.api.tabbed.TabCloseListener;
+import org.pushingpixels.substance.extras.api.SubstanceExtrasCortex;
+import org.pushingpixels.substance.extras.api.tabbed.DefaultTabPreviewPainter;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceCortex.ComponentScope#unregisterTabCloseChangeListener(JTabbedPane, org.pushingpixels.substance.api.tabbed.BaseTabCloseListener)}
- * API with registering a tab close listener that listens on single tab closing on a specific tabbed
- * pane.
+ * {@link SubstanceExtrasCortex.ComponentScope#setTabPanePreviewPainter(JTabbedPane, org.pushingpixels.substance.extras.api.tabbed.TabPreviewPainter)}
+ * API.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceCortex.ComponentScope#unregisterTabCloseChangeListener(JTabbedPane,
- *      org.pushingpixels.substance.api.tabbed.BaseTabCloseListener)
+ * @see {@link SubstanceExtrasCortex.ComponentScope#setTabPanePreviewPainter(JTabbedPane, org.pushingpixels.substance.extras.api.tabbed.TabPreviewPainter)}
  */
-public class UnregisterTabCloseChangeListener_Specific extends JFrame {
-    /**
-     * Listener instance.
-     */
-    private TabCloseListener listener;
-
+public class TabbedPanePreviewPainter extends JFrame {
     /**
      * Creates the main frame for <code>this</code> sample.
      */
-    public UnregisterTabCloseChangeListener_Specific() {
-        super("Unregister tab close listener");
+    public TabbedPanePreviewPainter() {
+        super("Tabbed pane preview painter");
 
         this.setLayout(new BorderLayout());
 
         final JTabbedPane jtp = new JTabbedPane();
-        jtp.addTab("tab1", new JPanel());
-        jtp.addTab("tab2", new JPanel());
-        jtp.addTab("tab3", new JPanel());
-
-        SubstanceCortex.ComponentScope.setTabCloseButtonsVisible(jtp, true);
-
-        // register tab close listener on the specific tabbed pane.
-        SubstanceCortex.ComponentScope.registerTabCloseChangeListener(jtp,
-                listener = new TabCloseListener() {
-                    public void tabClosing(JTabbedPane tabbedPane, Component tabComponent) {
-                        System.out.println("Tab "
-                                + tabbedPane.getTitleAt(tabbedPane.indexOfComponent(tabComponent))
-                                + " closing");
-                    }
-
-                    public void tabClosed(JTabbedPane tabbedPane, Component tabComponent) {
-                        System.out.println("Tab closed");
-                    }
-                });
+        jtp.addTab("First", Check.configure(new mx(), 21, 16), new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                g.setColor(new Color(255, 200, 200));
+                g.fillRect(0, 0, getWidth(), getHeight());
+            }
+        });
+        jtp.addTab("Second", Check.configure(new se(), 21, 16), new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                g.setColor(new Color(200, 255, 200));
+                g.fillRect(0, 0, getWidth(), getHeight());
+            }
+        });
+        jtp.addTab("Third", Check.configure(new hk(), 21, 16), new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                g.setColor(new Color(200, 200, 255));
+                g.fillRect(0, 0, getWidth(), getHeight());
+            }
+        });
 
         this.add(jtp, BorderLayout.CENTER);
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        final JButton unregisterListener = new JButton("Unregister listener");
-        unregisterListener.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
-            unregisterListener.setEnabled(false);
-            // unregister listener
-            SubstanceCortex.ComponentScope.unregisterTabCloseChangeListener(jtp, listener);
-        }));
-        controls.add(unregisterListener);
+        final JCheckBox hasPreview = new JCheckBox("Has preview");
+        hasPreview.addActionListener((ActionEvent e) -> {
+            SubstanceExtrasCortex.ComponentScope.setTabPanePreviewPainter(jtp,
+                    hasPreview.isSelected() ? new DefaultTabPreviewPainter() : null);
+            jtp.revalidate();
+            jtp.repaint();
+        });
+
+        controls.add(hasPreview);
         this.add(controls, BorderLayout.SOUTH);
 
         this.setSize(400, 200);
@@ -114,9 +118,10 @@ public class UnregisterTabCloseChangeListener_Specific extends JFrame {
      */
     public static void main(String[] args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
+        JDialog.setDefaultLookAndFeelDecorated(true);
         SwingUtilities.invokeLater(() -> {
             SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-            new UnregisterTabCloseChangeListener_Specific().setVisible(true);
+            new TabbedPanePreviewPainter().setVisible(true);
         });
     }
 }

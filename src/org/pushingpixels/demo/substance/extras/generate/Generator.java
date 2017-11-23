@@ -12,10 +12,10 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 import org.pushingpixels.substance.api.colorscheme.SunfireRedColorScheme;
-import org.pushingpixels.substance.watermarkpack.flamefractal.FractalFlameFactory;
-import org.pushingpixels.substance.watermarkpack.flamefractal.Functions;
-import org.pushingpixels.substance.watermarkpack.flamefractal.IteratedFunction;
-import org.pushingpixels.substance.watermarkpack.flamefractal.IteratedFunctionSystem;
+import org.pushingpixels.substance.extras.api.watermarkpack.flamefractal.FractalFlameFactory;
+import org.pushingpixels.substance.extras.api.watermarkpack.flamefractal.Functions;
+import org.pushingpixels.substance.extras.api.watermarkpack.flamefractal.IteratedFunction;
+import org.pushingpixels.substance.extras.api.watermarkpack.flamefractal.IteratedFunctionSystem;
 
 public class Generator {
 	public static void main(String[] args) throws Exception {
@@ -112,7 +112,7 @@ public class Generator {
 
 			classWriter.println("import org.pushingpixels.substance.color.*;");
 			classWriter
-					.println("import org.pushingpixels.substance.watermarkpack.flamefractal.*;");
+					.println("import org.pushingpixels.substance.extras.api.watermarkpack.flamefractal.*;");
 			classWriter.println();
 			classWriter.println("public class " + className
 					+ " extends IteratedFunctionSystem {");

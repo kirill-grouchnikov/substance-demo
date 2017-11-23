@@ -38,7 +38,7 @@ import org.pushingpixels.demo.substance.main.Check;
 import org.pushingpixels.demo.substance.main.check.svg.flags.mx;
 import org.pushingpixels.demo.substance.main.check.svg.flags.ru;
 import org.pushingpixels.demo.substance.main.check.svg.flags.se;
-import org.pushingpixels.substance.tabbed.TabPreviewUtilities;
+import org.pushingpixels.substance.extras.api.SubstanceExtrasCortex;
 
 /**
  * Test application panel for testing {@link JTabbedPane} component.
@@ -72,15 +72,9 @@ public class TabPanel extends ControllablePanel {
 		jtp.setEnabledAt(3, false);
 		this.add(jtp, BorderLayout.CENTER);
 
-		try {
-			MyTabPreviewPainter previewPainter = new MyTabPreviewPainter();
-			jtp.putClientProperty(TabPreviewUtilities.TABBED_PANE_PREVIEW_PAINTER,
-					previewPainter);
-			this.controlPanel = new TabControlPanel(jtp, previewPainter);
-		} catch (NoClassDefFoundError ncdfe) {
-			this.controlPanel = new TabControlPanel(jtp, null);
-		} catch (Throwable e) {
-		}
+		MyTabPreviewPainter previewPainter = new MyTabPreviewPainter();
+		SubstanceExtrasCortex.ComponentScope.setTabPanePreviewPainter(jtp, previewPainter);
+		this.controlPanel = new TabControlPanel(jtp, previewPainter);
 	}
 
 }

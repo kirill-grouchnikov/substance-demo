@@ -67,10 +67,10 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import org.pushingpixels.demo.substance.main.Check;
 import org.pushingpixels.demo.substance.main.SubstanceLogo;
 import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.skin.GeminiSkin;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 

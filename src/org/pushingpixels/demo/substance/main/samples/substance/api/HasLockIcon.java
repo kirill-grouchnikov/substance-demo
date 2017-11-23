@@ -38,10 +38,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /**
@@ -95,7 +93,7 @@ public class HasLockIcon extends JFrame {
         JFrame.setDefaultLookAndFeelDecorated(true);
         SwingUtilities.invokeLater(() -> {
             SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-            UIManager.put(SubstanceLookAndFeel.SHOW_EXTRA_WIDGETS, Boolean.TRUE);
+            SubstanceCortex.GlobalScope.setExtraWidgetsPresence(true);
             new HasLockIcon().setVisible(true);
         });
     }

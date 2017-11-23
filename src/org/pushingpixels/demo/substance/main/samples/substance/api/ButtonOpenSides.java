@@ -29,77 +29,68 @@
  */
 package org.pushingpixels.demo.substance.main.samples.substance.api;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
+import java.util.EnumSet;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.api.SubstanceSlices.Side;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
-import org.pushingpixels.substance.api.tabbed.TabCloseListener;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceCortex.ComponentScope#unregisterTabCloseChangeListener(JTabbedPane, org.pushingpixels.substance.api.tabbed.BaseTabCloseListener)}
- * API with registering a tab close listener that listens on single tab closing on a specific tabbed
- * pane.
+ * {@link SubstanceCortex.ComponentScope#setButtonOpenSide(javax.swing.JComponent, Side)} and
+ * {@link SubstanceCortex.ComponentScope#setButtonOpenSides(javax.swing.JComponent, java.util.Set)}
+ * APIs.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceCortex.ComponentScope#unregisterTabCloseChangeListener(JTabbedPane,
- *      org.pushingpixels.substance.api.tabbed.BaseTabCloseListener)
+ * @see SubstanceCortex.ComponentScope#setButtonOpenSide(javax.swing.JComponent, Side)
+ * @see SubstanceCortex.ComponentScope#setButtonOpenSides(javax.swing.JComponent, java.util.Set)
  */
-public class UnregisterTabCloseChangeListener_Specific extends JFrame {
-    /**
-     * Listener instance.
-     */
-    private TabCloseListener listener;
-
+public class ButtonOpenSides extends JFrame {
     /**
      * Creates the main frame for <code>this</code> sample.
      */
-    public UnregisterTabCloseChangeListener_Specific() {
-        super("Unregister tab close listener");
+    public ButtonOpenSides() {
+        super("Buttons with open sides");
 
-        this.setLayout(new BorderLayout());
+        this.setLayout(new FlowLayout());
 
-        final JTabbedPane jtp = new JTabbedPane();
-        jtp.addTab("tab1", new JPanel());
-        jtp.addTab("tab2", new JPanel());
-        jtp.addTab("tab3", new JPanel());
+        JButton buttonA = new JButton("left only");
+        // mark button to have open and straight left side
+        // using side constant
+        SubstanceCortex.ComponentScope.setButtonStraightSide(buttonA, SubstanceSlices.Side.LEFT);
+        SubstanceCortex.ComponentScope.setButtonOpenSide(buttonA, SubstanceSlices.Side.LEFT);
 
-        SubstanceCortex.ComponentScope.setTabCloseButtonsVisible(jtp, true);
+        JButton buttonB = new JButton("right only");
+        // mark button to have open and straight right side using side constant
+        SubstanceCortex.ComponentScope.setButtonStraightSide(buttonB, SubstanceSlices.Side.RIGHT);
+        SubstanceCortex.ComponentScope.setButtonOpenSide(buttonB, SubstanceSlices.Side.RIGHT);
 
-        // register tab close listener on the specific tabbed pane.
-        SubstanceCortex.ComponentScope.registerTabCloseChangeListener(jtp,
-                listener = new TabCloseListener() {
-                    public void tabClosing(JTabbedPane tabbedPane, Component tabComponent) {
-                        System.out.println("Tab "
-                                + tabbedPane.getTitleAt(tabbedPane.indexOfComponent(tabComponent))
-                                + " closing");
-                    }
+        JButton buttonC = new JButton("left+top");
+        // mark button to have open and straight left and top sides
+        // using set of side constants
+        EnumSet<Side> leftTopSides = EnumSet.of(SubstanceSlices.Side.LEFT,
+                SubstanceSlices.Side.TOP);
+        SubstanceCortex.ComponentScope.setButtonStraightSides(buttonC, leftTopSides);
+        SubstanceCortex.ComponentScope.setButtonOpenSides(buttonC, leftTopSides);
 
-                    public void tabClosed(JTabbedPane tabbedPane, Component tabComponent) {
-                        System.out.println("Tab closed");
-                    }
-                });
+        JButton buttonD = new JButton("right+bottom");
+        // mark button to have open and straight right and bottom sides
+        // using set of side constants
+        EnumSet<Side> rightBottomSides = EnumSet.of(SubstanceSlices.Side.RIGHT,
+                SubstanceSlices.Side.BOTTOM);
+        SubstanceCortex.ComponentScope.setButtonStraightSides(buttonD, rightBottomSides);
+        SubstanceCortex.ComponentScope.setButtonOpenSides(buttonD, rightBottomSides);
 
-        this.add(jtp, BorderLayout.CENTER);
-
-        JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        final JButton unregisterListener = new JButton("Unregister listener");
-        unregisterListener.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
-            unregisterListener.setEnabled(false);
-            // unregister listener
-            SubstanceCortex.ComponentScope.unregisterTabCloseChangeListener(jtp, listener);
-        }));
-        controls.add(unregisterListener);
-        this.add(controls, BorderLayout.SOUTH);
+        this.add(buttonA);
+        this.add(buttonB);
+        this.add(buttonC);
+        this.add(buttonD);
 
         this.setSize(400, 200);
         this.setLocationRelativeTo(null);
@@ -116,7 +107,7 @@ public class UnregisterTabCloseChangeListener_Specific extends JFrame {
         JFrame.setDefaultLookAndFeelDecorated(true);
         SwingUtilities.invokeLater(() -> {
             SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-            new UnregisterTabCloseChangeListener_Specific().setVisible(true);
+            new ButtonOpenSides().setVisible(true);
         });
     }
 }

@@ -53,11 +53,11 @@ import javax.swing.border.EmptyBorder;
 
 import org.pushingpixels.demo.substance.main.SubstanceLogo;
 import org.pushingpixels.substance.api.ComponentState;
-import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSkin;
+import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;

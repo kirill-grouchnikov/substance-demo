@@ -32,12 +32,11 @@ package org.pushingpixels.demo.substance.main.check;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JCheckBox;
 import javax.swing.JSplitPane;
 
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceCortex;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
@@ -48,72 +47,58 @@ import com.jgoodies.forms.layout.FormLayout;
  * @author Kirill Grouchnikov
  */
 public class SplitPanel extends ControllablePanel {
-	/**
-	 * Split pane.
-	 */
-	private JSplitPane splitPane;
+    /**
+     * Split pane.
+     */
+    private JSplitPane splitPane;
 
-	/**
-	 * Creates a test panel with split pane.
-	 */
-	public SplitPanel() {
-		this.setLayout(new BorderLayout());
-		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-				new NumberedPanel(1), new NumberedPanel(2));
-		splitPane.setDividerLocation(100);
-		this.add(splitPane, BorderLayout.CENTER);
+    /**
+     * Creates a test panel with split pane.
+     */
+    public SplitPanel() {
+        this.setLayout(new BorderLayout());
+        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, new NumberedPanel(1),
+                new NumberedPanel(2));
+        splitPane.setDividerLocation(100);
+        this.add(splitPane, BorderLayout.CENTER);
 
-		FormLayout lm = new FormLayout("fill:pref:grow", "");
-		DefaultFormBuilder builder = new DefaultFormBuilder(lm,
-				new ScrollablePanel());
+        FormLayout lm = new FormLayout("fill:pref:grow", "");
+        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel());
 
-		final JCheckBox isOneTouch = new JCheckBox("is one-touch");
-		isOneTouch.setSelected(true);
-		splitPane.setOneTouchExpandable(true);
-		isOneTouch.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				splitPane.setOneTouchExpandable(isOneTouch.isSelected());
-			}
-		});
+        final JCheckBox isOneTouch = new JCheckBox("is one-touch");
+        isOneTouch.setSelected(true);
+        splitPane.setOneTouchExpandable(true);
+        isOneTouch.addActionListener(
+                (ActionEvent e) -> splitPane.setOneTouchExpandable(isOneTouch.isSelected()));
 
-		final JCheckBox isFlat = new JCheckBox("is flat");
-		isFlat.setSelected(true);
-		isFlat.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				splitPane.putClientProperty(SubstanceLookAndFeel.FLAT_PROPERTY,
-						(isFlat.isSelected() ? Boolean.TRUE : Boolean.FALSE));
-				splitPane.repaint();
-			}
-		});
+        final JCheckBox isFlat = new JCheckBox("is flat");
+        isFlat.setSelected(true);
+        isFlat.addActionListener((ActionEvent e) -> {
+            SubstanceCortex.ComponentOrParentScope.setFlatBackground(splitPane,
+                    isFlat.isSelected() ? Boolean.TRUE : Boolean.FALSE);
+            splitPane.repaint();
+        });
 
-		final JCheckBox isVertical = new JCheckBox("is vertical");
-		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
-		isVertical.setSelected(true);
-		isVertical.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				splitPane
-						.setOrientation(isVertical.isSelected() ? JSplitPane.VERTICAL_SPLIT
-								: JSplitPane.HORIZONTAL_SPLIT);
-			}
-		});
+        final JCheckBox isVertical = new JCheckBox("is vertical");
+        splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+        isVertical.setSelected(true);
+        isVertical.addActionListener((ActionEvent e) -> splitPane.setOrientation(
+                isVertical.isSelected() ? JSplitPane.VERTICAL_SPLIT : JSplitPane.HORIZONTAL_SPLIT));
 
-		final JCheckBox isEnabled = new JCheckBox("is enabled");
-		isEnabled.setSelected(true);
-		isEnabled.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				splitPane.setEnabled(isEnabled.isSelected());
-			}
-		});
+        final JCheckBox isEnabled = new JCheckBox("is enabled");
+        isEnabled.setSelected(true);
+        isEnabled
+                .addActionListener((ActionEvent e) -> splitPane.setEnabled(isEnabled.isSelected()));
 
-		builder.append(isEnabled);
-		builder.append(isOneTouch);
-		builder.append(isFlat);
-		builder.append(isVertical);
+        builder.append(isEnabled);
+        builder.append(isOneTouch);
+        builder.append(isFlat);
+        builder.append(isVertical);
 
-		this.controlPanel = builder.getPanel();
+        this.controlPanel = builder.getPanel();
 
-		this.setPreferredSize(new Dimension(400, 400));
-		this.setSize(this.getPreferredSize());
-		this.setMinimumSize(this.getPreferredSize());
-	}
+        this.setPreferredSize(new Dimension(400, 400));
+        this.setSize(this.getPreferredSize());
+        this.setMinimumSize(this.getPreferredSize());
+    }
 }

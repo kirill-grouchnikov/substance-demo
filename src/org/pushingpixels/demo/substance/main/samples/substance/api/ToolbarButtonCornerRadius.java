@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package org.pushingpixels.demo.substance.main.samples.substance.clientprop;
+package org.pushingpixels.demo.substance.main.samples.substance.api;
 
 import java.awt.BorderLayout;
 
@@ -40,67 +40,64 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceLookAndFeel#CORNER_RADIUS} client property.
+ * {@link SubstanceCortex.ComponentScope#setToolbarButtonCornerRadius(javax.swing.AbstractButton, float)}
+ * API.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceLookAndFeel#CORNER_RADIUS
+ * @see SubstanceCortex.ComponentScope#setToolbarButtonCornerRadius(javax.swing.AbstractButton,
+ *      float)
  */
-public class CornerRadius extends JFrame {
-	/**
-	 * Creates the main frame for <code>this</code> sample.
-	 */
-	public CornerRadius() {
-		super("Toolbar button corner radius");
+public class ToolbarButtonCornerRadius extends JFrame {
+    /**
+     * Creates the main frame for <code>this</code> sample.
+     */
+    public ToolbarButtonCornerRadius() {
+        super("Toolbar button corner radius");
 
-		this.setLayout(new BorderLayout());
+        this.setLayout(new BorderLayout());
 
-		JToolBar toolBar = new JToolBar("");
-		toolBar.add(new JLabel("Sample toolbar"));
-		toolBar.add(new JSeparator(SwingConstants.VERTICAL));
+        JToolBar toolBar = new JToolBar("");
+        toolBar.add(new JLabel("Sample toolbar"));
+        toolBar.add(new JSeparator(SwingConstants.VERTICAL));
 
-		JToggleButton buttonDefault = new JToggleButton("radius default");
-		buttonDefault.setSelected(true);
-		toolBar.add(buttonDefault);
+        JToggleButton buttonDefault = new JToggleButton("radius default");
+        buttonDefault.setSelected(true);
+        toolBar.add(buttonDefault);
 
-		JToggleButton button1 = new JToggleButton("radius 5");
-		// set corner radius to 5 pixels
-		button1.putClientProperty(SubstanceLookAndFeel.CORNER_RADIUS, Float
-				.valueOf(5.0f));
-		button1.setSelected(true);
-		toolBar.add(button1);
+        JToggleButton button1 = new JToggleButton("radius 5");
+        // set corner radius to 5 pixels
+        SubstanceCortex.ComponentScope.setToolbarButtonCornerRadius(button1, 5.0f);
+        button1.setSelected(true);
+        toolBar.add(button1);
 
-		JToggleButton button2 = new JToggleButton("radius 0");
-		// set corner radius to 0 pixels (perfect rectangle)
-		button2.putClientProperty(SubstanceLookAndFeel.CORNER_RADIUS, Float
-				.valueOf(0.0f));
-		button2.setSelected(true);
-		toolBar.add(button2);
+        JToggleButton button2 = new JToggleButton("radius 0");
+        // set corner radius to 0 pixels (perfect rectangle)
+        SubstanceCortex.ComponentScope.setToolbarButtonCornerRadius(button2, 0.0f);
+        button2.setSelected(true);
+        toolBar.add(button2);
 
-		this.add(toolBar, BorderLayout.NORTH);
+        this.add(toolBar, BorderLayout.NORTH);
 
-		this.setSize(400, 200);
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+        this.setSize(400, 200);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
 
-	/**
-	 * The main method for <code>this</code> sample. The arguments are ignored.
-	 * 
-	 * @param args
-	 *            Ignored.
-	 */
-	public static void main(String[] args) {
-		JFrame.setDefaultLookAndFeelDecorated(true);
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-				new CornerRadius().setVisible(true);
-			}
-		});
-	}
+    /**
+     * The main method for <code>this</code> sample. The arguments are ignored.
+     * 
+     * @param args
+     *            Ignored.
+     */
+    public static void main(String[] args) {
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
+            new ToolbarButtonCornerRadius().setVisible(true);
+        });
+    }
 }

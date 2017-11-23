@@ -42,7 +42,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSlices.TabCloseKind;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 import org.pushingpixels.substance.api.tabbed.TabCloseCallback;
@@ -72,8 +71,7 @@ public class RegisterTabCloseChangeListener_SpecificMultipleVetoable extends JFr
         jtp.addTab("tab2", new JPanel());
         jtp.addTab("tab3", new JPanel());
 
-        jtp.putClientProperty(SubstanceLookAndFeel.TABBED_PANE_CLOSE_BUTTONS_PROPERTY,
-                Boolean.TRUE);
+        SubstanceCortex.ComponentScope.setTabCloseButtonsVisible(jtp, true);
 
         // create a custom implementation of TabCloseCallback interface.
         TabCloseCallback closeCallback = new TabCloseCallback() {
@@ -116,7 +114,7 @@ public class RegisterTabCloseChangeListener_SpecificMultipleVetoable extends JFr
         };
 
         // register the callback on the tabbed pane
-        jtp.putClientProperty(SubstanceLookAndFeel.TABBED_PANE_CLOSE_CALLBACK, closeCallback);
+        SubstanceCortex.ComponentScope.setTabCloseCallback(jtp, closeCallback);
 
         // register tab close listener on the specific tabbed pane.
         SubstanceCortex.ComponentScope.registerTabCloseChangeListener(jtp,

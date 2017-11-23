@@ -30,11 +30,11 @@
 package org.pushingpixels.demo.substance.main.samples.substance.api;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 
-import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -42,63 +42,57 @@ import javax.swing.SwingUtilities;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
-import org.pushingpixels.substance.api.tabbed.TabCloseListener;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceCortex.ComponentScope#unregisterTabCloseChangeListener(JTabbedPane, org.pushingpixels.substance.api.tabbed.BaseTabCloseListener)}
- * API with registering a tab close listener that listens on single tab closing on a specific tabbed
- * pane.
+ * {@link SubstanceCortex.ComponentScope#setTabCloseButtonVisible(JComponent, Boolean)} and
+ * {@link SubstanceCortex.ComponentScope#setTabCloseButtonsVisible(JTabbedPane, Boolean)} APIs.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceCortex.ComponentScope#unregisterTabCloseChangeListener(JTabbedPane,
- *      org.pushingpixels.substance.api.tabbed.BaseTabCloseListener)
+ * @see SubstanceCortex.ComponentScope#setTabCloseButtonVisible(JComponent, Boolean)
+ * @see SubstanceCortex.ComponentScope#setTabCloseButtonsVisible(JTabbedPane, Boolean)
  */
-public class UnregisterTabCloseChangeListener_Specific extends JFrame {
-    /**
-     * Listener instance.
-     */
-    private TabCloseListener listener;
-
+public class TabbedPaneCloseButtonsVisibility extends JFrame {
     /**
      * Creates the main frame for <code>this</code> sample.
      */
-    public UnregisterTabCloseChangeListener_Specific() {
-        super("Unregister tab close listener");
+    public TabbedPaneCloseButtonsVisibility() {
+        super("Tabbed pane close buttons");
 
         this.setLayout(new BorderLayout());
 
+        // create a tabbed pane with few tabs
         final JTabbedPane jtp = new JTabbedPane();
-        jtp.addTab("tab1", new JPanel());
-        jtp.addTab("tab2", new JPanel());
-        jtp.addTab("tab3", new JPanel());
-
-        SubstanceCortex.ComponentScope.setTabCloseButtonsVisible(jtp, true);
-
-        // register tab close listener on the specific tabbed pane.
-        SubstanceCortex.ComponentScope.registerTabCloseChangeListener(jtp,
-                listener = new TabCloseListener() {
-                    public void tabClosing(JTabbedPane tabbedPane, Component tabComponent) {
-                        System.out.println("Tab "
-                                + tabbedPane.getTitleAt(tabbedPane.indexOfComponent(tabComponent))
-                                + " closing");
-                    }
-
-                    public void tabClosed(JTabbedPane tabbedPane, Component tabComponent) {
-                        System.out.println("Tab closed");
-                    }
-                });
+        jtp.addTab("First", new JPanel());
+        jtp.addTab("Second", new JPanel());
+        jtp.addTab("Third", new JPanel());
 
         this.add(jtp, BorderLayout.CENTER);
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        final JButton unregisterListener = new JButton("Unregister listener");
-        unregisterListener.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
-            unregisterListener.setEnabled(false);
-            // unregister listener
-            SubstanceCortex.ComponentScope.unregisterTabCloseChangeListener(jtp, listener);
-        }));
-        controls.add(unregisterListener);
+        final JCheckBox allHaveCloseButton = new JCheckBox("All tabs");
+        allHaveCloseButton.addActionListener((ActionEvent e) -> {
+            // based on the checkbox selection, mark the tabbed pane to have
+            // close buttons on all tabs
+            SubstanceCortex.ComponentScope.setTabCloseButtonsVisible(jtp,
+                    allHaveCloseButton.isSelected() ? Boolean.TRUE : null);
+            jtp.revalidate();
+            jtp.repaint();
+        });
+
+        final JCheckBox firstHasCloseButton = new JCheckBox("First tab");
+        firstHasCloseButton.addActionListener((ActionEvent e) -> {
+            // based on the checkbox selection, mark the first tab component
+            // to have close button
+            SubstanceCortex.ComponentScope.setTabCloseButtonVisible(
+                    ((JComponent) jtp.getComponentAt(0)),
+                    firstHasCloseButton.isSelected() ? Boolean.TRUE : null);
+            jtp.revalidate();
+            jtp.repaint();
+        });
+
+        controls.add(allHaveCloseButton);
+        controls.add(firstHasCloseButton);
         this.add(controls, BorderLayout.SOUTH);
 
         this.setSize(400, 200);
@@ -116,7 +110,7 @@ public class UnregisterTabCloseChangeListener_Specific extends JFrame {
         JFrame.setDefaultLookAndFeelDecorated(true);
         SwingUtilities.invokeLater(() -> {
             SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-            new UnregisterTabCloseChangeListener_Specific().setVisible(true);
+            new TabbedPaneCloseButtonsVisibility().setVisible(true);
         });
     }
 }

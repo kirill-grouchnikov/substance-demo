@@ -3,14 +3,12 @@ package org.pushingpixels.demo.substance.main;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 
 import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.OfficeSilver2007Skin;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
@@ -68,7 +66,7 @@ public class StatesSample extends JFrame {
             @Override
             public void run() {
                 JFrame.setDefaultLookAndFeelDecorated(true);
-                UIManager.put(SubstanceLookAndFeel.FOCUS_KIND, SubstanceSlices.FocusKind.NONE);
+                SubstanceCortex.GlobalScope.setFocusKind(SubstanceSlices.FocusKind.NONE);
                 SubstanceCortex.GlobalScope.setSkin(new OfficeSilver2007Skin());
                 new StatesSample().setVisible(true);
             }

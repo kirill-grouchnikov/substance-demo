@@ -27,63 +27,61 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package org.pushingpixels.demo.substance.main.samples.substance.clientprop;
+package org.pushingpixels.demo.substance.main.samples.substance.api;
 
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceLookAndFeel#FLAT_PROPERTY} client property.
+ * {@link SubstanceCortex.ComponentOrParentScope#setFlatBackground(JComponent, Boolean)} client
+ * property.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceLookAndFeel#FLAT_PROPERTY
+ * @see SubstanceCortex.ComponentOrParentScope#setFlatBackground(JComponent, Boolean)
  */
-public class FlatProperty extends JFrame {
-	/**
-	 * Creates the main frame for <code>this</code> sample.
-	 */
-	public FlatProperty() {
-		super("Middle button is flat (rollover mouse)");
+public class FlatBackground extends JFrame {
+    /**
+     * Creates the main frame for <code>this</code> sample.
+     */
+    public FlatBackground() {
+        super("Middle button is flat (rollover mouse)");
 
-		this.setLayout(new FlowLayout());
+        this.setLayout(new FlowLayout());
 
-		JButton buttonA = new JButton("a");
-		JButton buttonB = new JButton("b");
-		// mark button to have flat background
-		buttonB.putClientProperty(SubstanceLookAndFeel.FLAT_PROPERTY,
-				Boolean.TRUE);
-		JButton buttonC = new JButton("c");
+        JButton buttonA = new JButton("a");
+        JButton buttonB = new JButton("b");
+        // mark button to have flat background
+        SubstanceCortex.ComponentOrParentScope.setFlatBackground(buttonB, true);
+        JButton buttonC = new JButton("c");
 
-		this.add(buttonA);
-		this.add(buttonB);
-		this.add(buttonC);
+        this.add(buttonA);
+        this.add(buttonB);
+        this.add(buttonC);
 
-		this.setSize(400, 200);
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+        this.setSize(400, 200);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
 
-	/**
-	 * The main method for <code>this</code> sample. The arguments are ignored.
-	 * 
-	 * @param args
-	 *            Ignored.
-	 */
-	public static void main(String[] args) {
-		JFrame.setDefaultLookAndFeelDecorated(true);
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-				new FlatProperty().setVisible(true);
-			}
-		});
-	}
+    /**
+     * The main method for <code>this</code> sample. The arguments are ignored.
+     * 
+     * @param args
+     *            Ignored.
+     */
+    public static void main(String[] args) {
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
+            new FlatBackground().setVisible(true);
+        });
+    }
 }

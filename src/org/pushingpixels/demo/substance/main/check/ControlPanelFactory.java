@@ -99,8 +99,7 @@ import org.pushingpixels.substance.api.SubstanceSlices.SubstanceWidgetType;
 import org.pushingpixels.substance.api.iconpack.SubstanceDefaultIconPack;
 import org.pushingpixels.substance.api.painter.preview.DefaultPreviewPainter;
 import org.pushingpixels.substance.api.skin.NebulaBrickWallSkin;
-import org.pushingpixels.substance.tabbed.TabOverviewDialogWidget.TabOverviewKind;
-import org.pushingpixels.substance.tabbed.TabPreviewUtilities;
+import org.pushingpixels.substance.extras.api.SubstanceExtrasSlices.TabOverviewKind;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
@@ -139,17 +138,13 @@ public class ControlPanelFactory {
             final JToolBar toolbar) {
         FormLayout lm = new FormLayout("right:pref, 4dlu, fill:pref:grow", "");
         DefaultFormBuilder builder = new DefaultFormBuilder(lm);
-        // builder.setDefaultDialogBorder();
 
         builder.appendSeparator("Title pane settings");
         final JCheckBox markAsModified = new JCheckBox("Marked modified");
         markAsModified.setSelected(false);
-        markAsModified.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                mainFrame.getRootPane().putClientProperty(SubstanceLookAndFeel.WINDOW_MODIFIED,
-                        (markAsModified.isSelected() ? Boolean.TRUE : false));
-            }
-        });
+        markAsModified.addActionListener((ActionEvent e) -> SubstanceCortex.RootPaneScope
+                .setContentsModified(mainFrame.getRootPane(),
+                        markAsModified.isSelected() ? Boolean.TRUE : false));
         builder.append("Modified", markAsModified);
 
         final JCheckBox heapPanel = new JCheckBox("Has heap panel");
@@ -180,31 +175,22 @@ public class ControlPanelFactory {
         builder.appendSeparator("Miscellaneous");
 
         final JCheckBox useThemedDefaultIconsCheckBox = new JCheckBox("use themed icons");
-        useThemedDefaultIconsCheckBox.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        UIManager.put(SubstanceLookAndFeel.USE_THEMED_DEFAULT_ICONS,
-                                useThemedDefaultIconsCheckBox.isSelected() ? Boolean.TRUE : null);
-                        mainFrame.repaint();
-                    }
-                });
-            }
-        });
+        useThemedDefaultIconsCheckBox
+                .addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+                    SubstanceCortex.GlobalScope.setUseThemedDefaultIcons(
+                            useThemedDefaultIconsCheckBox.isSelected() ? Boolean.TRUE : null);
+                    mainFrame.repaint();
+                }));
         builder.append("Themed icons", useThemedDefaultIconsCheckBox);
 
-        final JCheckBox useConstantThemesOnDialogs = new JCheckBox("use constant themes");
-        useConstantThemesOnDialogs
-                .setSelected(SubstanceCortex.GlobalScope.isToUseConstantThemesOnDialogs());
-        useConstantThemesOnDialogs.addActionListener((ActionEvent e) -> {
-            SwingUtilities.invokeLater(() -> {
-                SubstanceCortex.GlobalScope
-                        .setToUseConstantThemesOnDialogs(useConstantThemesOnDialogs.isSelected());
-                SubstanceCortex.GlobalScope.setSkin(
-                        SubstanceCortex.ComponentScope.getCurrentSkin(mainFrame.getRootPane()));
-            });
-        });
-        builder.append("Option pane icons", useConstantThemesOnDialogs);
+        final JCheckBox useConstantThemesOnOptionPanes = new JCheckBox("use constant themes");
+        useConstantThemesOnOptionPanes.setSelected(true);
+        useConstantThemesOnOptionPanes
+                .addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+                    SubstanceCortex.GlobalScope.setUseConstantThemesOnOptionPanes(
+                            useConstantThemesOnOptionPanes.isSelected());
+                }));
+        builder.append("Option pane icons", useConstantThemesOnOptionPanes);
 
         final JComboBox placementCombo = new JComboBox(
                 new Object[] { "top", "bottom", "left", "right" });
@@ -232,14 +218,8 @@ public class ControlPanelFactory {
                     return item.getName();
                 }
             };
-            overviewKindCombo.setSelectedItem(TabPreviewUtilities
-                    .getTabPreviewPainter(mainTabbedPane).getOverviewKind(mainTabbedPane));
-            overviewKindCombo.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    mainTabPreviewPainter.setTabOverviewKind(
-                            (TabOverviewKind) overviewKindCombo.getSelectedItem());
-                }
-            });
+            overviewKindCombo.addActionListener((ActionEvent e) -> mainTabPreviewPainter
+                    .setTabOverviewKind((TabOverviewKind) overviewKindCombo.getSelectedItem()));
 
             builder.append("Overview kind", overviewKindCombo);
         } catch (NoClassDefFoundError ncdfe) {
@@ -254,12 +234,8 @@ public class ControlPanelFactory {
             }
         };
         menuGutterFillCombo.setSelectedItem(MenuGutterFillKind.HARD);
-        menuGutterFillCombo.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                UIManager.put(SubstanceLookAndFeel.MENU_GUTTER_FILL_KIND,
-                        menuGutterFillCombo.getSelectedItem());
-            }
-        });
+        menuGutterFillCombo.addActionListener((ActionEvent e) -> SubstanceCortex.GlobalScope
+                .setMenuGutterFillKind((MenuGutterFillKind) menuGutterFillCombo.getSelectedItem()));
         builder.append("Menu fill", menuGutterFillCombo);
 
         final JComboBox focusKindCombo = new FlexiComboBox<FocusKind>(FocusKind.values()) {
@@ -269,11 +245,8 @@ public class ControlPanelFactory {
             }
         };
         focusKindCombo.setSelectedItem(FocusKind.ALL_INNER);
-        focusKindCombo.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                UIManager.put(SubstanceLookAndFeel.FOCUS_KIND, focusKindCombo.getSelectedItem());
-            }
-        });
+        focusKindCombo.addActionListener((ActionEvent e) ->
+        SubstanceCortex.GlobalScope.setFocusKind((FocusKind) focusKindCombo.getSelectedItem()));
         builder.append("Focus kind", focusKindCombo);
 
         JButton buttonGlassPane = new JButton("Show");
@@ -371,24 +344,19 @@ public class ControlPanelFactory {
         final JCheckBox isToolbarFlat = new JCheckBox("Is flat");
 
         isToolbarFlat.setSelected(true);
-        isToolbarFlat.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                toolbar.putClientProperty(SubstanceLookAndFeel.FLAT_PROPERTY,
-                        Boolean.valueOf(isToolbarFlat.isSelected()));
-                toolbar.repaint();
-            }
+        isToolbarFlat.addActionListener((ActionEvent e) -> {
+            SubstanceCortex.ComponentOrParentScope.setFlatBackground(toolbar,
+                    isToolbarFlat.isSelected());
+            toolbar.repaint();
         });
         builder.append("Flat", isToolbarFlat);
 
         builder.appendSeparator("Menu bar");
         final JCheckBox menuSearch = new JCheckBox("Has menu search");
         menuSearch.setSelected(false);
-        menuSearch.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SubstanceCortex.WindowScope.setWidgetVisible(mainFrame, menuSearch.isSelected(),
-                        SubstanceWidgetType.MENU_SEARCH);
-            }
-        });
+        menuSearch.addActionListener(
+                (ActionEvent e) -> SubstanceCortex.WindowScope.setWidgetVisible(mainFrame,
+                        menuSearch.isSelected(), SubstanceWidgetType.MENU_SEARCH));
         builder.append("Menu search", menuSearch);
 
         builder.appendSeparator("Icon pack");
@@ -858,8 +826,8 @@ public class ControlPanelFactory {
                     @Override
                     public void run() {
                         JFrame testFrame = new SampleFrame();
-                        testFrame.getRootPane().putClientProperty(
-                                SubstanceLookAndFeel.SKIN_PROPERTY, new NebulaBrickWallSkin());
+                        SubstanceCortex.RootPaneScope.setSkin(testFrame.getRootPane(),
+                                new NebulaBrickWallSkin());
                         SwingUtilities.updateComponentTreeUI(testFrame.getRootPane());
                         testFrame.setSize(315, 245);
                         testFrame.setLocationRelativeTo(mainFrame);

@@ -36,17 +36,16 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.shaper.SubstanceButtonShaper;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
-import org.pushingpixels.substance.shaperpack.ButterflyButtonShaper;
-import org.pushingpixels.substance.shaperpack.DolphinButtonShaper;
-import org.pushingpixels.substance.shaperpack.FishButtonShaper;
-import org.pushingpixels.substance.shaperpack.FootButtonShaper;
-import org.pushingpixels.substance.shaperpack.IceCreamButtonShaper;
-import org.pushingpixels.substance.shaperpack.RaceCarButtonShaper;
-import org.pushingpixels.substance.shaperpack.RhinoButtonShaper;
-import org.pushingpixels.substance.shaperpack.StegosaurusButtonShaper;
+import org.pushingpixels.substance.extras.api.shaperpack.ButterflyButtonShaper;
+import org.pushingpixels.substance.extras.api.shaperpack.DolphinButtonShaper;
+import org.pushingpixels.substance.extras.api.shaperpack.FishButtonShaper;
+import org.pushingpixels.substance.extras.api.shaperpack.FootButtonShaper;
+import org.pushingpixels.substance.extras.api.shaperpack.IceCreamButtonShaper;
+import org.pushingpixels.substance.extras.api.shaperpack.RaceCarButtonShaper;
+import org.pushingpixels.substance.extras.api.shaperpack.RhinoButtonShaper;
+import org.pushingpixels.substance.extras.api.shaperpack.StegosaurusButtonShaper;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
@@ -54,8 +53,7 @@ import com.jgoodies.forms.layout.FormLayout;
 public class TestButtons extends JFrame {
 	private JButton getButton(String text, SubstanceButtonShaper shaper) {
 		JButton button = new JButton(text);
-		button.putClientProperty(SubstanceLookAndFeel.BUTTON_SHAPER_PROPERTY,
-				shaper);
+        SubstanceCortex.ComponentScope.setButtonShaper(button, shaper);
 		return button;
 	}
 

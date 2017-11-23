@@ -27,59 +27,69 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package org.pushingpixels.demo.substance.main.samples.substance.clientprop;
+package org.pushingpixels.demo.substance.main.samples.substance.api;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
 
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.JRadioButton;
+import javax.swing.JSlider;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
+import javax.swing.event.ChangeEvent;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /**
- * Test application that shows the use of the {@link SubstanceLookAndFeel#SHOW_EXTRA_WIDGETS} client
- * property.
+ * Test application that shows the use of the
+ * {@link SubstanceCortex.ComponentOrParentChainScope#setColorizationFactor(javax.swing.JComponent, double)}
+ * API.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceLookAndFeel#SHOW_EXTRA_WIDGETS
+ * @see SubstanceCortex.ComponentOrParentChainScope#setColorizationFactor(javax.swing.JComponent,
+ *      double)
  */
-public class ShowExtraWidgets extends JFrame {
+public class ColorizationFactor extends JFrame {
     /**
      * Creates the main frame for <code>this</code> sample.
      */
-    public ShowExtraWidgets() {
-        super("Show extra widgets");
+    public ColorizationFactor() {
+        super("Colorization factor");
 
         this.setLayout(new BorderLayout());
 
-        JPanel centerPanel = new JPanel(new FlowLayout());
-        final JTextField readOnlyTextField = new JTextField("read-only");
-        readOnlyTextField.setEditable(false);
-        centerPanel.add(readOnlyTextField);
+        final JPanel panel = new JPanel(new FlowLayout());
+        JButton button = new JButton("sample");
+        button.setBackground(Color.yellow);
+        button.setForeground(Color.red);
+        panel.add(button);
+        JCheckBox checkbox = new JCheckBox("sample");
+        checkbox.setSelected(true);
+        checkbox.setBackground(Color.green.brighter());
+        checkbox.setForeground(Color.blue.darker());
+        panel.add(checkbox);
+        JRadioButton radiobutton = new JRadioButton("sample");
+        radiobutton.setSelected(true);
+        radiobutton.setBackground(Color.yellow);
+        radiobutton.setForeground(Color.green.darker());
+        panel.add(radiobutton);
 
-        this.add(centerPanel, BorderLayout.CENTER);
+        this.add(panel, BorderLayout.CENTER);
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        final JCheckBox showExtraWidgets = new JCheckBox("show extra widgets");
-        showExtraWidgets.addActionListener((ActionEvent e) -> {
-            SwingUtilities.invokeLater(() -> {
-                // based on the checkbox selection status, update the visibility of the lock icon.
-                UIManager.put(SubstanceLookAndFeel.SHOW_EXTRA_WIDGETS,
-                        Boolean.valueOf(showExtraWidgets.isSelected()));
-                SubstanceCortex.ComponentScope.setLockIconVisible(readOnlyTextField,
-                        showExtraWidgets.isSelected());
-                SwingUtilities.updateComponentTreeUI(ShowExtraWidgets.this);
-            });
+        final JSlider colorizationSlider = new JSlider(0, 100, 50);
+        colorizationSlider.addChangeListener((ChangeEvent e) -> {
+            double val = colorizationSlider.getValue() / 100.0;
+            SubstanceCortex.ComponentOrParentChainScope.setColorizationFactor(panel, val);
+            panel.repaint();
         });
-        controls.add(showExtraWidgets);
+        controls.add(colorizationSlider);
+
         this.add(controls, BorderLayout.SOUTH);
 
         this.setSize(400, 200);
@@ -97,7 +107,7 @@ public class ShowExtraWidgets extends JFrame {
         JFrame.setDefaultLookAndFeelDecorated(true);
         SwingUtilities.invokeLater(() -> {
             SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-            new ShowExtraWidgets().setVisible(true);
+            new ColorizationFactor().setVisible(true);
         });
     }
 }

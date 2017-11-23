@@ -6,11 +6,9 @@ import java.awt.image.BufferedImage;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 
-import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 public class ControlStates extends JFrame {
@@ -40,8 +38,7 @@ public class ControlStates extends JFrame {
 			@Override
 			public void run() {
 				JFrame.setDefaultLookAndFeelDecorated(true);
-				UIManager.put(SubstanceLookAndFeel.FOCUS_KIND,
-						SubstanceSlices.FocusKind.NONE);
+				SubstanceCortex.GlobalScope.setFocusKind(SubstanceSlices.FocusKind.NONE);
 				SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
 				new ControlStates().setVisible(true);
 			}

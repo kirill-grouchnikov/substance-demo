@@ -30,75 +30,53 @@
 package org.pushingpixels.demo.substance.main.samples.substance.api;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
-import org.pushingpixels.substance.api.tabbed.TabCloseListener;
+import org.pushingpixels.substance.api.skin.GraphiteSkin;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceCortex.ComponentScope#unregisterTabCloseChangeListener(JTabbedPane, org.pushingpixels.substance.api.tabbed.BaseTabCloseListener)}
- * API with registering a tab close listener that listens on single tab closing on a specific tabbed
- * pane.
+ * {@link SubstanceCortex.GlobalScope#setUseThemedDefaultIcons(Boolean)} API.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceCortex.ComponentScope#unregisterTabCloseChangeListener(JTabbedPane,
- *      org.pushingpixels.substance.api.tabbed.BaseTabCloseListener)
+ * @see SubstanceCortex.GlobalScope#setUseThemedDefaultIcons(Boolean)
  */
-public class UnregisterTabCloseChangeListener_Specific extends JFrame {
-    /**
-     * Listener instance.
-     */
-    private TabCloseListener listener;
-
+public class UseThemedDefaultIcons extends JFrame {
     /**
      * Creates the main frame for <code>this</code> sample.
      */
-    public UnregisterTabCloseChangeListener_Specific() {
-        super("Unregister tab close listener");
+    public UseThemedDefaultIcons() {
+        super("Use themed default icons");
 
         this.setLayout(new BorderLayout());
 
-        final JTabbedPane jtp = new JTabbedPane();
-        jtp.addTab("tab1", new JPanel());
-        jtp.addTab("tab2", new JPanel());
-        jtp.addTab("tab3", new JPanel());
-
-        SubstanceCortex.ComponentScope.setTabCloseButtonsVisible(jtp, true);
-
-        // register tab close listener on the specific tabbed pane.
-        SubstanceCortex.ComponentScope.registerTabCloseChangeListener(jtp,
-                listener = new TabCloseListener() {
-                    public void tabClosing(JTabbedPane tabbedPane, Component tabComponent) {
-                        System.out.println("Tab "
-                                + tabbedPane.getTitleAt(tabbedPane.indexOfComponent(tabComponent))
-                                + " closing");
-                    }
-
-                    public void tabClosed(JTabbedPane tabbedPane, Component tabComponent) {
-                        System.out.println("Tab closed");
-                    }
-                });
-
-        this.add(jtp, BorderLayout.CENTER);
+        final JPanel panel = new JPanel(new FlowLayout());
+        panel.add(new JButton("cut", new ImageIcon(UseThemedDefaultIcons.class
+                .getResource("/org/pushingpixels/demo/substance/swingx/check/icons/22/edit-cut.png"))));
+        panel.add(new JButton("copy", new ImageIcon(UseThemedDefaultIcons.class
+                .getResource("/org/pushingpixels/demo/substance/swingx/check/icons/22/edit-copy.png"))));
+        panel.add(new JButton("paste", new ImageIcon(UseThemedDefaultIcons.class
+                .getResource("/org/pushingpixels/demo/substance/swingx/check/icons/22/edit-paste.png"))));
+        this.add(panel, BorderLayout.CENTER);
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        final JButton unregisterListener = new JButton("Unregister listener");
-        unregisterListener.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
-            unregisterListener.setEnabled(false);
-            // unregister listener
-            SubstanceCortex.ComponentScope.unregisterTabCloseChangeListener(jtp, listener);
+        final JCheckBox useThemedIcons = new JCheckBox("use themed icons");
+        useThemedIcons.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            // based on the checkbox selection status, call the API
+            SubstanceCortex.GlobalScope
+                    .setUseThemedDefaultIcons(useThemedIcons.isSelected() ? Boolean.TRUE : null);
+            UseThemedDefaultIcons.this.repaint();
         }));
-        controls.add(unregisterListener);
+        controls.add(useThemedIcons);
         this.add(controls, BorderLayout.SOUTH);
 
         this.setSize(400, 200);
@@ -115,8 +93,8 @@ public class UnregisterTabCloseChangeListener_Specific extends JFrame {
     public static void main(String[] args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
         SwingUtilities.invokeLater(() -> {
-            SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-            new UnregisterTabCloseChangeListener_Specific().setVisible(true);
+            SubstanceCortex.GlobalScope.setSkin(new GraphiteSkin());
+            new UseThemedDefaultIcons().setVisible(true);
         });
     }
 }

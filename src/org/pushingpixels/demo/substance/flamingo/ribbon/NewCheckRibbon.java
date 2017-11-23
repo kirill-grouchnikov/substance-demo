@@ -58,11 +58,10 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import org.pushingpixels.demo.flamingo.ribbon.BasicCheckRibbon;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceSlices.SubstanceWidgetType;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.OfficeBlue2007Skin;
 import org.pushingpixels.substance.flamingo.SubstanceFlamingoPlugin;
 import org.pushingpixels.substance.flamingo.ribbon.gallery.oob.SubstanceRibbonTask;
@@ -87,28 +86,26 @@ public class NewCheckRibbon extends BasicCheckRibbon {
         super.configureControlPanel(formBuilder);
 
         final JCheckBox useThemedDefaultIconsCheckBox = new JCheckBox("use");
-        useThemedDefaultIconsCheckBox.addActionListener((ActionEvent e) -> {
-            SwingUtilities.invokeLater(() -> {
-                UIManager.put(SubstanceLookAndFeel.USE_THEMED_DEFAULT_ICONS,
-                        useThemedDefaultIconsCheckBox.isSelected() ? Boolean.TRUE : null);
-                SwingUtilities.updateComponentTreeUI(NewCheckRibbon.this);
-                repaint();
-            });
-        });
+        useThemedDefaultIconsCheckBox
+                .addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+                    SubstanceCortex.GlobalScope.setUseThemedDefaultIcons(
+                            useThemedDefaultIconsCheckBox.isSelected() ? Boolean.TRUE : null);
+                    SwingUtilities.updateComponentTreeUI(NewCheckRibbon.this);
+                    repaint();
+                }));
         formBuilder.append("Themed icons", useThemedDefaultIconsCheckBox);
 
         final JCheckBox useGlowingIconsCheckBox = new JCheckBox("use");
-        useGlowingIconsCheckBox.addActionListener((ActionEvent e) -> {
-            SwingUtilities.invokeLater(() -> {
-                if (useGlowingIconsCheckBox.isSelected()) {
-                    SubstanceCortex.GlobalScope.allowAnimations(AnimationFacet.ICON_GLOW);
-                } else {
-                    SubstanceCortex.GlobalScope.disallowAnimations(AnimationFacet.ICON_GLOW);
-                }
-                SwingUtilities.updateComponentTreeUI(NewCheckRibbon.this);
-                repaint();
-            });
-        });
+        useGlowingIconsCheckBox
+                .addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+                    if (useGlowingIconsCheckBox.isSelected()) {
+                        SubstanceCortex.GlobalScope.allowAnimations(AnimationFacet.ICON_GLOW);
+                    } else {
+                        SubstanceCortex.GlobalScope.disallowAnimations(AnimationFacet.ICON_GLOW);
+                    }
+                    SwingUtilities.updateComponentTreeUI(NewCheckRibbon.this);
+                    repaint();
+                }));
         formBuilder.append("Glowing icons", useGlowingIconsCheckBox);
 
         final JCheckBox heapPanel = new JCheckBox("show");

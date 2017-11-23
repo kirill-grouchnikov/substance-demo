@@ -40,84 +40,81 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.ImageWatermarkKind;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 import org.pushingpixels.substance.api.watermark.SubstanceImageWatermark;
 
 public class WatermarkedTabbedPane extends JFrame {
-	private static class TabControl extends JPanel {
-		public TabControl(String topLabel, String bottomLabel) {
-			this.setOpaque(false);
+    private static class TabControl extends JPanel {
+        public TabControl(String topLabel, String bottomLabel) {
+            this.setOpaque(false);
 
-			this.setLayout(new GridLayout(2, 1));
-			JLabel top = new JLabel(topLabel);
-			top.setFont(top.getFont().deriveFont(15.0f).deriveFont(Font.BOLD));
+            this.setLayout(new GridLayout(2, 1));
+            JLabel top = new JLabel(topLabel);
+            top.setFont(top.getFont().deriveFont(15.0f).deriveFont(Font.BOLD));
 
-			JLabel bottom = new JLabel(bottomLabel);
+            JLabel bottom = new JLabel(bottomLabel);
 
-			this.add(top);
-			this.add(bottom);
-		}
-	}
+            this.add(top);
+            this.add(bottom);
+        }
+    }
 
-	public WatermarkedTabbedPane() throws Exception {
-		super("Transparent tabs");
+    public WatermarkedTabbedPane() throws Exception {
+        super("Transparent tabs");
 
-		final JTabbedPane jtp = new JTabbedPane();
-		jtp.putClientProperty(
-				SubstanceLookAndFeel.TABBED_PANE_CONTENT_BORDER_KIND,
-				SubstanceSlices.TabContentPaneBorderKind.SINGLE_PLACEMENT);
+        final JTabbedPane jtp = new JTabbedPane();
+        SubstanceCortex.ComponentScope.setTabContentPaneBorderKind(jtp,
+                SubstanceSlices.TabContentPaneBorderKind.SINGLE_PLACEMENT);
 
-		jtp.addTab("Tab 1", new JPanel());
-		jtp.setTabComponentAt(0, new TabControl("System", "Description"));
-		jtp.addTab("Tab 2", new JPanel());
-		jtp.setTabComponentAt(1, new TabControl("Monitors", "Description"));
+        jtp.addTab("Tab 1", new JPanel());
+        jtp.setTabComponentAt(0, new TabControl("System", "Description"));
+        jtp.addTab("Tab 2", new JPanel());
+        jtp.setTabComponentAt(1, new TabControl("Monitors", "Description"));
 
-		this.setLayout(new BorderLayout(10, 10));
-		this.add(jtp);
+        this.setLayout(new BorderLayout(10, 10));
+        this.add(jtp);
 
-		this.setSize(400, 300);
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	}
+        this.setSize(400, 300);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }
 
-	private static class MySkin extends BusinessBlackSteelSkin {
-		public MySkin() {
-			super();
-			try {
-				SubstanceImageWatermark imageWatermark = new SubstanceImageWatermark(
-						new URL(
-								"http://www.wallpaperpimper.com/wallpaper/Art_&_3D/Abstract/Lime-Green-Abstract-1-F8T4BX57YH-800x600.jpg")
-								.openStream());
-				imageWatermark.setOpacity(1.0f);
-				imageWatermark.setKind(ImageWatermarkKind.APP_ANCHOR);
-				this.watermark = imageWatermark;
-			} catch (Exception exc) {
-				exc.printStackTrace();
-			}
-		}
+    private static class MySkin extends BusinessBlackSteelSkin {
+        public MySkin() {
+            super();
+            try {
+                SubstanceImageWatermark imageWatermark = new SubstanceImageWatermark(new URL(
+                        "http://www.wallpaperpimper.com/wallpaper/Art_&_3D/Abstract/Lime-Green-Abstract-1-F8T4BX57YH-800x600.jpg")
+                                .openStream());
+                imageWatermark.setOpacity(1.0f);
+                imageWatermark.setKind(ImageWatermarkKind.APP_ANCHOR);
+                this.watermark = imageWatermark;
+            } catch (Exception exc) {
+                exc.printStackTrace();
+            }
+        }
 
-		@Override
-		public String getDisplayName() {
-			return "My";
-		}
-	}
+        @Override
+        public String getDisplayName() {
+            return "My";
+        }
+    }
 
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					SubstanceCortex.GlobalScope.setSkin(new MySkin());
-					new WatermarkedTabbedPane().setVisible(true);
-				} catch (Exception exc) {
-					exc.printStackTrace();
-				}
-			}
-		});
-	}
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    SubstanceCortex.GlobalScope.setSkin(new MySkin());
+                    new WatermarkedTabbedPane().setVisible(true);
+                } catch (Exception exc) {
+                    exc.printStackTrace();
+                }
+            }
+        });
+    }
 
 }

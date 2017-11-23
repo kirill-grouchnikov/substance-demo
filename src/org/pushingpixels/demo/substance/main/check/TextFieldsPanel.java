@@ -47,7 +47,6 @@ import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.password.PasswordStrengthChecker;
 
@@ -150,15 +149,15 @@ public class TextFieldsPanel extends JPanel implements Deferrable {
         builder.append(jftfNonOpaque, jpfNonOpaque);
 
         JTextField jtfWatermarkBleed = new JTextField("sample text");
-        jtfWatermarkBleed.putClientProperty(SubstanceLookAndFeel.WATERMARK_VISIBLE, Boolean.TRUE);
+        SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(jtfWatermarkBleed, true);
         builder.append("Watermark bleed", jtfWatermarkBleed);
 
         JFormattedTextField jftfWatermarkBleed = new JFormattedTextField(
                 new DecimalFormat("#,##0.0000"));
         jftfWatermarkBleed.setText("2,430.0000");
-        jftfWatermarkBleed.putClientProperty(SubstanceLookAndFeel.WATERMARK_VISIBLE, Boolean.TRUE);
+        SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(jftfWatermarkBleed, true);
         JPasswordField jpfWatermarkBleed = new JPasswordField("password", 10);
-        jpfWatermarkBleed.putClientProperty(SubstanceLookAndFeel.WATERMARK_VISIBLE, Boolean.TRUE);
+        SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(jpfWatermarkBleed, true);
         builder.append(jftfWatermarkBleed, jpfWatermarkBleed);
 
         JTextField jtf4 = new JTextField("sample text");
@@ -246,8 +245,7 @@ public class TextFieldsPanel extends JPanel implements Deferrable {
         builder.append(new JLabel(), jpfStrengthChecker);
 
         JPasswordField jpfTwoEchoChar = new JPasswordField("password", 10);
-        jpfTwoEchoChar.putClientProperty(SubstanceLookAndFeel.PASSWORD_ECHO_PER_CHAR,
-                new Integer(2));
+        SubstanceCortex.ComponentScope.setNumberOfPasswordEchoesPerCharacter(jpfTwoEchoChar, 2);
         builder.append("Two echo chars", new JLabel());
         builder.append(new JLabel(), jpfTwoEchoChar);
 
@@ -327,15 +325,15 @@ public class TextFieldsPanel extends JPanel implements Deferrable {
 
         JEditorPane jepWatermarkBleed = new JEditorPane("text/html;",
                 "Sample <b>content</b><br> <u>text</u>");
-        jepWatermarkBleed.putClientProperty(SubstanceLookAndFeel.WATERMARK_VISIBLE, Boolean.TRUE);
+        SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(jepWatermarkBleed, true);
         builder.append("Watermark bleed", jepWatermarkBleed);
 
         JTextArea jtaWatermarkBleed = new JTextArea("Sample content text", 3, 20);
-        jtaWatermarkBleed.putClientProperty(SubstanceLookAndFeel.WATERMARK_VISIBLE, Boolean.TRUE);
+        SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(jtaWatermarkBleed, true);
         JTextPane jtpWatermarkBleed = new JTextPane();
         jtpWatermarkBleed.replaceSelection("Sample content text");
         jtpWatermarkBleed.setPreferredSize(new Dimension(100, 40));
-        jtpWatermarkBleed.putClientProperty(SubstanceLookAndFeel.WATERMARK_VISIBLE, Boolean.TRUE);
+        SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(jtpWatermarkBleed, true);
         builder.append(jtaWatermarkBleed, jtpWatermarkBleed);
 
         JEditorPane jep4 = new JEditorPane("text/html;", "Sample <b>content</b><br> <u>text</u>");

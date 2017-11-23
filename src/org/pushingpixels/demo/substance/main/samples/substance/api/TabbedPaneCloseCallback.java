@@ -30,13 +30,9 @@
 package org.pushingpixels.demo.substance.main.samples.substance.api;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.event.MouseEvent;
-import java.util.Set;
 
-import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
@@ -45,32 +41,33 @@ import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.TabCloseKind;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 import org.pushingpixels.substance.api.tabbed.TabCloseCallback;
-import org.pushingpixels.substance.api.tabbed.VetoableMultipleTabCloseListener;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceCortex.GlobalScope#registerTabCloseChangeListener(org.pushingpixels.substance.api.tabbed.BaseTabCloseListener)}
- * API with registering a vetoable tab close listener that listens on multiple tab closing on a
- * specific tabbed pane.
+ * {@link SubstanceCortex.ComponentScope#setTabCloseCallback(JTabbedPane, TabCloseCallback)}
+ * API.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceCortex.GlobalScope#registerTabCloseChangeListener(org.pushingpixels.substance.api.tabbed.BaseTabCloseListener)
+ * @see SubstanceCortex.ComponentScope#setTabCloseCallback(JTabbedPane, TabCloseCallback)
  */
-public class RegisterTabCloseChangeListener_GeneralMultipleVetoable extends JFrame {
+public class TabbedPaneCloseCallback extends JFrame {
     /**
      * Creates the main frame for <code>this</code> sample.
      */
-    public RegisterTabCloseChangeListener_GeneralMultipleVetoable() {
-        super("Register tab close listener");
+    public TabbedPaneCloseCallback() {
+        super("Tabbed pane close callback");
 
         this.setLayout(new BorderLayout());
 
-        JTabbedPane jtp = new JTabbedPane();
-        jtp.addTab("tab1", new JPanel());
-        jtp.addTab("tab2", new JPanel());
-        jtp.addTab("tab3", new JPanel());
-
+        // create tabbed pane with a few tabs
+        final JTabbedPane jtp = new JTabbedPane();
+        jtp.addTab("First", new JPanel());
+        jtp.addTab("Second", new JPanel());
+        jtp.addTab("Third", new JPanel());
+        // mark it to have close buttons on all the tabs
         SubstanceCortex.ComponentScope.setTabCloseButtonsVisible(jtp, true);
+
+        this.add(jtp, BorderLayout.CENTER);
 
         // create a custom implementation of TabCloseCallback interface.
         TabCloseCallback closeCallback = new TabCloseCallback() {
@@ -115,44 +112,6 @@ public class RegisterTabCloseChangeListener_GeneralMultipleVetoable extends JFra
         // register the callback on the tabbed pane
         SubstanceCortex.ComponentScope.setTabCloseCallback(jtp, closeCallback);
 
-        // register tab close listener on all tabbed panes.
-        SubstanceCortex.GlobalScope
-                .registerTabCloseChangeListener(new VetoableMultipleTabCloseListener() {
-                    public void tabsClosing(JTabbedPane tabbedPane, Set<Component> tabComponents) {
-                        StringBuffer sb = new StringBuffer("Tab (s)");
-                        String sep = " [";
-                        for (Component comp : tabComponents) {
-                            sb.append(sep);
-                            sep = ", ";
-                            sb.append(tabbedPane.getTitleAt(tabbedPane.indexOfComponent(comp)));
-                        }
-                        sb.append("] closing");
-                        System.out.println(sb.toString());
-                    }
-
-                    public void tabsClosed(JTabbedPane tabbedPane, Set<Component> tabComponents) {
-                        System.out.println(tabComponents.size() + " tab(s) closed");
-                    }
-
-                    public boolean vetoTabsClosing(JTabbedPane tabbedPane,
-                            Set<Component> tabComponents) {
-                        StringBuffer sb = new StringBuffer("");
-                        String sep = "[";
-                        for (Component comp : tabComponents) {
-                            sb.append(sep);
-                            sep = ", ";
-                            sb.append(tabbedPane.getTitleAt(tabbedPane.indexOfComponent(comp)));
-                        }
-                        sb.append("]");
-                        return (JOptionPane.showConfirmDialog(
-                                RegisterTabCloseChangeListener_GeneralMultipleVetoable.this,
-                                "Are you sure you want to close " + sb.toString()
-                                        + "?") != JOptionPane.YES_OPTION);
-                    }
-                });
-
-        this.add(jtp, BorderLayout.CENTER);
-
         this.setSize(400, 200);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -166,10 +125,9 @@ public class RegisterTabCloseChangeListener_GeneralMultipleVetoable extends JFra
      */
     public static void main(String[] args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
-        JDialog.setDefaultLookAndFeelDecorated(true);
         SwingUtilities.invokeLater(() -> {
             SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-            new RegisterTabCloseChangeListener_GeneralMultipleVetoable().setVisible(true);
+            new TabbedPaneCloseCallback().setVisible(true);
         });
     }
 }

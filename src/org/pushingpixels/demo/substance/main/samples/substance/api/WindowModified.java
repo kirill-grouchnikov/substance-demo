@@ -30,76 +30,69 @@
 package org.pushingpixels.demo.substance.main.samples.substance.api;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
+import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
-import org.pushingpixels.substance.api.tabbed.TabCloseListener;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceCortex.ComponentScope#unregisterTabCloseChangeListener(JTabbedPane, org.pushingpixels.substance.api.tabbed.BaseTabCloseListener)}
- * API with registering a tab close listener that listens on single tab closing on a specific tabbed
- * pane.
+ * {@link SubstanceCortex.RootPaneScope#setContentsModified(javax.swing.JRootPane, boolean)} API.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceCortex.ComponentScope#unregisterTabCloseChangeListener(JTabbedPane,
- *      org.pushingpixels.substance.api.tabbed.BaseTabCloseListener)
+ * @see SubstanceCortex.RootPaneScope#setContentsModified(javax.swing.JRootPane, boolean)
  */
-public class UnregisterTabCloseChangeListener_Specific extends JFrame {
-    /**
-     * Listener instance.
-     */
-    private TabCloseListener listener;
-
+public class WindowModified extends JFrame {
     /**
      * Creates the main frame for <code>this</code> sample.
      */
-    public UnregisterTabCloseChangeListener_Specific() {
-        super("Unregister tab close listener");
+    public WindowModified() {
+        super("Window modified");
 
         this.setLayout(new BorderLayout());
 
-        final JTabbedPane jtp = new JTabbedPane();
-        jtp.addTab("tab1", new JPanel());
-        jtp.addTab("tab2", new JPanel());
-        jtp.addTab("tab3", new JPanel());
+        this.add(new JLabel("Type something and hover over the close button"), BorderLayout.NORTH);
 
-        SubstanceCortex.ComponentScope.setTabCloseButtonsVisible(jtp, true);
+        // create a text pane
+        JTextPane textArea = new JTextPane();
+        this.add(textArea, BorderLayout.CENTER);
+        textArea.getDocument().addDocumentListener(new DocumentListener() {
+            private void handleChange() {
+                // on any document change, mark root pane as modified
+                SubstanceCortex.RootPaneScope.setContentsModified(getRootPane(), true);
+            }
 
-        // register tab close listener on the specific tabbed pane.
-        SubstanceCortex.ComponentScope.registerTabCloseChangeListener(jtp,
-                listener = new TabCloseListener() {
-                    public void tabClosing(JTabbedPane tabbedPane, Component tabComponent) {
-                        System.out.println("Tab "
-                                + tabbedPane.getTitleAt(tabbedPane.indexOfComponent(tabComponent))
-                                + " closing");
-                    }
+            public void changedUpdate(DocumentEvent e) {
+                handleChange();
+            }
 
-                    public void tabClosed(JTabbedPane tabbedPane, Component tabComponent) {
-                        System.out.println("Tab closed");
-                    }
-                });
+            public void insertUpdate(DocumentEvent e) {
+                handleChange();
+            }
 
-        this.add(jtp, BorderLayout.CENTER);
+            public void removeUpdate(DocumentEvent e) {
+                handleChange();
+            }
+        });
 
-        JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        final JButton unregisterListener = new JButton("Unregister listener");
-        unregisterListener.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
-            unregisterListener.setEnabled(false);
-            // unregister listener
-            SubstanceCortex.ComponentScope.unregisterTabCloseChangeListener(jtp, listener);
-        }));
-        controls.add(unregisterListener);
-        this.add(controls, BorderLayout.SOUTH);
+        JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JButton saveButton = new JButton("Save");
+        // on button click, mark root pane as not modified
+        saveButton.addActionListener((ActionEvent e) -> SubstanceCortex.RootPaneScope
+                .setContentsModified(getRootPane(), false));
+
+        buttons.add(saveButton);
+        this.add(buttons, BorderLayout.SOUTH);
 
         this.setSize(400, 200);
         this.setLocationRelativeTo(null);
@@ -112,11 +105,11 @@ public class UnregisterTabCloseChangeListener_Specific extends JFrame {
      * @param args
      *            Ignored.
      */
-    public static void main(String[] args) {
+    public static void main(String... args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
         SwingUtilities.invokeLater(() -> {
             SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-            new UnregisterTabCloseChangeListener_Specific().setVisible(true);
+            new WindowModified().setVisible(true);
         });
     }
 }

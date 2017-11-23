@@ -54,9 +54,9 @@ import javax.swing.filechooser.FileSystemView;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeNode;
 
-import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultTreeCellRenderer;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
@@ -411,24 +411,22 @@ public class FileTreePanel extends ControllablePanel implements Deferrable {
         builder.append("Enabled", isEnabled);
 
         final JCheckBox watermarkBleed = new JCheckBox("is bleeding");
-        watermarkBleed.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                tree.putClientProperty(SubstanceLookAndFeel.WATERMARK_VISIBLE,
-                        Boolean.valueOf(watermarkBleed.isSelected()));
-                jsp.putClientProperty(SubstanceLookAndFeel.WATERMARK_VISIBLE,
-                        Boolean.valueOf(watermarkBleed.isSelected()));
-                tree.repaint();
-            }
+        watermarkBleed.addActionListener((ActionEvent e) -> {
+            SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(tree,
+                    watermarkBleed.isSelected());
+            SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(jsp,
+                    watermarkBleed.isSelected());
+            tree.repaint();
         });
         builder.append("Watermark", watermarkBleed);
 
         final JCheckBox cbTreeSmartScroll = new JCheckBox("smart tree scroll");
         cbTreeSmartScroll.addActionListener((ActionEvent e) -> {
             if (cbTreeSmartScroll.isSelected()) {
-                SubstanceCortex.ComponentScope.allowAnimations(tree, 
+                SubstanceCortex.ComponentScope.allowAnimations(tree,
                         SubstanceSlices.AnimationFacet.TREE_SMART_SCROLL_ANIMATION_KIND);
             } else {
-                SubstanceCortex.ComponentScope.disallowAnimations(tree, 
+                SubstanceCortex.ComponentScope.disallowAnimations(tree,
                         SubstanceSlices.AnimationFacet.TREE_SMART_SCROLL_ANIMATION_KIND);
             }
             tree.repaint();

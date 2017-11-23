@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package org.pushingpixels.demo.substance.main.samples.substance.clientprop;
+package org.pushingpixels.demo.substance.main.samples.substance.api;
 
 import java.awt.FlowLayout;
 
@@ -36,54 +36,52 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceLookAndFeel#BUTTON_PAINT_NEVER_PROPERTY} client property.
+ * {@link SubstanceCortex.ComponentOrParentScope#setButtonNeverPaintBackground(javax.swing.JComponent, Boolean)}
+ * client property.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceLookAndFeel#BUTTON_PAINT_NEVER_PROPERTY
+ * @see SubstanceCortex.ComponentOrParentScope#setButtonNeverPaintBackground(javax.swing.JComponent,
+ *      Boolean)
  */
-public class ButtonPaintNeverProperty extends JFrame {
-	/**
-	 * Creates the main frame for <code>this</code> sample.
-	 */
-	public ButtonPaintNeverProperty() {
-		super("Middle button never paints background");
+public class ButtonNeverPaintBackground extends JFrame {
+    /**
+     * Creates the main frame for <code>this</code> sample.
+     */
+    public ButtonNeverPaintBackground() {
+        super("Middle button never paints background");
 
-		this.setLayout(new FlowLayout());
+        this.setLayout(new FlowLayout());
 
-		JButton buttonA = new JButton("a");
-		JButton buttonB = new JButton("b");
-		// Mark button to never paint its background
-		buttonB.putClientProperty(
-				SubstanceLookAndFeel.BUTTON_PAINT_NEVER_PROPERTY, Boolean.TRUE);
-		JButton buttonC = new JButton("c");
+        JButton buttonA = new JButton("a");
+        JButton buttonB = new JButton("b");
+        // Mark button to never paint its background
+        SubstanceCortex.ComponentOrParentScope.setButtonNeverPaintBackground(buttonB, true);
+        JButton buttonC = new JButton("c");
 
-		this.add(buttonA);
-		this.add(buttonB);
-		this.add(buttonC);
+        this.add(buttonA);
+        this.add(buttonB);
+        this.add(buttonC);
 
-		this.setSize(400, 200);
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+        this.setSize(400, 200);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
 
-	/**
-	 * The main method for <code>this</code> sample. The arguments are ignored.
-	 * 
-	 * @param args
-	 *            Ignored.
-	 */
-	public static void main(String[] args) {
-		JFrame.setDefaultLookAndFeelDecorated(true);
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-			    SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-				new ButtonPaintNeverProperty().setVisible(true);
-			}
-		});
-	}
+    /**
+     * The main method for <code>this</code> sample. The arguments are ignored.
+     * 
+     * @param args
+     *            Ignored.
+     */
+    public static void main(String[] args) {
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
+            new ButtonNeverPaintBackground().setVisible(true);
+        });
+    }
 }

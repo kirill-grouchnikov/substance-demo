@@ -35,75 +35,70 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
+import org.pushingpixels.substance.api.renderer.SubstanceDefaultComboBoxRenderer;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
-import org.pushingpixels.substance.api.tabbed.TabCloseListener;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceCortex.ComponentScope#unregisterTabCloseChangeListener(JTabbedPane, org.pushingpixels.substance.api.tabbed.BaseTabCloseListener)}
- * API with registering a tab close listener that listens on single tab closing on a specific tabbed
- * pane.
+ * {@link SubstanceCortex.ComponentOrParentChainScope#setFocusKind(javax.swing.JComponent, FocusKind)}
+ * API.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceCortex.ComponentScope#unregisterTabCloseChangeListener(JTabbedPane,
- *      org.pushingpixels.substance.api.tabbed.BaseTabCloseListener)
+ * @see SubstanceCortex.ComponentOrParentChainScope#setFocusKind(javax.swing.JComponent, FocusKind)
  */
-public class UnregisterTabCloseChangeListener_Specific extends JFrame {
-    /**
-     * Listener instance.
-     */
-    private TabCloseListener listener;
-
+public class SetFocusKind extends JFrame {
     /**
      * Creates the main frame for <code>this</code> sample.
      */
-    public UnregisterTabCloseChangeListener_Specific() {
-        super("Unregister tab close listener");
+    public SetFocusKind() {
+        super("Focus kind");
 
-        this.setLayout(new BorderLayout());
+        setLayout(new BorderLayout());
 
-        final JTabbedPane jtp = new JTabbedPane();
-        jtp.addTab("tab1", new JPanel());
-        jtp.addTab("tab2", new JPanel());
-        jtp.addTab("tab3", new JPanel());
+        final JButton button1 = new JButton("button");
 
-        SubstanceCortex.ComponentScope.setTabCloseButtonsVisible(jtp, true);
-
-        // register tab close listener on the specific tabbed pane.
-        SubstanceCortex.ComponentScope.registerTabCloseChangeListener(jtp,
-                listener = new TabCloseListener() {
-                    public void tabClosing(JTabbedPane tabbedPane, Component tabComponent) {
-                        System.out.println("Tab "
-                                + tabbedPane.getTitleAt(tabbedPane.indexOfComponent(tabComponent))
-                                + " closing");
-                    }
-
-                    public void tabClosed(JTabbedPane tabbedPane, Component tabComponent) {
-                        System.out.println("Tab closed");
-                    }
-                });
-
-        this.add(jtp, BorderLayout.CENTER);
+        JPanel main = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        this.add(main, BorderLayout.CENTER);
+        main.add(button1);
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        final JButton unregisterListener = new JButton("Unregister listener");
-        unregisterListener.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
-            unregisterListener.setEnabled(false);
-            // unregister listener
-            SubstanceCortex.ComponentScope.unregisterTabCloseChangeListener(jtp, listener);
-        }));
-        controls.add(unregisterListener);
+
+        final JComboBox focusKindCombo = new JComboBox(
+                new Object[] { FocusKind.NONE, FocusKind.ALL, FocusKind.ALL_INNER, FocusKind.TEXT,
+                                FocusKind.UNDERLINE, FocusKind.STRONG_UNDERLINE });
+        focusKindCombo.setRenderer(new SubstanceDefaultComboBoxRenderer(focusKindCombo) {
+            @Override
+            public Component getListCellRendererComponent(JList list, Object value, int index,
+                    boolean isSelected, boolean cellHasFocus) {
+                FocusKind mgfk = (FocusKind) value;
+                return super.getListCellRendererComponent(list, mgfk.name().toLowerCase(), index,
+                        isSelected, cellHasFocus);
+            }
+        });
+        focusKindCombo.setSelectedItem(FocusKind.ALL_INNER);
+        focusKindCombo.addActionListener((ActionEvent e) -> {
+            // based on the selected value, set focus kind on the
+            // button and request focus
+            SubstanceCortex.ComponentOrParentChainScope.setFocusKind(button1,
+                    (FocusKind) focusKindCombo.getSelectedItem());
+            button1.requestFocus();
+        });
+        controls.add(new JLabel("Focus kind"));
+        controls.add(focusKindCombo);
         this.add(controls, BorderLayout.SOUTH);
 
         this.setSize(400, 200);
-        this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     /**
@@ -116,7 +111,7 @@ public class UnregisterTabCloseChangeListener_Specific extends JFrame {
         JFrame.setDefaultLookAndFeelDecorated(true);
         SwingUtilities.invokeLater(() -> {
             SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-            new UnregisterTabCloseChangeListener_Specific().setVisible(true);
+            new SetFocusKind().setVisible(true);
         });
     }
 }

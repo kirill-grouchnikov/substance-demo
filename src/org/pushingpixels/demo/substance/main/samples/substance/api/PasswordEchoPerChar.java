@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package org.pushingpixels.demo.substance.main.samples.substance.clientprop;
+package org.pushingpixels.demo.substance.main.samples.substance.api;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -40,71 +40,65 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceLookAndFeel#PASSWORD_ECHO_PER_CHAR} client property.
+ * {@link SubstanceCortex.ComponentScope#setNumberOfPasswordEchoesPerCharacter(JPasswordField, int)}
+ * API.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceLookAndFeel#PASSWORD_ECHO_PER_CHAR
+ * @see SubstanceCortex.ComponentScope#setNumberOfPasswordEchoesPerCharacter(JPasswordField, int)
  */
 public class PasswordEchoPerChar extends JFrame {
-	/**
-	 * Creates the main frame for <code>this</code> sample.
-	 */
-	public PasswordEchoPerChar() {
-		super("Password echo per char");
+    /**
+     * Creates the main frame for <code>this</code> sample.
+     */
+    public PasswordEchoPerChar() {
+        super("Password echo per char");
 
-		this.setLayout(new BorderLayout());
-		final JPanel panel = new JPanel(new FlowLayout());
-		this.add(panel, BorderLayout.CENTER);
+        this.setLayout(new BorderLayout());
+        final JPanel panel = new JPanel(new FlowLayout());
+        this.add(panel, BorderLayout.CENTER);
 
-		final JPasswordField jpf = new JPasswordField("sample");
-		jpf.setColumns(20);
-		panel.add(jpf);
+        final JPasswordField jpf = new JPasswordField("sample");
+        jpf.setColumns(20);
+        panel.add(jpf);
 
-		JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		final JSpinner countSpinner = new JSpinner();
-		SpinnerNumberModel model = new SpinnerNumberModel(1, 1, 5, 1);
-		countSpinner.setModel(model);
-		countSpinner.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				// set the amount of echo per character based on the current
-				// value in the spinner
-				jpf.putClientProperty(
-						SubstanceLookAndFeel.PASSWORD_ECHO_PER_CHAR,
-						countSpinner.getValue());
-				jpf.repaint();
-			}
-		});
+        JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        final JSpinner countSpinner = new JSpinner();
+        SpinnerNumberModel model = new SpinnerNumberModel(1, 1, 5, 1);
+        countSpinner.setModel(model);
+        countSpinner.addChangeListener((ChangeEvent e) -> {
+            // set the amount of echo per character based on the current
+            // value in the spinner
+            SubstanceCortex.ComponentScope.setNumberOfPasswordEchoesPerCharacter(jpf,
+                    (int) countSpinner.getValue());
+            jpf.repaint();
+        });
 
-		controls.add(new JLabel("Echo per char"));
-		controls.add(countSpinner);
-		this.add(controls, BorderLayout.SOUTH);
+        controls.add(new JLabel("Echo per char"));
+        controls.add(countSpinner);
+        this.add(controls, BorderLayout.SOUTH);
 
-		this.setSize(400, 200);
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+        this.setSize(400, 200);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
 
-	/**
-	 * The main method for <code>this</code> sample. The arguments are ignored.
-	 * 
-	 * @param args
-	 *            Ignored.
-	 */
-	public static void main(String[] args) {
-		JFrame.setDefaultLookAndFeelDecorated(true);
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-				new PasswordEchoPerChar().setVisible(true);
-			}
-		});
-	}
+    /**
+     * The main method for <code>this</code> sample. The arguments are ignored.
+     * 
+     * @param args
+     *            Ignored.
+     */
+    public static void main(String[] args) {
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
+            new PasswordEchoPerChar().setVisible(true);
+        });
+    }
 }

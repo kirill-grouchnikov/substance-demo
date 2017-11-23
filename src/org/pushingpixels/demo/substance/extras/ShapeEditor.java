@@ -66,8 +66,8 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 import org.pushingpixels.substance.api.skin.SubstanceBusinessBlackSteelLookAndFeel;
-import org.pushingpixels.substance.shaperpack.CanonicalPath;
-import org.pushingpixels.substance.shaperpack.ShaperRepository;
+import org.pushingpixels.substance.extras.api.shaperpack.CanonicalPath;
+import org.pushingpixels.substance.extras.api.shaperpack.ShaperRepository;
 
 public class ShapeEditor extends JFrame {
 	private ArrayList<Point2D> majorPoints;

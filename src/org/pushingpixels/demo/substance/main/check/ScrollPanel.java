@@ -44,7 +44,6 @@ import javax.swing.border.LineBorder;
 
 import org.pushingpixels.demo.substance.main.Check;
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.painter.preview.DefaultPreviewPainter;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
@@ -120,19 +119,17 @@ public class ScrollPanel extends ControllablePanel {
 
         final JCheckBox isFlat = new JCheckBox("Is flat");
         isFlat.addActionListener((ActionEvent e) -> {
-            sp.putClientProperty(SubstanceLookAndFeel.FLAT_PROPERTY,
+            SubstanceCortex.ComponentOrParentScope.setFlatBackground(sp,
                     isFlat.isSelected() ? Boolean.TRUE : null);
             sp.repaint();
         });
         builder.append("Flat", isFlat);
 
         final JCheckBox isNever = new JCheckBox("Is never painted");
-        isNever.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                sp.putClientProperty(SubstanceLookAndFeel.BUTTON_PAINT_NEVER_PROPERTY,
-                        isNever.isSelected() ? Boolean.TRUE : null);
-                sp.repaint();
-            }
+        isNever.addActionListener((ActionEvent e) -> {
+            SubstanceCortex.ComponentOrParentScope.setButtonNeverPaintBackground(sp,
+                    isNever.isSelected() ? Boolean.TRUE : null);
+            sp.repaint();
         });
         builder.append("Never", isNever);
 

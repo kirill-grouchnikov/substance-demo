@@ -30,74 +30,66 @@
 package org.pushingpixels.demo.substance.main.samples.substance.api;
 
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
+import java.util.EnumSet;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceSkin;
-import org.pushingpixels.substance.api.skin.AutumnSkin;
+import org.pushingpixels.substance.api.SubstanceSlices;
+import org.pushingpixels.substance.api.SubstanceSlices.Side;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
-import org.pushingpixels.substance.api.skin.GraphiteSkin;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceCortex.ComponentScope#getCurrentSkin(java.awt.Component)} API.
+ * {@link SubstanceCortex.ComponentScope#setButtonStraightSide(javax.swing.JComponent, Side)} and
+ * {@link SubstanceCortex.ComponentScope#setButtonStraightSides(javax.swing.JComponent, java.util.Set)}
+ * APIs.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceCortex.ComponentScope#getCurrentSkin(java.awt.Component)
+ * @see SubstanceCortex.ComponentScope#setButtonStraightSide(javax.swing.JComponent, Side)
+ * @see SubstanceCortex.ComponentScope#setButtonStraightSides(javax.swing.JComponent, java.util.Set)
  */
-public class GetCurrentSkin extends JFrame {
+public class ButtonStraightSides extends JFrame {
     /**
      * Creates the main frame for <code>this</code> sample.
      */
-    public GetCurrentSkin() {
-        super("Per-window skins");
+    public ButtonStraightSides() {
+        super("Buttons with straight sides");
 
         this.setLayout(new FlowLayout());
 
-        JButton autumnSkin = new JButton("Autumn skin");
-        autumnSkin.addActionListener((ActionEvent e) -> SwingUtilities
-                .invokeLater(() -> openSampleFrame(new AutumnSkin())));
-        this.add(autumnSkin);
+        JButton buttonA = new JButton("left only");
+        // Mark button to have straight left side
+        // using side constant
+        SubstanceCortex.ComponentScope.setButtonStraightSide(buttonA, SubstanceSlices.Side.LEFT);
 
-        JButton graphiteSkin = new JButton("Graphite skin");
-        graphiteSkin.addActionListener((ActionEvent e) -> SwingUtilities
-                .invokeLater(() -> openSampleFrame(new GraphiteSkin())));
-        this.add(graphiteSkin);
+        JButton buttonB = new JButton("right only");
+        // Mark button to have straight right side
+        // using side constant
+        SubstanceCortex.ComponentScope.setButtonStraightSide(buttonB, SubstanceSlices.Side.RIGHT);
+
+        JButton buttonC = new JButton("left+top");
+        // Mark button to have straight left and top sides
+        // using set of side constants
+        SubstanceCortex.ComponentScope.setButtonStraightSides(buttonC,
+                EnumSet.of(SubstanceSlices.Side.LEFT, SubstanceSlices.Side.TOP));
+
+        JButton buttonD = new JButton("right+bottom");
+        // Mark button to have straight right and bottom sides
+        // using set of side constants
+        SubstanceCortex.ComponentScope.setButtonStraightSides(buttonD,
+                EnumSet.of(SubstanceSlices.Side.RIGHT, SubstanceSlices.Side.BOTTOM));
+
+        this.add(buttonA);
+        this.add(buttonB);
+        this.add(buttonC);
+        this.add(buttonD);
+
         this.setSize(400, 200);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-
-    /**
-     * Opens a sample frame under the specified skin.
-     * 
-     * @param skin
-     *            Skin.
-     */
-    private void openSampleFrame(SubstanceSkin skin) {
-        final JFrame sampleFrame = new JFrame(skin.getDisplayName());
-        sampleFrame.setLayout(new FlowLayout());
-        final JButton button = new JButton("Get skin");
-        button.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(
-                () -> JOptionPane.showMessageDialog(sampleFrame, "Skin of this button is "
-                        + SubstanceCortex.ComponentScope.getCurrentSkin(button).getDisplayName())));
-
-        sampleFrame.add(button);
-
-        sampleFrame.setVisible(true);
-        sampleFrame.setSize(200, 100);
-        sampleFrame.setLocationRelativeTo(null);
-        sampleFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-        SubstanceCortex.RootPaneScope.setSkin(sampleFrame.getRootPane(), skin);
-        SwingUtilities.updateComponentTreeUI(sampleFrame);
-        sampleFrame.repaint();
     }
 
     /**
@@ -108,10 +100,9 @@ public class GetCurrentSkin extends JFrame {
      */
     public static void main(String[] args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
-        JDialog.setDefaultLookAndFeelDecorated(true);
         SwingUtilities.invokeLater(() -> {
-            SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-            new GetCurrentSkin().setVisible(true);
+                SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
+                new ButtonStraightSides().setVisible(true);
         });
     }
 }

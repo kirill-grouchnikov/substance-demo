@@ -29,84 +29,79 @@
  */
 package org.pushingpixels.demo.substance.main.samples.substance.api;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
 
-import javax.swing.JCheckBox;
-import javax.swing.JDialog;
+import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
-import org.pushingpixels.demo.substance.main.Check;
-import org.pushingpixels.demo.substance.main.check.svg.flags.hk;
-import org.pushingpixels.demo.substance.main.check.svg.flags.mx;
-import org.pushingpixels.demo.substance.main.check.svg.flags.se;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSkin;
+import org.pushingpixels.substance.api.skin.AutumnSkin;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
-import org.pushingpixels.substance.tabbed.DefaultTabPreviewPainter;
-import org.pushingpixels.substance.tabbed.TabPreviewUtilities;
+import org.pushingpixels.substance.api.skin.GraphiteSkin;
 
 /**
  * Test application that shows the use of the
- * {@link TabPreviewUtilities#TABBED_PANE_PREVIEW_PAINTER} client property.
+ * {@link SubstanceCortex.RootPaneScope#setSkin(javax.swing.JRootPane, SubstanceSkin)} API.
  * 
  * @author Kirill Grouchnikov
- * @see {@link TabPreviewUtilities#TABBED_PANE_PREVIEW_PAINTER}
+ * @see SubstanceCortex.RootPaneScope#setSkin(javax.swing.JRootPane, SubstanceSkin)
  */
-public class TabbedPanePreviewPainter extends JFrame {
+public class SkinProperty extends JFrame {
     /**
      * Creates the main frame for <code>this</code> sample.
      */
-    public TabbedPanePreviewPainter() {
-        super("Tabbed pane preview painter");
+    public SkinProperty() {
+        super("Per-window skins");
 
-        this.setLayout(new BorderLayout());
+        this.setLayout(new FlowLayout());
 
-        final JTabbedPane jtp = new JTabbedPane();
-        jtp.addTab("First", Check.configure(new mx(), 21, 16), new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                g.setColor(new Color(255, 200, 200));
-                g.fillRect(0, 0, getWidth(), getHeight());
-            }
-        });
-        jtp.addTab("Second", Check.configure(new se(), 21, 16), new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                g.setColor(new Color(200, 255, 200));
-                g.fillRect(0, 0, getWidth(), getHeight());
-            }
-        });
-        jtp.addTab("Third", Check.configure(new hk(), 21, 16), new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                g.setColor(new Color(200, 200, 255));
-                g.fillRect(0, 0, getWidth(), getHeight());
-            }
-        });
+        JButton autumnSkin = new JButton("Autumn skin");
+        autumnSkin.addActionListener((ActionEvent e) -> SwingUtilities
+                .invokeLater(() -> openSampleFrame(new AutumnSkin())));
+        this.add(autumnSkin);
 
-        this.add(jtp, BorderLayout.CENTER);
-
-        JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        final JCheckBox hasPreview = new JCheckBox("Has preview");
-        hasPreview.addActionListener((ActionEvent e) -> {
-            jtp.putClientProperty(TabPreviewUtilities.TABBED_PANE_PREVIEW_PAINTER,
-                    hasPreview.isSelected() ? new DefaultTabPreviewPainter() : null);
-            jtp.revalidate();
-            jtp.repaint();
-        });
-
-        controls.add(hasPreview);
-        this.add(controls, BorderLayout.SOUTH);
+        JButton ravenGraphiteSkin = new JButton("Graphite skin");
+        ravenGraphiteSkin.addActionListener((ActionEvent e) -> SwingUtilities
+                .invokeLater(() -> openSampleFrame(new GraphiteSkin())));
+        this.add(ravenGraphiteSkin);
 
         this.setSize(400, 200);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    /**
+     * Opens a sample frame under the specified skin.
+     * 
+     * @param skin
+     *            Skin.
+     */
+    private void openSampleFrame(SubstanceSkin skin) {
+        JFrame sampleFrame = new JFrame(skin.getDisplayName());
+        sampleFrame.setLayout(new FlowLayout());
+        JButton defaultButton = new JButton("active");
+        JButton button = new JButton("default");
+        JButton disabledButton = new JButton("disabled");
+        disabledButton.setEnabled(false);
+        sampleFrame.getRootPane().setDefaultButton(defaultButton);
+
+        sampleFrame.add(defaultButton);
+        sampleFrame.add(button);
+        sampleFrame.add(disabledButton);
+
+        sampleFrame.setVisible(true);
+        sampleFrame.pack();
+        sampleFrame.setLocationRelativeTo(null);
+        sampleFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        sampleFrame.setIconImage(new BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR));
+
+        SubstanceCortex.RootPaneScope.setSkin(sampleFrame.getRootPane(), skin);
+        SwingUtilities.updateComponentTreeUI(sampleFrame);
+        sampleFrame.repaint();
     }
 
     /**
@@ -117,10 +112,9 @@ public class TabbedPanePreviewPainter extends JFrame {
      */
     public static void main(String[] args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
-        JDialog.setDefaultLookAndFeelDecorated(true);
         SwingUtilities.invokeLater(() -> {
             SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-            new TabbedPanePreviewPainter().setVisible(true);
+            new SkinProperty().setVisible(true);
         });
     }
 }

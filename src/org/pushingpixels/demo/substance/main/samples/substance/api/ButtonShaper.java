@@ -27,7 +27,7 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package org.pushingpixels.demo.substance.main.samples.substance.clientprop;
+package org.pushingpixels.demo.substance.main.samples.substance.api;
 
 import java.awt.FlowLayout;
 
@@ -36,54 +36,53 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.shaper.StandardButtonShaper;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceLookAndFeel#BUTTON_NO_MIN_SIZE_PROPERTY} client property.
+ * {@link SubstanceCortex.ComponentScope#setButtonShaper(javax.swing.JComponent, org.pushingpixels.substance.api.shaper.SubstanceButtonShaper)}
+ * API.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceLookAndFeel#BUTTON_NO_MIN_SIZE_PROPERTY
+ * @see SubstanceCortex.ComponentScope#setButtonShaper(javax.swing.JComponent,
+ *      org.pushingpixels.substance.api.shaper.SubstanceButtonShaper)
  */
-public class ButtonNoMinSizeProperty extends JFrame {
-	/**
-	 * Creates the main frame for <code>this</code> sample.
-	 */
-	public ButtonNoMinSizeProperty() {
-		super("Middle button has no min size");
+public class ButtonShaper extends JFrame {
+    /**
+     * Creates the main frame for <code>this</code> sample.
+     */
+    public ButtonShaper() {
+        super("Middle button uses standard button shaper");
 
-		this.setLayout(new FlowLayout());
+        this.setLayout(new FlowLayout());
 
-		JButton buttonA = new JButton("a");
-		JButton buttonB = new JButton("b");
-		// mark button to have no default minimum size
-		buttonB.putClientProperty(
-				SubstanceLookAndFeel.BUTTON_NO_MIN_SIZE_PROPERTY, Boolean.TRUE);
-		JButton buttonC = new JButton("c");
+        JButton buttonA = new JButton("a");
+        JButton buttonB = new JButton("b");
+        // Mark button to use standard button shaper
+        SubstanceCortex.ComponentScope.setButtonShaper(buttonB, new StandardButtonShaper());
+        JButton buttonC = new JButton("c");
 
-		this.add(buttonA);
-		this.add(buttonB);
-		this.add(buttonC);
+        this.add(buttonA);
+        this.add(buttonB);
+        this.add(buttonC);
 
-		this.setSize(400, 200);
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+        this.setSize(400, 200);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
 
-	/**
-	 * The main method for <code>this</code> sample. The arguments are ignored.
-	 * 
-	 * @param args
-	 *            Ignored.
-	 */
-	public static void main(String[] args) {
-		JFrame.setDefaultLookAndFeelDecorated(true);
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-			    SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-				new ButtonNoMinSizeProperty().setVisible(true);
-			}
-		});
-	}
+    /**
+     * The main method for <code>this</code> sample. The arguments are ignored.
+     * 
+     * @param args
+     *            Ignored.
+     */
+    public static void main(String[] args) {
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
+            new ButtonShaper().setVisible(true);
+        });
+    }
 }

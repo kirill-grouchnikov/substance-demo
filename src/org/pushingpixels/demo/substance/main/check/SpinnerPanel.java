@@ -43,12 +43,10 @@ import javax.swing.SpinnerNumberModel;
 
 import org.pushingpixels.demo.substance.main.check.command.BackgroundColorCommand;
 import org.pushingpixels.demo.substance.main.check.command.ChainCommand;
-import org.pushingpixels.demo.substance.main.check.command.ClientPropertyCommand;
 import org.pushingpixels.demo.substance.main.check.command.ConfigurationCommand;
 import org.pushingpixels.demo.substance.main.check.command.CreationCommand;
 import org.pushingpixels.demo.substance.main.check.command.DisableCommand;
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
@@ -88,9 +86,11 @@ public class SpinnerPanel extends JPanel {
                         .setSelectTextOnFocus(control, true));
         addSpinner(builder, "Number", numberCr, null);
         addSpinner(builder, "Number flat", numberCr,
-                new ClientPropertyCommand(SubstanceLookAndFeel.FLAT_PROPERTY, Boolean.TRUE));
-        addSpinner(builder, "Number never", numberCr, new ClientPropertyCommand(
-                SubstanceLookAndFeel.BUTTON_PAINT_NEVER_PROPERTY, Boolean.TRUE));
+                (JComponent jc) -> SubstanceCortex.ComponentOrParentScope.setFlatBackground(jc,
+                        true));
+        addSpinner(builder, "Number never", numberCr,
+                (JComponent jc) -> SubstanceCortex.ComponentOrParentScope
+                        .setButtonNeverPaintBackground(jc, true));
         addSpinner(builder, "Number pink", numberCr,
                 new BackgroundColorCommand(new Color(255, 128, 128)));
 
@@ -106,7 +106,8 @@ public class SpinnerPanel extends JPanel {
         addSpinner(builder, "Number", numberCr, new DisableCommand());
         addSpinner(builder, "Number flat", numberCr,
                 new ChainCommand<JComponent>(
-                        new ClientPropertyCommand(SubstanceLookAndFeel.FLAT_PROPERTY, Boolean.TRUE),
+                        (JComponent jc) -> SubstanceCortex.ComponentOrParentScope
+                                .setFlatBackground(jc, true),
                         new DisableCommand()));
 
         this.add(new JScrollPane(builder.getPanel()), BorderLayout.CENTER);

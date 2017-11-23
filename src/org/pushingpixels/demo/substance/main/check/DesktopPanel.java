@@ -63,10 +63,9 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 import org.pushingpixels.demo.substance.main.SubstanceLogo;
 import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
@@ -111,14 +110,6 @@ public class DesktopPanel extends ControllablePanel {
                 SwingUtilities.invokeLater(new Runnable() {
                     public void run() {
                         JInternalFrame jif = new SampleInternalFrame() {
-                            // @Override
-                            // public void paint(Graphics g) {
-                            // long start = System.nanoTime();
-                            // super.paint(g);
-                            // long end = System.nanoTime();
-                            // System.err.println("paint done in " + (end -
-                            // start));
-                            // }
                         };
                         jif.setBounds(0, 0, 300, 200);
                         jdp.add(jif);
@@ -224,40 +215,29 @@ public class DesktopPanel extends ControllablePanel {
 
                 JPanel buttons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
                 final JCheckBox isModified = new JCheckBox("modified");
-                isModified.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        jif.getRootPane().putClientProperty(SubstanceLookAndFeel.WINDOW_MODIFIED,
-                                Boolean.valueOf(isModified.isSelected()));
-                    }
-                });
+                isModified.addActionListener((ActionEvent ae) -> SubstanceCortex.RootPaneScope
+                        .setContentsModified(jif.getRootPane(), isModified.isSelected()));
                 buttons.add(isModified);
 
                 JButton changeTitleButton = new JButton("Change title");
-                changeTitleButton.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        String random = "abcdefghijklmnopqrstuvwxyz     ";
-                        int length = (int) (50 * Math.random());
-                        String title = "";
-                        while (length > 0) {
-                            title += random.charAt((int) (random.length() * Math.random()));
-                            length--;
-                        }
-                        jif.setTitle(title);
+                changeTitleButton.addActionListener((ActionEvent ae) -> {
+                    String random = "abcdefghijklmnopqrstuvwxyz     ";
+                    int length = (int) (50 * Math.random());
+                    String newTitle = "";
+                    while (length > 0) {
+                        newTitle += random.charAt((int) (random.length() * Math.random()));
+                        length--;
                     }
+                    jif.setTitle(newTitle);
                 });
                 buttons.add(changeTitleButton);
 
                 JButton setNullTitlePane = new JButton("Remove title pane");
-                setNullTitlePane.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        SwingUtilities.invokeLater(new Runnable() {
-                            public void run() {
-                                ((BasicInternalFrameUI) jif.getUI()).setNorthPane(null);
-                                jif.revalidate();
-                            }
-                        });
-                    }
-                });
+                setNullTitlePane
+                        .addActionListener((ActionEvent ae) -> SwingUtilities.invokeLater(() -> {
+                            ((BasicInternalFrameUI) jif.getUI()).setNorthPane(null);
+                            jif.revalidate();
+                        }));
                 buttons.add(setNullTitlePane);
 
                 jif.add(buttons, BorderLayout.SOUTH);

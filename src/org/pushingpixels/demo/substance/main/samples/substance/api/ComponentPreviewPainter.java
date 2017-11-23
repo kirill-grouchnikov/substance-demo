@@ -43,10 +43,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.painter.preview.DefaultPreviewPainter;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
@@ -112,7 +110,7 @@ public class ComponentPreviewPainter extends JFrame {
         JFrame.setDefaultLookAndFeelDecorated(true);
         SwingUtilities.invokeLater(() -> {
             SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-            UIManager.put(SubstanceLookAndFeel.SHOW_EXTRA_WIDGETS, Boolean.TRUE);
+            SubstanceCortex.GlobalScope.setExtraWidgetsPresence(true);
             new ComponentPreviewPainter().setVisible(true);
         });
     }

@@ -45,7 +45,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 import org.pushingpixels.substance.api.tabbed.TabCloseListener;
 import org.pushingpixels.substance.api.tabbed.VetoableMultipleTabCloseListener;
@@ -71,8 +70,7 @@ public class GetAllTabCloseListeners_Global extends JFrame {
         jtp.addTab("tab2", new JPanel());
         jtp.addTab("tab3", new JPanel());
 
-        jtp.putClientProperty(SubstanceLookAndFeel.TABBED_PANE_CLOSE_BUTTONS_PROPERTY,
-                Boolean.TRUE);
+        SubstanceCortex.ComponentScope.setTabCloseButtonsVisible(jtp, true);
 
         SubstanceCortex.GlobalScope.registerTabCloseChangeListener(new TabCloseListener() {
             public void tabClosing(JTabbedPane tabbedPane, Component tabComponent) {

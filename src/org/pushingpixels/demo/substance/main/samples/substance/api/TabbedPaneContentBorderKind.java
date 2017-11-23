@@ -30,75 +30,63 @@
 package org.pushingpixels.demo.substance.main.samples.substance.api;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 
-import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices.TabContentPaneBorderKind;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
-import org.pushingpixels.substance.api.tabbed.TabCloseListener;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceCortex.ComponentScope#unregisterTabCloseChangeListener(JTabbedPane, org.pushingpixels.substance.api.tabbed.BaseTabCloseListener)}
- * API with registering a tab close listener that listens on single tab closing on a specific tabbed
- * pane.
+ * {@link SubstanceCortex.ComponentScope#setTabContentPaneBorderKind(JTabbedPane, TabContentPaneBorderKind)}
+ * API.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceCortex.ComponentScope#unregisterTabCloseChangeListener(JTabbedPane,
- *      org.pushingpixels.substance.api.tabbed.BaseTabCloseListener)
+ * @see SubstanceCortex.ComponentScope#setTabContentPaneBorderKind(JTabbedPane,
+ *      TabContentPaneBorderKind)
  */
-public class UnregisterTabCloseChangeListener_Specific extends JFrame {
-    /**
-     * Listener instance.
-     */
-    private TabCloseListener listener;
-
+public class TabbedPaneContentBorderKind extends JFrame {
     /**
      * Creates the main frame for <code>this</code> sample.
      */
-    public UnregisterTabCloseChangeListener_Specific() {
-        super("Unregister tab close listener");
+    public TabbedPaneContentBorderKind() {
+        super("Tabbed pane content border kind");
 
         this.setLayout(new BorderLayout());
 
+        // create tabbed pane with a few tabs
         final JTabbedPane jtp = new JTabbedPane();
-        jtp.addTab("tab1", new JPanel());
-        jtp.addTab("tab2", new JPanel());
-        jtp.addTab("tab3", new JPanel());
-
-        SubstanceCortex.ComponentScope.setTabCloseButtonsVisible(jtp, true);
-
-        // register tab close listener on the specific tabbed pane.
-        SubstanceCortex.ComponentScope.registerTabCloseChangeListener(jtp,
-                listener = new TabCloseListener() {
-                    public void tabClosing(JTabbedPane tabbedPane, Component tabComponent) {
-                        System.out.println("Tab "
-                                + tabbedPane.getTitleAt(tabbedPane.indexOfComponent(tabComponent))
-                                + " closing");
-                    }
-
-                    public void tabClosed(JTabbedPane tabbedPane, Component tabComponent) {
-                        System.out.println("Tab closed");
-                    }
-                });
+        jtp.addTab("First", new JPanel());
+        jtp.addTab("Second", new JPanel());
+        jtp.addTab("Third", new JPanel());
 
         this.add(jtp, BorderLayout.CENTER);
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        final JButton unregisterListener = new JButton("Unregister listener");
-        unregisterListener.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
-            unregisterListener.setEnabled(false);
-            // unregister listener
-            SubstanceCortex.ComponentScope.unregisterTabCloseChangeListener(jtp, listener);
-        }));
-        controls.add(unregisterListener);
+
+        final JComboBox contentBorderCombo = new JComboBox(new Object[] {
+                        TabContentPaneBorderKind.DOUBLE_FULL, TabContentPaneBorderKind.SINGLE_FULL,
+                        TabContentPaneBorderKind.DOUBLE_PLACEMENT,
+                        TabContentPaneBorderKind.SINGLE_PLACEMENT });
+        contentBorderCombo.setSelectedItem(TabContentPaneBorderKind.DOUBLE_FULL);
+        contentBorderCombo.addActionListener((ActionEvent e) -> {
+            TabContentPaneBorderKind contentBorderKind = (TabContentPaneBorderKind) contentBorderCombo
+                    .getSelectedItem();
+            SubstanceCortex.ComponentScope.setTabContentPaneBorderKind(jtp, contentBorderKind);
+            jtp.updateUI();
+            jtp.repaint();
+        });
+
+        controls.add(new JLabel("Content border kind"));
+        controls.add(contentBorderCombo);
         this.add(controls, BorderLayout.SOUTH);
 
         this.setSize(400, 200);
@@ -116,7 +104,7 @@ public class UnregisterTabCloseChangeListener_Specific extends JFrame {
         JFrame.setDefaultLookAndFeelDecorated(true);
         SwingUtilities.invokeLater(() -> {
             SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-            new UnregisterTabCloseChangeListener_Specific().setVisible(true);
+            new TabbedPaneContentBorderKind().setVisible(true);
         });
     }
 }

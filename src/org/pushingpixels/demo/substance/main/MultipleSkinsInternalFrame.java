@@ -41,7 +41,6 @@ import javax.swing.SwingUtilities;
 
 import org.pushingpixels.demo.substance.main.check.SampleInternalFrame;
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.skin.AutumnSkin;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
@@ -86,8 +85,7 @@ public class MultipleSkinsInternalFrame {
 				for (int i = 0; i < 4; i++) {
 					for (int j = 0; j < 3; j++) {
 						SampleInternalFrame internalFrame = new SampleInternalFrame();
-						internalFrame.getRootPane().putClientProperty(
-								SubstanceLookAndFeel.SKIN_PROPERTY,
+						SubstanceCortex.RootPaneScope.setSkin(internalFrame.getRootPane(),
 								skinGrid[i][j]);
 						SwingUtilities.updateComponentTreeUI(internalFrame);
 						frames[i * 3 + j] = internalFrame;

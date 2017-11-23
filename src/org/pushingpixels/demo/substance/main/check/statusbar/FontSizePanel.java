@@ -19,7 +19,6 @@ import javax.swing.plaf.FontUIResource;
 import org.pushingpixels.demo.substance.main.check.svg.tango.view_zoom_in;
 import org.pushingpixels.demo.substance.main.check.svg.tango.view_zoom_out;
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.font.FontPolicy;
 import org.pushingpixels.substance.api.font.FontSet;
 
@@ -156,7 +155,7 @@ public class FontSizePanel {
         builder.append(zoomInLabel);
 
         JButton tahoma = new JButton("Tahoma 11");
-        tahoma.putClientProperty(SubstanceLookAndFeel.BUTTON_NO_MIN_SIZE_PROPERTY, Boolean.TRUE);
+        SubstanceCortex.ComponentOrParentScope.setButtonIgnoreMinimumSize(tahoma, true);
         tahoma.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

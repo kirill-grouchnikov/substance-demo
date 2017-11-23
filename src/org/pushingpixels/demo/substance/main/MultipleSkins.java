@@ -41,7 +41,6 @@ import javax.swing.SwingUtilities;
 
 import org.pushingpixels.demo.substance.main.check.SampleFrame;
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.skin.AutumnSkin;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
@@ -101,9 +100,8 @@ public class MultipleSkins {
 					int y = maxBounds.y;
 					for (int j = 0; j < 3; j++) {
 						SampleFrame skinFrame = new SampleFrame();
-						skinFrame.getRootPane().putClientProperty(
-								SubstanceLookAndFeel.SKIN_PROPERTY,
-								skinGrid[i][j]);
+                        SubstanceCortex.RootPaneScope.setSkin(skinFrame.getRootPane(),
+                                skinGrid[i][j]);
 						SwingUtilities.updateComponentTreeUI(skinFrame);
 						skinFrame.setBounds(x, y, maxBounds.width / 4,
 								maxBounds.height / 3);

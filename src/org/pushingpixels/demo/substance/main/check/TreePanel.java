@@ -55,7 +55,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import org.pushingpixels.demo.substance.main.Check;
 import org.pushingpixels.demo.substance.main.check.svg.flags.se;
 import org.pushingpixels.substance.api.SubstanceCortex;
-import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultTreeCellRenderer;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
@@ -202,49 +201,39 @@ public class TreePanel extends ControllablePanel {
         builder.append("Drag enabled", isDragEnabled);
 
         final JCheckBox watermarkBleed = new JCheckBox("is visible");
-        watermarkBleed.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                tree.putClientProperty(SubstanceLookAndFeel.WATERMARK_VISIBLE,
-                        Boolean.valueOf(watermarkBleed.isSelected()));
-                jsp.putClientProperty(SubstanceLookAndFeel.WATERMARK_VISIBLE,
-                        Boolean.valueOf(watermarkBleed.isSelected()));
-                tree.repaint();
-            }
+        watermarkBleed.addActionListener((ActionEvent e) -> {
+            SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(tree,
+                    watermarkBleed.isSelected());
+            SubstanceCortex.ComponentOrParentChainScope.setWatermarkVisible(jsp,
+                    watermarkBleed.isSelected());
+            tree.repaint();
         });
         builder.append("Watermark", watermarkBleed);
 
         final JCheckBox isWrappedInScrollPane = new JCheckBox("is in scroll pane");
         isWrappedInScrollPane.setSelected(true);
-        isWrappedInScrollPane.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (isWrappedInScrollPane.isSelected()) {
-                    remove(tree);
-                    jsp.setViewportView(tree);
-                    add(jsp, BorderLayout.CENTER);
-                } else {
-                    remove(jsp);
-                    add(tree, BorderLayout.CENTER);
-                }
-                revalidate();
-                repaint();
+        isWrappedInScrollPane.addActionListener((ActionEvent e) -> {
+            if (isWrappedInScrollPane.isSelected()) {
+                remove(tree);
+                jsp.setViewportView(tree);
+                add(jsp, BorderLayout.CENTER);
+            } else {
+                remove(jsp);
+                add(tree, BorderLayout.CENTER);
             }
+            revalidate();
+            repaint();
         });
         builder.append("Container", isWrappedInScrollPane);
 
         final JCheckBox rendererCB = new JCheckBox("has custom renderer");
-        rendererCB.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        if (rendererCB.isSelected()) {
-                            tree.setCellRenderer(new TestTreeCellRenderer());
-                        } else {
-                            tree.setCellRenderer(new SubstanceDefaultTreeCellRenderer());
-                        }
-                    }
-                });
+        rendererCB.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            if (rendererCB.isSelected()) {
+                tree.setCellRenderer(new TestTreeCellRenderer());
+            } else {
+                tree.setCellRenderer(new SubstanceDefaultTreeCellRenderer());
             }
-        });
+        }));
         builder.append("Renderer", rendererCB);
 
         builder.appendSeparator("Insets");
