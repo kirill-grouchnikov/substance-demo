@@ -33,7 +33,6 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
@@ -42,6 +41,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import org.pushingpixels.demo.substance.main.check.svg.tango.dialog_error;
+import org.pushingpixels.demo.substance.main.check.svg.tango.dialog_information;
+import org.pushingpixels.demo.substance.main.check.svg.tango.dialog_warning;
+import org.pushingpixels.demo.substance.main.check.svg.tango.help_browser;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.NebulaSkin;
 
@@ -61,36 +64,29 @@ public class SetUseConstantThemesOnOptionPanes extends JFrame {
 
         this.setLayout(new BorderLayout());
 
-        ClassLoader cl = Thread.currentThread().getContextClassLoader();
-        String packageName = SetUseConstantThemesOnOptionPanes.class.getPackage().getName();
-
         JPanel buttonPanel = new JPanel(new FlowLayout());
-        JButton bopi = new JButton("Info", new ImageIcon(
-                cl.getResource(packageName.replace('.', '/') + "/dialog-information.png")));
-        bopi.addActionListener(
-                (ActionEvent e) -> JOptionPane.showMessageDialog(SetUseConstantThemesOnOptionPanes.this,
-                        "Sample info message", "Sample title", JOptionPane.INFORMATION_MESSAGE));
+        JButton bopi = new JButton("Info", dialog_information.of(16, 16));
+        bopi.addActionListener((ActionEvent e) -> JOptionPane.showMessageDialog(
+                SetUseConstantThemesOnOptionPanes.this, "Sample info message", "Sample title",
+                JOptionPane.INFORMATION_MESSAGE));
         buttonPanel.add(bopi);
 
-        JButton bope = new JButton("Show",
-                new ImageIcon(cl.getResource(packageName.replace('.', '/') + "/dialog-error.png")));
-        bope.addActionListener(
-                (ActionEvent e) -> JOptionPane.showMessageDialog(SetUseConstantThemesOnOptionPanes.this,
-                        "Sample error message", "Sample title", JOptionPane.ERROR_MESSAGE));
+        JButton bope = new JButton("Show", dialog_error.of(16, 16));
+        bope.addActionListener((ActionEvent e) -> JOptionPane.showMessageDialog(
+                SetUseConstantThemesOnOptionPanes.this, "Sample error message", "Sample title",
+                JOptionPane.ERROR_MESSAGE));
         buttonPanel.add(bope);
 
-        JButton bopw = new JButton("Show", new ImageIcon(
-                cl.getResource(packageName.replace('.', '/') + "/dialog-warning.png")));
-        bopw.addActionListener(
-                (ActionEvent e) -> JOptionPane.showMessageDialog(SetUseConstantThemesOnOptionPanes.this,
-                        "Sample warning message", "Sample title", JOptionPane.WARNING_MESSAGE));
+        JButton bopw = new JButton("Show", dialog_warning.of(16, 16));
+        bopw.addActionListener((ActionEvent e) -> JOptionPane.showMessageDialog(
+                SetUseConstantThemesOnOptionPanes.this, "Sample warning message", "Sample title",
+                JOptionPane.WARNING_MESSAGE));
         buttonPanel.add(bopw);
 
-        JButton bopq = new JButton("Show",
-                new ImageIcon(cl.getResource(packageName.replace('.', '/') + "/help-browser.png")));
-        bopq.addActionListener(
-                (ActionEvent e) -> JOptionPane.showMessageDialog(SetUseConstantThemesOnOptionPanes.this,
-                        "Sample question message", "Sample title", JOptionPane.QUESTION_MESSAGE));
+        JButton bopq = new JButton("Show", help_browser.of(16, 16));
+        bopq.addActionListener((ActionEvent e) -> JOptionPane.showMessageDialog(
+                SetUseConstantThemesOnOptionPanes.this, "Sample question message", "Sample title",
+                JOptionPane.QUESTION_MESSAGE));
         buttonPanel.add(bopq);
 
         this.add(buttonPanel, BorderLayout.CENTER);

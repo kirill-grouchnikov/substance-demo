@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2008 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2017 Substance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -61,7 +61,6 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
 
-import org.pushingpixels.demo.substance.main.Check;
 import org.pushingpixels.demo.substance.main.check.svg.flags.bg;
 import org.pushingpixels.demo.substance.main.check.svg.flags.br;
 import org.pushingpixels.demo.substance.main.check.svg.flags.ca;
@@ -194,15 +193,10 @@ public class TablePanel extends ControllablePanel implements Deferrable {
         public MyTableModel(int rows) {
             this.rows = rows;
             this.data = new Object[rows][this.cols];
-            Icon[] icons = new Icon[] { Check.configure(new br(), 21, 16),
-                            Check.configure(new bg(), 21, 16), Check.configure(new ca(), 21, 16),
-                            Check.configure(new cn(), 21, 16), Check.configure(new dk(), 21, 16),
-                            Check.configure(new fi(), 21, 16), Check.configure(new fr(), 21, 16),
-                            Check.configure(new de(), 21, 16), Check.configure(new gr(), 21, 16),
-                            Check.configure(new hu(), 21, 16), Check.configure(new il(), 21, 16),
-                            Check.configure(new it(), 21, 16), Check.configure(new jp(), 21, 16),
-                            Check.configure(new mx(), 21, 16), Check.configure(new nl(), 21, 16),
-                            Check.configure(new no(), 21, 16) };
+            Icon[] icons = new Icon[] { br.of(16, 16), bg.of(16, 16), ca.of(16, 16), cn.of(16, 16),
+                            dk.of(16, 16), fi.of(16, 16), fr.of(16, 16), de.of(16, 16),
+                            gr.of(16, 16), hu.of(16, 16), il.of(16, 16), it.of(16, 16),
+                            jp.of(16, 16), mx.of(16, 16), nl.of(16, 16), no.of(16, 16) };
             for (int i = 0; i < rows; i++) {
                 this.data[i][0] = "cell " + i + ":" + 0;
                 this.data[i][1] = "predef";

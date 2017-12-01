@@ -11,17 +11,19 @@ public class TestColorSelector extends org.pushingpixels.demo.flamingo.common.Te
 
     public static void main(String[] args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
+        SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceFlamingoPlugin());
+
         SwingUtilities.invokeLater(() -> {
-                SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceFlamingoPlugin());
-                SubstanceCortex.GlobalScope.setSkin(new OfficeBlue2007Skin());
+            SubstanceCortex.GlobalScope.setSkin(new OfficeBlue2007Skin());
 
-                TestColorSelector frame = new TestColorSelector();
-                SubstanceCortex.ComponentOrParentChainScope.setColorizationFactor(frame.centerPanel, 1.0);
+            TestColorSelector frame = new TestColorSelector();
+            SubstanceCortex.ComponentOrParentChainScope.setColorizationFactor(frame.centerPanel,
+                    1.0);
 
-                frame.setSize(500, 400);
-                frame.setLocationRelativeTo(null);
-                frame.setVisible(true);
-                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.setSize(500, 400);
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         });
     }
 }

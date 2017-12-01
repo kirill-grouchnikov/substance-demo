@@ -11,14 +11,12 @@ public class TestCommandButtonPanel
         extends org.pushingpixels.demo.flamingo.common.TestCommandButtonPanel {
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                SubstanceCortex.GlobalScope.setSkin(new OfficeBlue2007Skin());
-                SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceFlamingoPlugin());
-                JFrame.setDefaultLookAndFeelDecorated(true);
-                new TestCommandButtonPanel().setVisible(true);
-            }
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceFlamingoPlugin());
+
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new OfficeBlue2007Skin());
+            new TestCommandButtonPanel().setVisible(true);
         });
 
     }

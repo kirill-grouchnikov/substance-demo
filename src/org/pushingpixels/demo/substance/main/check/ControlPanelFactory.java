@@ -44,7 +44,6 @@ import java.awt.Graphics2D;
 import java.awt.LayoutManager;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.MouseAdapter;
 import java.lang.ref.Reference;
@@ -96,7 +95,7 @@ import org.pushingpixels.substance.api.SubstanceSlices.MenuGutterFillKind;
 import org.pushingpixels.substance.api.SubstanceSlices.SubstanceOptionPaneButtonAlignment;
 import org.pushingpixels.substance.api.SubstanceSlices.SubstanceOptionPaneButtonOrder;
 import org.pushingpixels.substance.api.SubstanceSlices.SubstanceWidgetType;
-import org.pushingpixels.substance.api.iconpack.SubstanceDefaultIconPack;
+import org.pushingpixels.substance.api.icon.SubstanceDefaultIconPack;
 import org.pushingpixels.substance.api.painter.preview.DefaultPreviewPainter;
 import org.pushingpixels.substance.api.skin.NebulaBrickWallSkin;
 import org.pushingpixels.substance.extras.api.SubstanceExtrasSlices.TabOverviewKind;
@@ -149,26 +148,20 @@ public class ControlPanelFactory {
 
         final JCheckBox heapPanel = new JCheckBox("Has heap panel");
         heapPanel.setSelected(false);
-        heapPanel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SubstanceCortex.WindowScope.setWidgetVisible(mainFrame, heapPanel.isSelected(),
-                        SubstanceWidgetType.TITLE_PANE_HEAP_STATUS);
-            }
-        });
+        heapPanel.addActionListener((ActionEvent e) -> SubstanceCortex.WindowScope.setWidgetVisible(
+                mainFrame, heapPanel.isSelected(), SubstanceWidgetType.TITLE_PANE_HEAP_STATUS));
         builder.append("Heap panel", heapPanel);
 
         JButton changeTitleButton = new JButton("Change");
-        changeTitleButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String random = "abcdefghijklmnopqrstuvwxyz ";
-                int length = 60 + (int) (150 * Math.random());
-                String title = "";
-                while (length > 0) {
-                    title += random.charAt((int) (random.length() * Math.random()));
-                    length--;
-                }
-                mainFrame.setTitle(title);
+        changeTitleButton.addActionListener((ActionEvent e) -> {
+            String random = "abcdefghijklmnopqrstuvwxyz ";
+            int length = 60 + (int) (150 * Math.random());
+            String title = "";
+            while (length > 0) {
+                title += random.charAt((int) (random.length() * Math.random()));
+                length--;
             }
+            mainFrame.setTitle(title);
         });
         builder.append("Title string", changeTitleButton);
 
@@ -194,18 +187,16 @@ public class ControlPanelFactory {
 
         final JComboBox placementCombo = new JComboBox(
                 new Object[] { "top", "bottom", "left", "right" });
-        placementCombo.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String selected = (String) placementCombo.getSelectedItem();
-                if ("top".equals(selected))
-                    mainTabbedPane.setTabPlacement(JTabbedPane.TOP);
-                if ("bottom".equals(selected))
-                    mainTabbedPane.setTabPlacement(JTabbedPane.BOTTOM);
-                if ("left".equals(selected))
-                    mainTabbedPane.setTabPlacement(JTabbedPane.LEFT);
-                if ("right".equals(selected))
-                    mainTabbedPane.setTabPlacement(JTabbedPane.RIGHT);
-            }
+        placementCombo.addActionListener((ActionEvent e) -> {
+            String selected = (String) placementCombo.getSelectedItem();
+            if ("top".equals(selected))
+                mainTabbedPane.setTabPlacement(JTabbedPane.TOP);
+            if ("bottom".equals(selected))
+                mainTabbedPane.setTabPlacement(JTabbedPane.BOTTOM);
+            if ("left".equals(selected))
+                mainTabbedPane.setTabPlacement(JTabbedPane.LEFT);
+            if ("right".equals(selected))
+                mainTabbedPane.setTabPlacement(JTabbedPane.RIGHT);
         });
         builder.append("Placement", placementCombo);
 
@@ -228,14 +219,17 @@ public class ControlPanelFactory {
         final JComboBox menuGutterFillCombo = new FlexiComboBox<MenuGutterFillKind>(
                 MenuGutterFillKind.NONE, MenuGutterFillKind.SOFT, MenuGutterFillKind.HARD,
                 MenuGutterFillKind.SOFT_FILL, MenuGutterFillKind.HARD_FILL) {
+
             @Override
             public String getCaption(MenuGutterFillKind item) {
                 return item.name();
             }
         };
         menuGutterFillCombo.setSelectedItem(MenuGutterFillKind.HARD);
-        menuGutterFillCombo.addActionListener((ActionEvent e) -> SubstanceCortex.GlobalScope
-                .setMenuGutterFillKind((MenuGutterFillKind) menuGutterFillCombo.getSelectedItem()));
+        menuGutterFillCombo.addActionListener((
+
+                ActionEvent e) -> SubstanceCortex.GlobalScope.setMenuGutterFillKind(
+                        (MenuGutterFillKind) menuGutterFillCombo.getSelectedItem()));
         builder.append("Menu fill", menuGutterFillCombo);
 
         final JComboBox focusKindCombo = new FlexiComboBox<FocusKind>(FocusKind.values()) {
@@ -245,53 +239,49 @@ public class ControlPanelFactory {
             }
         };
         focusKindCombo.setSelectedItem(FocusKind.ALL_INNER);
-        focusKindCombo.addActionListener((ActionEvent e) ->
-        SubstanceCortex.GlobalScope.setFocusKind((FocusKind) focusKindCombo.getSelectedItem()));
+        focusKindCombo.addActionListener((ActionEvent e) -> SubstanceCortex.GlobalScope
+                .setFocusKind((FocusKind) focusKindCombo.getSelectedItem()));
         builder.append("Focus kind", focusKindCombo);
 
         JButton buttonGlassPane = new JButton("Show");
-        buttonGlassPane.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                final JPanel glassPane = new JPanel() {
-                    @Override
-                    public void paintComponent(Graphics g) {
-                        super.paintComponent(g);
-                        Graphics2D graphics = (Graphics2D) g;
-                        int height = getHeight();
-                        int width = getWidth();
-                        Composite c = AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
-                                (float) 0.4);
-                        graphics.setComposite(c);
-                        for (int i = 0; i < height; i++) {
-                            Color color = (i % 2 == 0) ? new Color(200, 200, 255)
-                                    : new Color(230, 230, 255);
-                            graphics.setColor(color);
-                            graphics.drawLine(0, i, width, i);
-                        }
-                        Composite c2 = AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
-                                (float) 1.0);
-                        graphics.setComposite(c2);
+        buttonGlassPane.addActionListener((ActionEvent e) -> {
+            final JPanel glassPane = new JPanel() {
+                @Override
+                public void paintComponent(Graphics g) {
+                    super.paintComponent(g);
+                    Graphics2D graphics = (Graphics2D) g;
+                    int height = getHeight();
+                    int width = getWidth();
+                    Composite c = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) 0.4);
+                    graphics.setComposite(c);
+                    for (int i = 0; i < height; i++) {
+                        Color color = (i % 2 == 0) ? new Color(200, 200, 255)
+                                : new Color(230, 230, 255);
+                        graphics.setColor(color);
+                        graphics.drawLine(0, i, width, i);
                     }
-                };
-                glassPane.setOpaque(false);
-                glassPane.addMouseListener(new MouseAdapter() {
-                });
-                glassPane.addKeyListener(new KeyAdapter() {
-                });
-                mainFrame.setGlassPane(glassPane);
-                new Thread() {
-                    @Override
-                    public void run() {
-                        glassPane.setVisible(true);
-                        try {
-                            Thread.sleep(5000);
-                        } catch (InterruptedException ie) {
-                            ie.printStackTrace();
-                        }
-                        glassPane.setVisible(false);
+                    Composite c2 = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) 1.0);
+                    graphics.setComposite(c2);
+                }
+            };
+            glassPane.setOpaque(false);
+            glassPane.addMouseListener(new MouseAdapter() {
+            });
+            glassPane.addKeyListener(new KeyAdapter() {
+            });
+            mainFrame.setGlassPane(glassPane);
+            new Thread() {
+                @Override
+                public void run() {
+                    glassPane.setVisible(true);
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException ie) {
+                        ie.printStackTrace();
                     }
-                }.start();
-            }
+                    glassPane.setVisible(false);
+                }
+            }.start();
         });
         builder.append("Glass pane", buttonGlassPane);
 
@@ -384,69 +374,41 @@ public class ControlPanelFactory {
 
         builder.appendSeparator("Core choosers");
         JButton bfo = new JButton("Open dialog", Check.getIcon("JFileChooserColor16"));
-        bfo.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        JFileChooser jfc = new JFileChooser();
-                        jfc.showOpenDialog(mainFrame);
-                    }
-                });
-            }
-        });
+        bfo.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            JFileChooser jfc = new JFileChooser();
+            jfc.showOpenDialog(mainFrame);
+        }));
         builder.append("File chooser", bfo);
 
         JButton bfs = new JButton("Save dialog", Check.getIcon("JFileChooserColor16"));
-        bfs.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        JFileChooser jfc = new JFileChooser();
-                        jfc.showSaveDialog(mainFrame);
-                    }
-                });
-            }
-        });
+        bfs.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            JFileChooser jfc = new JFileChooser();
+            jfc.showSaveDialog(mainFrame);
+        }));
         builder.append("", bfs);
 
         JButton bc = new JButton("Open", Check.getIcon("JColorChooserColor16"));
-        bc.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        Color color = JColorChooser.showDialog(mainFrame, "Color chooser",
-                                new Color(23, 45, 200));
-                        if (color != null) {
-                            Check.out("Chosen " + color.toString());
-                        }
-                    }
-                });
+        bc.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            Color color = JColorChooser.showDialog(mainFrame, "Color chooser",
+                    new Color(23, 45, 200));
+            if (color != null) {
+                Check.out("Chosen " + color.toString());
             }
-        });
+        }));
         builder.append("Color chooser", bc);
 
         JButton bcWindow = new JButton("open in window");
-        bcWindow.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        final Window window = new Window(mainFrame);
-                        window.setLayout(new BorderLayout());
-                        window.add(new JColorChooser());
-                        window.pack();
-                        window.setLocationRelativeTo(null);
-                        window.setVisible(true);
-                        Timer timerDispose = new Timer(5000, new ActionListener() {
-                            public void actionPerformed(ActionEvent e) {
-                                window.dispose();
-                            }
-                        });
-                        timerDispose.setRepeats(false);
-                        timerDispose.start();
-                    }
-                });
-            }
-        });
+        bcWindow.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            final Window window = new Window(mainFrame);
+            window.setLayout(new BorderLayout());
+            window.add(new JColorChooser());
+            window.pack();
+            window.setLocationRelativeTo(null);
+            window.setVisible(true);
+            Timer timerDispose = new Timer(5000, (ActionEvent ev) -> window.dispose());
+            timerDispose.setRepeats(false);
+            timerDispose.start();
+        }));
         builder.append("", bcWindow);
 
         builder.appendSeparator("Option panes");
@@ -475,167 +437,106 @@ public class ControlPanelFactory {
         };
         optionPaneButtonAlignmentCombo
                 .setSelectedItem(SubstanceCortex.GlobalScope.getOptionPaneButtonAlignment());
-        optionPaneButtonAlignmentCombo.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SubstanceCortex.GlobalScope.setOptionPaneButtonAlignment(
+        optionPaneButtonAlignmentCombo.addActionListener(
+                (ActionEvent e) -> SubstanceCortex.GlobalScope.setOptionPaneButtonAlignment(
                         (SubstanceOptionPaneButtonAlignment) optionPaneButtonAlignmentCombo
-                                .getSelectedItem());
-            }
-        });
+                                .getSelectedItem()));
         builder.append("Button alignment", optionPaneButtonAlignmentCombo);
 
         JButton bop = new JButton("Show");
-        bop.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        JOptionPane pane = new JOptionPane("Sample option pane");
-                        pane.applyComponentOrientation(
-                                ComponentOrientation.getOrientation(Locale.getDefault()));
-                        JDialog dialog = pane.createDialog(mainFrame, "Sample title");
-                        dialog.setVisible(true);
-                        dialog.dispose();
-                    }
-                });
-            };
-        });
+        bop.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            JOptionPane pane = new JOptionPane("Sample option pane");
+            pane.applyComponentOrientation(
+                    ComponentOrientation.getOrientation(Locale.getDefault()));
+            JDialog dialog = pane.createDialog(mainFrame, "Sample title");
+            dialog.setVisible(true);
+            dialog.dispose();
+        }));
         builder.append("Plain", bop);
 
         JButton bopi = new JButton("Show", ic_info_black_24px.of(16, 16));
-        bopi.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        JOptionPane.showMessageDialog(mainFrame, "Sample info message",
-                                "Sample title", JOptionPane.INFORMATION_MESSAGE);
-                    }
-                });
-            };
-        });
+        bopi.addActionListener((ActionEvent e) -> SwingUtilities
+                .invokeLater(() -> JOptionPane.showMessageDialog(mainFrame, "Sample info message",
+                        "Sample title", JOptionPane.INFORMATION_MESSAGE)));
         builder.append("Info", bopi);
 
         JButton bope = new JButton("Show", ic_error_black_24px.of(16, 16));
-        bope.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        JOptionPane.showMessageDialog(mainFrame, "Sample error message",
-                                "Sample title", JOptionPane.ERROR_MESSAGE);
-                    }
-                });
-            };
-        });
+        bope.addActionListener((ActionEvent e) -> SwingUtilities
+                .invokeLater(() -> JOptionPane.showMessageDialog(mainFrame, "Sample error message",
+                        "Sample title", JOptionPane.ERROR_MESSAGE)));
         builder.append("Error", bope);
 
         JButton bopw = new JButton("Show", ic_warning_black_24px.of(16, 16));
-        bopw.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        JOptionPane.showMessageDialog(mainFrame, "Sample warning message",
-                                "Sample title", JOptionPane.WARNING_MESSAGE);
-                    }
-                });
-            };
-        });
+        bopw.addActionListener((ActionEvent e) -> SwingUtilities
+                .invokeLater(() -> JOptionPane.showMessageDialog(mainFrame,
+                        "Sample warning message", "Sample title", JOptionPane.WARNING_MESSAGE)));
         builder.append("Warning", bopw);
 
         JButton bopq = new JButton("Show", ic_help_black_24px.of(16, 16));
-        bopq.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        JOptionPane.showMessageDialog(mainFrame, "Sample question message",
-                                "Sample title", JOptionPane.QUESTION_MESSAGE);
-                    }
-                });
-            };
-        });
+        bopq.addActionListener((ActionEvent e) -> SwingUtilities
+                .invokeLater(() -> JOptionPane.showMessageDialog(mainFrame,
+                        "Sample question message", "Sample title", JOptionPane.QUESTION_MESSAGE)));
         builder.append("Question", bopq);
 
         JButton bopc = new JButton("Show");
-        bopc.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        JOptionPane.showOptionDialog(mainFrame, new JPanel(), "Option",
-                                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null,
-                                null);
-                    }
-                });
-            };
-        });
+        bopc.addActionListener((ActionEvent e) -> SwingUtilities
+                .invokeLater(() -> JOptionPane.showOptionDialog(mainFrame, new JPanel(), "Option",
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null,
+                        null)));
         builder.append("Custom", bopc);
 
         JButton buttonOptionPaneSimpleInput = new JButton("Show");
-        buttonOptionPaneSimpleInput.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        JDialog dialog = new JDialog(mainFrame, "Sample dialog", true);
-                        dialog.setSize(400, 300);
-                        dialog.setLocationRelativeTo(mainFrame);
-                        dialog.setLayout(new BorderLayout());
-                        JDesktopPane panel = new JDesktopPane();
-                        panel.applyComponentOrientation(
-                                ComponentOrientation.getOrientation(Locale.getDefault()));
-                        dialog.add(panel, BorderLayout.CENTER);
-                        JOptionPane.showInputDialog(panel, "Sample Question Message",
-                                "Default Answer");
-                        dialog.dispose();
-                    }
-                });
-            }
-        });
+        buttonOptionPaneSimpleInput
+                .addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+                    JDialog dialog = new JDialog(mainFrame, "Sample dialog", true);
+                    dialog.setSize(400, 300);
+                    dialog.setLocationRelativeTo(mainFrame);
+                    dialog.setLayout(new BorderLayout());
+                    JDesktopPane panel = new JDesktopPane();
+                    panel.applyComponentOrientation(
+                            ComponentOrientation.getOrientation(Locale.getDefault()));
+                    dialog.add(panel, BorderLayout.CENTER);
+                    JOptionPane.showInputDialog(panel, "Sample Question Message", "Default Answer");
+                    dialog.dispose();
+                }));
         builder.append("Simple input", buttonOptionPaneSimpleInput);
 
         JButton buttonOptionPaneComplexInput = new JButton("Show");
-        buttonOptionPaneComplexInput.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        JDialog dialog = new JDialog(mainFrame, "Sample dialog", true);
-                        dialog.setSize(400, 300);
-                        dialog.setLocationRelativeTo(mainFrame);
-                        dialog.setLayout(new BorderLayout());
-                        JDesktopPane panel = new JDesktopPane();
-                        panel.applyComponentOrientation(
-                                ComponentOrientation.getOrientation(Locale.getDefault()));
-                        dialog.add(panel, BorderLayout.CENTER);
-                        // dialog.setVisible(true);
-                        String optionChoices[] = new String[] { "entry1", "entry2", "entry3",
-                                        "entry4" };
-                        JOptionPane.showInputDialog(panel, "Sample Question Message",
-                                "Title Goes Here", JOptionPane.QUESTION_MESSAGE, null,
-                                optionChoices, "entry1");
-                        dialog.dispose();
-                    }
-                });
-            }
-        });
+        buttonOptionPaneComplexInput
+                .addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+                    JDialog dialog = new JDialog(mainFrame, "Sample dialog", true);
+                    dialog.setSize(400, 300);
+                    dialog.setLocationRelativeTo(mainFrame);
+                    dialog.setLayout(new BorderLayout());
+                    JDesktopPane panel = new JDesktopPane();
+                    panel.applyComponentOrientation(
+                            ComponentOrientation.getOrientation(Locale.getDefault()));
+                    dialog.add(panel, BorderLayout.CENTER);
+                    // dialog.setVisible(true);
+                    String optionChoices[] = new String[] { "entry1", "entry2", "entry3",
+                                    "entry4" };
+                    JOptionPane.showInputDialog(panel, "Sample Question Message", "Title Goes Here",
+                            JOptionPane.QUESTION_MESSAGE, null, optionChoices, "entry1");
+                    dialog.dispose();
+                }));
         builder.append("Complex input", buttonOptionPaneComplexInput);
 
         JButton buttonOptionPaneInternalInput = new JButton("Show");
-        buttonOptionPaneInternalInput.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        JDialog dialog = new JDialog(mainFrame, "Sample dialog", true);
-                        dialog.setSize(400, 300);
-                        dialog.setLocationRelativeTo(mainFrame);
-                        dialog.setLayout(new BorderLayout());
-                        JDesktopPane panel = new JDesktopPane();
-                        panel.applyComponentOrientation(
-                                ComponentOrientation.getOrientation(Locale.getDefault()));
-                        dialog.add(panel, BorderLayout.CENTER);
-                        // dialog.setVisible(true);
-                        JOptionPane.showInternalInputDialog(panel, "Sample info message",
-                                "Sample title", JOptionPane.INFORMATION_MESSAGE);
-                        dialog.dispose();
-                    }
-                });
-            }
-        });
+        buttonOptionPaneInternalInput
+                .addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+                    JDialog dialog = new JDialog(mainFrame, "Sample dialog", true);
+                    dialog.setSize(400, 300);
+                    dialog.setLocationRelativeTo(mainFrame);
+                    dialog.setLayout(new BorderLayout());
+                    JDesktopPane panel = new JDesktopPane();
+                    panel.applyComponentOrientation(
+                            ComponentOrientation.getOrientation(Locale.getDefault()));
+                    dialog.add(panel, BorderLayout.CENTER);
+                    // dialog.setVisible(true);
+                    JOptionPane.showInternalInputDialog(panel, "Sample info message",
+                            "Sample title", JOptionPane.INFORMATION_MESSAGE);
+                    dialog.dispose();
+                }));
         builder.append("Internal input", buttonOptionPaneInternalInput);
 
         builder.appendSeparator("Default buttons");
@@ -688,280 +589,228 @@ public class ControlPanelFactory {
         builder.append("Dialog with icon", launchFrameDialogWithIcon);
 
         JButton bd = new JButton("Open");
-        bd.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        SimpleDialog sd = new SimpleDialog();
-                        sd.setModal(false);
-                        sd.pack();
-                        sd.setLocationRelativeTo(null);
-                        sd.setVisible(true);
-                        simpleDialog = sd;
-                    }
-                });
-            };
-        });
+        bd.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            SimpleDialog sd = new SimpleDialog();
+            sd.setModal(false);
+            sd.pack();
+            sd.setLocationRelativeTo(null);
+            sd.setVisible(true);
+            simpleDialog = sd;
+        }));
         builder.append("Open a dialog", bd);
 
         JButton bcd = new JButton("Close");
-        bcd.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        if (simpleDialog != null) {
-                            simpleDialog.removeAll();
-                            simpleDialog.dispose();
-                            ReferenceQueue<JButton> weakQueue = new ReferenceQueue<JButton>();
-                            WeakReference<JButton> weakRef = new WeakReference<JButton>(
-                                    simpleDialog.b1, weakQueue);
-                            weakRef.enqueue();
-                            simpleDialog.b1 = null;
-                            simpleDialog = null;
-                            System.gc();
-                            // Wait until the weak reference is on the queue and
-                            // remove
-                            // it
-                            Check.out("Waiting to remove");
-                            try {
-                                Reference<?> ref = weakQueue.remove();
-                                ref.clear();
-                            } catch (InterruptedException ie) {
-                                ie.printStackTrace();
-                                return;
-                            }
-                            Check.out("Removed");
-                        }
-                    }
-                });
-            };
-        });
+        bcd.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            if (simpleDialog != null) {
+                simpleDialog.removeAll();
+                simpleDialog.dispose();
+                ReferenceQueue<JButton> weakQueue = new ReferenceQueue<JButton>();
+                WeakReference<JButton> weakRef = new WeakReference<JButton>(simpleDialog.b1,
+                        weakQueue);
+                weakRef.enqueue();
+                simpleDialog.b1 = null;
+                simpleDialog = null;
+                System.gc();
+                // Wait until the weak reference is on the queue and remove it
+                Check.out("Waiting to remove");
+                try {
+                    Reference<?> ref = weakQueue.remove();
+                    ref.clear();
+                } catch (InterruptedException ie) {
+                    ie.printStackTrace();
+                    return;
+                }
+                Check.out("Removed");
+            }
+        }));
         builder.append("Close the dialog", bcd);
 
         JButton buttonDialogCloseOnEsc = new JButton("Show");
-        buttonDialogCloseOnEsc.addActionListener((ActionEvent e) -> {
-            SwingUtilities.invokeLater(() -> {
-                final JDialog dialog = new JDialog((Frame) null, "Click ESC to dispose");
-                dialog.setSize(200, 200);
-                dialog.setLayout(new BorderLayout());
+        buttonDialogCloseOnEsc
+                .addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+                    final JDialog dialog = new JDialog((Frame) null, "Click ESC to dispose");
+                    dialog.setSize(200, 200);
+                    dialog.setLayout(new BorderLayout());
 
-                JPanel myContentPane = new JPanel();
-                myContentPane.setLayout(new BorderLayout());
-                dialog.setContentPane(myContentPane);
+                    JPanel myContentPane = new JPanel();
+                    myContentPane.setLayout(new BorderLayout());
+                    dialog.setContentPane(myContentPane);
 
-                JTabbedPane tabs = new JTabbedPane();
-                JPanel tab1 = new JPanel(new FlowLayout());
-                tab1.add(new JLabel("test"));
-                JTextField tab1TextField = new JTextField("some text");
-                SubstanceCortex.ComponentScope.setFlipTextSelectionOnEscape(tab1TextField, true);
-                tab1.add(tab1TextField);
-                tabs.addTab("Foo", tab1);
-                JPanel tab2 = new JPanel(new FlowLayout());
-                tab2.add(new JButton("Test"));
-                tabs.addTab("Bar", tab2);
-                dialog.add(tabs, BorderLayout.CENTER);
+                    JTabbedPane tabs = new JTabbedPane();
+                    JPanel tab1 = new JPanel(new FlowLayout());
+                    tab1.add(new JLabel("test"));
+                    JTextField tab1TextField = new JTextField("some text");
+                    SubstanceCortex.ComponentScope.setFlipTextSelectionOnEscape(tab1TextField,
+                            true);
+                    tab1.add(tab1TextField);
+                    tabs.addTab("Foo", tab1);
+                    JPanel tab2 = new JPanel(new FlowLayout());
+                    tab2.add(new JButton("Test"));
+                    tabs.addTab("Bar", tab2);
+                    dialog.add(tabs, BorderLayout.CENTER);
 
-                dialog.add(new JLabel("Press Esc to close dialog"), BorderLayout.NORTH);
+                    dialog.add(new JLabel("Press Esc to close dialog"), BorderLayout.NORTH);
 
-                // connect "Esc" key with disposing the dialog
-                String actionName = "VK_ESCAPE";
-                Action action = new AbstractAction(actionName) {
-                    public void actionPerformed(ActionEvent e) {
-                        dialog.dispose();
-                    }
-                };
-                myContentPane.getActionMap().put(actionName, action);
-                myContentPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-                        KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0), actionName);
+                    // connect "Esc" key with disposing the dialog
+                    String actionName = "VK_ESCAPE";
+                    Action action = new AbstractAction(actionName) {
+                        public void actionPerformed(ActionEvent e) {
+                            dialog.dispose();
+                        }
+                    };
+                    myContentPane.getActionMap().put(actionName, action);
+                    myContentPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+                            KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0),
+                            actionName);
 
-                dialog.setLocationRelativeTo(null);
-                dialog.setVisible(true);
-            });
-        });
+                    dialog.setLocationRelativeTo(null);
+                    dialog.setVisible(true);
+                }));
         builder.append("Dialog with ESC close", buttonDialogCloseOnEsc);
 
         JButton buttonDialogUndecorated = new JButton("Show");
-        buttonDialogUndecorated.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        final JDialog dialog = new JDialog((Frame) null, "");
-                        dialog.setSize(200, 200);
-                        dialog.setUndecorated(true);
-                        dialog.setLayout(new BorderLayout());
+        buttonDialogUndecorated
+                .addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+                    final JDialog dialog = new JDialog((Frame) null, "");
+                    dialog.setSize(200, 200);
+                    dialog.setUndecorated(true);
+                    dialog.setLayout(new BorderLayout());
 
-                        JPanel myContentPane = new JPanel();
-                        myContentPane.setLayout(new BorderLayout());
-                        dialog.setContentPane(myContentPane);
+                    JPanel myContentPane = new JPanel();
+                    myContentPane.setLayout(new BorderLayout());
+                    dialog.setContentPane(myContentPane);
 
-                        dialog.add(new JLabel("Press Esc to close dialog"), BorderLayout.NORTH);
+                    dialog.add(new JLabel("Press Esc to close dialog"), BorderLayout.NORTH);
 
-                        // connect "Esc" key with "System.exit(0)"
-                        String actionName = "VK_ESCAPE";
-                        Action action = new AbstractAction(actionName) {
-                            public void actionPerformed(ActionEvent e) {
-                                dialog.dispose();
-                            }
-                        };
-                        myContentPane.getActionMap().put(actionName, action);
-                        myContentPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
-                                KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0),
-                                actionName);
+                    // connect "Esc" key with "System.exit(0)"
+                    String actionName = "VK_ESCAPE";
+                    Action action = new AbstractAction(actionName) {
+                        public void actionPerformed(ActionEvent e) {
+                            dialog.dispose();
+                        }
+                    };
+                    myContentPane.getActionMap().put(actionName, action);
+                    myContentPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
+                            KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0),
+                            actionName);
 
-                        dialog.setLocationRelativeTo(null);
-                        dialog.setVisible(true);
-                    }
-                });
-            }
-        });
+                    dialog.setLocationRelativeTo(null);
+                    dialog.setVisible(true);
+                }));
         builder.append("Undecorated dialog", buttonDialogUndecorated);
 
         builder.appendSeparator("Miscellaneous");
 
         JButton customSkinFrame = new JButton("Show");
-        customSkinFrame.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        JFrame testFrame = new SampleFrame();
-                        SubstanceCortex.RootPaneScope.setSkin(testFrame.getRootPane(),
-                                new NebulaBrickWallSkin());
-                        SwingUtilities.updateComponentTreeUI(testFrame.getRootPane());
-                        testFrame.setSize(315, 245);
-                        testFrame.setLocationRelativeTo(mainFrame);
-                        testFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                        testFrame.setVisible(true);
-                    }
-                });
-            }
-        });
+        customSkinFrame.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            JFrame testFrame = new SampleFrame();
+            SubstanceCortex.RootPaneScope.setSkin(testFrame.getRootPane(),
+                    new NebulaBrickWallSkin());
+            SwingUtilities.updateComponentTreeUI(testFrame.getRootPane());
+            testFrame.setSize(315, 245);
+            testFrame.setLocationRelativeTo(mainFrame);
+            testFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            testFrame.setVisible(true);
+        }));
         builder.append("Nebula brick wall frame", customSkinFrame);
 
         JButton btf = new JButton("Show");
-        btf.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        JFrame testFrame = new JFrame("test1");
-                        testFrame.setSize(262, 100);
-                        testFrame.setLocationRelativeTo(mainFrame);
-                        testFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                        testFrame.setVisible(true);
-                    }
-                });
-            };
-        });
+        btf.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            JFrame testFrame = new JFrame("test1");
+            testFrame.setSize(262, 100);
+            testFrame.setLocationRelativeTo(mainFrame);
+            testFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            testFrame.setVisible(true);
+        }));
         builder.append("Regular frame", btf);
 
         JButton btfU = new JButton("Show");
-        btfU.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        JFrame.setDefaultLookAndFeelDecorated(false);
-                        JDialog.setDefaultLookAndFeelDecorated(false);
+        btfU.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            JFrame.setDefaultLookAndFeelDecorated(false);
+            JDialog.setDefaultLookAndFeelDecorated(false);
 
-                        JFrame testFrame = new JFrame("test undecorated");
-                        // testFrame.setUndecorated(true);
+            JFrame testFrame = new JFrame("test undecorated");
+            // testFrame.setUndecorated(true);
 
-                        testFrame.setSize(262, 100);
-                        testFrame.setLocation(400, 400);
-                        testFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                        testFrame.setVisible(true);
+            testFrame.setSize(262, 100);
+            testFrame.setLocation(400, 400);
+            testFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            testFrame.setVisible(true);
 
-                        JFrame.setDefaultLookAndFeelDecorated(true);
-                        JDialog.setDefaultLookAndFeelDecorated(true);
-                    }
-                });
-            };
-        });
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            JDialog.setDefaultLookAndFeelDecorated(true);
+        }));
         builder.append("Undecorated frame", btfU);
 
         JButton bcp = new JButton("Open");
-        bcp.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
+        bcp.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            JFrame colorFrame = new JFrame();
+            final ColorPanel cp1 = new ColorPanel("default");
+            final ColorPanel cp2 = new ColorPanel("green");
+            cp2.setBackground(Color.green);
+            final ColorPanel cp3 = new ColorPanel("red");
+            cp3.setBackground(Color.red);
+            final ColorPanel cp4 = new ColorPanel("black");
+            cp4.setBackground(Color.black);
+            // cp2.setBackground(Color.GREEN);
+            colorFrame.setLayout(new LayoutManager() {
+                public void addLayoutComponent(String name, Component comp) {
+                }
 
-                        JFrame colorFrame = new JFrame();
-                        final ColorPanel cp1 = new ColorPanel("default");
-                        final ColorPanel cp2 = new ColorPanel("green");
-                        cp2.setBackground(Color.green);
-                        final ColorPanel cp3 = new ColorPanel("red");
-                        cp3.setBackground(Color.red);
-                        final ColorPanel cp4 = new ColorPanel("black");
-                        cp4.setBackground(Color.black);
-                        // cp2.setBackground(Color.GREEN);
-                        colorFrame.setLayout(new LayoutManager() {
-                            public void addLayoutComponent(String name, Component comp) {
-                            }
+                public void layoutContainer(Container parent) {
+                    int h = parent.getHeight() / 2;
+                    int w = parent.getWidth() / 2;
+                    cp1.setBounds(0, 0, w, h);
+                    cp2.setBounds(0, h, w, parent.getHeight() - h);
+                    cp3.setBounds(w, 0, w, h + 1);
+                    cp4.setBounds(w, h + 1, w, parent.getHeight() - h);
+                }
 
-                            public void layoutContainer(Container parent) {
-                                int h = parent.getHeight() / 2;
-                                int w = parent.getWidth() / 2;
-                                cp1.setBounds(0, 0, w, h);
-                                cp2.setBounds(0, h, w, parent.getHeight() - h);
-                                cp3.setBounds(w, 0, w, h + 1);
-                                cp4.setBounds(w, h + 1, w, parent.getHeight() - h);
-                            }
+                public Dimension minimumLayoutSize(Container parent) {
+                    return preferredLayoutSize(parent);
+                }
 
-                            public Dimension minimumLayoutSize(Container parent) {
-                                return preferredLayoutSize(parent);
-                            }
+                public Dimension preferredLayoutSize(Container parent) {
+                    return new Dimension(100, 100);
+                }
 
-                            public Dimension preferredLayoutSize(Container parent) {
-                                return new Dimension(100, 100);
-                            }
+                public void removeLayoutComponent(Component comp) {
+                }
 
-                            public void removeLayoutComponent(Component comp) {
-                            }
+            });
+            colorFrame.add(cp1);
+            colorFrame.add(cp2);
+            colorFrame.add(cp3);
+            colorFrame.add(cp4);
 
-                        });
-                        colorFrame.add(cp1);
-                        colorFrame.add(cp2);
-                        colorFrame.add(cp3);
-                        colorFrame.add(cp4);
-
-                        colorFrame.setSize(400, 399);
-                        colorFrame.setLocation(300, 300);
-                        colorFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                        colorFrame.setVisible(true);
-                    }
-                });
-            };
-        });
+            colorFrame.setSize(400, 399);
+            colorFrame.setLocation(300, 300);
+            colorFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            colorFrame.setVisible(true);
+        }));
         builder.append("Color panels", bcp);
 
         JButton paneDialog = new JButton("Open");
-        paneDialog.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        JDialog dialog = new JDialog(mainFrame, true);
-                        dialog.setTitle("Test text pane in scroll pane");
-                        JTextPane textPane = new JTextPane();
-                        String contents = "";
-                        for (int i = 0; i < 100; i++)
-                            contents += "This is sample line " + i
-                                    + " and a lot of other irrelevant text\n";
-                        textPane.replaceSelection(contents);
+        paneDialog.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            JDialog dialog = new JDialog(mainFrame, true);
+            dialog.setTitle("Test text pane in scroll pane");
+            JTextPane textPane = new JTextPane();
+            String contents = "";
+            for (int i = 0; i < 100; i++)
+                contents += "This is sample line " + i + " and a lot of other irrelevant text\n";
+            textPane.replaceSelection(contents);
 
-                        JScrollPane scroll = new JScrollPane(textPane);
-                        JPanel panel = new JPanel();
-                        panel.setLayout(new BorderLayout());
-                        panel.add(scroll, BorderLayout.CENTER);
+            JScrollPane scroll = new JScrollPane(textPane);
+            JPanel panel = new JPanel();
+            panel.setLayout(new BorderLayout());
+            panel.add(scroll, BorderLayout.CENTER);
 
-                        dialog.setLayout(new BorderLayout());
-                        dialog.add(panel, BorderLayout.CENTER);
-                        dialog.setSize(400, 400);
-                        dialog.setLocation(400, 200);
-                        dialog.setVisible(true);
-                    }
-                });
-            };
-        });
+            dialog.setLayout(new BorderLayout());
+            dialog.add(panel, BorderLayout.CENTER);
+            dialog.setSize(400, 400);
+            dialog.setLocation(400, 200);
+            dialog.setVisible(true);
+        }));
         builder.append("Text pane dialog", paneDialog);
 
         return builder.getPanel();

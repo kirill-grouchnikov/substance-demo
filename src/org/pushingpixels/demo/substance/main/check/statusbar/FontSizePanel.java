@@ -103,8 +103,7 @@ public class FontSizePanel {
         FormLayout lm = new FormLayout(
                 "fill:pref, 2dlu, fill:pref, 0dlu, fill:min:grow, 0dlu, fill:pref, 2dlu, fill:pref",
                 "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm);
-        builder.setBorder(new EmptyBorder(0, 0, 0, 0));
+        DefaultFormBuilder builder = new DefaultFormBuilder(lm).border(new EmptyBorder(0, 0, 0, 0));
 
         final JLabel fontSizeLabel = new JLabel();
         fontSizeLabel.setText(SubstanceCortex.GlobalScope.getFontPolicy()

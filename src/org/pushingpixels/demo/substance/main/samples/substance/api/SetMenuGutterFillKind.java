@@ -44,7 +44,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import org.pushingpixels.demo.substance.main.Check;
 import org.pushingpixels.demo.substance.main.check.svg.flags.mx;
 import org.pushingpixels.demo.substance.main.check.svg.flags.se;
 import org.pushingpixels.substance.api.SubstanceCortex;
@@ -71,12 +70,12 @@ public class SetMenuGutterFillKind extends JFrame {
         // create sample menu bar with one menu and a few menu items
         JMenuBar jmb = new JMenuBar();
         JMenu menu = new JMenu("menu");
-        menu.add(new JMenuItem("test item 1", Check.configure(new mx(), 21, 16)));
+        menu.add(new JMenuItem("test item 1", mx.of(16,  16)));
         menu.add(new JMenuItem("test item 2"));
         menu.add(new JMenuItem("test item 3"));
         menu.addSeparator();
         menu.add(new JMenuItem("test menu item 4"));
-        menu.add(new JMenuItem("test menu item 5", Check.configure(new se(), 21, 16)));
+        menu.add(new JMenuItem("test menu item 5", se.of(16,  16)));
         menu.add(new JMenuItem("test menu item 6"));
         jmb.add(menu);
 

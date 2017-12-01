@@ -19,18 +19,19 @@ import org.pushingpixels.substance.api.skin.OfficeSilver2007Skin;
 import org.pushingpixels.substance.flamingo.SubstanceFlamingoPlugin;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
+import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.layout.FormLayout;
 
 public class TestSingleCommandButton extends JFrame {
 
     public TestSingleCommandButton() {
         FormLayout lm = new FormLayout("left:pref, 4dlu, left:pref", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm);
-        builder.setDefaultDialogBorder();
+        DefaultFormBuilder builder = new DefaultFormBuilder(lm).border(Borders.DIALOG);
 
-        SvgBatikResizableIcon svgIcon = SvgBatikResizableIcon
-                .getSvgIcon(TestCommandButtonSizes.class.getClassLoader()
-                        .getResource("test/svg/font-x-generic.svg"), new Dimension(16, 16));
+        SvgBatikResizableIcon svgIcon = SvgBatikResizableIcon.getSvgIcon(
+                TestSingleCommandButton.class.getClassLoader().getResource(
+                        "org/pushingpixels/demo/substance/flamingo/svg/transcoded/Font-x-generic.svg"),
+                new Dimension(16, 16));
         svgIcon.addAsynchronousLoadListener((boolean success) -> {
             if (success)
                 repaint();
@@ -47,7 +48,7 @@ public class TestSingleCommandButton extends JFrame {
         builder.append(cb, ctb);
 
         ImageIcon icon = new ImageIcon(Thread.currentThread().getContextClassLoader()
-                .getResource("test/substance/edit-paste.png"));
+                .getResource("org/pushingpixels/demo/substance/flamingo/edit-paste.png"));
         JButton b = new JButton("Regular", icon);
         JToggleButton tb = new JToggleButton("RegToggle", icon);
 
@@ -62,13 +63,11 @@ public class TestSingleCommandButton extends JFrame {
 
     public static void main(String[] args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                SubstanceCortex.GlobalScope.setSkin(new OfficeSilver2007Skin());
-                SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceFlamingoPlugin());
-                new TestSingleCommandButton().setVisible(true);
-            }
+        SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceFlamingoPlugin());
+
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new OfficeSilver2007Skin());
+            new TestSingleCommandButton().setVisible(true);
         });
     }
 

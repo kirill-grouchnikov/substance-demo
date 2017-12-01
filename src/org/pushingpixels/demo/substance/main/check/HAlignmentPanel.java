@@ -31,6 +31,7 @@ import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
+import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.layout.FormLayout;
 
 public class HAlignmentPanel extends ControllablePanel implements Deferrable {
@@ -51,8 +52,7 @@ public class HAlignmentPanel extends ControllablePanel implements Deferrable {
 	public synchronized void initialize() {
 		FormLayout lm = new FormLayout("left:pref:grow", "");
 		DefaultFormBuilder builder = new DefaultFormBuilder(lm,
-				new ScrollablePanel());
-		builder.setDefaultDialogBorder();
+				new ScrollablePanel()).border(Borders.DIALOG);
 
 		for (int fontSize = 11; fontSize < 25; fontSize++) {
 			builder.append(getSubPanel(fontSize));

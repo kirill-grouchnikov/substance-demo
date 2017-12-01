@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2008 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2017 Substance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -51,6 +51,7 @@ import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.password.PasswordStrengthChecker;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
+import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
@@ -76,8 +77,8 @@ public class TextFieldsPanel extends JPanel implements Deferrable {
         FormLayout lm = new FormLayout("right:pref, 4dlu, fill:default:grow(1), 4dlu,"
                 + "fill:default:grow(1), 4dlu, fill:default:grow(1)", "");
         // lm.setColumnGroups(new int[][] { { 3, 5, 7 } });
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel());
-        builder.setDefaultDialogBorder();
+        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel())
+                .border(Borders.DIALOG);
 
         JLabel textLabel = new JLabel("Text fields");
         JLabel formattedTextLabel = new JLabel("Formatted text fields");

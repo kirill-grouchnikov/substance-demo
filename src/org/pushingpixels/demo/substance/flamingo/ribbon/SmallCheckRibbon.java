@@ -53,111 +53,106 @@ import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup;
 import org.pushingpixels.flamingo.api.ribbon.RibbonTask;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.OfficeBlue2007Skin;
+import org.pushingpixels.substance.flamingo.SubstanceFlamingoPlugin;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
 
 public class SmallCheckRibbon extends BasicCheckRibbon {
-	public SmallCheckRibbon() {
-		super();
-		this.setTitle("Ribbon longer title to check contextual tabs");
-	}
+    public SmallCheckRibbon() {
+        super();
+        this.setTitle("Ribbon longer title to check contextual tabs");
+    }
 
-	@Override
-	public void configureRibbon() {
-		JRibbonBand clipboardBand = this.getClipboardBand();
-		JRibbonBand quickStylesBand = this.getQuickStylesBand();
-		JFlowRibbonBand fontBand = this.getFontBand();
-		JRibbonBand findBand = this.getFindBand();
-		RibbonTask pageLayoutTask = new RibbonTask("Page Layout",
-				clipboardBand, quickStylesBand, fontBand, findBand);
-		pageLayoutTask.setKeyTip("P");
+    @Override
+    public void configureRibbon() {
+        JRibbonBand clipboardBand = this.getClipboardBand();
+        JRibbonBand quickStylesBand = this.getQuickStylesBand();
+        JFlowRibbonBand fontBand = this.getFontBand();
+        JRibbonBand findBand = this.getFindBand();
+        RibbonTask pageLayoutTask = new RibbonTask("Page Layout", clipboardBand, quickStylesBand,
+                fontBand, findBand);
+        pageLayoutTask.setKeyTip("P");
 
-		JRibbonBand themeBand = this.getActionBand();
-		JRibbonBand preferencesBand = this.getPreferencesBand();
-		JRibbonBand arrangeBand = this.getApplicationsBand();
-		JRibbonBand paragraphBand = this.getParagraphBand();
-		JRibbonBand showHideBand = this.getShowHideBand();
-		RibbonTask writeTask = new RibbonTask("Write", themeBand,
-				preferencesBand, arrangeBand, paragraphBand, showHideBand);
-		writeTask.setKeyTip("W");
+        JRibbonBand themeBand = this.getActionBand();
+        JRibbonBand preferencesBand = this.getPreferencesBand();
+        JRibbonBand arrangeBand = this.getApplicationsBand();
+        JRibbonBand paragraphBand = this.getParagraphBand();
+        JRibbonBand showHideBand = this.getShowHideBand();
+        RibbonTask writeTask = new RibbonTask("Write", themeBand, preferencesBand, arrangeBand,
+                paragraphBand, showHideBand);
+        writeTask.setKeyTip("W");
 
-		JRibbonBand previewBand = this.getPreviewBand();
-		JRibbonBand animationBand = this.getAnimationBand();
-		JRibbonBand transitionBand = this.getTransitionBand();
-		JRibbonBand transitionNextBand = this.getTransitionNextBand();
-		RibbonTask animationsTask = new RibbonTask("Animations", previewBand,
-				animationBand, transitionBand, transitionNextBand);
-		animationsTask.setKeyTip("A");
+        JRibbonBand previewBand = this.getPreviewBand();
+        JRibbonBand animationBand = this.getAnimationBand();
+        JRibbonBand transitionBand = this.getTransitionBand();
+        JRibbonBand transitionNextBand = this.getTransitionNextBand();
+        RibbonTask animationsTask = new RibbonTask("Animations", previewBand, animationBand,
+                transitionBand, transitionNextBand);
+        animationsTask.setKeyTip("A");
 
-		JRibbonBand rowSpanBand = this.getRowSpanBand();
-		JRibbonBand alignmentBand = this.getAlignmentBand();
-		RibbonTask wrappedTask = new RibbonTask("Wrapped", rowSpanBand,
-				alignmentBand);
-		wrappedTask.setKeyTip("R");
+        JRibbonBand rowSpanBand = this.getRowSpanBand();
+        JRibbonBand alignmentBand = this.getAlignmentBand();
+        RibbonTask wrappedTask = new RibbonTask("Wrapped", rowSpanBand, alignmentBand);
+        wrappedTask.setKeyTip("R");
 
-		this.getRibbon().addTask(pageLayoutTask);
-		this.getRibbon().addTask(writeTask);
-		this.getRibbon().addTask(animationsTask);
-		this.getRibbon().addTask(wrappedTask);
+        this.getRibbon().addTask(pageLayoutTask);
+        this.getRibbon().addTask(writeTask);
+        this.getRibbon().addTask(animationsTask);
+        this.getRibbon().addTask(wrappedTask);
 
         RichTooltip helpTooltip = new RichTooltip();
         helpTooltip.setTitle(resourceBundle.getString("Help.tooltip.title"));
-        helpTooltip.addDescriptionSection(resourceBundle
-                .getString("Help.tooltip.actionParagraph"));
-		this.getRibbon().configureHelp(new Help_browser(),
-		        helpTooltip,
-				new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						JOptionPane.showMessageDialog(SmallCheckRibbon.this,
-								"Help button clicked");
-					}
-				});
+        helpTooltip.addDescriptionSection(resourceBundle.getString("Help.tooltip.actionParagraph"));
+        this.getRibbon().configureHelp(new Help_browser(), helpTooltip, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(SmallCheckRibbon.this, "Help button clicked");
+            }
+        });
 
-		group1 = new RibbonContextualTaskGroup("Group 1", Color.red,
-				getContextualRibbonTask("Group 1-1", "XA"),
-				getContextualRibbonTask("Group 1-2", "XB"));
-		group2 = new RibbonContextualTaskGroup("Group 2", Color.green,
-				getContextualRibbonTask("Group 2-1", "YA"));
-		this.getRibbon().addContextualTaskGroup(group1);
-		this.getRibbon().addContextualTaskGroup(group2);
+        group1 = new RibbonContextualTaskGroup("Group 1", Color.red,
+                getContextualRibbonTask("Group 1-1", "XA"),
+                getContextualRibbonTask("Group 1-2", "XB"));
+        group2 = new RibbonContextualTaskGroup("Group 2", Color.green,
+                getContextualRibbonTask("Group 2-1", "YA"));
+        this.getRibbon().addContextualTaskGroup(group1);
+        this.getRibbon().addContextualTaskGroup(group2);
 
-		configureTaskBar();
+        configureTaskBar();
 
-		// application menu
-		configureApplicationMenu();
+        // application menu
+        configureApplicationMenu();
 
-		JPanel controlPanel = new JPanel();
-		controlPanel.setBorder(new EmptyBorder(20, 0, 0, 5));
-		FormLayout lm = new FormLayout("right:pref, 4dlu, fill:pref:grow", "");
-		DefaultFormBuilder builder = new DefaultFormBuilder(lm, controlPanel);
+        JPanel controlPanel = new JPanel();
+        controlPanel.setBorder(new EmptyBorder(20, 0, 0, 5));
+        FormLayout lm = new FormLayout("right:pref, 4dlu, fill:pref:grow", "");
+        DefaultFormBuilder builder = new DefaultFormBuilder(lm, controlPanel);
 
-		this.configureControlPanel(builder);
+        this.configureControlPanel(builder);
 
-		this.add(controlPanel, BorderLayout.EAST);
-		this.add(new RulerPanel(), BorderLayout.CENTER);
-	}
+        this.add(controlPanel, BorderLayout.EAST);
+        this.add(new RulerPanel(), BorderLayout.CENTER);
+    }
 
-	public static void main(String[] args) {
-		JFrame.setDefaultLookAndFeelDecorated(true);
-		JDialog.setDefaultLookAndFeelDecorated(true);
+    public static void main(String[] args) {
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        JDialog.setDefaultLookAndFeelDecorated(true);
+        SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceFlamingoPlugin());
 
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				SubstanceCortex.GlobalScope.setSkin(new OfficeBlue2007Skin());
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new OfficeBlue2007Skin());
 
-				SmallCheckRibbon c = new SmallCheckRibbon();
-				c.configureRibbon();
-				Rectangle r = GraphicsEnvironment.getLocalGraphicsEnvironment()
-						.getMaximumWindowBounds();
-				c.setPreferredSize(new Dimension(r.width, r.height / 2));
-				c.setMinimumSize(new Dimension(100, r.height / 3));
-				c.pack();
-				c.setLocation(r.x, r.y);
-				c.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				c.setVisible(true);
-			}
-		});
-	}
+            SmallCheckRibbon c = new SmallCheckRibbon();
+            c.configureRibbon();
+            Rectangle r = GraphicsEnvironment.getLocalGraphicsEnvironment()
+                    .getMaximumWindowBounds();
+            c.setPreferredSize(new Dimension(r.width, r.height / 2));
+            c.setMinimumSize(new Dimension(100, r.height / 3));
+            c.pack();
+            c.setLocation(r.x, r.y);
+            c.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            c.setVisible(true);
+        });
+    }
 }

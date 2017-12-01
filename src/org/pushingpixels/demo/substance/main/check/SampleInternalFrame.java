@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2008 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2017 Substance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -81,14 +81,8 @@ public class SampleInternalFrame extends JInternalFrame {
 
         JPanel samplePanel = new JPanel(new BorderLayout());
         FormLayout lm = new FormLayout("fill:default:grow(1), 4dlu," + "fill:default:grow(1)", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel());
-        builder.setLineGapSize(Sizes.pixel(1));
-        builder.setBorder(new EmptyBorder(2, 2, 2, 2));
-        // lm.setColumnGroups(new int[][] { { 3, 5, 7 } });
-
-        // TwoColumnPanel stuff = new TwoColumnPanel();
-        // stuff.setVerticalSpacing(4);
-        // stuff.setHorizontalSpacing(0);
+        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel())
+                .lineGapSize(Sizes.pixel(1)).border(new EmptyBorder(2, 2, 2, 2));
 
         JCheckBox cb1 = new JCheckBox("Enabled selected");
         cb1.setSelected(true);

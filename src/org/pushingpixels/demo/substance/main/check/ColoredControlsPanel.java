@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2008 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2017 Substance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -40,6 +40,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
+import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
@@ -48,80 +49,80 @@ import com.jgoodies.forms.layout.FormLayout;
  * @author Kirill Grouchnikov
  */
 public class ColoredControlsPanel extends JPanel {
-	public ColoredControlsPanel() {
-		this.setLayout(new BorderLayout());
+    public ColoredControlsPanel() {
+        this.setLayout(new BorderLayout());
 
-		FormLayout lm = new FormLayout("right:pref, 4dlu, left:pref:grow", "");
-		DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel());
-		builder.setDefaultDialogBorder();
+        FormLayout lm = new FormLayout("right:pref, 4dlu, left:pref:grow", "");
+        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel())
+                .border(Borders.DIALOG);
 
-		JLabel labelOpaque = new JLabel("Sample label");
-		labelOpaque.setOpaque(true);
-		labelOpaque.setForeground(Color.green);
-		labelOpaque.setBackground(Color.red);
-		builder.append("Opaque label", labelOpaque);
+        JLabel labelOpaque = new JLabel("Sample label");
+        labelOpaque.setOpaque(true);
+        labelOpaque.setForeground(Color.green);
+        labelOpaque.setBackground(Color.red);
+        builder.append("Opaque label", labelOpaque);
 
-		JLabel labelNonOpaque = new JLabel("Sample label");
-		labelNonOpaque.setOpaque(false);
-		labelNonOpaque.setForeground(Color.green);
-		labelNonOpaque.setBackground(Color.red);
-		builder.append("Non-opaque label", labelNonOpaque);
+        JLabel labelNonOpaque = new JLabel("Sample label");
+        labelNonOpaque.setOpaque(false);
+        labelNonOpaque.setForeground(Color.green);
+        labelNonOpaque.setBackground(Color.red);
+        builder.append("Non-opaque label", labelNonOpaque);
 
-		JLabel labelDefault = new JLabel("Sample label");
-		labelDefault.setOpaque(true);
-		labelDefault.setForeground(Color.green);
-		labelDefault.setBackground(Color.red);
-		builder.append("Default label", labelDefault);
+        JLabel labelDefault = new JLabel("Sample label");
+        labelDefault.setOpaque(true);
+        labelDefault.setForeground(Color.green);
+        labelDefault.setBackground(Color.red);
+        builder.append("Default label", labelDefault);
 
-		JCheckBox checkboxOpaque = new JCheckBox("Sample checkbox");
-		checkboxOpaque.setOpaque(true);
-		checkboxOpaque.setForeground(Color.blue);
-		checkboxOpaque.setBackground(Color.yellow);
-		builder.append("Opaque checkbox", checkboxOpaque);
+        JCheckBox checkboxOpaque = new JCheckBox("Sample checkbox");
+        checkboxOpaque.setOpaque(true);
+        checkboxOpaque.setForeground(Color.blue);
+        checkboxOpaque.setBackground(Color.yellow);
+        builder.append("Opaque checkbox", checkboxOpaque);
 
-		JCheckBox checkboxNonOpaque = new JCheckBox("Sample checkbox");
-		checkboxNonOpaque.setOpaque(false);
-		checkboxNonOpaque.setForeground(Color.blue);
-		checkboxNonOpaque.setBackground(Color.yellow);
-		builder.append("Non-opaque checkbox", checkboxNonOpaque);
+        JCheckBox checkboxNonOpaque = new JCheckBox("Sample checkbox");
+        checkboxNonOpaque.setOpaque(false);
+        checkboxNonOpaque.setForeground(Color.blue);
+        checkboxNonOpaque.setBackground(Color.yellow);
+        builder.append("Non-opaque checkbox", checkboxNonOpaque);
 
-		JCheckBox checkboxDefault = new JCheckBox("Sample checkbox");
-		checkboxDefault.setForeground(Color.blue);
-		checkboxDefault.setBackground(Color.yellow);
-		builder.append("Default checkbox", checkboxDefault);
+        JCheckBox checkboxDefault = new JCheckBox("Sample checkbox");
+        checkboxDefault.setForeground(Color.blue);
+        checkboxDefault.setBackground(Color.yellow);
+        builder.append("Default checkbox", checkboxDefault);
 
-		JRadioButton radioOpaque = new JRadioButton("Sample radiobutton");
-		radioOpaque.setOpaque(true);
-		radioOpaque.setForeground(new Color(0, 128, 0));
-		radioOpaque.setBackground(new Color(255, 180, 180));
-		builder.append("Opaque radio", radioOpaque);
+        JRadioButton radioOpaque = new JRadioButton("Sample radiobutton");
+        radioOpaque.setOpaque(true);
+        radioOpaque.setForeground(new Color(0, 128, 0));
+        radioOpaque.setBackground(new Color(255, 180, 180));
+        builder.append("Opaque radio", radioOpaque);
 
-		JRadioButton radioNonOpaque = new JRadioButton("Sample radiobutton");
-		radioNonOpaque.setOpaque(false);
-		radioNonOpaque.setForeground(new Color(0, 128, 0));
-		radioNonOpaque.setBackground(new Color(255, 180, 180));
-		builder.append("Non-opaque radio", radioNonOpaque);
+        JRadioButton radioNonOpaque = new JRadioButton("Sample radiobutton");
+        radioNonOpaque.setOpaque(false);
+        radioNonOpaque.setForeground(new Color(0, 128, 0));
+        radioNonOpaque.setBackground(new Color(255, 180, 180));
+        builder.append("Non-opaque radio", radioNonOpaque);
 
-		JRadioButton radioDefault = new JRadioButton("Sample radiobutton");
-		radioDefault.setForeground(new Color(0, 128, 0));
-		radioDefault.setBackground(new Color(255, 180, 180));
-		builder.append("Default radio", radioDefault);
+        JRadioButton radioDefault = new JRadioButton("Sample radiobutton");
+        radioDefault.setForeground(new Color(0, 128, 0));
+        radioDefault.setBackground(new Color(255, 180, 180));
+        builder.append("Default radio", radioDefault);
 
-		JSlider colored3 = new JSlider(100, 1000, 400);
-		colored3.setPaintTicks(true);
-		colored3.setMajorTickSpacing(100);
-		colored3.setForeground(new Color(128, 0, 0));
-		colored3.setBackground(new Color(180, 255, 180));
-		builder.append("Slider", colored3);
+        JSlider colored3 = new JSlider(100, 1000, 400);
+        colored3.setPaintTicks(true);
+        colored3.setMajorTickSpacing(100);
+        colored3.setForeground(new Color(128, 0, 0));
+        colored3.setBackground(new Color(180, 255, 180));
+        builder.append("Slider", colored3);
 
-		JPanel colored4 = new JPanel();
-		colored4.setSize(100, 100);
-		colored4.setPreferredSize(colored4.getSize());
-		colored4.setBackground(Color.cyan);
-		builder.append("panel", colored4);
+        JPanel colored4 = new JPanel();
+        colored4.setSize(100, 100);
+        colored4.setPreferredSize(colored4.getSize());
+        colored4.setBackground(Color.cyan);
+        builder.append("panel", colored4);
 
-		JPanel resultPanel = builder.getPanel();
-		resultPanel.setBackground(new Color(200, 200, 255));
-		this.add(new JScrollPane(resultPanel), BorderLayout.CENTER);
-	}
+        JPanel resultPanel = builder.getPanel();
+        resultPanel.setBackground(new Color(200, 200, 255));
+        this.add(new JScrollPane(resultPanel), BorderLayout.CENTER);
+    }
 }

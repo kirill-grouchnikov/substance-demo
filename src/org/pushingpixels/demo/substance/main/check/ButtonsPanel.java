@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2008 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2017 Substance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -61,6 +61,7 @@ import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
 import org.pushingpixels.substance.api.SubstanceSlices.Side;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
+import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
@@ -343,8 +344,8 @@ public class ButtonsPanel extends JPanel {
         FormLayout lm = new FormLayout("right:pref, 10dlu, left:pref:grow(1), 4dlu,"
                 + "left:pref:grow(1), 4dlu, left:pref:grow(1), " + "4dlu, left:pref:grow(1)", "");
         lm.setColumnGroups(new int[][] { { 3, 5, 7, 9 } });
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel());
-        builder.setDefaultDialogBorder();
+        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel())
+                .border(Borders.DIALOG);
 
         builder.append("");
         JLabel bLabel = new JLabel("Buttons");
@@ -377,8 +378,7 @@ public class ButtonsPanel extends JPanel {
         this.addRow(builder, "Disabled with tooltip", null,
                 new ChainCommand(new TooltipTextCommand("Sample tooltip"), new DisableCommand()));
         this.addRow(builder, "Popup menu", null, new PopupMenuCommand());
-        this.addRow(builder, "With icon", Check.configure(new se(), 21, 16),
-                new IconCommand(Check.configure(new se(), 21, 16)));
+        this.addRow(builder, "With icon", se.of(16, 16), new IconCommand(se.of(16, 16)));
 
         builder.appendSeparator("Focus indications");
         this.addRow(builder, "No focus painted", null, new NoFocusCommand());
@@ -450,23 +450,18 @@ public class ButtonsPanel extends JPanel {
                                 EnumSet.of(Side.RIGHT))));
 
         builder.appendSeparator("Unicode texts");
-        this.addRow(builder, "Hebrew", null,
-                new ChainCommand<AbstractButton>(new TextCommand("\u05D0\u05D1\u05D2"),
-                        new IconCommand(Check.configure(new il(), 21, 16))));
+        this.addRow(builder, "Hebrew", null, new ChainCommand<AbstractButton>(
+                new TextCommand("\u05D0\u05D1\u05D2"), new IconCommand(il.of(16, 16))));
         this.addRow(builder, "Chinese", null,
                 new ChainCommand<AbstractButton>(
                         new FontCommand(new Font("Arial Unicode MS", Font.PLAIN, 11)),
-                        new TextCommand("\u4E01\u4E02\u4E03"),
-                        new IconCommand(Check.configure(new cn(), 21, 16))));
-        this.addRow(builder, "Cyrillic", null,
-                new ChainCommand<AbstractButton>(new TextCommand("\u0430\u0431\u0432"),
-                        new IconCommand(Check.configure(new ru(), 21, 16))));
-        this.addRow(builder, "Greek", null,
-                new ChainCommand<AbstractButton>(new TextCommand("\u03B1\u03B2\u03B3"),
-                        new IconCommand(Check.configure(new gr(), 21, 16))));
-        this.addRow(builder, "Latin", null,
-                new ChainCommand<AbstractButton>(new TextCommand("\u00E6\u00F0\u0127\u2248"),
-                        new IconCommand(Check.configure(new it(), 21, 16))));
+                        new TextCommand("\u4E01\u4E02\u4E03"), new IconCommand(cn.of(16, 16))));
+        this.addRow(builder, "Cyrillic", null, new ChainCommand<AbstractButton>(
+                new TextCommand("\u0430\u0431\u0432"), new IconCommand(ru.of(16, 16))));
+        this.addRow(builder, "Greek", null, new ChainCommand<AbstractButton>(
+                new TextCommand("\u03B1\u03B2\u03B3"), new IconCommand(gr.of(16, 16))));
+        this.addRow(builder, "Latin", null, new ChainCommand<AbstractButton>(
+                new TextCommand("\u00E6\u00F0\u0127\u2248"), new IconCommand(it.of(16, 16))));
 
         builder.appendSeparator("Misc settings");
         this.addRow(builder, "No content area", null, new NoContentAreaFilledCommand());

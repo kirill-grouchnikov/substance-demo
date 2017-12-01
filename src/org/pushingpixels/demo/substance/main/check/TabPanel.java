@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2008 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2017 Substance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -34,7 +34,6 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import org.pushingpixels.demo.substance.main.Check;
 import org.pushingpixels.demo.substance.main.check.svg.flags.mx;
 import org.pushingpixels.demo.substance.main.check.svg.flags.ru;
 import org.pushingpixels.demo.substance.main.check.svg.flags.se;
@@ -59,10 +58,10 @@ public class TabPanel extends ControllablePanel {
 		jtp = new JTabbedPane();
 		NumberedPanel tnp1 = new NumberedPanel(1);
 		jtp.addTab("tab0", null, new JPanel());
-		jtp.addTab("tab1", Check.configure(new mx(), 21, 16), tnp1);
-		jtp.addTab("tab 2", Check.configure(new se(), 21, 16), new NumberedPanel(2));
+		jtp.addTab("tab1", mx.of(16,  16), tnp1);
+		jtp.addTab("tab 2", se.of(16,  16), new NumberedPanel(2));
 		NumberedPanel tnp3 = new NumberedPanel(3);
-		jtp.addTab("tab  3", Check.configure(new ru(), 21, 16), tnp3);
+		jtp.addTab("tab  3", ru.of(16,  16), tnp3);
 		final NumberedPanel np4 = new NumberedPanel(4);
 		jtp.addTab("tab   4", np4);
 		final NumberedPanel np5 = new NumberedPanel(5);

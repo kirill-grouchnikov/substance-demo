@@ -50,11 +50,11 @@ import org.pushingpixels.substance.api.skin.GraphiteSkin;
  * @author Kirill Grouchnikov
  * @see SubstanceCortex.RootPaneScope#setSkin(javax.swing.JRootPane, SubstanceSkin)
  */
-public class SkinProperty extends JFrame {
+public class SetRootPaneSkin extends JFrame {
     /**
      * Creates the main frame for <code>this</code> sample.
      */
-    public SkinProperty() {
+    public SetRootPaneSkin() {
         super("Per-window skins");
 
         this.setLayout(new FlowLayout());
@@ -114,7 +114,7 @@ public class SkinProperty extends JFrame {
         JFrame.setDefaultLookAndFeelDecorated(true);
         SwingUtilities.invokeLater(() -> {
             SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-            new SkinProperty().setVisible(true);
+            new SetRootPaneSkin().setVisible(true);
         });
     }
 }

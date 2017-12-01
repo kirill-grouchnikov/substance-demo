@@ -52,11 +52,11 @@ import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
  * @author Kirill Grouchnikov
  * @see SubstanceCortex.RootPaneScope#setContentsModified(javax.swing.JRootPane, boolean)
  */
-public class WindowModified extends JFrame {
+public class RootPaneContentsModified extends JFrame {
     /**
      * Creates the main frame for <code>this</code> sample.
      */
-    public WindowModified() {
+    public RootPaneContentsModified() {
         super("Window modified");
 
         this.setLayout(new BorderLayout());
@@ -109,7 +109,7 @@ public class WindowModified extends JFrame {
         JFrame.setDefaultLookAndFeelDecorated(true);
         SwingUtilities.invokeLater(() -> {
             SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-            new WindowModified().setVisible(true);
+            new RootPaneContentsModified().setVisible(true);
         });
     }
 }

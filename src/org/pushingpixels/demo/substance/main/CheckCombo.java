@@ -12,6 +12,7 @@ import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.GeminiSkin;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
+import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.layout.FormLayout;
 
 public class CheckCombo extends JFrame {
@@ -27,8 +28,7 @@ public class CheckCombo extends JFrame {
         JPanel content = new JPanel();
 
         FormLayout lm = new FormLayout("pref", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm, content);
-        builder.setDefaultDialogBorder();
+        DefaultFormBuilder builder = new DefaultFormBuilder(lm, content).border(Borders.DIALOG);
 
         builder.append(combo);
 

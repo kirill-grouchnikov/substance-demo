@@ -48,64 +48,62 @@ import org.pushingpixels.substance.extras.api.shaperpack.RhinoButtonShaper;
 import org.pushingpixels.substance.extras.api.shaperpack.StegosaurusButtonShaper;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
+import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.layout.FormLayout;
 
 public class TestButtons extends JFrame {
-	private JButton getButton(String text, SubstanceButtonShaper shaper) {
-		JButton button = new JButton(text);
+    private JButton getButton(String text, SubstanceButtonShaper shaper) {
+        JButton button = new JButton(text);
         SubstanceCortex.ComponentScope.setButtonShaper(button, shaper);
-		return button;
-	}
+        return button;
+    }
 
-	public TestButtons() {
-		super("Button shapes");
+    public TestButtons() {
+        super("Button shapes");
 
-		FormLayout layout = new FormLayout("center:pref, 4dlu, center:pref");
-		DefaultFormBuilder builder = new DefaultFormBuilder(layout);
-		builder.setDefaultDialogBorder();
+        FormLayout layout = new FormLayout("center:pref, 4dlu, center:pref");
+        DefaultFormBuilder builder = new DefaultFormBuilder(layout).border(Borders.DIALOG);
 
-		builder.append(this.getButton("rhino", new RhinoButtonShaper()), this
-				.getButton("big rhino", new RhinoButtonShaper()));
+        builder.append(this.getButton("rhino", new RhinoButtonShaper()),
+                this.getButton("big rhino", new RhinoButtonShaper()));
 
-		builder.append(this.getButton("fish", new FishButtonShaper()), this
-				.getButton("big fish", new FishButtonShaper()));
+        builder.append(this.getButton("fish", new FishButtonShaper()),
+                this.getButton("big fish", new FishButtonShaper()));
 
-		builder.append(this.getButton("racecar", new RaceCarButtonShaper()),
-				this.getButton("big racecar", new RaceCarButtonShaper()));
+        builder.append(this.getButton("racecar", new RaceCarButtonShaper()),
+                this.getButton("big racecar", new RaceCarButtonShaper()));
 
-		builder.append(
-				this.getButton("butterfly", new ButterflyButtonShaper()),
-				this.getButton("big butterfly", new ButterflyButtonShaper()));
+        builder.append(this.getButton("butterfly", new ButterflyButtonShaper()),
+                this.getButton("big butterfly", new ButterflyButtonShaper()));
 
-		builder.append(this.getButton("foot", new FootButtonShaper()), this
-				.getButton("big foot", new FootButtonShaper()));
+        builder.append(this.getButton("foot", new FootButtonShaper()),
+                this.getButton("big foot", new FootButtonShaper()));
 
-		builder.append(this.getButton("icecream", new IceCreamButtonShaper()),
-				this.getButton("big icecream", new IceCreamButtonShaper()));
+        builder.append(this.getButton("icecream", new IceCreamButtonShaper()),
+                this.getButton("big icecream", new IceCreamButtonShaper()));
 
-		builder.append(this.getButton("stegosaurus",
-				new StegosaurusButtonShaper()), this.getButton(
-				"big stegosaurus", new StegosaurusButtonShaper()));
+        builder.append(this.getButton("stegosaurus", new StegosaurusButtonShaper()),
+                this.getButton("big stegosaurus", new StegosaurusButtonShaper()));
 
-		builder.append(this.getButton("dolphin", new DolphinButtonShaper()),
-				this.getButton("big dolphin", new DolphinButtonShaper()));
-		
-		this.add(builder.getPanel(), BorderLayout.CENTER);
-	}
+        builder.append(this.getButton("dolphin", new DolphinButtonShaper()),
+                this.getButton("big dolphin", new DolphinButtonShaper()));
 
-	public static void main(String... args) {
-		JFrame.setDefaultLookAndFeelDecorated(true);
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-		        SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-				TestButtons tb = new TestButtons();
-				tb.invalidate();
-				System.out.println(tb.getPreferredSize());
-				tb.pack();
-				tb.setLocationRelativeTo(null);
-				tb.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				tb.setVisible(true);
-			}
-		});
-	}
+        this.add(builder.getPanel(), BorderLayout.CENTER);
+    }
+
+    public static void main(String... args) {
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
+                TestButtons tb = new TestButtons();
+                tb.invalidate();
+                System.out.println(tb.getPreferredSize());
+                tb.pack();
+                tb.setLocationRelativeTo(null);
+                tb.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                tb.setVisible(true);
+            }
+        });
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2008 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2017 Substance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -127,7 +127,6 @@ import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKin
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceSlices.Side;
 import org.pushingpixels.substance.api.SubstanceSlices.TabCloseKind;
-import org.pushingpixels.substance.api.hidpi.IsResizable;
 import org.pushingpixels.substance.api.skin.SubstanceGeminiLookAndFeel;
 import org.pushingpixels.substance.api.tabbed.TabCloseCallback;
 import org.pushingpixels.substance.api.tabbed.TabCloseListener;
@@ -539,15 +538,12 @@ public class Check extends JFrame {
                 JXStatusBar.Constraint.ResizeBehavior.FILL);
         final JLabel tabLabel = new JLabel("");
         statusBar.add(tabLabel, c2);
-        mainTabbedPane.getModel().addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                int selectedIndex = mainTabbedPane.getSelectedIndex();
-                if (selectedIndex < 0)
-                    tabLabel.setText("No selected tab");
-                else
-                    tabLabel.setText(
-                            "Tab " + mainTabbedPane.getTitleAt(selectedIndex) + " selected");
-            }
+        mainTabbedPane.getModel().addChangeListener((ChangeEvent e) -> {
+            int selectedIndex = mainTabbedPane.getSelectedIndex();
+            if (selectedIndex < 0)
+                tabLabel.setText("No selected tab");
+            else
+                tabLabel.setText("Tab " + mainTabbedPane.getTitleAt(selectedIndex) + " selected");
         });
 
         JPanel alphaPanel = new JPanel(new FlowLayout(FlowLayout.LEADING, 0, 0));
@@ -555,12 +551,10 @@ public class Check extends JFrame {
         final JLabel alphaLabel = new JLabel("100%");
         final JSlider alphaSlider = new JSlider(0, 100, 100);
         alphaSlider.setFocusable(false);
-        alphaSlider.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                int currValue = alphaSlider.getValue();
-                alphaLabel.setText(currValue + "%");
-                jxPanel.setAlpha(currValue / 100.0f);
-            }
+        alphaSlider.addChangeListener((ChangeEvent e) -> {
+            int currValue = alphaSlider.getValue();
+            alphaLabel.setText(currValue + "%");
+            jxPanel.setAlpha(currValue / 100.0f);
         });
         alphaSlider.setToolTipText("Changes the global opacity. Is not Substance-specific");
         alphaSlider.setPreferredSize(new Dimension(120, alphaSlider.getPreferredSize().height));
@@ -585,8 +579,7 @@ public class Check extends JFrame {
         SubstanceCortex.GlobalScope.registerWidget(
                 "org.pushingpixels.substance.extras.api.tabbed.TabPagerWidget", JTabbedPane.class,
                 false);
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
+        SwingUtilities.invokeLater(() -> {
                 try {
                     out(" CREATING LAF ");
                     long time0 = System.currentTimeMillis();
@@ -610,9 +603,6 @@ public class Check extends JFrame {
 
                 long time2 = System.currentTimeMillis();
 
-                // UIManager.put("Button.defaultButtonFollowsFocus",
-                // Boolean.TRUE);
-
                 Check c = new Check();
                 c.addComponentListener(new ComponentAdapter() {
                     @Override
@@ -634,25 +624,6 @@ public class Check extends JFrame {
                                 : JFrame.DISPOSE_ON_CLOSE);
                 long time3 = System.currentTimeMillis();
                 out("App " + (time3 - time2));
-
-                // Thread cpuTracker = new Thread() {
-                // @Override
-                // public void run() {
-                // OperatingSystemMXBean bean = ManagementFactory
-                // .getOperatingSystemMXBean();
-                // while (true) {
-                // System.out.println(bean.getSystemLoadAverage());
-                // try {
-                // Thread.sleep(5000);
-                // } catch (Throwable t) {
-                // t.printStackTrace();
-                // }
-                // }
-                // };
-                // };
-                // cpuTracker.setDaemon(true);
-                // cpuTracker.start();
-            }
         });
     }
 
@@ -673,11 +644,6 @@ public class Check extends JFrame {
         if (url != null)
             return new ImageIcon(url);
         return null;
-    }
-
-    public static Icon configure(Icon icon, int width, int height) {
-        ((IsResizable) icon).setDimension(new Dimension(width, height));
-        return icon;
     }
 
     public static JToolBar getToolbar(String label, int size, boolean hasStrings) {

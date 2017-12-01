@@ -25,6 +25,7 @@ import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
+import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.layout.FormLayout;
 
 public class CellsPanel extends JPanel implements Deferrable {
@@ -43,8 +44,8 @@ public class CellsPanel extends JPanel implements Deferrable {
         FormLayout lmCells = new FormLayout("right:pref, 10dlu, fill:pref:grow(1), 4dlu,"
                 + "fill:pref:grow(1), 4dlu, fill:pref:grow(1), " + "4dlu, fill:pref:grow(1)", "");
         lmCells.setColumnGroups(new int[][] { { 3, 5, 7, 9 } });
-        DefaultFormBuilder builderCells = new DefaultFormBuilder(lmCells, new ScrollablePanel());
-        builderCells.setDefaultDialogBorder();
+        DefaultFormBuilder builderCells = new DefaultFormBuilder(lmCells, new ScrollablePanel())
+                .border(Borders.DIALOG);
 
         builderCells.append("");
         builderCells.append(new JLabel("NONE"), new JLabel("GENERAL"));

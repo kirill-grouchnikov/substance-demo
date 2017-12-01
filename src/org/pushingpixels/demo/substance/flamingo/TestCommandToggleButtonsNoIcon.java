@@ -15,17 +15,16 @@ public class TestCommandToggleButtonsNoIcon
      */
     public static void main(String[] args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                SubstanceCortex.GlobalScope.setSkin(new OfficeBlue2007Skin());
-                SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceFlamingoPlugin());
-                TestCommandToggleButtonsNoIcon frame = new TestCommandToggleButtonsNoIcon();
-                frame.setSize(800, 400);
-                frame.setLocationRelativeTo(null);
-                frame.setVisible(true);
-                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            }
+        SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceFlamingoPlugin());
+
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new OfficeBlue2007Skin());
+
+            TestCommandToggleButtonsNoIcon frame = new TestCommandToggleButtonsNoIcon();
+            frame.setSize(800, 400);
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         });
     }
 

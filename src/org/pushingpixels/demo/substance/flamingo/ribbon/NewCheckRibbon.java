@@ -30,15 +30,11 @@
 package org.pushingpixels.demo.substance.flamingo.ribbon;
 
 import java.awt.ComponentOrientation;
-import java.awt.Dialog;
 import java.awt.Dimension;
-import java.awt.Frame;
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
-import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -52,7 +48,6 @@ import java.util.Set;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JRootPane;
 import javax.swing.LookAndFeel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -118,38 +113,17 @@ public class NewCheckRibbon extends BasicCheckRibbon {
     }
 
     public static void main(String[] args) {
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        JDialog.setDefaultLookAndFeelDecorated(true);
         SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceFlamingoPlugin());
-        for (Window w : Window.getWindows()) {
-            String wTitle = null;
-            JRootPane rootPane = null;
-            if (w instanceof Frame) {
-                wTitle = ((Frame) w).getTitle();
-            }
-            if (w instanceof Dialog) {
-                wTitle = ((Dialog) w).getTitle();
-            }
-            if (w instanceof JFrame) {
-                rootPane = ((JFrame) w).getRootPane();
-            }
-            if (w instanceof JDialog) {
-                rootPane = ((JDialog) w).getRootPane();
-            }
-            System.out.println("Window '" + wTitle + "' of " + w.getClass().getName());
-            if (rootPane != null) {
-                System.out.println("\troot pane UI:" + rootPane.getUI().getClass().getName());
-            }
-        }
 
-        UIManager.addPropertyChangeListener(new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if ("lookAndFeel".equals(evt.getPropertyName())) {
-                    LookAndFeel oldLaf = (LookAndFeel) evt.getOldValue();
-                    LookAndFeel newLaf = (LookAndFeel) evt.getNewValue();
-                    System.out.println("Look-and-feel change from "
-                            + ((oldLaf == null) ? "null" : oldLaf.getName()) + " to "
-                            + ((newLaf == null) ? "null" : newLaf.getName()));
-                }
+        UIManager.addPropertyChangeListener((PropertyChangeEvent evt) -> {
+            if ("lookAndFeel".equals(evt.getPropertyName())) {
+                LookAndFeel oldLaf = (LookAndFeel) evt.getOldValue();
+                LookAndFeel newLaf = (LookAndFeel) evt.getNewValue();
+                System.out.println("Look-and-feel change from "
+                        + ((oldLaf == null) ? "null" : oldLaf.getName()) + " to "
+                        + ((newLaf == null) ? "null" : newLaf.getName()));
             }
         });
 
@@ -182,25 +156,19 @@ public class NewCheckRibbon extends BasicCheckRibbon {
         } catch (IOException ioe) {
         }
 
-        JFrame.setDefaultLookAndFeelDecorated(true);
-        JDialog.setDefaultLookAndFeelDecorated(true);
-
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                SubstanceCortex.GlobalScope.setSkin(new OfficeBlue2007Skin());
-                NewCheckRibbon c = new NewCheckRibbon();
-                c.configureRibbon();
-                c.applyComponentOrientation(
-                        ComponentOrientation.getOrientation(Locale.getDefault()));
-                Rectangle r = GraphicsEnvironment.getLocalGraphicsEnvironment()
-                        .getMaximumWindowBounds();
-                c.setPreferredSize(new Dimension(r.width, r.height / 2));
-                c.setMinimumSize(new Dimension(100, r.height / 3));
-                c.pack();
-                c.setLocation(r.x, r.y);
-                c.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                c.setVisible(true);
-            }
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new OfficeBlue2007Skin());
+            NewCheckRibbon c = new NewCheckRibbon();
+            c.configureRibbon();
+            c.applyComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
+            Rectangle r = GraphicsEnvironment.getLocalGraphicsEnvironment()
+                    .getMaximumWindowBounds();
+            c.setPreferredSize(new Dimension(r.width, r.height / 2));
+            c.setMinimumSize(new Dimension(100, r.height / 3));
+            c.pack();
+            c.setLocation(r.x, r.y);
+            c.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            c.setVisible(true);
         });
     }
 }

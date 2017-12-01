@@ -63,211 +63,211 @@ import org.pushingpixels.demo.substance.main.check.svg.tango.user_home;
 import org.pushingpixels.demo.substance.main.check.svg.tango.view_fullscreen;
 import org.pushingpixels.demo.substance.main.check.svg.tango.view_refresh;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.hidpi.HiDpiAwareIcon;
-import org.pushingpixels.substance.api.iconpack.SubstanceIconPack;
+import org.pushingpixels.substance.api.icon.SubstanceIcon;
+import org.pushingpixels.substance.api.icon.SubstanceIconPack;
 
 public class TangoIconPack implements SubstanceIconPack {
 
     @Override
-    public HiDpiAwareIcon getOptionPaneInformationIcon(int preferredSize,
+    public SubstanceIcon getOptionPaneInformationIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return dialog_information.of(preferredSize, preferredSize);
     }
 
     @Override
-    public HiDpiAwareIcon getOptionPaneWarningIcon(int preferredSize,
+    public SubstanceIcon getOptionPaneWarningIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return dialog_warning.of(preferredSize, preferredSize);
     }
 
     @Override
-    public HiDpiAwareIcon getOptionPaneErrorIcon(int preferredSize,
+    public SubstanceIcon getOptionPaneErrorIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return dialog_error.of(preferredSize, preferredSize);
     }
 
     @Override
-    public HiDpiAwareIcon getOptionPaneQuestionIcon(int preferredSize,
+    public SubstanceIcon getOptionPaneQuestionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return help_browser.of(preferredSize, preferredSize);
     }
 
     @Override
-    public HiDpiAwareIcon getFileChooserNewFolderIcon(int preferredSize,
+    public SubstanceIcon getFileChooserNewFolderIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return folder_new.of(preferredSize, preferredSize);
     }
 
     @Override
-    public HiDpiAwareIcon getFileChooserUpFolderIcon(int preferredSize,
+    public SubstanceIcon getFileChooserUpFolderIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return go_up.of(preferredSize, preferredSize);
     }
 
     @Override
-    public HiDpiAwareIcon getFileChooserHomeFolderIcon(int preferredSize,
+    public SubstanceIcon getFileChooserHomeFolderIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return user_home.of(preferredSize, preferredSize);
     }
 
     @Override
-    public HiDpiAwareIcon getFileChooserListViewIcon(int preferredSize,
+    public SubstanceIcon getFileChooserListViewIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return format_justify_fill.of(preferredSize, preferredSize);
     }
 
     @Override
-    public HiDpiAwareIcon getFileChooserDetailsViewIcon(int preferredSize,
+    public SubstanceIcon getFileChooserDetailsViewIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return accessories_text_editor.of(preferredSize, preferredSize);
     }
 
     @Override
-    public HiDpiAwareIcon getFileChooserViewMenuIcon(int preferredSize,
+    public SubstanceIcon getFileChooserViewMenuIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return emblem_system.of(preferredSize, preferredSize);
     }
 
     @Override
-    public HiDpiAwareIcon getFileChooserComputerIcon(int preferredSize,
+    public SubstanceIcon getFileChooserComputerIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return computer.of(preferredSize, preferredSize);
     }
 
     @Override
-    public HiDpiAwareIcon getFileChooserDirectoryIcon(int preferredSize,
+    public SubstanceIcon getFileChooserDirectoryIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return folder.of(preferredSize, preferredSize);
     }
 
     @Override
-    public HiDpiAwareIcon getFileChooserFileIcon(int preferredSize,
+    public SubstanceIcon getFileChooserFileIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return text_x_generic.of(preferredSize, preferredSize);
     }
 
     @Override
-    public HiDpiAwareIcon getFileChooserFloppyDriveIcon(int preferredSize,
+    public SubstanceIcon getFileChooserFloppyDriveIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return media_floppy.of(preferredSize, preferredSize);
     }
 
     @Override
-    public HiDpiAwareIcon getFileChooserHardDriveIcon(int preferredSize,
+    public SubstanceIcon getFileChooserHardDriveIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return drive_harddisk.of(preferredSize, preferredSize);
     }
 
     @Override
-    public HiDpiAwareIcon getLockIcon(int preferredSize,
+    public SubstanceIcon getLockIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return locked.of(preferredSize, preferredSize);
     }
     
     @Override
-    public HiDpiAwareIcon getInspectIcon(int preferredSize,
+    public SubstanceIcon getInspectIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return system_search.of(preferredSize, preferredSize);
     }
     
     @Override
-    public HiDpiAwareIcon getRefreshIcon(int preferredSize,
+    public SubstanceIcon getRefreshIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return view_refresh.of(preferredSize, preferredSize);
     }
     
     @Override
-    public HiDpiAwareIcon getAllowedIcon(int preferredSize,
+    public SubstanceIcon getAllowedIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return list_add.of(preferredSize, preferredSize);
     }
     
     @Override
-    public HiDpiAwareIcon getNotAllowedIcon(int preferredSize,
+    public SubstanceIcon getNotAllowedIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return dialog_error.of(preferredSize, preferredSize);
     }
     
     @Override
-    public HiDpiAwareIcon getTextCopyActionIcon(int preferredSize,
+    public SubstanceIcon getTextCopyActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return edit_copy.of(preferredSize, preferredSize).colorize(preferredIconColorScheme);
     }
     
     @Override
-    public HiDpiAwareIcon getTextCutActionIcon(int preferredSize,
+    public SubstanceIcon getTextCutActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return edit_cut.of(preferredSize, preferredSize).colorize(preferredIconColorScheme);
     }
     
     @Override
-    public HiDpiAwareIcon getTextPasteActionIcon(int preferredSize,
+    public SubstanceIcon getTextPasteActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return edit_paste.of(preferredSize, preferredSize).colorize(preferredIconColorScheme);
     }
     
     @Override
-    public HiDpiAwareIcon getTextDeleteActionIcon(int preferredSize,
+    public SubstanceIcon getTextDeleteActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return edit_delete.of(preferredSize, preferredSize).colorize(preferredIconColorScheme);
     }
     
     @Override
-    public HiDpiAwareIcon getTextSelectAllActionIcon(int preferredSize,
+    public SubstanceIcon getTextSelectAllActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return edit_select_all.of(preferredSize, preferredSize).colorize(preferredIconColorScheme);
     }
     
     @Override
-    public HiDpiAwareIcon getColorChooserColorPalettesIcon(int preferredSize,
+    public SubstanceIcon getColorChooserColorPalettesIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return face_angel.of(preferredSize, preferredSize);
     }
     
     @Override
-    public HiDpiAwareIcon getColorChooserColorSlidersIcon(int preferredSize,
+    public SubstanceIcon getColorChooserColorSlidersIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return face_glasses.of(preferredSize, preferredSize);
     }
     
     @Override
-    public HiDpiAwareIcon getColorChooserColorSwatchesIcon(int preferredSize,
+    public SubstanceIcon getColorChooserColorSwatchesIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return face_grin.of(preferredSize, preferredSize);
     }
     
     @Override
-    public HiDpiAwareIcon getColorChooserColorWheelIcon(int preferredSize,
+    public SubstanceIcon getColorChooserColorWheelIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return face_plain.of(preferredSize, preferredSize);
     }
     
     @Override
-    public HiDpiAwareIcon getColorChooserCrayonsIcon(int preferredSize,
+    public SubstanceIcon getColorChooserCrayonsIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return face_sad.of(preferredSize, preferredSize);
     }
     
     @Override
-    public HiDpiAwareIcon getColorChooserImagePalettesIcon(int preferredSize,
+    public SubstanceIcon getColorChooserImagePalettesIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return face_smile.of(preferredSize, preferredSize);
     }
     
     @Override
-    public HiDpiAwareIcon getScrollHorizontalIcon(int preferredSize,
+    public SubstanceIcon getScrollHorizontalIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return go_next.of(preferredSize, preferredSize);
     }
     
     @Override
-    public HiDpiAwareIcon getScrollVerticalIcon(int preferredSize,
+    public SubstanceIcon getScrollVerticalIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return go_down.of(preferredSize, preferredSize);
     }
     
     @Override
-    public HiDpiAwareIcon getScrollAllIcon(int preferredSize,
+    public SubstanceIcon getScrollAllIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
         return view_fullscreen.of(preferredSize, preferredSize);
     }

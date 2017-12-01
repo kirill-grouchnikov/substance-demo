@@ -14,8 +14,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 import org.pushingpixels.demo.substance.main.check.SubstanceSkinComboSelector;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.skin.MistSilverSkin;
 
 public class DecorationTables extends JFrame {

@@ -29,6 +29,7 @@ import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.SkinInfo;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
+import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.layout.FormLayout;
 
 public class Alignment extends JFrame {
@@ -78,8 +79,7 @@ public class Alignment extends JFrame {
 
         FormLayout lm = new FormLayout(
                 "pref,2dlu,pref,2dlu,pref,2dlu,pref,2dlu,pref,2dlu,pref,2dlu,pref,2dlu", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm, content);
-        builder.setDefaultDialogBorder();
+        DefaultFormBuilder builder = new DefaultFormBuilder(lm, content).border(Borders.DIALOG);
 
         builder.append(textField);
         builder.append(fTextField);

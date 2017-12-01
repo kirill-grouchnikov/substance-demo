@@ -23,20 +23,12 @@ import java.awt.geom.RoundRectangle2D;
 
 /**
  * This class has been automatically generated using <a
- * href="https://github.com/kirill-grouchnikov/flamingo">Flamingo SVG transcoder</a>.
+ * href="https://github.com/kirill-grouchnikov/ibis">Ibis SVG transcoder</a>.
  */
 public class Folder_remote implements
 		org.pushingpixels.flamingo.api.common.icon.ResizableIcon {
-	/**
-	 * Paints the transcoded SVG image on the specified graphics context. You
-	 * can install a custom transformation on the graphics context to scale the
-	 * image.
-	 * 
-	 * @param g
-	 *            Graphics context.
-	 */
     @SuppressWarnings("unused")
-	public static void paint(Graphics2D g) {
+	private void innerPaint(Graphics2D g) {
         Shape shape = null;
         Paint paint = null;
         Stroke stroke = null;
@@ -187,10 +179,12 @@ g.transform(new AffineTransform(0.9411799907684326f, 0.0f, 0.0f, 0.9411799907684
 paint = new Color(255, 255, 255, 184);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(19.0, 40.625);
-((GeneralPath)shape).curveTo(19.0, 40.9184, 18.762152, 41.15625, 18.46875, 41.15625);
-((GeneralPath)shape).curveTo(18.175348, 41.15625, 17.9375, 40.9184, 17.9375, 40.625);
-((GeneralPath)shape).curveTo(17.9375, 40.3316, 18.175348, 40.09375, 18.46875, 40.09375);
-((GeneralPath)shape).curveTo(18.762152, 40.09375, 19.0, 40.3316, 19.0, 40.625);
+((GeneralPath)shape).curveTo(19.00085, 40.815365, 18.899782, 40.99163, 18.735064, 41.08706);
+((GeneralPath)shape).curveTo(18.570345, 41.182487, 18.367155, 41.182487, 18.202436, 41.08706);
+((GeneralPath)shape).curveTo(18.037718, 40.99163, 17.93665, 40.815365, 17.9375, 40.625);
+((GeneralPath)shape).curveTo(17.93665, 40.434635, 18.037718, 40.25837, 18.202436, 40.16294);
+((GeneralPath)shape).curveTo(18.367155, 40.067513, 18.570345, 40.067513, 18.735064, 40.16294);
+((GeneralPath)shape).curveTo(18.899782, 40.25837, 19.00085, 40.434635, 19.0, 40.625);
 ((GeneralPath)shape).closePath();
 g.setPaint(paint);
 g.fill(shape);
@@ -341,10 +335,12 @@ g.transform(new AffineTransform(0.9145029783248901f, 0.0f, 0.0f, 1.0104689598083
 paint = new RadialGradientPaint(new Point2D.Double(24.350990295410156, 41.59184646606445), 19.136078f, new Point2D.Double(24.350990295410156, 41.59184646606445), new float[] {0.0f,1.0f}, new Color[] {new Color(0, 0, 0, 255),new Color(0, 0, 0, 0)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(1.0f, 0.0f, 0.0f, 0.24249400198459625f, 0.0f, 31.506059646606445f));
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(43.48707, 41.591846);
-((GeneralPath)shape).curveTo(43.48707, 44.154663, 34.919556, 46.232235, 24.35099, 46.232235);
-((GeneralPath)shape).curveTo(13.782426, 46.232235, 5.2149124, 44.154663, 5.2149124, 41.591846);
-((GeneralPath)shape).curveTo(5.2149124, 39.02903, 13.782426, 36.951458, 24.35099, 36.951458);
-((GeneralPath)shape).curveTo(34.919556, 36.951458, 43.48707, 39.02903, 43.48707, 41.591846);
+((GeneralPath)shape).curveTo(43.517735, 43.254642, 39.87714, 44.79432, 33.943817, 45.62787);
+((GeneralPath)shape).curveTo(28.010498, 46.461422, 20.691483, 46.461422, 14.758162, 45.62787);
+((GeneralPath)shape).curveTo(8.8248415, 44.79432, 5.1842465, 43.254642, 5.2149124, 41.591846);
+((GeneralPath)shape).curveTo(5.1842465, 39.92905, 8.8248415, 38.389374, 14.758162, 37.555824);
+((GeneralPath)shape).curveTo(20.691483, 36.72227, 28.010498, 36.72227, 33.943817, 37.555824);
+((GeneralPath)shape).curveTo(39.87714, 38.389374, 43.517735, 39.92905, 43.48707, 41.591846);
 ((GeneralPath)shape).closePath();
 g.setPaint(paint);
 g.fill(shape);
@@ -700,63 +696,37 @@ g.setTransform(defaultTransform_);
 		return 44.975196838378906;
 	}
 
-	/**
-	 * The current width of this resizable icon.
-	 */
-	int width;
+	/** The current width of this resizable icon. */
+	private int width;
+
+    /** The current height of this resizable icon. */
+	private int height;
 
 	/**
-	 * The current height of this resizable icon.
-	 */
-	int height;
-
-	/**
-	 * Creates a new transcoded SVG image.
+	 * Creates a new transcoded SVG image. It is recommended to use the 
+	 * {@link #of(int, int)} method to obtain a pre-configured instance.
 	 */
 	public Folder_remote() {
         this.width = (int) getOrigWidth();
         this.height = (int) getOrigHeight();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#getIconHeight()
-	 */
     @Override
 	public int getIconHeight() {
 		return height;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#getIconWidth()
-	 */
     @Override
 	public int getIconWidth() {
 		return width;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.jvnet.flamingo.common.icon.ResizableIcon#setDimension(java.awt.Dimension
-	 * )
-	 */
 	@Override
 	public void setDimension(Dimension newDimension) {
 		this.width = newDimension.width;
 		this.height = newDimension.height;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#paintIcon(java.awt.Component, java.awt.Graphics,
-	 * int, int)
-	 */
     @Override
 	public void paintIcon(Component c, Graphics g, int x, int y) {
 		Graphics2D g2d = (Graphics2D) g.create();
@@ -779,10 +749,13 @@ g.setTransform(defaultTransform_);
                g2d.translate(extraDx, 0);
             }
         }
-        paint(g2d);
+        innerPaint(g2d);
         g2d.dispose();
 	}
     
+    /**
+     * Returns an instance of this icon with specified dimensions.
+     */
     public static Folder_remote of(int width, int height) {
        Folder_remote result = new Folder_remote();
        result.width = width;

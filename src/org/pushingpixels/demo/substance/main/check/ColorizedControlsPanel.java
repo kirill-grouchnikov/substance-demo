@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2008 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2017 Substance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -90,6 +90,7 @@ import org.pushingpixels.demo.substance.main.check.command.SetBoundsCommand;
 import org.pushingpixels.substance.api.SubstanceCortex;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
+import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
@@ -219,9 +220,8 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
         FormLayout lmButtons = new FormLayout("right:pref, 10dlu, left:pref:grow(1), 4dlu,"
                 + "left:pref:grow(1), 4dlu, left:pref:grow(1), " + "4dlu, left:pref:grow(1)", "");
         lmButtons.setColumnGroups(new int[][] { { 3, 5, 7, 9 } });
-        DefaultFormBuilder builderButtons = new DefaultFormBuilder(lmButtons,
-                new ScrollablePanel());
-        builderButtons.setDefaultDialogBorder();
+        DefaultFormBuilder builderButtons = new DefaultFormBuilder(lmButtons, new ScrollablePanel())
+                .border(Borders.DIALOG);
 
         builderButtons.append("");
         JLabel bLabel = new JLabel("Buttons");
@@ -383,8 +383,8 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
         FormLayout lmOther = new FormLayout("right:pref, 10dlu, left:pref:grow(1), 4dlu,"
                 + "left:pref:grow(1), 4dlu, left:pref:grow(1), " + "4dlu, left:pref:grow(1)", "");
         lmOther.setColumnGroups(new int[][] { { 3, 5, 7, 9 } });
-        DefaultFormBuilder builderOther = new DefaultFormBuilder(lmOther, new ScrollablePanel());
-        builderOther.setDefaultDialogBorder();
+        DefaultFormBuilder builderOther = new DefaultFormBuilder(lmOther, new ScrollablePanel())
+                .border(Borders.DIALOG);
 
         builderOther.append("");
         builderOther.append(new JLabel("Yellow"), new JLabel("Blue + red foreground"));
@@ -535,8 +535,8 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
         FormLayout lmText = new FormLayout("right:pref, 10dlu, left:pref:grow(1), 4dlu,"
                 + "left:pref:grow(1), 4dlu, left:pref:grow(1), " + "4dlu, left:pref:grow(1)", "");
         lmText.setColumnGroups(new int[][] { { 3, 5, 7, 9 } });
-        DefaultFormBuilder builderText = new DefaultFormBuilder(lmText, new ScrollablePanel());
-        builderText.setDefaultDialogBorder();
+        DefaultFormBuilder builderText = new DefaultFormBuilder(lmText, new ScrollablePanel())
+                .border(Borders.DIALOG);
 
         builderText.append("");
         builderText.append(new JLabel("Yellow"), new JLabel("Blue + red foreground"));
@@ -743,8 +743,8 @@ public class ColorizedControlsPanel extends JPanel implements Deferrable {
         FormLayout lmCells = new FormLayout("right:pref, 10dlu, fill:pref:grow(1), 4dlu,"
                 + "fill:pref:grow(1), 4dlu, fill:pref:grow(1), " + "4dlu, fill:pref:grow(1)", "");
         lmCells.setColumnGroups(new int[][] { { 3, 5, 7, 9 } });
-        DefaultFormBuilder builderCells = new DefaultFormBuilder(lmCells, new ScrollablePanel());
-        builderCells.setDefaultDialogBorder();
+        DefaultFormBuilder builderCells = new DefaultFormBuilder(lmCells, new ScrollablePanel())
+                .border(Borders.DIALOG);
 
         builderCells.append("");
         builderCells.append(new JLabel("Yellow"), new JLabel("Blue + red foreground"));

@@ -33,13 +33,15 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import org.pushingpixels.demo.substance.main.check.svg.tango.edit_copy;
+import org.pushingpixels.demo.substance.main.check.svg.tango.edit_cut;
+import org.pushingpixels.demo.substance.main.check.svg.tango.edit_paste;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.GraphiteSkin;
 
@@ -60,12 +62,9 @@ public class UseThemedDefaultIcons extends JFrame {
         this.setLayout(new BorderLayout());
 
         final JPanel panel = new JPanel(new FlowLayout());
-        panel.add(new JButton("cut", new ImageIcon(UseThemedDefaultIcons.class
-                .getResource("/org/pushingpixels/demo/substance/swingx/check/icons/22/edit-cut.png"))));
-        panel.add(new JButton("copy", new ImageIcon(UseThemedDefaultIcons.class
-                .getResource("/org/pushingpixels/demo/substance/swingx/check/icons/22/edit-copy.png"))));
-        panel.add(new JButton("paste", new ImageIcon(UseThemedDefaultIcons.class
-                .getResource("/org/pushingpixels/demo/substance/swingx/check/icons/22/edit-paste.png"))));
+        panel.add(new JButton("cut", edit_cut.of(22, 22))); 
+        panel.add(new JButton("copy", edit_copy.of(22, 22))); 
+        panel.add(new JButton("paste", edit_paste.of(22, 22))); 
         this.add(panel, BorderLayout.CENTER);
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));

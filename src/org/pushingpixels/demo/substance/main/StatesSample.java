@@ -12,6 +12,7 @@ import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.skin.OfficeSilver2007Skin;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
+import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.layout.FormLayout;
 
 public class StatesSample extends JFrame {
@@ -24,8 +25,7 @@ public class StatesSample extends JFrame {
                                 ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
 
         FormLayout layout = new FormLayout("right:pref, 4dlu, fill:pref:grow", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(layout);
-        builder.setDefaultDialogBorder();
+        DefaultFormBuilder builder = new DefaultFormBuilder(layout).border(Borders.DIALOG);
 
         JButton regular = new JButton("sample");
         builder.append("Regular", regular);

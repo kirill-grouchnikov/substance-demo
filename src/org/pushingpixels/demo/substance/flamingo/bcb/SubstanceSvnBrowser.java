@@ -39,35 +39,35 @@ import org.pushingpixels.demo.flamingo.bcb.SvnBreadCrumbTest;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultComboBoxRenderer;
 import org.pushingpixels.substance.api.skin.BusinessBlueSteelSkin;
+import org.pushingpixels.substance.flamingo.SubstanceFlamingoPlugin;
 
 public class SubstanceSvnBrowser extends SvnBreadCrumbTest {
-	public SubstanceSvnBrowser() {
-		super();
-		this.svnCombo.setRenderer(new SubstanceDefaultComboBoxRenderer(
-				this.svnCombo) {
-			@Override
-			public Component getListCellRendererComponent(JList list,
-					Object value, int index, boolean isSelected,
-					boolean cellHasFocus) {
-				SvnRepoInfo repo = (SvnRepoInfo) value;
-				String name = (repo == null) ? "" : repo.name;
-				return super.getListCellRendererComponent(list, name, index,
-						isSelected, cellHasFocus);
-			}
-		});
-	}
+    public SubstanceSvnBrowser() {
+        super();
+        this.svnCombo.setRenderer(new SubstanceDefaultComboBoxRenderer(this.svnCombo) {
+            @Override
+            public Component getListCellRendererComponent(JList list, Object value, int index,
+                    boolean isSelected, boolean cellHasFocus) {
+                SvnRepoInfo repo = (SvnRepoInfo) value;
+                String name = (repo == null) ? "" : repo.name;
+                return super.getListCellRendererComponent(list, name, index, isSelected,
+                        cellHasFocus);
+            }
+        });
+    }
 
-	public static void main(String... args) {
-		JFrame.setDefaultLookAndFeelDecorated(true);
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				SubstanceCortex.GlobalScope.setSkin(new BusinessBlueSteelSkin());
-				SubstanceSvnBrowser test = new SubstanceSvnBrowser();
-				test.setSize(500, 420);
-				test.setLocation(300, 100);
-				test.setVisible(true);
-				test.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			}
-		});
-	}
+    public static void main(String... args) {
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceFlamingoPlugin());
+
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new BusinessBlueSteelSkin());
+
+            SubstanceSvnBrowser test = new SubstanceSvnBrowser();
+            test.setSize(500, 420);
+            test.setLocation(300, 100);
+            test.setVisible(true);
+            test.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        });
+    }
 }

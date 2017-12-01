@@ -8,9 +8,10 @@ import javax.swing.Icon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.UIManager;
 
+import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultComboBoxRenderer;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 public abstract class FlexiComboBox<T> extends JComboBox {
 
@@ -20,7 +21,7 @@ public abstract class FlexiComboBox<T> extends JComboBox {
 
 	@Override
 	public void updateUI() {
-		if (SubstanceCoreUtilities.isCurrentLookAndFeel()) {
+		if (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel) {
 			setRenderer(new SubstanceDefaultComboBoxRenderer(this) {
 				@Override
 				public Component getListCellRendererComponent(JList list,

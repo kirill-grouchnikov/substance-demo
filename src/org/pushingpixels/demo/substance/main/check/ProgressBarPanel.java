@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2008 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2017 Substance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -49,6 +49,7 @@ import org.pushingpixels.trident.callback.RunOnUIThread;
 import org.pushingpixels.trident.callback.TimelineCallbackAdapter;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
+import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
@@ -57,240 +58,224 @@ import com.jgoodies.forms.layout.FormLayout;
  * @author Kirill Grouchnikov
  */
 public class ProgressBarPanel extends JPanel {
-	/**
-	 * Button that starts the update of progress bars.
-	 */
-	private JButton startButton;
+    /**
+     * Button that starts the update of progress bars.
+     */
+    private JButton startButton;
 
-	/**
-	 * Button that stops the update of progress bars.
-	 */
-	private JButton stopButton;
+    /**
+     * Button that stops the update of progress bars.
+     */
+    private JButton stopButton;
 
-	/**
-	 * Creates a new panel with progress bars.
-	 */
-	public ProgressBarPanel() {
-		this.setLayout(new BorderLayout());
+    /**
+     * Creates a new panel with progress bars.
+     */
+    public ProgressBarPanel() {
+        this.setLayout(new BorderLayout());
 
-		JPanel bars = new ScrollablePanel();
-		GridLayout gLayout = new GridLayout(1, 2);
-		bars.setLayout(gLayout);
+        JPanel bars = new ScrollablePanel();
+        GridLayout gLayout = new GridLayout(1, 2);
+        bars.setLayout(gLayout);
 
-		FormLayout horizontalLm = new FormLayout("left:pref:grow", "");
-		DefaultFormBuilder horizontalBuilder = new DefaultFormBuilder(
-				horizontalLm);
-		horizontalBuilder.setDefaultDialogBorder();
+        FormLayout horizontalLm = new FormLayout("left:pref:grow", "");
+        DefaultFormBuilder horizontalBuilder = new DefaultFormBuilder(horizontalLm)
+                .border(Borders.DIALOG);
 
-		JProgressBar determinateEnHor = new JProgressBar(
-				JProgressBar.HORIZONTAL, 0, 100);
-		determinateEnHor.setIndeterminate(false);
-		horizontalBuilder.appendSeparator("Determinate enabled");
-		horizontalBuilder.append(determinateEnHor);
+        JProgressBar determinateEnHor = new JProgressBar(JProgressBar.HORIZONTAL, 0, 100);
+        determinateEnHor.setIndeterminate(false);
+        horizontalBuilder.appendSeparator("Determinate enabled");
+        horizontalBuilder.append(determinateEnHor);
 
-		JProgressBar determinateEnHorStr = new JProgressBar(
-				JProgressBar.HORIZONTAL, 0, 100);
-		determinateEnHorStr.setIndeterminate(false);
-		determinateEnHorStr.setStringPainted(true);
-		horizontalBuilder.appendSeparator("Determinate enabled + string");
-		horizontalBuilder.append(determinateEnHorStr);
+        JProgressBar determinateEnHorStr = new JProgressBar(JProgressBar.HORIZONTAL, 0, 100);
+        determinateEnHorStr.setIndeterminate(false);
+        determinateEnHorStr.setStringPainted(true);
+        horizontalBuilder.appendSeparator("Determinate enabled + string");
+        horizontalBuilder.append(determinateEnHorStr);
 
-		JProgressBar indeterminateEnHor = new JProgressBar(
-				JProgressBar.HORIZONTAL, 0, 100);
-		indeterminateEnHor.setIndeterminate(true);
-		indeterminateEnHor.setStringPainted(true);
-		indeterminateEnHor.setString("In progress");
-		horizontalBuilder.appendSeparator("Indeterminate enabled + string");
-		horizontalBuilder.append(indeterminateEnHor);
+        JProgressBar indeterminateEnHor = new JProgressBar(JProgressBar.HORIZONTAL, 0, 100);
+        indeterminateEnHor.setIndeterminate(true);
+        indeterminateEnHor.setStringPainted(true);
+        indeterminateEnHor.setString("In progress");
+        horizontalBuilder.appendSeparator("Indeterminate enabled + string");
+        horizontalBuilder.append(indeterminateEnHor);
 
-		JProgressBar determinateDisHor = new JProgressBar(
-				JProgressBar.HORIZONTAL, 0, 100);
-		determinateDisHor.setIndeterminate(false);
-		determinateDisHor.setEnabled(false);
-		horizontalBuilder.appendSeparator("Determinate disabled");
-		horizontalBuilder.append(determinateDisHor);
+        JProgressBar determinateDisHor = new JProgressBar(JProgressBar.HORIZONTAL, 0, 100);
+        determinateDisHor.setIndeterminate(false);
+        determinateDisHor.setEnabled(false);
+        horizontalBuilder.appendSeparator("Determinate disabled");
+        horizontalBuilder.append(determinateDisHor);
 
-		JProgressBar determinateDisHorStr = new JProgressBar(
-				JProgressBar.HORIZONTAL, 0, 100);
-		determinateDisHorStr.setIndeterminate(false);
-		determinateDisHorStr.setEnabled(false);
-		determinateDisHorStr.setStringPainted(true);
-		horizontalBuilder.appendSeparator("Determinate disabled + string");
-		horizontalBuilder.append(determinateDisHorStr);
+        JProgressBar determinateDisHorStr = new JProgressBar(JProgressBar.HORIZONTAL, 0, 100);
+        determinateDisHorStr.setIndeterminate(false);
+        determinateDisHorStr.setEnabled(false);
+        determinateDisHorStr.setStringPainted(true);
+        horizontalBuilder.appendSeparator("Determinate disabled + string");
+        horizontalBuilder.append(determinateDisHorStr);
 
-		JProgressBar indeterminateDisHor = new JProgressBar(
-				JProgressBar.HORIZONTAL, 0, 100);
-		indeterminateDisHor.setIndeterminate(true);
-		indeterminateDisHor.setEnabled(false);
-		horizontalBuilder.appendSeparator("Indeterminate disabled");
-		horizontalBuilder.append(indeterminateDisHor);
+        JProgressBar indeterminateDisHor = new JProgressBar(JProgressBar.HORIZONTAL, 0, 100);
+        indeterminateDisHor.setIndeterminate(true);
+        indeterminateDisHor.setEnabled(false);
+        horizontalBuilder.appendSeparator("Indeterminate disabled");
+        horizontalBuilder.append(indeterminateDisHor);
 
-		bars.add(horizontalBuilder.getPanel());
+        bars.add(horizontalBuilder.getPanel());
 
-		FormLayout verticalLm = new FormLayout(
-				"center:pref:grow, 4dlu, center:pref:grow, 4dlu, "
-						+ "center:pref:grow, 4dlu, center:pref:grow, 4dlu, center:pref:grow",
-				"");
-		DefaultFormBuilder verticalBuilder = new DefaultFormBuilder(verticalLm);
-		verticalBuilder.setDefaultDialogBorder();
-		verticalBuilder.append("Enabled");
-		verticalBuilder.append("RTL");
-		verticalBuilder.append("Indeterm");
-		verticalBuilder.append("Disabled");
-		verticalBuilder.append("Dis indet");
+        FormLayout verticalLm = new FormLayout("center:pref:grow, 4dlu, center:pref:grow, 4dlu, "
+                + "center:pref:grow, 4dlu, center:pref:grow, 4dlu, center:pref:grow", "");
+        DefaultFormBuilder verticalBuilder = new DefaultFormBuilder(verticalLm)
+                .border(Borders.DIALOG);
+        verticalBuilder.append("Enabled");
+        verticalBuilder.append("RTL");
+        verticalBuilder.append("Indeterm");
+        verticalBuilder.append("Disabled");
+        verticalBuilder.append("Dis indet");
 
-		JProgressBar determinateEnVer = new JProgressBar(JProgressBar.VERTICAL,
-				0, 100);
-		determinateEnVer.setIndeterminate(false);
-		determinateEnVer.setStringPainted(true);
-		verticalBuilder.append(determinateEnVer);
+        JProgressBar determinateEnVer = new JProgressBar(JProgressBar.VERTICAL, 0, 100);
+        determinateEnVer.setIndeterminate(false);
+        determinateEnVer.setStringPainted(true);
+        verticalBuilder.append(determinateEnVer);
 
-		JProgressBar determinateEnVerRTL = new JProgressBar(
-				JProgressBar.VERTICAL, 0, 100);
-		determinateEnVerRTL.setIndeterminate(false);
-		determinateEnVerRTL.setStringPainted(true);
-		determinateEnVerRTL
-				.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		verticalBuilder.append(determinateEnVerRTL);
+        JProgressBar determinateEnVerRTL = new JProgressBar(JProgressBar.VERTICAL, 0, 100);
+        determinateEnVerRTL.setIndeterminate(false);
+        determinateEnVerRTL.setStringPainted(true);
+        determinateEnVerRTL.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+        verticalBuilder.append(determinateEnVerRTL);
 
-		JProgressBar indeterminateEnVer = new JProgressBar(
-				JProgressBar.VERTICAL, 0, 100);
-		indeterminateEnVer.setIndeterminate(true);
-		indeterminateEnVer.setStringPainted(true);
-		indeterminateEnVer.setString("In progress");
-		verticalBuilder.append(indeterminateEnVer);
+        JProgressBar indeterminateEnVer = new JProgressBar(JProgressBar.VERTICAL, 0, 100);
+        indeterminateEnVer.setIndeterminate(true);
+        indeterminateEnVer.setStringPainted(true);
+        indeterminateEnVer.setString("In progress");
+        verticalBuilder.append(indeterminateEnVer);
 
-		JProgressBar determinateDisVer = new JProgressBar(
-				JProgressBar.VERTICAL, 0, 100);
-		determinateDisVer.setIndeterminate(false);
-		determinateDisVer.setEnabled(false);
-		verticalBuilder.append(determinateDisVer);
+        JProgressBar determinateDisVer = new JProgressBar(JProgressBar.VERTICAL, 0, 100);
+        determinateDisVer.setIndeterminate(false);
+        determinateDisVer.setEnabled(false);
+        verticalBuilder.append(determinateDisVer);
 
-		JProgressBar indeterminateDisVer = new JProgressBar(
-				JProgressBar.VERTICAL, 0, 100);
-		indeterminateDisVer.setIndeterminate(true);
-		indeterminateDisVer.setEnabled(false);
-		verticalBuilder.append(indeterminateDisVer);
+        JProgressBar indeterminateDisVer = new JProgressBar(JProgressBar.VERTICAL, 0, 100);
+        indeterminateDisVer.setIndeterminate(true);
+        indeterminateDisVer.setEnabled(false);
+        verticalBuilder.append(indeterminateDisVer);
 
-		bars.add(verticalBuilder.getPanel());
+        bars.add(verticalBuilder.getPanel());
 
-		this.add(new JScrollPane(bars), BorderLayout.CENTER);
+        this.add(new JScrollPane(bars), BorderLayout.CENTER);
 
-		JPanel buttons = new JPanel();
-		buttons.setLayout(new FlowLayout(FlowLayout.CENTER));
+        JPanel buttons = new JPanel();
+        buttons.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-		final Timeline progressTimeline = new Timeline(this);
-		@RunOnUIThread
-		class ProgressCallback extends TimelineCallbackAdapter {
-			@Override
-			public void onTimelinePulse(float durationFraction,
-					float timelinePosition) {
-				delta(ProgressBarPanel.this, 1);
-			}
-		}
-		progressTimeline.addCallback(new ProgressCallback());
-		progressTimeline.setDuration(2000);
+        final Timeline progressTimeline = new Timeline(this);
+        @RunOnUIThread
+        class ProgressCallback extends TimelineCallbackAdapter {
+            @Override
+            public void onTimelinePulse(float durationFraction, float timelinePosition) {
+                delta(ProgressBarPanel.this, 1);
+            }
+        }
+        progressTimeline.addCallback(new ProgressCallback());
+        progressTimeline.setDuration(2000);
 
-		this.startButton = new JButton("start");
-		this.startButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				progressTimeline.playLoop(RepeatBehavior.LOOP);
-				startButton.setEnabled(false);
-				stopButton.setEnabled(true);
-			}
-		});
+        this.startButton = new JButton("start");
+        this.startButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                progressTimeline.playLoop(RepeatBehavior.LOOP);
+                startButton.setEnabled(false);
+                stopButton.setEnabled(true);
+            }
+        });
 
-		this.stopButton = new JButton("stop");
-		this.stopButton.setEnabled(false);
-		this.stopButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				progressTimeline.cancel();
-				stopButton.setEnabled(false);
-				startButton.setEnabled(true);
-			}
-		});
+        this.stopButton = new JButton("stop");
+        this.stopButton.setEnabled(false);
+        this.stopButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                progressTimeline.cancel();
+                stopButton.setEnabled(false);
+                startButton.setEnabled(true);
+            }
+        });
 
-		JButton plus10Button = new JButton("plus 10");
-		plus10Button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				delta(ProgressBarPanel.this, 10);
-			}
-		});
-		buttons.add(plus10Button);
+        JButton plus10Button = new JButton("plus 10");
+        plus10Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                delta(ProgressBarPanel.this, 10);
+            }
+        });
+        buttons.add(plus10Button);
 
-		JButton minus10Button = new JButton("minus 10");
-		minus10Button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				delta(ProgressBarPanel.this, -10);
-			}
-		});
-		buttons.add(minus10Button);
+        JButton minus10Button = new JButton("minus 10");
+        minus10Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                delta(ProgressBarPanel.this, -10);
+            }
+        });
+        buttons.add(minus10Button);
 
-		JButton plus1Button = new JButton("plus 1");
-		plus1Button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				delta(ProgressBarPanel.this, 1);
-			}
-		});
-		buttons.add(plus1Button);
+        JButton plus1Button = new JButton("plus 1");
+        plus1Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                delta(ProgressBarPanel.this, 1);
+            }
+        });
+        buttons.add(plus1Button);
 
-		JButton minus1Button = new JButton("minus 1");
-		minus1Button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				delta(ProgressBarPanel.this, -1);
-			}
-		});
-		buttons.add(minus1Button);
+        JButton minus1Button = new JButton("minus 1");
+        minus1Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                delta(ProgressBarPanel.this, -1);
+            }
+        });
+        buttons.add(minus1Button);
 
-		JButton resetButton = new JButton("reset");
-		resetButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				progressTimeline.cancel();
-				reset(ProgressBarPanel.this);
-				stopButton.setEnabled(false);
-				startButton.setEnabled(true);
-			}
-		});
+        JButton resetButton = new JButton("reset");
+        resetButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                progressTimeline.cancel();
+                reset(ProgressBarPanel.this);
+                stopButton.setEnabled(false);
+                startButton.setEnabled(true);
+            }
+        });
 
-		buttons.add(this.startButton);
-		buttons.add(this.stopButton);
-		buttons.add(resetButton);
+        buttons.add(this.startButton);
+        buttons.add(this.stopButton);
+        buttons.add(resetButton);
 
-		this.add(buttons, BorderLayout.SOUTH);
-	}
+        this.add(buttons, BorderLayout.SOUTH);
+    }
 
-	protected static void delta(Component c, int delta) {
-		if (c instanceof JProgressBar) {
-			JProgressBar pb = (JProgressBar) c;
-			if (!pb.isIndeterminate()) {
-				int newValue = pb.getValue() + delta;
-				if (newValue < pb.getMinimum())
-					newValue = pb.getMinimum();
-				if (newValue > pb.getMaximum())
-					newValue = pb.getMaximum();
-				pb.setValue(newValue);
-			}
-		}
-		if (c instanceof Container) {
-			Container cont = (Container) c;
-			for (int i = 0; i < cont.getComponentCount(); i++) {
-				delta(cont.getComponent(i), delta);
-			}
-		}
-	}
+    protected static void delta(Component c, int delta) {
+        if (c instanceof JProgressBar) {
+            JProgressBar pb = (JProgressBar) c;
+            if (!pb.isIndeterminate()) {
+                int newValue = pb.getValue() + delta;
+                if (newValue < pb.getMinimum())
+                    newValue = pb.getMinimum();
+                if (newValue > pb.getMaximum())
+                    newValue = pb.getMaximum();
+                pb.setValue(newValue);
+            }
+        }
+        if (c instanceof Container) {
+            Container cont = (Container) c;
+            for (int i = 0; i < cont.getComponentCount(); i++) {
+                delta(cont.getComponent(i), delta);
+            }
+        }
+    }
 
-	protected static void reset(Component c) {
-		if (c instanceof JProgressBar) {
-			JProgressBar pb = (JProgressBar) c;
-			if (!pb.isIndeterminate()) {
-				pb.setValue(pb.getMinimum());
-			}
-		}
-		if (c instanceof Container) {
-			Container cont = (Container) c;
-			for (int i = 0; i < cont.getComponentCount(); i++) {
-				reset(cont.getComponent(i));
-			}
-		}
-	}
+    protected static void reset(Component c) {
+        if (c instanceof JProgressBar) {
+            JProgressBar pb = (JProgressBar) c;
+            if (!pb.isIndeterminate()) {
+                pb.setValue(pb.getMinimum());
+            }
+        }
+        if (c instanceof Container) {
+            Container cont = (Container) c;
+            for (int i = 0; i < cont.getComponentCount(); i++) {
+                reset(cont.getComponent(i));
+            }
+        }
+    }
 }

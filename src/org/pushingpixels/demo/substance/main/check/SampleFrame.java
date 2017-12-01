@@ -37,7 +37,6 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -72,7 +71,6 @@ import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.skin.GeminiSkin;
-import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
@@ -151,52 +149,37 @@ public class SampleFrame extends JFrame {
 
         final JButton add1 = new JButton("add");
         final JButton add2 = new JButton("add");
-        add1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        mainPanel.add(b1);
-                        mainPanel.add(b2);
-                        mainPanel.add(b3);
-                        mainPanel.revalidate();
-                        add1.setVisible(false);
-                    }
-                });
-            }
-        });
-        add2.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        mainPanel2.add(b4);
-                        mainPanel2.add(b5);
-                        mainPanel2.add(b6);
-                        mainPanel2.revalidate();
-                        add2.setVisible(false);
-                    }
-                });
-            }
-        });
+        add1.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            mainPanel.add(b1);
+            mainPanel.add(b2);
+            mainPanel.add(b3);
+            mainPanel.revalidate();
+            add1.setVisible(false);
+        }));
+        add2.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            mainPanel2.add(b4);
+            mainPanel2.add(b5);
+            mainPanel2.add(b6);
+            mainPanel2.revalidate();
+            add2.setVisible(false);
+        }));
         mainPanel.add(add1);
         mainPanel2.add(add2);
 
         final JCheckBox cb = new JCheckBox("border layout");
-        cb.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (cb.isSelected()) {
-                    mainPanel.setLayout(new BorderLayout());
-                    mainPanel2.setLayout(new BorderLayout());
-                } else {
-                    mainPanel.setLayout(new FlowLayout());
-                    mainPanel2.setLayout(new FlowLayout());
-                }
-                mainPanel.revalidate();
-                mainPanel.doLayout();
-                mainPanel.repaint();
-                mainPanel2.revalidate();
+        cb.addActionListener((ActionEvent e) -> {
+            if (cb.isSelected()) {
+                mainPanel.setLayout(new BorderLayout());
+                mainPanel2.setLayout(new BorderLayout());
+            } else {
+                mainPanel.setLayout(new FlowLayout());
+                mainPanel2.setLayout(new FlowLayout());
             }
+            mainPanel.revalidate();
+            mainPanel.doLayout();
+            mainPanel.repaint();
+            mainPanel2.revalidate();
         });
-        // buttons.add(cb);
 
         transPanel.add(centerPanel, BorderLayout.CENTER);
 
@@ -220,17 +203,15 @@ public class SampleFrame extends JFrame {
         buttons.add(cb6);
 
         JButton showHide = new JButton("Toggle");
-        showHide.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                b1.setVisible(cb1.isSelected());
-                b2.setVisible(cb2.isSelected());
-                b3.setVisible(cb3.isSelected());
-                b4.setVisible(cb4.isSelected());
-                b5.setVisible(cb5.isSelected());
-                b6.setVisible(cb6.isSelected());
-                mainPanel.doLayout();
-                mainPanel2.doLayout();
-            }
+        showHide.addActionListener((ActionEvent e) -> {
+            b1.setVisible(cb1.isSelected());
+            b2.setVisible(cb2.isSelected());
+            b3.setVisible(cb3.isSelected());
+            b4.setVisible(cb4.isSelected());
+            b5.setVisible(cb5.isSelected());
+            b6.setVisible(cb6.isSelected());
+            mainPanel.doLayout();
+            mainPanel2.doLayout();
         });
         buttons.add(showHide);
 
@@ -239,8 +220,7 @@ public class SampleFrame extends JFrame {
         JPanel samplePanel = new JPanel(new BorderLayout());
         FormLayout lm = new FormLayout("fill:default:grow(1), 2dlu," + "fill:default:grow(1)",
                 "pref, 3dlu, pref, 3dlu, pref, 3dlu, pref");
-        PanelBuilder builder = new PanelBuilder(lm);
-        builder.setBorder(new EmptyBorder(2, 2, 2, 2));
+        PanelBuilder builder = new PanelBuilder(lm).border(new EmptyBorder(2, 2, 2, 2));
         CellConstraints cc = new CellConstraints();
 
         JCheckBox cbes = new JCheckBox("Enabled selected");
@@ -266,7 +246,6 @@ public class SampleFrame extends JFrame {
         JComboBox combo = new JComboBox(new Object[] { "item1" });
         combo.setSelectedIndex(0);
         JTextField text = new JTextField("Text field");
-        // text.setEditable(false);
 
         builder.add(combo, cc.xy(1, 7));
         builder.add(text, cc.xy(3, 7));
@@ -274,7 +253,6 @@ public class SampleFrame extends JFrame {
         JPanel contentPanel = builder.getPanel();
         contentPanel.setPreferredSize(new Dimension(contentPanel.getPreferredSize().width,
                 contentPanel.getPreferredSize().height + 100));
-        // contentPanel.setBorder(null);
 
         contentPanel.setOpaque(false);
         final JScrollPane scroll = new JScrollPane(contentPanel,
@@ -289,8 +267,6 @@ public class SampleFrame extends JFrame {
         JButton cancel = new JButton("cancel");
         cancel.setEnabled(false);
         final JButton ok = new JButton("OK");
-        // ok.putClientProperty(SubstanceLookAndFeel.PAINT_ACTIVE_PROPERTY,
-        // Boolean.TRUE);
         buttons2.add(this.prev);
         buttons2.add(cancel);
         buttons2.add(ok);
@@ -340,14 +316,11 @@ public class SampleFrame extends JFrame {
         this.tree = new JTree(root);
         this.tree.setBorder(new EmptyBorder(0, 0, 0, 0));
         JScrollPane jspTree = new JScrollPane(this.tree);
-        // TransitionLayoutManager.getInstance().track(jspTree, true);
-        // jspTree.setBorder(new EmptyBorder(0, 0, 0, 0));
 
         this.list = new JList(new MyListModel());
         this.list.setBorder(new EmptyBorder(0, 0, 0, 0));
         this.list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         JScrollPane jspList = new JScrollPane(this.list);
-        // jspList.setBorder(new EmptyBorder(0, 0, 0, 0));
 
         JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, jspTree, jspList);
         split.setDividerLocation(130);
@@ -358,7 +331,6 @@ public class SampleFrame extends JFrame {
         JMenuBar jmb = new JMenuBar();
 
         if (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel) {
-            // jmb.add(SampleMenuFactory.getThemeMenu());
             jmb.add(SampleMenuFactory.getSkinMenu());
         }
 
@@ -375,7 +347,7 @@ public class SampleFrame extends JFrame {
 
     protected void synchronize() {
         SwingUtilities.invokeLater(() -> {
-            if (SubstanceCoreUtilities.isCurrentLookAndFeel()) {
+            if (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel) {
                 SampleFrame.this
                         .setIconImage(SubstanceLogo.getLogoImage(SubstanceCortex.ComponentScope
                                 .getCurrentSkin(SampleFrame.this.getRootPane())

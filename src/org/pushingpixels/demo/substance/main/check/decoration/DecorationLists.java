@@ -12,8 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import org.pushingpixels.demo.substance.main.check.SubstanceSkinComboSelector;
-import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 public class DecorationLists extends JFrame {

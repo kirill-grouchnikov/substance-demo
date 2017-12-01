@@ -46,7 +46,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIDefaults;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.plaf.FontUIResource;
 
 import org.jdesktop.swingx.JXDatePicker;
@@ -69,12 +68,13 @@ import org.pushingpixels.demo.substance.main.SubstanceLogo;
 import org.pushingpixels.demo.substance.main.check.SampleMenuFactory;
 import org.pushingpixels.demo.substance.main.check.statusbar.FontSizePanel;
 import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.font.FontPolicy;
 import org.pushingpixels.substance.api.font.FontSet;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
+import org.pushingpixels.substance.swingx.SubstanceSwingxPlugin;
 
 public class TestSwingXFrame extends JFrame {
     private static class WrapperFontSet implements FontSet {
@@ -125,8 +125,8 @@ public class TestSwingXFrame extends JFrame {
     TestSwingXFrame() {
         super("SwingX testing bed");
 
-        this.setIconImage(
-                SubstanceLogo.getLogoImage(SubstanceCortex.ComponentScope.getCurrentSkin(this.getRootPane())
+        this.setIconImage(SubstanceLogo
+                .getLogoImage(SubstanceCortex.ComponentScope.getCurrentSkin(this.getRootPane())
                         .getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
                                 ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
         SubstanceCortex.GlobalScope.registerSkinChangeListener(
@@ -190,70 +190,62 @@ public class TestSwingXFrame extends JFrame {
         taskPaneVarious.setTitle("Various SwingX components");
         taskPaneContainer.add(taskPaneVarious);
         JButton headerButton = new JButton("Test JXHeader");
-        headerButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JDialog dialog = new JDialog(TestSwingXFrame.this, "JXHeader test", true);
-                JXHeader header = new JXHeader();
-                header.setTitle("Sample header title");
-                header.setDescription("Sample long long\nlong header description");
-                dialog.add(header, BorderLayout.NORTH);
-                dialog.add(new JPanel() {
-                    @Override
-                    public Dimension getPreferredSize() {
-                        return new Dimension(400, 200);
-                    }
-                }, BorderLayout.CENTER);
-                dialog.pack();
-                dialog.setLocationRelativeTo(TestSwingXFrame.this);
-                dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-                dialog.setVisible(true);
-            }
+        headerButton.addActionListener((ActionEvent e) -> {
+            JDialog dialog = new JDialog(TestSwingXFrame.this, "JXHeader test", true);
+            JXHeader header = new JXHeader();
+            header.setTitle("Sample header title");
+            header.setDescription("Sample long long\nlong header description");
+            dialog.add(header, BorderLayout.NORTH);
+            dialog.add(new JPanel() {
+                @Override
+                public Dimension getPreferredSize() {
+                    return new Dimension(400, 200);
+                }
+            }, BorderLayout.CENTER);
+            dialog.pack();
+            dialog.setLocationRelativeTo(TestSwingXFrame.this);
+            dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+            dialog.setVisible(true);
         });
         taskPaneVarious.add(headerButton);
 
         JButton showLoginDialog = new JButton("Show JXLoginDialog");
-        showLoginDialog.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JXLoginPane loginPane = new JXLoginPane();
-                loginPane.setMessage("Sample login message");
-                loginPane.setBannerText("Sample banner");
-                JXLoginPane.showLoginDialog(TestSwingXFrame.this, loginPane);
-            }
+        showLoginDialog.addActionListener((ActionEvent e) -> {
+            JXLoginPane loginPane = new JXLoginPane();
+            loginPane.setMessage("Sample login message");
+            loginPane.setBannerText("Sample banner");
+            JXLoginPane.showLoginDialog(TestSwingXFrame.this, loginPane);
         });
         taskPaneVarious.add(showLoginDialog);
 
         JButton showTopOfTheDayDialog = new JButton("Show JXTipOfTheDay");
-        showTopOfTheDayDialog.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Properties tips = new Properties();
-                try {
-                    tips.load(TestSwingXFrame.class.getClassLoader()
-                            .getResourceAsStream("test/tips.properties"));
-                } catch (Exception exc) {
-                }
-
-                TipOfTheDayModel model = TipLoader.load(tips);
-                JXTipOfTheDay totd = new JXTipOfTheDay(model);
-
-                totd.showDialog(TestSwingXFrame.this);
+        showTopOfTheDayDialog.addActionListener((ActionEvent e) -> {
+            Properties tips = new Properties();
+            try {
+                tips.load(TestSwingXFrame.class.getClassLoader().getResourceAsStream(
+                        "org/pushingpixels/demo/substance/swingx/tips.properties"));
+            } catch (Exception exc) {
             }
+
+            TipOfTheDayModel model = TipLoader.load(tips);
+            JXTipOfTheDay totd = new JXTipOfTheDay(model);
+
+            totd.showDialog(TestSwingXFrame.this);
         });
         taskPaneVarious.add(showTopOfTheDayDialog);
 
         JButton titledPanelButton = new JButton("Test JXTitledPanel");
-        titledPanelButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JFrame dialog = new JFrame("JXTitledPanel test");
-                dialog.add(new JXTitledPanel("Left panel"), BorderLayout.WEST);
-                JPanel center = new JPanel(new GridLayout(2, 1, 0, 0));
-                center.add(new JXTitledPanel("Top panel"));
-                center.add(new JXTitledPanel("Bottom panel"));
-                dialog.add(center, BorderLayout.CENTER);
-                dialog.setSize(600, 300);
-                dialog.setLocationRelativeTo(TestSwingXFrame.this);
-                dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-                dialog.setVisible(true);
-            }
+        titledPanelButton.addActionListener((ActionEvent e) -> {
+            JFrame dialog = new JFrame("JXTitledPanel test");
+            dialog.add(new JXTitledPanel("Left panel"), BorderLayout.WEST);
+            JPanel center = new JPanel(new GridLayout(2, 1, 0, 0));
+            center.add(new JXTitledPanel("Top panel"));
+            center.add(new JXTitledPanel("Bottom panel"));
+            dialog.add(center, BorderLayout.CENTER);
+            dialog.setSize(600, 300);
+            dialog.setLocationRelativeTo(TestSwingXFrame.this);
+            dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+            dialog.setVisible(true);
         });
         taskPaneVarious.add(titledPanelButton);
 
@@ -293,39 +285,16 @@ public class TestSwingXFrame extends JFrame {
         JXStatusBar statusBar = new JXStatusBar();
         this.add(statusBar, BorderLayout.SOUTH);
 
-        // final JLabel statusLabel = new JLabel("");
-        // JXStatusBar.Constraint cStatusLabel = new JXStatusBar.Constraint();
-        // cStatusLabel.setFixedWidth(100);
-        // statusBar.add(statusLabel, cStatusLabel);
-        // try {
-        // Toolkit.getDefaultToolkit().addAWTEventListener(
-        // new AWTEventListener() {
-        // public void eventDispatched(AWTEvent event) {
-        // if (event instanceof MouseEvent) {
-        // MouseEvent me = (MouseEvent) event;
-        // if (me.getID() == MouseEvent.MOUSE_MOVED) {
-        // Point p = me.getPoint();
-        // statusLabel.setText(p.x + ":" + p.y);
-        // }
-        // }
-        // }
-        // }, AWTEvent.MOUSE_MOTION_EVENT_MASK);
-        // } catch (AccessControlException ace) {
-        // // running in JNLP - ignore
-        // }
-
         JXStatusBar.Constraint c2 = new JXStatusBar.Constraint(
                 JXStatusBar.Constraint.ResizeBehavior.FILL);
         final JLabel tabLabel = new JLabel("");
         statusBar.add(tabLabel, c2);
-        mainPane.getModel().addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                int selectedIndex = mainPane.getSelectedIndex();
-                if (selectedIndex < 0)
-                    tabLabel.setText("No selected tab");
-                else
-                    tabLabel.setText("Tab " + mainPane.getTitleAt(selectedIndex) + " selected");
-            }
+        mainPane.getModel().addChangeListener((ChangeEvent e) -> {
+            int selectedIndex = mainPane.getSelectedIndex();
+            if (selectedIndex < 0)
+                tabLabel.setText("No selected tab");
+            else
+                tabLabel.setText("Tab " + mainPane.getTitleAt(selectedIndex) + " selected");
         });
 
         final JSlider fontSizeSlider = new JSlider(-3, 6, 0);
@@ -333,34 +302,30 @@ public class TestSwingXFrame extends JFrame {
         fontSizeSlider.setOpaque(false);
         fontSizeSlider.setToolTipText(
                 "Controls the global font set size. Resets Substance as the current LAF.");
-        fontSizeSlider.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                // if the value is adjusting - ignore. This is done
-                // to make CPU usage better.
-                if (!fontSizeSlider.getModel().getValueIsAdjusting()) {
-                    final int newValue = fontSizeSlider.getValue();
-                    SwingUtilities.invokeLater(new Runnable() {
-                        public void run() {
-                            SubstanceCortex.GlobalScope.setFontPolicy(null);
-                            final FontSet substanceCoreFontSet = SubstanceCortex.GlobalScope
-                                    .getFontPolicy().getFontSet("Substance", null);
-                            FontPolicy newFontPolicy = new FontPolicy() {
-                                public FontSet getFontSet(String lafName, UIDefaults table) {
-                                    return new WrapperFontSet(substanceCoreFontSet, newValue);
-                                }
-                            };
-
-                            try {
-                                TestSwingXFrame.this
-                                        .setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-                                SubstanceCortex.GlobalScope.setFontPolicy(newFontPolicy);
-                                TestSwingXFrame.this.setCursor(Cursor.getDefaultCursor());
-                            } catch (Exception exc) {
-                                exc.printStackTrace();
-                            }
+        fontSizeSlider.addChangeListener((ChangeEvent e) -> {
+            // if the value is adjusting - ignore. This is done
+            // to make CPU usage better.
+            if (!fontSizeSlider.getModel().getValueIsAdjusting()) {
+                final int newValue = fontSizeSlider.getValue();
+                SwingUtilities.invokeLater(() -> {
+                    SubstanceCortex.GlobalScope.setFontPolicy(null);
+                    final FontSet substanceCoreFontSet = SubstanceCortex.GlobalScope.getFontPolicy()
+                            .getFontSet("Substance", null);
+                    FontPolicy newFontPolicy = new FontPolicy() {
+                        public FontSet getFontSet(String lafName, UIDefaults table) {
+                            return new WrapperFontSet(substanceCoreFontSet, newValue);
                         }
-                    });
-                }
+                    };
+
+                    try {
+                        TestSwingXFrame.this
+                                .setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                        SubstanceCortex.GlobalScope.setFontPolicy(newFontPolicy);
+                        TestSwingXFrame.this.setCursor(Cursor.getDefaultCursor());
+                    } catch (Exception exc) {
+                        exc.printStackTrace();
+                    }
+                });
             }
         });
 
@@ -390,12 +355,11 @@ public class TestSwingXFrame extends JFrame {
     public static void main(String[] args) {
         JDialog.setDefaultLookAndFeelDecorated(true);
         JFrame.setDefaultLookAndFeelDecorated(true);
+        SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceSwingxPlugin());
 
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-                new TestSwingXFrame().setVisible(true);
-            }
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
+            new TestSwingXFrame().setVisible(true);
         });
     }
 }

@@ -27,59 +27,56 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 public class LafChanger implements ActionListener {
-	private JFrame frame;
+    private JFrame frame;
 
-	private String lafClassName;
+    private String lafClassName;
 
-	public static JMenuItem getMenuItem(JFrame frame, String lafName,
-			String lafClassName) {
-		JMenuItem result = new JMenuItem(lafName);
-		result.addActionListener(new LafChanger(frame, lafClassName));
-		return result;
-	}
+    public static JMenuItem getMenuItem(JFrame frame, String lafName, String lafClassName) {
+        JMenuItem result = new JMenuItem(lafName);
+        result.addActionListener(new LafChanger(frame, lafClassName));
+        return result;
+    }
 
-	public LafChanger(JFrame frame, String lafClassName) {
-		super();
-		this.frame = frame;
-		this.lafClassName = lafClassName;
-	}
+    public LafChanger(JFrame frame, String lafClassName) {
+        super();
+        this.frame = frame;
+        this.lafClassName = lafClassName;
+    }
 
-	public void actionPerformed(ActionEvent e) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				boolean was_wm_decorated = !frame.isUndecorated();
+    public void actionPerformed(ActionEvent e) {
+        SwingUtilities.invokeLater(() -> {
+            boolean was_wm_decorated = !frame.isUndecorated();
 
-				try {
-					UIManager.setLookAndFeel(lafClassName);
-					SwingUtilities.updateComponentTreeUI(frame);
-				} catch (ClassNotFoundException cnfe) {
-					out("LAF main class '" + lafClassName + "' not found");
-				} catch (Exception exc) {
-					exc.printStackTrace();
-				}
+            try {
+                UIManager.setLookAndFeel(lafClassName);
+                SwingUtilities.updateComponentTreeUI(frame);
+            } catch (ClassNotFoundException cnfe) {
+                out("LAF main class '" + lafClassName + "' not found");
+            } catch (Exception exc) {
+                exc.printStackTrace();
+            }
 
-				if (JFrame.isDefaultLookAndFeelDecorated()) {
-					boolean is_wm_decorated = !UIManager.getLookAndFeel()
-							.getSupportsWindowDecorations();
-					if (is_wm_decorated != was_wm_decorated) {
-						out("Changing decoration policy\n");
-						frame.setVisible(false);
-						frame.dispose();
-						frame.setUndecorated(!is_wm_decorated);
-						frame.pack();
-						frame.setVisible(true);
-						was_wm_decorated = !frame.isUndecorated();
-					}
-				}
-			}
-		});
-	}
+            if (JFrame.isDefaultLookAndFeelDecorated()) {
+                boolean is_wm_decorated = !UIManager.getLookAndFeel()
+                        .getSupportsWindowDecorations();
+                if (is_wm_decorated != was_wm_decorated) {
+                    out("Changing decoration policy\n");
+                    frame.setVisible(false);
+                    frame.dispose();
+                    frame.setUndecorated(!is_wm_decorated);
+                    frame.pack();
+                    frame.setVisible(true);
+                    was_wm_decorated = !frame.isUndecorated();
+                }
+            }
+        });
+    }
 
-	public static void out(Object obj) {
-		try {
-			System.out.println(obj);
-		} catch (Exception exc) {
-			// ignore - is thrown on Mac in WebStart (security access)
-		}
-	}
+    private static void out(Object obj) {
+        try {
+            System.out.println(obj);
+        } catch (Exception exc) {
+            // ignore - is thrown on Mac in WebStart (security access)
+        }
+    }
 }

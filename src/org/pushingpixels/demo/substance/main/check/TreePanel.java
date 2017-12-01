@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2008 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2017 Substance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -52,7 +52,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import org.pushingpixels.demo.substance.main.Check;
 import org.pushingpixels.demo.substance.main.check.svg.flags.se;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.renderer.SubstanceDefaultTreeCellRenderer;
@@ -80,7 +79,7 @@ public class TreePanel extends ControllablePanel {
                     leaf, row, hasFocus);
             if (sel) {
                 result.setText("<html><b>" + getText() + "</b></html>");
-                result.setIcon(Check.configure(new se(), 21, 16));
+                result.setIcon(se.of(16,  16));
             }
             return result;
         }

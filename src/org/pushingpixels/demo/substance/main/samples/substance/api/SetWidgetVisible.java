@@ -42,8 +42,8 @@ import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
 
-import org.pushingpixels.substance.api.SubstanceSlices.SubstanceWidgetType;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceSlices.SubstanceWidgetType;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /**

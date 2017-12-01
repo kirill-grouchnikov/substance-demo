@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2008 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2017 Substance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -62,7 +62,6 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
-import org.pushingpixels.demo.substance.main.Check;
 import org.pushingpixels.demo.substance.main.check.command.ConfigurationCommand;
 import org.pushingpixels.demo.substance.main.check.command.DisableCommand;
 import org.pushingpixels.demo.substance.main.check.command.EnableCommand;
@@ -72,6 +71,7 @@ import org.pushingpixels.substance.api.combo.ComboPopupPrototypeCallback;
 import org.pushingpixels.substance.api.combo.WidestComboPopupPrototype;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
+import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
@@ -256,8 +256,8 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
      */
     private JPanel getLeftComboPanel() {
         FormLayout lm = new FormLayout("right:pref, 4dlu, fill:pref:grow", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel());
-        builder.setDefaultDialogBorder();
+        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel())
+                .border(Borders.DIALOG);
 
         builder.appendSeparator("Simple combos");
 
@@ -324,7 +324,7 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
         comboHebrew.setMaximumRowCount(6);
         builder.append("RTL (Hebrew)", comboHebrew);
 
-        final Icon israelFlag = Check.configure(new il(), 21, 16);
+        final Icon israelFlag = il.of(16, 16);
         JComboBox comboHebrewCustomRenderer = new FlexiComboBox<String>(
                 "\u05e8\u05d0\u05e9\u05d9 1", "\u05e8\u05d0\u05e9\u05d9 2",
                 "\u05e8\u05d0\u05e9\u05d9 3", "\u05e8\u05d0\u05e9\u05d9 4",
@@ -389,8 +389,8 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
      */
     private JPanel getRightComboPanel() {
         FormLayout lm = new FormLayout("right:pref, 4dlu, left:pref:grow", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel());
-        builder.setDefaultDialogBorder();
+        DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel())
+                .border(Borders.DIALOG);
 
         builder.appendSeparator("Popup flyout");
 

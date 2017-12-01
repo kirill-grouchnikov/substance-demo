@@ -22,20 +22,12 @@ import java.awt.geom.RoundRectangle2D;
 
 /**
  * This class has been automatically generated using <a
- * href="https://github.com/kirill-grouchnikov/flamingo">Flamingo SVG transcoder</a>.
+ * href="https://github.com/kirill-grouchnikov/ibis">Ibis SVG transcoder</a>.
  */
 public class Edit_find_replace implements
 		org.pushingpixels.flamingo.api.common.icon.ResizableIcon {
-	/**
-	 * Paints the transcoded SVG image on the specified graphics context. You
-	 * can install a custom transformation on the graphics context to scale the
-	 * image.
-	 * 
-	 * @param g
-	 *            Graphics context.
-	 */
     @SuppressWarnings("unused")
-	public static void paint(Graphics2D g) {
+	private void innerPaint(Graphics2D g) {
         Shape shape = null;
         Paint paint = null;
         Stroke stroke = null;
@@ -63,10 +55,12 @@ g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.7071080207824707
 paint = new RadialGradientPaint(new Point2D.Double(24.306795120239258, 42.077980041503906), 15.821514f, new Point2D.Double(24.306795120239258, 42.077980041503906), new float[] {0.0f,1.0f}, new Color[] {new Color(0, 0, 0, 255),new Color(0, 0, 0, 0)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(1.0f, 0.0f, 0.0f, 0.2849160134792328f, 0.0f, 30.089279174804688f));
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(40.128307, 42.07798);
-((GeneralPath)shape).curveTo(40.128307, 44.567574, 33.044773, 46.585785, 24.306793, 46.585785);
-((GeneralPath)shape).curveTo(15.568812, 46.585785, 8.485279, 44.567574, 8.485279, 42.07798);
-((GeneralPath)shape).curveTo(8.485279, 39.588387, 15.568812, 37.570175, 24.306793, 37.570175);
-((GeneralPath)shape).curveTo(33.044773, 37.570175, 40.128307, 39.588387, 40.128307, 42.07798);
+((GeneralPath)shape).curveTo(40.15366, 43.693268, 37.143654, 45.188953, 32.238045, 45.998688);
+((GeneralPath)shape).curveTo(27.332438, 46.808426, 21.281149, 46.808426, 16.37554, 45.998688);
+((GeneralPath)shape).curveTo(11.469932, 45.188953, 8.459925, 43.693268, 8.485279, 42.07798);
+((GeneralPath)shape).curveTo(8.459925, 40.462692, 11.469932, 38.967007, 16.37554, 38.157272);
+((GeneralPath)shape).curveTo(21.281149, 37.347534, 27.332438, 37.347534, 32.238045, 38.157272);
+((GeneralPath)shape).curveTo(37.143654, 38.967007, 40.15366, 40.462692, 40.128307, 42.07798);
 ((GeneralPath)shape).closePath();
 g.setPaint(paint);
 g.fill(shape);
@@ -335,10 +329,12 @@ g.transform(new AffineTransform(0.9624220132827759f, 0.0f, 0.0f, 1.0113660097122
 paint = new RadialGradientPaint(new Point2D.Double(24.13001823425293, 37.96792221069336), 16.528622f, new Point2D.Double(24.13001823425293, 37.96792221069336), new float[] {0.0f,1.0f}, new Color[] {new Color(0, 0, 0, 255),new Color(0, 0, 0, 0)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(1.0f, 0.0f, 0.0f, 0.23796799778938293f, 0.0f, 28.93277931213379f));
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(40.65864, 37.967922);
-((GeneralPath)shape).curveTo(40.65864, 40.140213, 33.258526, 41.901203, 24.13002, 41.901203);
-((GeneralPath)shape).curveTo(15.001514, 41.901203, 7.6013985, 40.140213, 7.6013985, 37.967922);
-((GeneralPath)shape).curveTo(7.6013985, 35.79563, 15.001514, 34.03464, 24.13002, 34.03464);
-((GeneralPath)shape).curveTo(33.258526, 34.03464, 40.65864, 35.79563, 40.65864, 37.967922);
+((GeneralPath)shape).curveTo(40.685127, 39.37734, 37.540596, 40.6824, 32.415745, 41.38893);
+((GeneralPath)shape).curveTo(27.290888, 42.095467, 20.969152, 42.095467, 15.844297, 41.38893);
+((GeneralPath)shape).curveTo(10.719443, 40.6824, 7.574911, 39.37734, 7.6013985, 37.967922);
+((GeneralPath)shape).curveTo(7.574911, 36.558506, 10.719443, 35.253445, 15.844297, 34.546913);
+((GeneralPath)shape).curveTo(20.969152, 33.840378, 27.290888, 33.840378, 32.415745, 34.546913);
+((GeneralPath)shape).curveTo(37.540596, 35.253445, 40.685127, 36.558506, 40.65864, 37.967922);
 ((GeneralPath)shape).closePath();
 g.setPaint(paint);
 g.fill(shape);
@@ -456,10 +452,12 @@ paint = new LinearGradientPaint(new Point2D.Double(18.292673110961914, 13.602121
 stroke = new BasicStroke(1.2478822f,1,0,10.0f,null,0.0f);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(28.549437, 18.920233);
-((GeneralPath)shape).curveTo(28.549437, 25.022175, 23.602835, 29.968777, 17.500893, 29.968777);
-((GeneralPath)shape).curveTo(11.398951, 29.968777, 6.4523487, 25.022175, 6.4523487, 18.920233);
-((GeneralPath)shape).curveTo(6.4523487, 12.818291, 11.398951, 7.871689, 17.500893, 7.871689);
-((GeneralPath)shape).curveTo(23.602835, 7.871689, 28.549437, 12.818291, 28.549437, 18.920233);
+((GeneralPath)shape).curveTo(28.567142, 22.879269, 26.465181, 26.545166, 23.039478, 28.529814);
+((GeneralPath)shape).curveTo(19.613773, 30.51446, 15.388013, 30.51446, 11.962308, 28.529814);
+((GeneralPath)shape).curveTo(8.536603, 26.545166, 6.4346433, 22.879269, 6.4523487, 18.920233);
+((GeneralPath)shape).curveTo(6.4346433, 14.961198, 8.536603, 11.295299, 11.962308, 9.310653);
+((GeneralPath)shape).curveTo(15.388013, 7.326006, 19.613773, 7.326006, 23.039478, 9.310653);
+((GeneralPath)shape).curveTo(26.465181, 11.295299, 28.567142, 14.961198, 28.549437, 18.920233);
 ((GeneralPath)shape).closePath();
 g.setPaint(paint);
 g.setStroke(stroke);
@@ -483,10 +481,12 @@ g.transform(new AffineTransform(-0.8996970057487488f, 0.0f, 0.0f, 0.899697005748
 paint = new RadialGradientPaint(new Point2D.Double(18.240928649902344, 21.8179874420166), 8.308505f, new Point2D.Double(18.240928649902344, 21.8179874420166), new float[] {0.0f,1.0f}, new Color[] {new Color(114, 159, 207, 53),new Color(114, 159, 207, 172)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(-1.0f, 0.0f, 0.0f, 1.0f, 43.35200119018555f, 0.0f));
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(25.897785, 18.478292);
-((GeneralPath)shape).curveTo(25.897785, 23.066954, 22.17794, 26.786797, 17.58928, 26.786797);
-((GeneralPath)shape).curveTo(13.00062, 26.786797, 9.280775, 23.066954, 9.280775, 18.478292);
-((GeneralPath)shape).curveTo(9.280775, 13.889632, 13.00062, 10.169787, 17.58928, 10.169787);
-((GeneralPath)shape).curveTo(22.17794, 10.169787, 25.897785, 13.889632, 25.897785, 18.478292);
+((GeneralPath)shape).curveTo(25.9111, 21.455486, 24.330425, 24.212242, 21.754295, 25.704697);
+((GeneralPath)shape).curveTo(19.178165, 27.197151, 16.000395, 27.197151, 13.424264, 25.704697);
+((GeneralPath)shape).curveTo(10.848134, 24.212242, 9.267461, 21.455486, 9.280775, 18.478292);
+((GeneralPath)shape).curveTo(9.267461, 15.501098, 10.848134, 12.744342, 13.424264, 11.251888);
+((GeneralPath)shape).curveTo(16.000395, 9.759434, 19.178165, 9.759434, 21.754295, 11.251888);
+((GeneralPath)shape).curveTo(24.330425, 12.744342, 25.9111, 15.501098, 25.897785, 18.478292);
 ((GeneralPath)shape).closePath();
 g.setPaint(paint);
 g.fill(shape);
@@ -494,10 +494,12 @@ paint = new Color(48, 99, 163, 255);
 stroke = new BasicStroke(1.1114874f,1,0,10.0f,null,0.0f);
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(25.897785, 18.478292);
-((GeneralPath)shape).curveTo(25.897785, 23.066954, 22.17794, 26.786797, 17.58928, 26.786797);
-((GeneralPath)shape).curveTo(13.00062, 26.786797, 9.280775, 23.066954, 9.280775, 18.478292);
-((GeneralPath)shape).curveTo(9.280775, 13.889632, 13.00062, 10.169787, 17.58928, 10.169787);
-((GeneralPath)shape).curveTo(22.17794, 10.169787, 25.897785, 13.889632, 25.897785, 18.478292);
+((GeneralPath)shape).curveTo(25.9111, 21.455486, 24.330425, 24.212242, 21.754295, 25.704697);
+((GeneralPath)shape).curveTo(19.178165, 27.197151, 16.000395, 27.197151, 13.424264, 25.704697);
+((GeneralPath)shape).curveTo(10.848134, 24.212242, 9.267461, 21.455486, 9.280775, 18.478292);
+((GeneralPath)shape).curveTo(9.267461, 15.501098, 10.848134, 12.744342, 13.424264, 11.251888);
+((GeneralPath)shape).curveTo(16.000395, 9.759434, 19.178165, 9.759434, 21.754295, 11.251888);
+((GeneralPath)shape).curveTo(24.330425, 12.744342, 25.9111, 15.501098, 25.897785, 18.478292);
 ((GeneralPath)shape).closePath();
 g.setPaint(paint);
 g.setStroke(stroke);
@@ -527,10 +529,12 @@ g.transform(new AffineTransform(0.61661297082901f, 0.0f, 0.0f, 0.293576985597610
 paint = new RadialGradientPaint(new Point2D.Double(23.5625, 40.4375), 19.5625f, new Point2D.Double(23.5625, 40.4375), new float[] {0.0f,1.0f}, new Color[] {new Color(0, 0, 0, 255),new Color(0, 0, 0, 0)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(1.0f, 0.0f, 0.0f, 0.34824299812316895f, 0.0f, 26.355430603027344f));
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(43.125, 40.4375);
-((GeneralPath)shape).curveTo(43.125, 44.19994, 34.36657, 47.25, 23.5625, 47.25);
-((GeneralPath)shape).curveTo(12.75843, 47.25, 4.0, 44.19994, 4.0, 40.4375);
-((GeneralPath)shape).curveTo(4.0, 36.67506, 12.75843, 33.625, 23.5625, 33.625);
-((GeneralPath)shape).curveTo(34.36657, 33.625, 43.125, 36.67506, 43.125, 40.4375);
+((GeneralPath)shape).curveTo(43.15635, 42.878628, 39.434628, 45.13901, 33.36909, 46.36274);
+((GeneralPath)shape).curveTo(27.303555, 47.586468, 19.821445, 47.586468, 13.755908, 46.36274);
+((GeneralPath)shape).curveTo(7.690371, 45.13901, 3.9686508, 42.878628, 4.0, 40.4375);
+((GeneralPath)shape).curveTo(3.9686508, 37.996372, 7.690371, 35.73599, 13.755908, 34.51226);
+((GeneralPath)shape).curveTo(19.821445, 33.288532, 27.303555, 33.288532, 33.36909, 34.51226);
+((GeneralPath)shape).curveTo(39.434628, 35.73599, 43.15635, 37.996372, 43.125, 40.4375);
 ((GeneralPath)shape).closePath();
 g.setPaint(paint);
 g.fill(shape);
@@ -673,7 +677,7 @@ g.setTransform(defaultTransform_);
      * @return The X of the bounding box of the original SVG image.
      */
     public static double getOrigX() {
-        return 0.003853902220726013;
+        return 0.0033228187821805477;
     }
 
     /**
@@ -691,7 +695,7 @@ g.setTransform(defaultTransform_);
 	 * @return The width of the bounding box of the original SVG image.
 	 */
 	public static double getOrigWidth() {
-		return 0.9961460828781128;
+		return 0.9966771602630615;
 	}
 
 	/**
@@ -700,66 +704,40 @@ g.setTransform(defaultTransform_);
 	 * @return The height of the bounding box of the original SVG image.
 	 */
 	public static double getOrigHeight() {
-		return 0.9227601885795593;
+		return 0.9273985028266907;
 	}
 
-	/**
-	 * The current width of this resizable icon.
-	 */
-	int width;
+	/** The current width of this resizable icon. */
+	private int width;
+
+    /** The current height of this resizable icon. */
+	private int height;
 
 	/**
-	 * The current height of this resizable icon.
-	 */
-	int height;
-
-	/**
-	 * Creates a new transcoded SVG image.
+	 * Creates a new transcoded SVG image. It is recommended to use the 
+	 * {@link #of(int, int)} method to obtain a pre-configured instance.
 	 */
 	public Edit_find_replace() {
         this.width = (int) getOrigWidth();
         this.height = (int) getOrigHeight();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#getIconHeight()
-	 */
     @Override
 	public int getIconHeight() {
 		return height;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#getIconWidth()
-	 */
     @Override
 	public int getIconWidth() {
 		return width;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.jvnet.flamingo.common.icon.ResizableIcon#setDimension(java.awt.Dimension
-	 * )
-	 */
 	@Override
 	public void setDimension(Dimension newDimension) {
 		this.width = newDimension.width;
 		this.height = newDimension.height;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#paintIcon(java.awt.Component, java.awt.Graphics,
-	 * int, int)
-	 */
     @Override
 	public void paintIcon(Component c, Graphics g, int x, int y) {
 		Graphics2D g2d = (Graphics2D) g.create();
@@ -782,10 +760,13 @@ g.setTransform(defaultTransform_);
                g2d.translate(extraDx, 0);
             }
         }
-        paint(g2d);
+        innerPaint(g2d);
         g2d.dispose();
 	}
     
+    /**
+     * Returns an instance of this icon with specified dimensions.
+     */
     public static Edit_find_replace of(int width, int height) {
        Edit_find_replace result = new Edit_find_replace();
        result.width = width;

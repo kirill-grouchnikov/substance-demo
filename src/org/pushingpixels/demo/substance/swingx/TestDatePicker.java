@@ -20,10 +20,11 @@ import org.jdesktop.swingx.plaf.basic.BasicStatusBarUI;
 import org.pushingpixels.demo.substance.main.SubstanceLogo;
 import org.pushingpixels.demo.substance.main.check.SampleMenuFactory;
 import org.pushingpixels.substance.api.ComponentState;
+import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
-import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.GeminiSkin;
+import org.pushingpixels.substance.swingx.SubstanceSwingxPlugin;
 
 public class TestDatePicker extends JFrame {
     public TestDatePicker() {
@@ -81,13 +82,12 @@ public class TestDatePicker extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                JFrame.setDefaultLookAndFeelDecorated(true);
-                SubstanceCortex.GlobalScope.setSkin(new GeminiSkin());
-                new TestDatePicker().setVisible(true);
-            }
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceSwingxPlugin());
+
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new GeminiSkin());
+            new TestDatePicker().setVisible(true);
         });
     }
 }

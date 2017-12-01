@@ -12,13 +12,11 @@ public class TestButtonStripHorizontal
 
     public static void main(String[] args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                SubstanceCortex.GlobalScope.setSkin(new OfficeBlue2007Skin());
-                SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceFlamingoPlugin());
-                new TestButtonStripHorizontal().setVisible(true);
-            }
+        SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceFlamingoPlugin());
+
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new OfficeBlue2007Skin());
+            new TestButtonStripHorizontal().setVisible(true);
         });
     }
 }

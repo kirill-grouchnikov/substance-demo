@@ -21,20 +21,12 @@ import java.awt.geom.Point2D;
 
 /**
  * This class has been automatically generated using <a
- * href="https://github.com/kirill-grouchnikov/flamingo">Flamingo SVG transcoder</a>.
+ * href="https://github.com/kirill-grouchnikov/ibis">Ibis SVG transcoder</a>.
  */
 public class Mail_forward implements
 		org.pushingpixels.flamingo.api.common.icon.ResizableIcon {
-	/**
-	 * Paints the transcoded SVG image on the specified graphics context. You
-	 * can install a custom transformation on the graphics context to scale the
-	 * image.
-	 * 
-	 * @param g
-	 *            Graphics context.
-	 */
     @SuppressWarnings("unused")
-	public static void paint(Graphics2D g) {
+	private void innerPaint(Graphics2D g) {
         Shape shape = null;
         Paint paint = null;
         Stroke stroke = null;
@@ -71,10 +63,12 @@ g.transform(new AffineTransform(1.596972942352295f, 0.0f, 0.0f, 1.52606403827667
 paint = new RadialGradientPaint(new Point2D.Double(6.7027130126953125, 73.61571502685547), 7.228416f, new Point2D.Double(6.7027130126953125, 73.61571502685547), new float[] {0.0f,1.0f}, new Color[] {new Color(0, 0, 0, 255),new Color(0, 0, 0, 0)}, MultipleGradientPaint.CycleMethod.NO_CYCLE, MultipleGradientPaint.ColorSpaceType.SRGB, new AffineTransform(1.9022150039672852f, 0.0f, 0.0f, 0.5257030129432678f, 0.0f, 0.0f));
 shape = new GeneralPath();
 ((GeneralPath)shape).moveTo(26.5, 38.7);
-((GeneralPath)shape).curveTo(26.5, 40.798683, 20.343916, 42.5, 12.75, 42.5);
-((GeneralPath)shape).curveTo(5.1560845, 42.5, -1.0, 40.798683, -1.0, 38.7);
-((GeneralPath)shape).curveTo(-1.0, 36.60132, 5.1560845, 34.9, 12.75, 34.9);
-((GeneralPath)shape).curveTo(20.343916, 34.9, 26.5, 36.60132, 26.5, 38.7);
+((GeneralPath)shape).curveTo(26.522034, 40.061657, 23.90613, 41.322495, 19.642813, 42.00509);
+((GeneralPath)shape).curveTo(15.379496, 42.68768, 10.120504, 42.68768, 5.8571877, 42.00509);
+((GeneralPath)shape).curveTo(1.5938711, 41.322495, -1.0220345, 40.061657, -1.0, 38.7);
+((GeneralPath)shape).curveTo(-1.0220345, 37.338345, 1.5938711, 36.077507, 5.8571877, 35.394913);
+((GeneralPath)shape).curveTo(10.120504, 34.712322, 15.379496, 34.712322, 19.642813, 35.394913);
+((GeneralPath)shape).curveTo(23.90613, 36.077507, 26.522034, 37.338345, 26.5, 38.7);
 ((GeneralPath)shape).closePath();
 g.setPaint(paint);
 g.fill(shape);
@@ -360,7 +354,7 @@ g.setTransform(defaultTransform_);
      * @return The X of the bounding box of the original SVG image.
      */
     public static double getOrigX() {
-        return 2.38327693939209;
+        return 2.348088502883911;
     }
 
     /**
@@ -378,7 +372,7 @@ g.setTransform(defaultTransform_);
 	 * @return The width of the bounding box of the original SVG image.
 	 */
 	public static double getOrigWidth() {
-		return 44.85266876220703;
+		return 44.887855529785156;
 	}
 
 	/**
@@ -390,63 +384,37 @@ g.setTransform(defaultTransform_);
 		return 41.59651565551758;
 	}
 
-	/**
-	 * The current width of this resizable icon.
-	 */
-	int width;
+	/** The current width of this resizable icon. */
+	private int width;
+
+    /** The current height of this resizable icon. */
+	private int height;
 
 	/**
-	 * The current height of this resizable icon.
-	 */
-	int height;
-
-	/**
-	 * Creates a new transcoded SVG image.
+	 * Creates a new transcoded SVG image. It is recommended to use the 
+	 * {@link #of(int, int)} method to obtain a pre-configured instance.
 	 */
 	public Mail_forward() {
         this.width = (int) getOrigWidth();
         this.height = (int) getOrigHeight();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#getIconHeight()
-	 */
     @Override
 	public int getIconHeight() {
 		return height;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#getIconWidth()
-	 */
     @Override
 	public int getIconWidth() {
 		return width;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.jvnet.flamingo.common.icon.ResizableIcon#setDimension(java.awt.Dimension
-	 * )
-	 */
 	@Override
 	public void setDimension(Dimension newDimension) {
 		this.width = newDimension.width;
 		this.height = newDimension.height;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.Icon#paintIcon(java.awt.Component, java.awt.Graphics,
-	 * int, int)
-	 */
     @Override
 	public void paintIcon(Component c, Graphics g, int x, int y) {
 		Graphics2D g2d = (Graphics2D) g.create();
@@ -469,10 +437,13 @@ g.setTransform(defaultTransform_);
                g2d.translate(extraDx, 0);
             }
         }
-        paint(g2d);
+        innerPaint(g2d);
         g2d.dispose();
 	}
     
+    /**
+     * Returns an instance of this icon with specified dimensions.
+     */
     public static Mail_forward of(int width, int height) {
        Mail_forward result = new Mail_forward();
        result.width = width;

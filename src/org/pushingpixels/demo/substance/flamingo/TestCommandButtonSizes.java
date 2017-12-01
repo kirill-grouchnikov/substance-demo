@@ -22,6 +22,7 @@ import org.pushingpixels.substance.api.skin.OfficeSilver2007Skin;
 import org.pushingpixels.substance.flamingo.SubstanceFlamingoPlugin;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
+import com.jgoodies.forms.factories.Borders;
 import com.jgoodies.forms.layout.FormLayout;
 
 public class TestCommandButtonSizes extends JFrame {
@@ -29,8 +30,7 @@ public class TestCommandButtonSizes extends JFrame {
         super("Command button sizes");
         FormLayout fl = new FormLayout(
                 "right:pref, 2dlu, center:pref, 2dlu, left:pref, 4dlu, right:pref, 2dlu, center:pref, 2dlu, left:pref");
-        DefaultFormBuilder builder = new DefaultFormBuilder(fl);
-        builder.setDefaultDialogBorder();
+        DefaultFormBuilder builder = new DefaultFormBuilder(fl).border(Borders.DIALOG);
 
         ResizableIcon svgIcon = new Font_x_generic();
         svgIcon.setDimension(new Dimension(16, 16));
@@ -132,13 +132,11 @@ public class TestCommandButtonSizes extends JFrame {
 
     public static void main(String[] args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                SubstanceCortex.GlobalScope.setSkin(new OfficeSilver2007Skin());
-                SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceFlamingoPlugin());
-                new TestCommandButtonSizes().setVisible(true);
-            }
+        SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceFlamingoPlugin());
+
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new OfficeSilver2007Skin());
+            new TestCommandButtonSizes().setVisible(true);
         });
     }
 

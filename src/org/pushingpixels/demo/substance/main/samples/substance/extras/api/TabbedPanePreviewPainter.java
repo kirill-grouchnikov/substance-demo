@@ -42,7 +42,6 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
-import org.pushingpixels.demo.substance.main.Check;
 import org.pushingpixels.demo.substance.main.check.svg.flags.hk;
 import org.pushingpixels.demo.substance.main.check.svg.flags.mx;
 import org.pushingpixels.demo.substance.main.check.svg.flags.se;
@@ -69,21 +68,21 @@ public class TabbedPanePreviewPainter extends JFrame {
         this.setLayout(new BorderLayout());
 
         final JTabbedPane jtp = new JTabbedPane();
-        jtp.addTab("First", Check.configure(new mx(), 21, 16), new JPanel() {
+        jtp.addTab("First", mx.of(16,  16), new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 g.setColor(new Color(255, 200, 200));
                 g.fillRect(0, 0, getWidth(), getHeight());
             }
         });
-        jtp.addTab("Second", Check.configure(new se(), 21, 16), new JPanel() {
+        jtp.addTab("Second", se.of(16,  16), new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 g.setColor(new Color(200, 255, 200));
                 g.fillRect(0, 0, getWidth(), getHeight());
             }
         });
-        jtp.addTab("Third", Check.configure(new hk(), 21, 16), new JPanel() {
+        jtp.addTab("Third", hk.of(16,  16), new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 g.setColor(new Color(200, 200, 255));
