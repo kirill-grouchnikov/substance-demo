@@ -85,24 +85,21 @@ public class SimpleDialog extends JDialog {
     }
 
     public static void main(String... args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                JDialog.setDefaultLookAndFeelDecorated(true);
-                SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
-                SimpleDialog sd = new SimpleDialog();
-                if (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel) {
-                    sd.setIconImage(SubstanceLogo.getLogoImage(SubstanceCortex.ComponentScope
-                            .getCurrentSkin(sd.getRootPane())
-                            .getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
-                                    ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
-                }
-                sd.setModal(false);
-                sd.pack();
-                sd.setLocationRelativeTo(null);
-                sd.setVisible(true);
-                sd.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        SwingUtilities.invokeLater(() -> {
+            JDialog.setDefaultLookAndFeelDecorated(true);
+            SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
+            SimpleDialog sd = new SimpleDialog();
+            if (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel) {
+                sd.setIconImage(SubstanceLogo.getLogoImage(
+                        SubstanceCortex.ComponentScope.getCurrentSkin(sd.getRootPane())
+                                .getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
+                                        ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
             }
+            sd.setModal(false);
+            sd.pack();
+            sd.setLocationRelativeTo(null);
+            sd.setVisible(true);
+            sd.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         });
     }
 }

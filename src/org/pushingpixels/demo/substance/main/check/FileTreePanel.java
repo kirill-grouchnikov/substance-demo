@@ -32,7 +32,6 @@ package org.pushingpixels.demo.substance.main.check;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -403,11 +402,8 @@ public class FileTreePanel extends ControllablePanel implements Deferrable {
 
         final JCheckBox isEnabled = new JCheckBox("is enabled");
         isEnabled.setSelected(tree.isEnabled());
-        isEnabled.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                tree.setEnabled(isEnabled.isSelected());
-            }
-        });
+        isEnabled.addActionListener((ActionEvent e) -> 
+                tree.setEnabled(isEnabled.isSelected()));
         builder.append("Enabled", isEnabled);
 
         final JCheckBox watermarkBleed = new JCheckBox("is bleeding");

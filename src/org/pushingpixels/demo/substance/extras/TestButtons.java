@@ -93,17 +93,15 @@ public class TestButtons extends JFrame {
 
     public static void main(String... args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-                TestButtons tb = new TestButtons();
-                tb.invalidate();
-                System.out.println(tb.getPreferredSize());
-                tb.pack();
-                tb.setLocationRelativeTo(null);
-                tb.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                tb.setVisible(true);
-            }
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
+            TestButtons tb = new TestButtons();
+            tb.invalidate();
+            System.out.println(tb.getPreferredSize());
+            tb.pack();
+            tb.setLocationRelativeTo(null);
+            tb.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            tb.setVisible(true);
         });
     }
 }

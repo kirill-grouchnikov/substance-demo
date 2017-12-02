@@ -35,7 +35,6 @@ import java.awt.Dimension;
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -104,12 +103,9 @@ public class SmallCheckRibbon extends BasicCheckRibbon {
         RichTooltip helpTooltip = new RichTooltip();
         helpTooltip.setTitle(resourceBundle.getString("Help.tooltip.title"));
         helpTooltip.addDescriptionSection(resourceBundle.getString("Help.tooltip.actionParagraph"));
-        this.getRibbon().configureHelp(new Help_browser(), helpTooltip, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(SmallCheckRibbon.this, "Help button clicked");
-            }
-        });
+        this.getRibbon().configureHelp(new Help_browser(), helpTooltip,
+                (ActionEvent e) -> JOptionPane.showMessageDialog(SmallCheckRibbon.this,
+                        "Help button clicked"));
 
         group1 = new RibbonContextualTaskGroup("Group 1", Color.red,
                 getContextualRibbonTask("Group 1-1", "XA"),

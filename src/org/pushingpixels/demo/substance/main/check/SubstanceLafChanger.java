@@ -47,88 +47,82 @@ import javax.swing.UIManager;
  * @author Keith Woodward
  */
 public class SubstanceLafChanger implements ActionListener {
-	private JFrame frame;
+    private JFrame frame;
 
-	private String lafClassName;
+    private String lafClassName;
 
-	private boolean wasOriginallyDecoratedByOS;
+    private boolean wasOriginallyDecoratedByOS;
 
-	public static JMenuItem getMenuItem(JFrame frame, String lafName,
-			String lafClassName) {
-		JMenuItem result = new JMenuItem(lafName);
-		result.addActionListener(new SubstanceLafChanger(frame, lafClassName));
-		return result;
-	}
+    public static JMenuItem getMenuItem(JFrame frame, String lafName, String lafClassName) {
+        JMenuItem result = new JMenuItem(lafName);
+        result.addActionListener(new SubstanceLafChanger(frame, lafClassName));
+        return result;
+    }
 
-	public SubstanceLafChanger(JFrame frame, String lafClassName) {
-		super();
-		this.frame = frame;
-		this.lafClassName = lafClassName;
-		this.wasOriginallyDecoratedByOS = !frame.isUndecorated();
-	}
+    public SubstanceLafChanger(JFrame frame, String lafClassName) {
+        super();
+        this.frame = frame;
+        this.lafClassName = lafClassName;
+        this.wasOriginallyDecoratedByOS = !frame.isUndecorated();
+    }
 
-	public void actionPerformed(ActionEvent e) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				final boolean wasDecoratedByOS = !frame.isUndecorated();
+    public void actionPerformed(ActionEvent e) {
+        SwingUtilities.invokeLater(() -> {
+            final boolean wasDecoratedByOS = !frame.isUndecorated();
 
-				try {
-					UIManager.setLookAndFeel(lafClassName);
-					for (Window window : Window.getWindows()) {
-						SwingUtilities.updateComponentTreeUI(window);
-					}
+            try {
+                UIManager.setLookAndFeel(lafClassName);
+                for (Window window : Window.getWindows()) {
+                    SwingUtilities.updateComponentTreeUI(window);
+                }
 
-					boolean canBeDecoratedByLAF = UIManager.getLookAndFeel()
-							.getSupportsWindowDecorations();
-					if (canBeDecoratedByLAF == wasDecoratedByOS) {
-						boolean wasVisible = frame.isVisible();
+                boolean canBeDecoratedByLAF = UIManager.getLookAndFeel()
+                        .getSupportsWindowDecorations();
+                if (canBeDecoratedByLAF == wasDecoratedByOS) {
+                    boolean wasVisible = frame.isVisible();
 
-						frame.setVisible(false);
-						frame.dispose();
-						if (!canBeDecoratedByLAF || wasOriginallyDecoratedByOS) {
-							// see the java docs under the method
-							// JFrame.setDefaultLookAndFeelDecorated(boolean
-							// value) for description of these 2 lines:
-							frame.setUndecorated(false);
-							frame.getRootPane().setWindowDecorationStyle(
-									JRootPane.NONE);
+                    frame.setVisible(false);
+                    frame.dispose();
+                    if (!canBeDecoratedByLAF || wasOriginallyDecoratedByOS) {
+                        // see the java docs under the method
+                        // JFrame.setDefaultLookAndFeelDecorated(boolean
+                        // value) for description of these 2 lines:
+                        frame.setUndecorated(false);
+                        frame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 
-						} else {
-							frame.setUndecorated(true);
-							frame.getRootPane().setWindowDecorationStyle(
-									JRootPane.FRAME);
-						}
-						frame.setVisible(wasVisible);
-						
-						UIDefaults uid = UIManager.getLookAndFeelDefaults();
-						Enumeration<Object> newKeys = uid.keys();
+                    } else {
+                        frame.setUndecorated(true);
+                        frame.getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
+                    }
+                    frame.setVisible(wasVisible);
 
-						while (newKeys.hasMoreElements()) {
-							Object key = newKeys.nextElement();
-							if (key instanceof String) {
-								if (((String) key).indexOf("AATextInfoPropertyKey") >= 0) {
-								Object value = uid.get(key);
-								System.out.println(key + " : " + value);
-								}
-							}
-						}
-						// wasDecoratedByOS = !frame.isUndecorated();
-					}
-				} catch (ClassNotFoundException cnfe) {
-					out("LAF main class '" + lafClassName + "' not found");
-				} catch (Exception exc) {
-					exc.printStackTrace();
-				}
+                    UIDefaults uid = UIManager.getLookAndFeelDefaults();
+                    Enumeration<Object> newKeys = uid.keys();
 
-			}
-		});
-	}
+                    while (newKeys.hasMoreElements()) {
+                        Object key = newKeys.nextElement();
+                        if (key instanceof String) {
+                            if (((String) key).indexOf("AATextInfoPropertyKey") >= 0) {
+                                Object value = uid.get(key);
+                                System.out.println(key + " : " + value);
+                            }
+                        }
+                    }
+                    // wasDecoratedByOS = !frame.isUndecorated();
+                }
+            } catch (ClassNotFoundException cnfe) {
+                out("LAF main class '" + lafClassName + "' not found");
+            } catch (Exception exc) {
+                exc.printStackTrace();
+            }
+        });
+    }
 
-	public static void out(Object obj) {
-		try {
-			System.out.println(obj);
-		} catch (Exception exc) {
-			// ignore - is thrown on Mac in WebStart (security access)
-		}
-	}
+    public static void out(Object obj) {
+        try {
+            System.out.println(obj);
+        } catch (Exception exc) {
+            // ignore - is thrown on Mac in WebStart (security access)
+        }
+    }
 }

@@ -2,7 +2,6 @@ package org.pushingpixels.demo.substance.main.check;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JComboBox;
@@ -37,18 +36,9 @@ public class SubstanceSkinComboSelector extends JComboBox {
             }
         });
         // add an action listener to change skin based on user selection
-        this.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        SubstanceCortex.GlobalScope.setSkin(
-                                ((SkinInfo) SubstanceSkinComboSelector.this.getSelectedItem())
-                                        .getClassName());
-                    }
-                });
-            }
-        });
+        this.addActionListener(
+                (ActionEvent e) -> SwingUtilities.invokeLater(() -> SubstanceCortex.GlobalScope
+                        .setSkin(((SkinInfo) SubstanceSkinComboSelector.this.getSelectedItem())
+                                .getClassName())));
     }
 }

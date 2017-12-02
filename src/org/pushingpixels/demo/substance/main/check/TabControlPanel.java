@@ -32,7 +32,6 @@ package org.pushingpixels.demo.substance.main.check;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ContainerAdapter;
 import java.awt.event.ContainerEvent;
 import java.util.HashSet;
@@ -207,18 +206,16 @@ public class TabControlPanel extends JPanel {
 
         final JComboBox placementCombo = new JComboBox(
                 new Object[] { "top", "bottom", "left", "right" });
-        placementCombo.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String selected = (String) placementCombo.getSelectedItem();
-                if ("top".equals(selected))
-                    jtp.setTabPlacement(JTabbedPane.TOP);
-                if ("bottom".equals(selected))
-                    jtp.setTabPlacement(JTabbedPane.BOTTOM);
-                if ("left".equals(selected))
-                    jtp.setTabPlacement(JTabbedPane.LEFT);
-                if ("right".equals(selected))
-                    jtp.setTabPlacement(JTabbedPane.RIGHT);
-            }
+        placementCombo.addActionListener((ActionEvent e) -> {
+            String selected = (String) placementCombo.getSelectedItem();
+            if ("top".equals(selected))
+                jtp.setTabPlacement(JTabbedPane.TOP);
+            if ("bottom".equals(selected))
+                jtp.setTabPlacement(JTabbedPane.BOTTOM);
+            if ("left".equals(selected))
+                jtp.setTabPlacement(JTabbedPane.LEFT);
+            if ("right".equals(selected))
+                jtp.setTabPlacement(JTabbedPane.RIGHT);
         });
         row += 2;
         builder.addLabel("Placement", cc.xy(1, row));
@@ -243,12 +240,9 @@ public class TabControlPanel extends JPanel {
 
         final JCheckBox useScrollLayout = new JCheckBox("Uses scroll layout");
         useScrollLayout.setSelected(false);
-        useScrollLayout.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                jtp.setTabLayoutPolicy(useScrollLayout.isSelected() ? JTabbedPane.SCROLL_TAB_LAYOUT
-                        : JTabbedPane.WRAP_TAB_LAYOUT);
-            }
-        });
+        useScrollLayout.addActionListener((ActionEvent e) -> jtp
+                .setTabLayoutPolicy(useScrollLayout.isSelected() ? JTabbedPane.SCROLL_TAB_LAYOUT
+                        : JTabbedPane.WRAP_TAB_LAYOUT));
         row += 2;
         builder.addLabel("Layout", cc.xy(1, row));
         builder.add(useScrollLayout, cc.xyw(3, row, 3));
@@ -270,20 +264,16 @@ public class TabControlPanel extends JPanel {
         builder.add(contentBorderCombo, cc.xyw(3, row, 3));
 
         JButton enableAll = new JButton("+ all");
-        enableAll.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                for (int i = 0; i < jtp.getTabCount(); i++) {
-                    jtp.setEnabledAt(i, true);
-                }
+        enableAll.addActionListener((ActionEvent e) -> {
+            for (int i = 0; i < jtp.getTabCount(); i++) {
+                jtp.setEnabledAt(i, true);
             }
         });
 
         JButton disableAll = new JButton("- all");
-        disableAll.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                for (int i = 0; i < jtp.getTabCount(); i++) {
-                    jtp.setEnabledAt(i, false);
-                }
+        disableAll.addActionListener((ActionEvent e) -> {
+            for (int i = 0; i < jtp.getTabCount(); i++) {
+                jtp.setEnabledAt(i, false);
             }
         });
 
@@ -293,24 +283,20 @@ public class TabControlPanel extends JPanel {
         builder.add(disableAll, cc.xy(5, row));
 
         JButton closeAllEnabled = new JButton("Close");
-        closeAllEnabled.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Set<Component> toRemove = new HashSet<Component>();
-                for (int i = 0; i < jtp.getTabCount(); i++) {
-                    if (jtp.isEnabledAt(i))
-                        toRemove.add(jtp.getComponentAt(i));
-                }
-                for (Component comp : toRemove)
-                    jtp.remove(comp);
+        closeAllEnabled.addActionListener((ActionEvent e) -> {
+            Set<Component> toRemove = new HashSet<Component>();
+            for (int i = 0; i < jtp.getTabCount(); i++) {
+                if (jtp.isEnabledAt(i))
+                    toRemove.add(jtp.getComponentAt(i));
             }
+            for (Component comp : toRemove)
+                jtp.remove(comp);
         });
 
         JButton restoreClosed = new JButton("Restore");
-        restoreClosed.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                for (Component tnp : closed) {
-                    jtp.addTab("restored", tnp);
-                }
+        restoreClosed.addActionListener((ActionEvent e) -> {
+            for (Component tnp : closed) {
+                jtp.addTab("restored", tnp);
             }
         });
 
@@ -411,34 +397,21 @@ public class TabControlPanel extends JPanel {
         });
 
         JButton closeButton = new JButton("Close");
-        closeButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        if (tabSelectorCombo.getSelectedItem() == null)
-                            return;
-                        Component comp = jtp
-                                .getComponentAt((Integer) tabSelectorCombo.getSelectedItem());
-                        jtp.removeTabAt((Integer) tabSelectorCombo.getSelectedItem());
-                        closed.add(comp);
-                        jtp.repaint();
-                    }
-                });
-            }
-        });
+        closeButton.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            if (tabSelectorCombo.getSelectedItem() == null)
+                return;
+            Component comp = jtp.getComponentAt((Integer) tabSelectorCombo.getSelectedItem());
+            jtp.removeTabAt((Integer) tabSelectorCombo.getSelectedItem());
+            closed.add(comp);
+            jtp.repaint();
+        }));
 
         JButton selectButton = new JButton("Select");
-        selectButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        if (tabSelectorCombo.getSelectedItem() == null)
-                            return;
-                        jtp.setSelectedIndex((Integer) tabSelectorCombo.getSelectedItem());
-                    }
-                });
-            }
-        });
+        selectButton.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            if (tabSelectorCombo.getSelectedItem() == null)
+                return;
+            jtp.setSelectedIndex((Integer) tabSelectorCombo.getSelectedItem());
+        }));
         row += 2;
         builder.addLabel("Tab op", cc.xy(1, row));
         builder.add(closeButton, cc.xy(3, row));

@@ -24,7 +24,6 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Calendar;
@@ -250,23 +249,20 @@ public class TestSwingXFrame extends JFrame {
         taskPaneVarious.add(titledPanelButton);
 
         JButton errorPaneButton = new JButton("Test JXErrorPane");
-        errorPaneButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    new URL("some wrong URL string");
-                } catch (MalformedURLException murle) {
-                    String msg = "<html>An error just happened. Possible reasons:"
-                            + "<ol><li>Development team hoped nobody would notice."
-                            + "<li>The testers missed this scenario. Wait, we don't have testers."
-                            + "<li>Didn't your momma teach you not to use Linux?" + "</ol>"
-                            + "In any case, it's all open source so it's all good. Fix it yourself.";
-                    String details = "<html>Web resources should begin with \"http://\""
-                            + " and cannot contain any spaces. Below are a few"
-                            + " more guidelines.<ul></ul></html>";
-                    JXErrorPane.showDialog(TestSwingXFrame.this,
-                            new ErrorInfo("Reformatting the disk complete", msg, details, null,
-                                    murle, null, null));
-                }
+        errorPaneButton.addActionListener((ActionEvent e) -> {
+            try {
+                new URL("some wrong URL string");
+            } catch (MalformedURLException murle) {
+                String msg = "<html>An error just happened. Possible reasons:"
+                        + "<ol><li>Development team hoped nobody would notice."
+                        + "<li>The testers missed this scenario. Wait, we don't have testers."
+                        + "<li>Didn't your momma teach you not to use Linux?" + "</ol>"
+                        + "In any case, it's all open source so it's all good. Fix it yourself.";
+                String details = "<html>Web resources should begin with \"http://\""
+                        + " and cannot contain any spaces. Below are a few"
+                        + " more guidelines.<ul></ul></html>";
+                JXErrorPane.showDialog(TestSwingXFrame.this, new ErrorInfo(
+                        "Reformatting the disk complete", msg, details, null, murle, null, null));
             }
         });
         taskPaneVarious.add(errorPaneButton);

@@ -397,11 +397,8 @@ public class TextFieldsPanel extends JPanel implements Deferrable {
         JScrollPane scroller = new JScrollPane(contents);
         this.add(scroller, BorderLayout.CENTER);
         this.isInitialized = true;
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                contents.scrollRectToVisible(new Rectangle(0, 0, 10, 10));
-            }
+        SwingUtilities.invokeLater(() -> {
+            contents.scrollRectToVisible(new Rectangle(0, 0, 10, 10));
         });
     }
 }

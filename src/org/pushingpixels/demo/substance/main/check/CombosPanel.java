@@ -39,7 +39,6 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.AbstractAction;
@@ -505,78 +504,48 @@ public class CombosPanel extends ControllablePanel implements Deferrable {
         DefaultFormBuilder builder = new DefaultFormBuilder(lm, new ScrollablePanel());
 
         JButton checkEscape = new JButton("Check ESC key");
-        checkEscape.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                final JDialog dialog = new JDialog();
-                dialog.setTitle("Press ESC key when combo is focused");
-                dialog.setLayout(new FlowLayout());
-                JComboBox sampleCombo = new JComboBox(
-                        new Object[] { "Ester", "Jordi", "Jordina", "Jorge", "Sergi" });
-                sampleCombo.setEditable(true);
-                dialog.add(sampleCombo);
-                dialog.add(new JCheckBox("Sample checkbox"));
-                dialog.add(new JButton("Sample button"));
-                dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        checkEscape.addActionListener((ActionEvent e) -> {
+            final JDialog dialog = new JDialog();
+            dialog.setTitle("Press ESC key when combo is focused");
+            dialog.setLayout(new FlowLayout());
+            JComboBox sampleCombo = new JComboBox(
+                    new Object[] { "Ester", "Jordi", "Jordina", "Jorge", "Sergi" });
+            sampleCombo.setEditable(true);
+            dialog.add(sampleCombo);
+            dialog.add(new JCheckBox("Sample checkbox"));
+            dialog.add(new JButton("Sample button"));
+            dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
-                JRootPane rootPane = dialog.getRootPane();
-                InputMap iMap = rootPane.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-                iMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "escape");
+            JRootPane rootPane = dialog.getRootPane();
+            InputMap iMap = rootPane.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+            iMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "escape");
 
-                ActionMap aMap = rootPane.getActionMap();
-                aMap.put("escape", new AbstractAction() {
-                    public void actionPerformed(ActionEvent e) {
-                        dialog.dispose();
-                    }
-                });
-                dialog.pack();
-                Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-                // center the dialog in the physical screen
-                dialog.setLocation((d.width - dialog.getWidth()) / 2,
-                        (d.height - dialog.getHeight()) / 2);
-                dialog.setVisible(true);
-            }
+            ActionMap aMap = rootPane.getActionMap();
+            aMap.put("escape", new AbstractAction() {
+                public void actionPerformed(ActionEvent e) {
+                    dialog.dispose();
+                }
+            });
+            dialog.pack();
+            Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+            // center the dialog in the physical screen
+            dialog.setLocation((d.width - dialog.getWidth()) / 2,
+                    (d.height - dialog.getHeight()) / 2);
+            dialog.setVisible(true);
         });
 
         JButton disableCombosButton = new JButton("Disable all");
-        disableCombosButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        CombosPanel.run(CombosPanel.this, new DisableCommand());
-                    }
-                });
-            }
-        });
+        disableCombosButton.addActionListener((ActionEvent e) -> SwingUtilities
+                .invokeLater(() -> CombosPanel.run(CombosPanel.this, new DisableCommand())));
         JButton enableCombosButton = new JButton("Enable all");
-        enableCombosButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        CombosPanel.run(CombosPanel.this, new EnableCommand());
-                    }
-                });
-            }
-        });
+        enableCombosButton.addActionListener((ActionEvent e) -> SwingUtilities
+                .invokeLater(() -> CombosPanel.run(CombosPanel.this, new EnableCommand())));
         JButton makeAllEditableButton = new JButton("Make all editable");
-        makeAllEditableButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        CombosPanel.run(CombosPanel.this, new EditAllowCommand());
-                    }
-                });
-            }
-        });
+        makeAllEditableButton.addActionListener((ActionEvent e) -> SwingUtilities
+                .invokeLater(() -> CombosPanel.run(CombosPanel.this, new EditAllowCommand())));
         JButton makeAllNonEditableButton = new JButton("Make all non-editable");
-        makeAllNonEditableButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        CombosPanel.run(CombosPanel.this, new EditDisallowCommand());
-                    }
-                });
-            }
-        });
+        makeAllNonEditableButton.addActionListener((ActionEvent e) -> SwingUtilities
+                .invokeLater(() -> CombosPanel.run(CombosPanel.this, new EditDisallowCommand())));
 
         builder.append(disableCombosButton);
         builder.append(enableCombosButton);

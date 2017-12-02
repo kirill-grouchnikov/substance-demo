@@ -8,7 +8,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -64,19 +63,11 @@ public class VAlignmentPanel extends ControllablePanel implements Deferrable {
                 new ScrollablePanel());
 
         toPaintGuiderLines = new JCheckBox("guider lines");
-        toPaintGuiderLines.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                repaint();
-            }
-        });
+        toPaintGuiderLines.addActionListener((ActionEvent e) -> repaint());
         controlPanelBuilder.append(toPaintGuiderLines);
 
         toPaintBounds = new JCheckBox("bounds");
-        toPaintBounds.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                repaint();
-            }
-        });
+        toPaintBounds.addActionListener((ActionEvent e) -> repaint());
         controlPanelBuilder.append(toPaintBounds);
         this.controlPanel = controlPanelBuilder.getPanel();
 
@@ -182,31 +173,24 @@ public class VAlignmentPanel extends ControllablePanel implements Deferrable {
         pf.setFont(font);
         builder.append(pf);
 
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                result.revalidate();
-            }
-        });
+        SwingUtilities.invokeLater(result::revalidate);
 
         return result;
     }
 
     public static void main(String[] args) throws Exception {
         JFrame.setDefaultLookAndFeelDecorated(true);
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-                JFrame frame = new JFrame("Alignment");
-                frame.setSize(600, 400);
-                frame.setLocationRelativeTo(null);
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
+            JFrame frame = new JFrame("Alignment");
+            frame.setSize(600, 400);
+            frame.setLocationRelativeTo(null);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-                VAlignmentPanel panel = new VAlignmentPanel();
-                panel.initialize();
-                frame.add(panel, BorderLayout.CENTER);
-                frame.setVisible(true);
-            }
+            VAlignmentPanel panel = new VAlignmentPanel();
+            panel.initialize();
+            frame.add(panel, BorderLayout.CENTER);
+            frame.setVisible(true);
         });
     }
 }

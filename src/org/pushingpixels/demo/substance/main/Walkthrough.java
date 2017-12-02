@@ -28,16 +28,14 @@ public class Walkthrough extends JFrame {
 
     public static void main(String[] args) {
         JFrame.setDefaultLookAndFeelDecorated(true);
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    UIManager.setLookAndFeel(new MetalLookAndFeel());
-                } catch (Throwable t) {
-                }
-                // SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
-                Walkthrough w = new Walkthrough();
-                w.setVisible(true);
+        SwingUtilities.invokeLater(() -> {
+            try {
+                UIManager.setLookAndFeel(new MetalLookAndFeel());
+            } catch (Throwable t) {
             }
+            // SubstanceCortex.GlobalScope.setSkin(new BusinessSkin());
+            Walkthrough w = new Walkthrough();
+            w.setVisible(true);
         });
     }
 }

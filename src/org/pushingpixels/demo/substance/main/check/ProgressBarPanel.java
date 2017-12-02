@@ -36,7 +36,6 @@ import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -177,64 +176,42 @@ public class ProgressBarPanel extends JPanel {
         progressTimeline.setDuration(2000);
 
         this.startButton = new JButton("start");
-        this.startButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                progressTimeline.playLoop(RepeatBehavior.LOOP);
-                startButton.setEnabled(false);
-                stopButton.setEnabled(true);
-            }
+        this.startButton.addActionListener((ActionEvent e) -> {
+            progressTimeline.playLoop(RepeatBehavior.LOOP);
+            startButton.setEnabled(false);
+            stopButton.setEnabled(true);
         });
 
         this.stopButton = new JButton("stop");
         this.stopButton.setEnabled(false);
-        this.stopButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                progressTimeline.cancel();
-                stopButton.setEnabled(false);
-                startButton.setEnabled(true);
-            }
+        this.stopButton.addActionListener((ActionEvent e) -> {
+            progressTimeline.cancel();
+            stopButton.setEnabled(false);
+            startButton.setEnabled(true);
         });
 
         JButton plus10Button = new JButton("plus 10");
-        plus10Button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                delta(ProgressBarPanel.this, 10);
-            }
-        });
+        plus10Button.addActionListener((ActionEvent e) -> delta(ProgressBarPanel.this, 10));
         buttons.add(plus10Button);
 
         JButton minus10Button = new JButton("minus 10");
-        minus10Button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                delta(ProgressBarPanel.this, -10);
-            }
-        });
+        minus10Button.addActionListener((ActionEvent e) -> delta(ProgressBarPanel.this, -10));
         buttons.add(minus10Button);
 
         JButton plus1Button = new JButton("plus 1");
-        plus1Button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                delta(ProgressBarPanel.this, 1);
-            }
-        });
+        plus1Button.addActionListener((ActionEvent e) -> delta(ProgressBarPanel.this, 1));
         buttons.add(plus1Button);
 
         JButton minus1Button = new JButton("minus 1");
-        minus1Button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                delta(ProgressBarPanel.this, -1);
-            }
-        });
+        minus1Button.addActionListener((ActionEvent e) -> delta(ProgressBarPanel.this, -1));
         buttons.add(minus1Button);
 
         JButton resetButton = new JButton("reset");
-        resetButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                progressTimeline.cancel();
-                reset(ProgressBarPanel.this);
-                stopButton.setEnabled(false);
-                startButton.setEnabled(true);
-            }
+        resetButton.addActionListener((ActionEvent e) -> {
+            progressTimeline.cancel();
+            reset(ProgressBarPanel.this);
+            stopButton.setEnabled(false);
+            startButton.setEnabled(true);
         });
 
         buttons.add(this.startButton);

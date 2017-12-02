@@ -35,7 +35,6 @@ import java.awt.Insets;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.DropMode;
 import javax.swing.JCheckBox;
@@ -79,7 +78,7 @@ public class TreePanel extends ControllablePanel {
                     leaf, row, hasFocus);
             if (sel) {
                 result.setText("<html><b>" + getText() + "</b></html>");
-                result.setIcon(se.of(16,  16));
+                result.setIcon(se.of(16, 16));
             }
             return result;
         }
@@ -164,39 +163,26 @@ public class TreePanel extends ControllablePanel {
 
         final JCheckBox isEnabled = new JCheckBox("is enabled");
         isEnabled.setSelected(tree.isEnabled());
-        isEnabled.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                tree.setEnabled(isEnabled.isSelected());
-            }
-        });
+        isEnabled.addActionListener((ActionEvent e) -> tree.setEnabled(isEnabled.isSelected()));
         builder.append("Enabled", isEnabled);
 
         final JCheckBox isOpaque = new JCheckBox("is opaque");
         isOpaque.setSelected(tree.isOpaque());
-        isOpaque.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                tree.setOpaque(isOpaque.isSelected());
-                tree.repaint();
-            }
+        isOpaque.addActionListener((ActionEvent e) -> {
+            tree.setOpaque(isOpaque.isSelected());
+            tree.repaint();
         });
         builder.append("Opacity", isOpaque);
 
         final JCheckBox isEditable = new JCheckBox("is editable");
         isEditable.setSelected(tree.isEditable());
-        isEditable.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                tree.setEditable(isEditable.isSelected());
-            }
-        });
+        isEditable.addActionListener((ActionEvent e) -> tree.setEditable(isEditable.isSelected()));
         builder.append("Editable", isEditable);
 
         final JCheckBox isDragEnabled = new JCheckBox("is drag enabled");
         isDragEnabled.setSelected(tree.getDragEnabled());
-        isDragEnabled.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                tree.setDragEnabled(isDragEnabled.isSelected());
-            }
-        });
+        isDragEnabled.addActionListener(
+                (ActionEvent e) -> tree.setDragEnabled(isDragEnabled.isSelected()));
         builder.append("Drag enabled", isDragEnabled);
 
         final JCheckBox watermarkBleed = new JCheckBox("is visible");
@@ -246,12 +232,10 @@ public class TreePanel extends ControllablePanel {
         builder.append("Bottom", bottomInsets);
         builder.append("Right", rightInsets);
 
-        ChangeListener cl = new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                tree.setBorder(new EmptyBorder((Integer) topInsets.getValue(),
-                        (Integer) leftInsets.getValue(), (Integer) bottomInsets.getValue(),
-                        (Integer) rightInsets.getValue()));
-            }
+        ChangeListener cl = (ChangeEvent e) -> {
+            tree.setBorder(
+                    new EmptyBorder((Integer) topInsets.getValue(), (Integer) leftInsets.getValue(),
+                            (Integer) bottomInsets.getValue(), (Integer) rightInsets.getValue()));
         };
         topInsets.addChangeListener(cl);
         leftInsets.addChangeListener(cl);

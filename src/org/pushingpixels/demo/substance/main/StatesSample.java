@@ -62,14 +62,11 @@ public class StatesSample extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                JFrame.setDefaultLookAndFeelDecorated(true);
-                SubstanceCortex.GlobalScope.setFocusKind(SubstanceSlices.FocusKind.NONE);
-                SubstanceCortex.GlobalScope.setSkin(new OfficeSilver2007Skin());
-                new StatesSample().setVisible(true);
-            }
+        SwingUtilities.invokeLater(() -> {
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            SubstanceCortex.GlobalScope.setFocusKind(SubstanceSlices.FocusKind.NONE);
+            SubstanceCortex.GlobalScope.setSkin(new OfficeSilver2007Skin());
+            new StatesSample().setVisible(true);
         });
     }
 

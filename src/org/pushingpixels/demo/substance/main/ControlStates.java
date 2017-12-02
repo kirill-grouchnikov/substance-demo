@@ -12,8 +12,8 @@ import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 public class ControlStates extends JFrame {
-	public ControlStates() {
-		super("Control states");
+    public ControlStates() {
+        super("Control states");
 
         this.setLayout(new FlowLayout());
         JButton defaultButton = new JButton("active");
@@ -31,18 +31,15 @@ public class ControlStates extends JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setIconImage(new BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR));
-	}
+    }
 
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				JFrame.setDefaultLookAndFeelDecorated(true);
-				SubstanceCortex.GlobalScope.setFocusKind(SubstanceSlices.FocusKind.NONE);
-				SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-				new ControlStates().setVisible(true);
-			}
-		});
-	}
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            SubstanceCortex.GlobalScope.setFocusKind(SubstanceSlices.FocusKind.NONE);
+            SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
+            new ControlStates().setVisible(true);
+        });
+    }
 
 }

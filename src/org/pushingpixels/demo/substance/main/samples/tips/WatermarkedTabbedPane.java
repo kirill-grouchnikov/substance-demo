@@ -62,7 +62,7 @@ public class WatermarkedTabbedPane extends JFrame {
         }
     }
 
-    public WatermarkedTabbedPane() throws Exception {
+    public WatermarkedTabbedPane() {
         super("Transparent tabs");
 
         final JTabbedPane jtp = new JTabbedPane();
@@ -104,16 +104,9 @@ public class WatermarkedTabbedPane extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    SubstanceCortex.GlobalScope.setSkin(new MySkin());
-                    new WatermarkedTabbedPane().setVisible(true);
-                } catch (Exception exc) {
-                    exc.printStackTrace();
-                }
-            }
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new MySkin());
+            new WatermarkedTabbedPane().setVisible(true);
         });
     }
 

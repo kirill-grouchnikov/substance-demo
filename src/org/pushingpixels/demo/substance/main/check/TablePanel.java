@@ -56,7 +56,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.TransferHandler;
 import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
@@ -360,101 +359,84 @@ public class TablePanel extends ControllablePanel implements Deferrable {
         builder.appendSeparator("Table settings");
         final JCheckBox isEnabled = new JCheckBox("is enabled");
         isEnabled.setSelected(table.isEnabled());
-        isEnabled.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                table.setEnabled(isEnabled.isSelected());
-                // the table header is not repainted on disabling / enabling :(
-                table.getTableHeader().repaint();
-            }
+        isEnabled.addActionListener((ActionEvent e) -> {
+            table.setEnabled(isEnabled.isSelected());
+            // the table header is not repainted on disabling / enabling :(
+            table.getTableHeader().repaint();
         });
         builder.append("Enabled", isEnabled);
 
         JButton changeFirstColumn = new JButton("change 1st column");
-        changeFirstColumn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                new Thread(new Runnable() {
-                    public void run() {
-                        for (int i = 0; i < table.getModel().getRowCount(); i++) {
-                            table.getModel().setValueAt(Thread.currentThread().getName() + " " + i,
-                                    i, 0);
-                            try {
-                                Thread.sleep(200);
-                            } catch (InterruptedException e) {
-                            }
+        changeFirstColumn.addActionListener((ActionEvent e) -> {
+            new Thread(new Runnable() {
+                public void run() {
+                    for (int i = 0; i < table.getModel().getRowCount(); i++) {
+                        table.getModel().setValueAt(Thread.currentThread().getName() + " " + i, i,
+                                0);
+                        try {
+                            Thread.sleep(200);
+                        } catch (InterruptedException e) {
                         }
                     }
-                }).start();
-            }
+                }
+            }).start();
         });
         builder.append("Change values", changeFirstColumn);
 
         final JSlider rowCountSlider = new JSlider(20, 1000, this.table.getModel().getRowCount());
         rowCountSlider.setPaintLabels(false);
         rowCountSlider.setPaintTicks(false);
-        rowCountSlider.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                if (rowCountSlider.getValueIsAdjusting())
-                    return;
-                TablePanel.this.table.setModel(new MyTableModel(rowCountSlider.getValue()));
-            }
+        rowCountSlider.addChangeListener((ChangeEvent e) -> {
+            if (rowCountSlider.getValueIsAdjusting())
+                return;
+            TablePanel.this.table.setModel(new MyTableModel(rowCountSlider.getValue()));
         });
         builder.append("Row count", rowCountSlider);
 
         final JCheckBox areRowsSelectable = new JCheckBox("Rows selectable");
         areRowsSelectable.setSelected(this.table.getRowSelectionAllowed());
-        areRowsSelectable.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                TablePanel.this.table.setRowSelectionAllowed(areRowsSelectable.isSelected());
-            }
-        });
+        areRowsSelectable.addActionListener((ActionEvent e) -> TablePanel.this.table
+                .setRowSelectionAllowed(areRowsSelectable.isSelected()));
         builder.append("Selectable", areRowsSelectable);
 
         final JCheckBox areColsSelectable = new JCheckBox("Cols selectable");
         areColsSelectable.setSelected(this.table.getColumnSelectionAllowed());
-        areColsSelectable.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                TablePanel.this.table.setColumnSelectionAllowed(areColsSelectable.isSelected());
-            }
-        });
+        areColsSelectable.addActionListener((ActionEvent e) -> TablePanel.this.table
+                .setColumnSelectionAllowed(areColsSelectable.isSelected()));
         builder.append("", areColsSelectable);
 
         final JCheckBox isSorted = new JCheckBox("Sorted");
         final JCheckBox toHideOddModelRows = new JCheckBox("Hide odd rows");
-        isSorted.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (isSorted.isSelected()) {
-                    table.setRowSorter(new TableRowSorter(table.getModel()));
-                    toHideOddModelRows.setEnabled(true);
-                } else {
-                    table.setRowSorter(null);
-                    toHideOddModelRows.setSelected(false);
-                    toHideOddModelRows.setEnabled(false);
-                }
-                table.repaint();
-                table.getTableHeader().repaint();
+        isSorted.addActionListener((ActionEvent e) -> {
+            if (isSorted.isSelected()) {
+                table.setRowSorter(new TableRowSorter(table.getModel()));
+                toHideOddModelRows.setEnabled(true);
+            } else {
+                table.setRowSorter(null);
+                toHideOddModelRows.setSelected(false);
+                toHideOddModelRows.setEnabled(false);
             }
+            table.repaint();
+            table.getTableHeader().repaint();
         });
         builder.append("Sorted", isSorted);
 
-        toHideOddModelRows.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                TableRowSorter rowSorter = (TableRowSorter) table.getRowSorter();
-                if (toHideOddModelRows.isSelected()) {
-                    rowSorter.setRowFilter(new RowFilter() {
-                        @Override
-                        public boolean include(Entry entry) {
-                            return (((Integer) entry.getIdentifier()) % 2 == 0);
-                        }
-                    });
-                } else {
-                    rowSorter.setRowFilter(new RowFilter() {
-                        @Override
-                        public boolean include(Entry entry) {
-                            return true;
-                        }
-                    });
-                }
+        toHideOddModelRows.addActionListener((ActionEvent e) -> {
+            TableRowSorter rowSorter = (TableRowSorter) table.getRowSorter();
+            if (toHideOddModelRows.isSelected()) {
+                rowSorter.setRowFilter(new RowFilter() {
+                    @Override
+                    public boolean include(Entry entry) {
+                        return (((Integer) entry.getIdentifier()) % 2 == 0);
+                    }
+                });
+            } else {
+                rowSorter.setRowFilter(new RowFilter() {
+                    @Override
+                    public boolean include(Entry entry) {
+                        return true;
+                    }
+                });
             }
         });
         builder.append("", toHideOddModelRows);
@@ -486,19 +468,13 @@ public class TablePanel extends ControllablePanel implements Deferrable {
 
         final JCheckBox linesVertical = new JCheckBox("Vertical visible");
         linesVertical.setSelected(this.table.getShowVerticalLines());
-        linesVertical.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                TablePanel.this.table.setShowVerticalLines(linesVertical.isSelected());
-            }
-        });
+        linesVertical.addActionListener((ActionEvent e) -> TablePanel.this.table
+                .setShowVerticalLines(linesVertical.isSelected()));
         builder.append("Lines", linesVertical);
         final JCheckBox linesHorizontal = new JCheckBox("Horizontal visible");
         linesHorizontal.setSelected(this.table.getShowHorizontalLines());
-        linesHorizontal.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                TablePanel.this.table.setShowHorizontalLines(linesHorizontal.isSelected());
-            }
-        });
+        linesHorizontal.addActionListener((ActionEvent e) -> TablePanel.this.table
+                .setShowHorizontalLines(linesHorizontal.isSelected()));
         builder.append("", linesHorizontal);
 
         final JComboBox resizeModeCombo = new FlexiComboBox<Integer>(JTable.AUTO_RESIZE_OFF,
@@ -524,11 +500,9 @@ public class TablePanel extends ControllablePanel implements Deferrable {
         };
         resizeModeCombo.setSelectedItem(this.table.getAutoResizeMode());
 
-        resizeModeCombo.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                int selected = (Integer) resizeModeCombo.getSelectedItem();
-                TablePanel.this.table.setAutoResizeMode(selected);
-            }
+        resizeModeCombo.addActionListener((ActionEvent e) -> {
+            int selected = (Integer) resizeModeCombo.getSelectedItem();
+            TablePanel.this.table.setAutoResizeMode(selected);
         });
 
         builder.append("Resize mode", resizeModeCombo);
@@ -559,19 +533,13 @@ public class TablePanel extends ControllablePanel implements Deferrable {
 
         builder.appendSeparator("Font settings");
         JButton tahoma12 = new JButton("Tahoma 12");
-        tahoma12.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                table.setFont(new Font("Tahoma", Font.PLAIN, 12));
-            }
-        });
+        tahoma12.addActionListener(
+                (ActionEvent e) -> table.setFont(new Font("Tahoma", Font.PLAIN, 12)));
         builder.append("Set font", tahoma12);
 
         JButton tahoma13 = new JButton("Tahoma 13");
-        tahoma13.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                table.setFont(new Font("Tahoma", Font.PLAIN, 13));
-            }
-        });
+        tahoma13.addActionListener(
+                (ActionEvent e) -> table.setFont(new Font("Tahoma", Font.PLAIN, 13)));
         builder.append("Set font", tahoma13);
 
         this.controlPanel = builder.getPanel();

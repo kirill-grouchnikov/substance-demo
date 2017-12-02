@@ -61,67 +61,61 @@ import org.pushingpixels.substance.api.skin.SaharaSkin;
 
 public class MultipleSkinsInternalFrame {
 
-	public static void main(String[] args) throws Exception {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
-				JFrame.setDefaultLookAndFeelDecorated(true);
-				SubstanceSkin[][] skinGrid = new SubstanceSkin[][] {
-						{ new AutumnSkin(), new BusinessSkin(),
-								new BusinessBlueSteelSkin(),
-								new BusinessBlackSteelSkin() },
-						{ new NebulaSkin(), new CremeSkin(),
-								new CremeCoffeeSkin(), new ModerateSkin() },
-						{ new OfficeSilver2007Skin(), new SaharaSkin(),
-								new MistAquaSkin(), new NebulaBrickWallSkin() },
-						{ new RavenSkin(), new GraphiteSkin(),
-								new GraphiteGlassSkin(), new MagellanSkin() } };
+    public static void main(String[] args) throws Exception {
+        SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setSkin(new BusinessBlackSteelSkin());
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            SubstanceSkin[][] skinGrid = new SubstanceSkin[][] {
+                            { new AutumnSkin(), new BusinessSkin(), new BusinessBlueSteelSkin(),
+                                            new BusinessBlackSteelSkin() },
+                            { new NebulaSkin(), new CremeSkin(), new CremeCoffeeSkin(),
+                                            new ModerateSkin() },
+                            { new OfficeSilver2007Skin(), new SaharaSkin(), new MistAquaSkin(),
+                                            new NebulaBrickWallSkin() },
+                            { new RavenSkin(), new GraphiteSkin(), new GraphiteGlassSkin(),
+                                            new MagellanSkin() } };
 
-				JFrame frame = new JFrame("Multiple skins");
-				final JDesktopPane desktopPane = new JDesktopPane();
+            JFrame frame = new JFrame("Multiple skins");
+            final JDesktopPane desktopPane = new JDesktopPane();
 
-				final JInternalFrame[] frames = new JInternalFrame[12];
-				for (int i = 0; i < 4; i++) {
-					for (int j = 0; j < 3; j++) {
-						SampleInternalFrame internalFrame = new SampleInternalFrame();
-						SubstanceCortex.RootPaneScope.setSkin(internalFrame.getRootPane(),
-								skinGrid[i][j]);
-						SwingUtilities.updateComponentTreeUI(internalFrame);
-						frames[i * 3 + j] = internalFrame;
+            final JInternalFrame[] frames = new JInternalFrame[12];
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 3; j++) {
+                    SampleInternalFrame internalFrame = new SampleInternalFrame();
+                    SubstanceCortex.RootPaneScope.setSkin(internalFrame.getRootPane(),
+                            skinGrid[i][j]);
+                    SwingUtilities.updateComponentTreeUI(internalFrame);
+                    frames[i * 3 + j] = internalFrame;
 
-						desktopPane.add(internalFrame);
-						internalFrame.setVisible(true);
-					}
-				}
+                    desktopPane.add(internalFrame);
+                    internalFrame.setVisible(true);
+                }
+            }
 
-				desktopPane.addComponentListener(new ComponentAdapter() {
-					@Override
-					public void componentResized(ComponentEvent e) {
-						Rectangle bounds = desktopPane.getBounds();
-						int x = bounds.x;
-						for (int i = 0; i < 4; i++) {
-							int y = bounds.y;
-							for (int j = 0; j < 3; j++) {
-								frames[i * 3 + j].setBounds(x, y,
-										bounds.width / 4, bounds.height / 3);
-								y += bounds.height / 3;
-							}
-							x += bounds.width / 4;
-						}
-					}
-				});
-				frame.add(desktopPane, BorderLayout.CENTER);
+            desktopPane.addComponentListener(new ComponentAdapter() {
+                @Override
+                public void componentResized(ComponentEvent e) {
+                    Rectangle bounds = desktopPane.getBounds();
+                    int x = bounds.x;
+                    for (int i = 0; i < 4; i++) {
+                        int y = bounds.y;
+                        for (int j = 0; j < 3; j++) {
+                            frames[i * 3 + j].setBounds(x, y, bounds.width / 4, bounds.height / 3);
+                            y += bounds.height / 3;
+                        }
+                        x += bounds.width / 4;
+                    }
+                }
+            });
+            frame.add(desktopPane, BorderLayout.CENTER);
 
-				frame.setSize(400, 300);
-				frame.setLocationRelativeTo(null);
-				frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-				frame.doLayout();
-				frame.setVisible(true);
-				frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-			}
-		});
-	}
+            frame.setSize(400, 300);
+            frame.setLocationRelativeTo(null);
+            frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            frame.doLayout();
+            frame.setVisible(true);
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        });
+    }
 
 }

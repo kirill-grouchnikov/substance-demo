@@ -33,7 +33,6 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Set;
 
 import javax.swing.JButton;
@@ -104,13 +103,10 @@ public class GetAllTabCloseListeners_Specific extends JFrame {
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
         JButton getTabCloseListeners = new JButton("Get tab close listeners");
-        getTabCloseListeners.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(GetAllTabCloseListeners_Specific.this,
-                        SubstanceCortex.ComponentScope.getAllTabCloseListeners(jtp).size()
-                                + " specific tab close listeners registered");
-            }
-        });
+        getTabCloseListeners.addActionListener((ActionEvent e) -> JOptionPane.showMessageDialog(
+                GetAllTabCloseListeners_Specific.this,
+                SubstanceCortex.ComponentScope.getAllTabCloseListeners(jtp).size()
+                        + " specific tab close listeners registered"));
 
         controls.add(getTabCloseListeners);
         this.add(controls, BorderLayout.SOUTH);

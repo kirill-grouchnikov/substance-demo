@@ -34,7 +34,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
@@ -81,26 +80,22 @@ public class ScrollPanel extends ControllablePanel {
         builder.appendSeparator("General settings");
         final JCheckBox isEnabled = new JCheckBox("is enabled");
         isEnabled.setSelected(true);
-        isEnabled.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                boolean toEnable = isEnabled.isSelected();
-                sp.setEnabled(toEnable);
-                updateEnabledState(sp, toEnable);
-                Check.out("Scroll pane is " + toEnable);
-            }
+        isEnabled.addActionListener((ActionEvent e) -> {
+            boolean toEnable = isEnabled.isSelected();
+            sp.setEnabled(toEnable);
+            updateEnabledState(sp, toEnable);
+            Check.out("Scroll pane is " + toEnable);
         });
         builder.append("Enabled", isEnabled);
 
         final JCheckBox hasNullBorder = new JCheckBox("Has null border");
         hasNullBorder.setSelected(false);
-        hasNullBorder.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (hasNullBorder.isSelected())
-                    sp.setBorder(null);
-                else
-                    sp.setBorder(new LineBorder(Color.red));
-                sp.repaint();
-            }
+        hasNullBorder.addActionListener((ActionEvent e) -> {
+            if (hasNullBorder.isSelected())
+                sp.setBorder(null);
+            else
+                sp.setBorder(new LineBorder(Color.red));
+            sp.repaint();
         });
         builder.append("Border", hasNullBorder);
 

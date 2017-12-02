@@ -99,12 +99,6 @@ public class MousePopupListener extends MouseAdapter {
 	void checkPopup(MouseEvent e) {
 		if (e.isPopupTrigger()) {
 			JPopupMenu popup = new JPopupMenu();
-			// ActionListener menuListener = new ActionListener() {
-			// public void actionPerformed(ActionEvent event) {
-			// Check.out("Popup menu item [" + event.getActionCommand()
-			// + "] was pressed.");
-			// }
-			// };
 			int mcount = 0;
 			for (LinkedList<JMenuItem> miList : SampleMenuFactory
 					.getTestMenuItems()) {

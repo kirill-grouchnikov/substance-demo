@@ -34,7 +34,6 @@ import java.awt.Color;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,9 +53,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
 import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.combo.WidestComboPopupPrototype;
@@ -215,22 +212,16 @@ public class ListPanel extends ControllablePanel {
 
         final JCheckBox isEnabled = new JCheckBox("is enabled");
         isEnabled.setSelected(list.isEnabled());
-        isEnabled.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                list.setEnabled(isEnabled.isSelected());
-            }
-        });
+        isEnabled.addActionListener((ActionEvent e) -> list.setEnabled(isEnabled.isSelected()));
         builder.append("Enabled", isEnabled);
 
         final JSlider rowCountSlider = new JSlider(10, 1000, this.list.getModel().getSize());
         rowCountSlider.setPaintLabels(false);
         rowCountSlider.setPaintTicks(false);
-        rowCountSlider.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                if (rowCountSlider.getValueIsAdjusting())
-                    return;
-                list.setModel(new MoveableListModel(rowCountSlider.getValue()));
-            }
+        rowCountSlider.addChangeListener((ChangeEvent e) -> {
+            if (rowCountSlider.getValueIsAdjusting())
+                return;
+            list.setModel(new MoveableListModel(rowCountSlider.getValue()));
         });
         builder.append("Row count", rowCountSlider);
 
@@ -257,47 +248,34 @@ public class ListPanel extends ControllablePanel {
         builder.append("", bDown);
         builder.append("", bDelete);
 
-        bUp.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                int si = list.getSelectedIndex();
-                MoveableListModel mlm = (MoveableListModel) list.getModel();
-                mlm.moveUp(si);
-                list.setSelectedIndex(si - 1);
-            }
+        bUp.addActionListener((ActionEvent e) -> {
+            int si = list.getSelectedIndex();
+            MoveableListModel mlm = (MoveableListModel) list.getModel();
+            mlm.moveUp(si);
+            list.setSelectedIndex(si - 1);
         });
 
-        bDown.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                int si = list.getSelectedIndex();
-                MoveableListModel mlm = (MoveableListModel) list.getModel();
-                mlm.moveDown(si);
-                list.setSelectedIndex(si + 1);
-            }
+        bDown.addActionListener((ActionEvent e) -> {
+            int si = list.getSelectedIndex();
+            MoveableListModel mlm = (MoveableListModel) list.getModel();
+            mlm.moveDown(si);
+            list.setSelectedIndex(si + 1);
         });
 
-        bDelete.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                MoveableListModel mlm = (MoveableListModel) list.getModel();
-                for (int i = list.getMaxSelectionIndex(); i >= list.getMinSelectionIndex(); i--) {
-                    if (list.isSelectedIndex(i)) {
-                        mlm.delete(i);
-                    }
+        bDelete.addActionListener((ActionEvent e) -> {
+            MoveableListModel mlm = (MoveableListModel) list.getModel();
+            for (int i = list.getMaxSelectionIndex(); i >= list.getMinSelectionIndex(); i--) {
+                if (list.isSelectedIndex(i)) {
+                    mlm.delete(i);
                 }
-                list.clearSelection();
             }
+            list.clearSelection();
         });
 
         synchronize();
 
-        list.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        synchronize();
-                    }
-                });
-            }
-        });
+        list.getSelectionModel().addListSelectionListener((ListSelectionEvent e) ->
+                SwingUtilities.invokeLater(() -> synchronize()));
 
         final JComboBox selectionModelCb = new JComboBox(
                 new Object[] { "single", "single interval", "multiple interval" });

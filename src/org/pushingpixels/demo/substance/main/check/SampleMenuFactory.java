@@ -561,7 +561,7 @@ public class SampleMenuFactory {
                 "se.diod.hippo.plaf.HippoLookAndFeel"));
         customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "InfoNode",
                 "net.infonode.gui.laf.InfoNodeLookAndFeel"));
-        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Kuntstoff",
+        customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Kunststoff",
                 "com.incors.plaf.kunststoff.KunststoffLookAndFeel"));
         customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Liquid",
                 "com.birosoft.liquid.LiquidLookAndFeel"));
@@ -570,7 +570,7 @@ public class SampleMenuFactory {
         customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Metouia",
                 "net.sourceforge.mlf.metouia.MetouiaLookAndFeel"));
         customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Napkin",
-                "net.sourceforge.napkinlaf.NapkinLookAndFeel"));
+                "napkin.NapkinLookAndFeel"));
         customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "Nimbus",
                 "org.jdesktop.swingx.plaf.nimbus.NimbusLookAndFeel"));
         customLafMenus.add(SubstanceLafChanger.getMenuItem(frame, "NimROD",
@@ -744,12 +744,10 @@ public class SampleMenuFactory {
         }
 
         public void actionPerformed(ActionEvent e) {
-            SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    SubstanceSkin newSkin = SubstanceCortex.GlobalScope.getCurrentSkin()
-                            .transform(transform, name);
-                    SubstanceCortex.GlobalScope.setSkin(newSkin);
-                }
+            SwingUtilities.invokeLater(() -> {
+                SubstanceSkin newSkin = SubstanceCortex.GlobalScope.getCurrentSkin()
+                        .transform(transform, name);
+                SubstanceCortex.GlobalScope.setSkin(newSkin);
             });
         }
     }

@@ -7,9 +7,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -106,44 +104,35 @@ public class Alignment extends JFrame {
                 break;
             }
         }
-        lafSwitchCombo.addItemListener(new ItemListener() {
-            public void itemStateChanged(ItemEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        String selected = (String) lafSwitchCombo.getSelectedItem();
-                        LookAndFeelInfo matchingLafInfo = null;
-                        for (int i = 0; i < lafs.length; i++) {
-                            if (lafs[i].getName().equals(selected)) {
-                                matchingLafInfo = lafs[i];
-                                break;
-                            }
-                        }
-
-                        if (selected.startsWith("Substance")) {
-                            SubstanceCortex.GlobalScope.setSkin(matchingLafInfo.getClassName());
-                        } else {
-                            try {
-                                UIManager.setLookAndFeel(matchingLafInfo.getClassName());
-                                for (Window w : Window.getWindows()) {
-                                    SwingUtilities.updateComponentTreeUI(w);
-                                }
-                            } catch (Exception exc) {
-                                System.out.println("Look-and-feel " + matchingLafInfo.getName()
-                                        + " not found");
-                            }
-                        }
+        lafSwitchCombo.addItemListener((ItemEvent e) -> {
+            SwingUtilities.invokeLater(() -> {
+                String selected = (String) lafSwitchCombo.getSelectedItem();
+                LookAndFeelInfo matchingLafInfo = null;
+                for (int i = 0; i < lafs.length; i++) {
+                    if (lafs[i].getName().equals(selected)) {
+                        matchingLafInfo = lafs[i];
+                        break;
                     }
-                });
-            }
+                }
+
+                if (selected.startsWith("Substance")) {
+                    SubstanceCortex.GlobalScope.setSkin(matchingLafInfo.getClassName());
+                } else {
+                    try {
+                        UIManager.setLookAndFeel(matchingLafInfo.getClassName());
+                        for (Window w : Window.getWindows()) {
+                            SwingUtilities.updateComponentTreeUI(w);
+                        }
+                    } catch (Exception exc) {
+                        System.out.println(
+                                "Look-and-feel " + matchingLafInfo.getName() + " not found");
+                    }
+                }
+            });
         });
 
         toPaintOverlays = new JCheckBox("paint overlays");
-        toPaintOverlays.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Alignment.this.repaint();
-            }
-        });
+        toPaintOverlays.addActionListener((ActionEvent e) -> Alignment.this.repaint());
 
         controls.add(toPaintOverlays);
         controls.add(lafSwitchCombo);

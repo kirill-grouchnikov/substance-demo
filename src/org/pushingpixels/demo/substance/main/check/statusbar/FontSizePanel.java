@@ -2,7 +2,6 @@ package org.pushingpixels.demo.substance.main.check.statusbar;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -13,7 +12,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIDefaults;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.plaf.FontUIResource;
 
 import org.pushingpixels.demo.substance.main.check.svg.tango.view_zoom_in;
@@ -120,31 +118,26 @@ public class FontSizePanel {
         // fontSizeSlider.setOpaque(false);
         fontSizeSlider.setToolTipText(
                 "Controls the global font set size. Resets Substance as the current LAF.");
-        fontSizeSlider.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                // if the value is adjusting - ignore. This is done
-                // to make CPU usage better.
-                if (!fontSizeSlider.getModel().getValueIsAdjusting()) {
-                    final int newValue = fontSizeSlider.getValue();
-                    SwingUtilities.invokeLater(new Runnable() {
-                        public void run() {
-                            SubstanceCortex.GlobalScope.setFontPolicy(null);
-                            final FontSet substanceCoreFontSet = SubstanceCortex.GlobalScope
-                                    .getFontPolicy().getFontSet("Substance", null);
-                            FontPolicy newFontPolicy = new FontPolicy() {
-                                public FontSet getFontSet(String lafName, UIDefaults table) {
-                                    return new WrapperFontSet(substanceCoreFontSet, newValue);
-                                }
-                            };
-
-                            SubstanceCortex.GlobalScope.setFontPolicy(newFontPolicy);
-
-                            fontSizeLabel.setText(SubstanceCortex.GlobalScope.getFontPolicy()
-                                    .getFontSet("Substance", null).getControlFont().getSize()
-                                    + " pt.");
+        fontSizeSlider.addChangeListener((ChangeEvent e) -> {
+            // if the value is adjusting - ignore. This is done
+            // to make CPU usage better.
+            if (!fontSizeSlider.getModel().getValueIsAdjusting()) {
+                final int newValue = fontSizeSlider.getValue();
+                SwingUtilities.invokeLater(() -> {
+                    SubstanceCortex.GlobalScope.setFontPolicy(null);
+                    final FontSet substanceCoreFontSet = SubstanceCortex.GlobalScope.getFontPolicy()
+                            .getFontSet("Substance", null);
+                    FontPolicy newFontPolicy = new FontPolicy() {
+                        public FontSet getFontSet(String lafName, UIDefaults table) {
+                            return new WrapperFontSet(substanceCoreFontSet, newValue);
                         }
-                    });
-                }
+                    };
+
+                    SubstanceCortex.GlobalScope.setFontPolicy(newFontPolicy);
+
+                    fontSizeLabel.setText(SubstanceCortex.GlobalScope.getFontPolicy()
+                            .getFontSet("Substance", null).getControlFont().getSize() + " pt.");
+                });
             }
         });
         builder.append(fontSizeSlider);
@@ -155,26 +148,19 @@ public class FontSizePanel {
 
         JButton tahoma = new JButton("Tahoma 11");
         SubstanceCortex.ComponentOrParentScope.setButtonIgnoreMinimumSize(tahoma, true);
-        tahoma.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        SubstanceCortex.GlobalScope.setFontPolicy(null);
-                        FontPolicy newFontPolicy = new FontPolicy() {
-                            public FontSet getFontSet(String lafName, UIDefaults table) {
-                                return new Tahoma11FontSet();
-                            }
-                        };
+        tahoma.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
+            SubstanceCortex.GlobalScope.setFontPolicy(null);
+            FontPolicy newFontPolicy = new FontPolicy() {
+                public FontSet getFontSet(String lafName, UIDefaults table) {
+                    return new Tahoma11FontSet();
+                }
+            };
 
-                        SubstanceCortex.GlobalScope.setFontPolicy(newFontPolicy);
+            SubstanceCortex.GlobalScope.setFontPolicy(newFontPolicy);
 
-                        fontSizeLabel.setText(SubstanceCortex.GlobalScope.getFontPolicy()
-                                .getFontSet("Substance", null).getControlFont().getSize() + " pt.");
-                    }
-                });
-            }
-        });
+            fontSizeLabel.setText(SubstanceCortex.GlobalScope.getFontPolicy()
+                    .getFontSet("Substance", null).getControlFont().getSize() + " pt.");
+        }));
         builder.append(tahoma);
 
         JPanel result = builder.getPanel();
