@@ -151,7 +151,7 @@ public class Check extends JFrame {
     private JToolBar toolbar;
 
     public Check() {
-        super("Substance test with very very very very very very very very very very very very very very long title");
+        super("Substance test application");
 
         if (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel) {
             setIconImage(SubstanceLogo

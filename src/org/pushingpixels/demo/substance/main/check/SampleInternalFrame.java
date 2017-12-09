@@ -111,9 +111,7 @@ public class SampleInternalFrame extends JInternalFrame {
         JPanel contentPanel = builder.getPanel();
         contentPanel.setPreferredSize(new Dimension(contentPanel.getPreferredSize().width,
                 contentPanel.getPreferredSize().height + 100));
-        // contentPanel.setOpaque(false);
         contentPanel.setBorder(null);
-        // stuff.setBorder(null);
 
         JScrollPane scroll = new JScrollPane(contentPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);

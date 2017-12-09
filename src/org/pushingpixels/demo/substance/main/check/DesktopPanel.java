@@ -105,8 +105,7 @@ public class DesktopPanel extends ControllablePanel {
 
         JButton sample = new JButton("Add");
         sample.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
-            JInternalFrame jif = new SampleInternalFrame() {
-            };
+            JInternalFrame jif = new SampleInternalFrame();
             jif.setBounds(0, 0, 300, 200);
             jdp.add(jif);
             jif.setVisible(true);

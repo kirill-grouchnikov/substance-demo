@@ -87,18 +87,22 @@ import org.pushingpixels.demo.substance.main.check.svg.ic_warning_black_24px;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
+import org.pushingpixels.substance.api.SubstanceSlices.ButtonOrder;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
+import org.pushingpixels.substance.api.SubstanceSlices.Gravity;
 import org.pushingpixels.substance.api.SubstanceSlices.MenuGutterFillKind;
-import org.pushingpixels.substance.api.SubstanceSlices.SubstanceOptionPaneButtonAlignment;
-import org.pushingpixels.substance.api.SubstanceSlices.SubstanceOptionPaneButtonOrder;
 import org.pushingpixels.substance.api.SubstanceSlices.SubstanceWidgetType;
+import org.pushingpixels.substance.api.SubstanceSlices.TitleIconGravity;
 import org.pushingpixels.substance.api.icon.SubstanceDefaultIconPack;
 import org.pushingpixels.substance.api.painter.preview.DefaultPreviewPainter;
 import org.pushingpixels.substance.api.skin.NebulaBrickWallSkin;
 import org.pushingpixels.substance.extras.api.SubstanceExtrasSlices.TabOverviewKind;
+import org.pushingpixels.trident.Timeline;
+import org.pushingpixels.trident.Timeline.RepeatBehavior;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
@@ -118,6 +122,21 @@ public class ControlPanelFactory {
      * Instance of a disposable dialog.
      */
     private static JDialog disposableDialog;
+
+    private static class TitlePaneConfiguration {
+        private String title;
+        private SubstanceSlices.Gravity textGravity;
+        private SubstanceSlices.Gravity controlButtonsGravity;
+        private SubstanceSlices.TitleIconGravity iconGravity;
+
+        public TitlePaneConfiguration(String title, Gravity textGravity,
+                Gravity controlButtonsGravity, TitleIconGravity iconGravity) {
+            this.title = title;
+            this.textGravity = textGravity;
+            this.controlButtonsGravity = controlButtonsGravity;
+            this.iconGravity = iconGravity;
+        }
+    }
 
     /**
      * Returns the main control panel.
@@ -139,6 +158,38 @@ public class ControlPanelFactory {
         DefaultFormBuilder builder = new DefaultFormBuilder(lm);
 
         builder.appendSeparator("Title pane settings");
+
+        final JComboBox titleContentGravity = new FlexiComboBox<TitlePaneConfiguration>(
+                new TitlePaneConfiguration("Swing default", SubstanceSlices.Gravity.SWING_DEFAULT,
+                        SubstanceSlices.Gravity.SWING_DEFAULT,
+                        SubstanceSlices.TitleIconGravity.SWING_DEFAULT),
+                new TitlePaneConfiguration("Platform", SubstanceSlices.Gravity.PLATFORM,
+                        SubstanceSlices.Gravity.PLATFORM,
+                        SubstanceSlices.TitleIconGravity.PLATFORM),
+                new TitlePaneConfiguration("Force macOS", SubstanceSlices.Gravity.CENTERED,
+                        SubstanceSlices.Gravity.LEADING,
+                        SubstanceSlices.TitleIconGravity.NEXT_TO_TITLE),
+                new TitlePaneConfiguration("Force Windows", SubstanceSlices.Gravity.LEADING,
+                        SubstanceSlices.Gravity.TRAILING,
+                        SubstanceSlices.TitleIconGravity.OPPOSITE_CONTROL_BUTTONS),
+                new TitlePaneConfiguration("Force Gnome", SubstanceSlices.Gravity.CENTERED,
+                        SubstanceSlices.Gravity.TRAILING, SubstanceSlices.TitleIconGravity.NONE),
+                new TitlePaneConfiguration("Force KDE", SubstanceSlices.Gravity.CENTERED,
+                        SubstanceSlices.Gravity.TRAILING,
+                        SubstanceSlices.TitleIconGravity.OPPOSITE_CONTROL_BUTTONS)) {
+            @Override
+            public String getCaption(TitlePaneConfiguration item) {
+                return item.title;
+            }
+        };
+        titleContentGravity.addActionListener((ActionEvent e) -> {
+            TitlePaneConfiguration selected = (TitlePaneConfiguration) titleContentGravity
+                    .getSelectedItem();
+            SubstanceCortex.GlobalScope.configureTitleContentGravity(selected.textGravity,
+                    selected.controlButtonsGravity, selected.iconGravity);
+        });
+        builder.append("Content gravity", titleContentGravity);
+
         final JCheckBox markAsModified = new JCheckBox("Marked modified");
         markAsModified.setSelected(false);
         markAsModified.addActionListener((ActionEvent e) -> SubstanceCortex.RootPaneScope
@@ -411,37 +462,31 @@ public class ControlPanelFactory {
         }));
         builder.append("", bcWindow);
 
-        builder.appendSeparator("Option panes");
+        builder.appendSeparator("Button bars");
 
-        final JComboBox optionPaneButtonOrderCombo = new FlexiComboBox<SubstanceOptionPaneButtonOrder>(
-                SubstanceOptionPaneButtonOrder.values()) {
+        final JComboBox buttonBarOrderCombo = new FlexiComboBox<ButtonOrder>(ButtonOrder.values()) {
             @Override
-            public String getCaption(SubstanceOptionPaneButtonOrder item) {
+            public String getCaption(ButtonOrder item) {
                 return item.name();
             }
         };
-        optionPaneButtonOrderCombo
-                .setSelectedItem(SubstanceCortex.GlobalScope.getOptionPaneButtonOrder());
-        optionPaneButtonOrderCombo.addActionListener((ActionEvent e) -> {
-            SubstanceCortex.GlobalScope.setOptionPaneButtonOrder(
-                    (SubstanceOptionPaneButtonOrder) optionPaneButtonOrderCombo.getSelectedItem());
+        buttonBarOrderCombo.setSelectedItem(SubstanceCortex.GlobalScope.getButtonBarOrder());
+        buttonBarOrderCombo.addActionListener((ActionEvent e) -> {
+            SubstanceCortex.GlobalScope
+                    .setButtonBarOrder((ButtonOrder) buttonBarOrderCombo.getSelectedItem());
         });
-        builder.append("Button order", optionPaneButtonOrderCombo);
+        builder.append("Button bar order", buttonBarOrderCombo);
 
-        final JComboBox optionPaneButtonAlignmentCombo = new FlexiComboBox<SubstanceOptionPaneButtonAlignment>(
-                SubstanceOptionPaneButtonAlignment.values()) {
+        final JComboBox buttonBarGravityCombo = new FlexiComboBox<Gravity>(Gravity.values()) {
             @Override
-            public String getCaption(SubstanceOptionPaneButtonAlignment item) {
+            public String getCaption(Gravity item) {
                 return item.name();
             }
         };
-        optionPaneButtonAlignmentCombo
-                .setSelectedItem(SubstanceCortex.GlobalScope.getOptionPaneButtonAlignment());
-        optionPaneButtonAlignmentCombo.addActionListener(
-                (ActionEvent e) -> SubstanceCortex.GlobalScope.setOptionPaneButtonAlignment(
-                        (SubstanceOptionPaneButtonAlignment) optionPaneButtonAlignmentCombo
-                                .getSelectedItem()));
-        builder.append("Button alignment", optionPaneButtonAlignmentCombo);
+        buttonBarGravityCombo.setSelectedItem(SubstanceCortex.GlobalScope.getButtonBarGravity());
+        buttonBarGravityCombo.addActionListener((ActionEvent e) -> SubstanceCortex.GlobalScope
+                .setButtonBarGravity((Gravity) buttonBarGravityCombo.getSelectedItem()));
+        builder.append("Button bar gravity", buttonBarGravityCombo);
 
         JButton bop = new JButton("Show");
         bop.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
@@ -649,7 +694,16 @@ public class ControlPanelFactory {
                     tabs.addTab("Bar", tab2);
                     dialog.add(tabs, BorderLayout.CENTER);
 
-                    dialog.add(new JLabel("Press Esc to close dialog"), BorderLayout.NORTH);
+                    JLabel instructional = new JLabel("Press Esc to close dialog");
+                    SubstanceCortex.ComponentOrParentChainScope.setColorizationFactor(instructional, 1.0);
+                    dialog.add(instructional, BorderLayout.NORTH);
+
+                    // create a looping animation to change the label foreground
+                    // from black to blue and back to draw some attention.
+                    Timeline instructionalTimeline = new Timeline(instructional);
+                    instructionalTimeline.addPropertyToInterpolate("foreground", Color.black, Color.blue);
+                    instructionalTimeline.setDuration(1000);
+                    instructionalTimeline.playLoop(RepeatBehavior.REVERSE);
 
                     // connect "Esc" key with disposing the dialog
                     String actionName = "VK_ESCAPE";
@@ -680,7 +734,16 @@ public class ControlPanelFactory {
                     myContentPane.setLayout(new BorderLayout());
                     dialog.setContentPane(myContentPane);
 
-                    dialog.add(new JLabel("Press Esc to close dialog"), BorderLayout.NORTH);
+                    JLabel instructional = new JLabel("Press Esc to close dialog");
+                    SubstanceCortex.ComponentOrParentChainScope.setColorizationFactor(instructional, 1.0);
+                    dialog.add(instructional, BorderLayout.NORTH);
+
+                    // create a looping animation to change the label foreground
+                    // from black to blue and back to draw some attention.
+                    Timeline instructionalTimeline = new Timeline(instructional);
+                    instructionalTimeline.addPropertyToInterpolate("foreground", Color.black, Color.blue);
+                    instructionalTimeline.setDuration(1000);
+                    instructionalTimeline.playLoop(RepeatBehavior.REVERSE);
 
                     // connect "Esc" key with "System.exit(0)"
                     String actionName = "VK_ESCAPE";
@@ -707,7 +770,7 @@ public class ControlPanelFactory {
             SubstanceCortex.RootPaneScope.setSkin(testFrame.getRootPane(),
                     new NebulaBrickWallSkin());
             SwingUtilities.updateComponentTreeUI(testFrame.getRootPane());
-            testFrame.setSize(315, 245);
+            testFrame.setSize(340, 254);
             testFrame.setLocationRelativeTo(mainFrame);
             testFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             testFrame.setVisible(true);
