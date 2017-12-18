@@ -1,4 +1,4 @@
-package org.pushingpixels.demo.substance.main.check.svg.flags;
+package org.pushingpixels.demo.substance.main.check.svg;
 
 import java.awt.*;
 import java.awt.geom.*;
@@ -14,7 +14,7 @@ import org.pushingpixels.substance.api.icon.SubstanceIconUIResource;
  * This class has been automatically generated using <a
  * href="https://github.com/kirill-grouchnikov/ibis">Ibis SVG transcoder</a>.
  */
-public class cl implements Icon, IsResizable, IsHiDpiAware, UIResource {
+public class substance implements Icon, IsResizable, IsHiDpiAware, UIResource {
     @SuppressWarnings("unused")
 	private void innerPaint(Graphics2D g) {
         Shape shape = null;
@@ -39,71 +39,26 @@ g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, -0.0f, -0.0f));
 // _0
 g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
 AffineTransform defaultTransform__0_0 = g.getTransform();
-g.transform(new AffineTransform(0.722000002861023f, 0.0f, 0.0f, 0.722000002861023f, 0.0f, 0.0f));
+g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0
-g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-AffineTransform defaultTransform__0_0_0 = g.getTransform();
-g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
-// _0_0_0
-paint = new Color(255, 255, 255, 254);
+paint = new Color(0, 0, 0, 255);
+stroke = new BasicStroke(4.0f,1,1,4.0f,null,0.0f);
 shape = new GeneralPath();
-((GeneralPath)shape).moveTo(354.31, 0.0);
-((GeneralPath)shape).lineTo(1062.99, 0.0);
-((GeneralPath)shape).lineTo(1062.99, 354.34);
-((GeneralPath)shape).lineTo(354.31, 354.34);
-((GeneralPath)shape).closePath();
+((GeneralPath)shape).moveTo(25.214, 29.175);
+((GeneralPath)shape).curveTo(25.732, 24.874, 29.64, 21.892, 35.418, 22.504);
+((GeneralPath)shape).curveTo(40.053, 23.05, 43.613, 27.594, 43.426, 32.139);
+((GeneralPath)shape).curveTo(42.727, 40.13, 37.328, 42.509, 32.761, 42.605);
+((GeneralPath)shape).curveTo(26.645, 42.626, 22.706, 41.263, 19.207, 35.429);
+((GeneralPath)shape).curveTo(18.105, 33.593, 15.116, 24.977, 13.45, 23.696);
+((GeneralPath)shape).curveTo(12.097, 22.581, 10.202, 21.774, 6.915, 22.616);
+((GeneralPath)shape).curveTo(3.884, 23.916, 3.439, 26.181, 3.842, 27.502);
+((GeneralPath)shape).curveTo(4.174, 29.663, 6.805, 31.286, 8.898, 31.333);
+((GeneralPath)shape).curveTo(14.291, 31.757, 17.64, 28.109, 19.094, 23.232);
+((GeneralPath)shape).curveTo(21.235, 16.051, 23.955, 14.439, 26.087, 13.571);
+((GeneralPath)shape).curveTo(30.672, 11.784, 37.016, 13.074, 45.158, 12.765);
 g.setPaint(paint);
-g.fill(shape);
-g.setTransform(defaultTransform__0_0_0);
-g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-AffineTransform defaultTransform__0_0_1 = g.getTransform();
-g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
-// _0_0_1
-paint = new Color(0, 57, 166, 254);
-shape = new GeneralPath();
-((GeneralPath)shape).moveTo(0.0, 0.0);
-((GeneralPath)shape).lineTo(354.34, 0.0);
-((GeneralPath)shape).lineTo(354.34, 354.34);
-((GeneralPath)shape).lineTo(0.0, 354.34);
-((GeneralPath)shape).closePath();
-g.setPaint(paint);
-g.fill(shape);
-g.setTransform(defaultTransform__0_0_1);
-g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-AffineTransform defaultTransform__0_0_2 = g.getTransform();
-g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
-// _0_0_2
-paint = new Color(255, 255, 255, 254);
-shape = new GeneralPath();
-((GeneralPath)shape).moveTo(232.273, 265.338);
-((GeneralPath)shape).lineTo(177.39, 224.17801);
-((GeneralPath)shape).lineTo(122.774994, 265.742);
-((GeneralPath)shape).lineTo(143.08699, 198.199);
-((GeneralPath)shape).lineTo(88.57299, 156.491);
-((GeneralPath)shape).lineTo(156.017, 155.909);
-((GeneralPath)shape).lineTo(176.937, 88.571);
-((GeneralPath)shape).lineTo(198.303, 155.754);
-((GeneralPath)shape).lineTo(265.747, 155.844);
-((GeneralPath)shape).lineTo(211.513, 197.944);
-((GeneralPath)shape).lineTo(232.273, 265.337);
-((GeneralPath)shape).closePath();
-g.setPaint(paint);
-g.fill(shape);
-g.setTransform(defaultTransform__0_0_2);
-g.setComposite(AlphaComposite.getInstance(3, 1.0f * origAlpha));
-AffineTransform defaultTransform__0_0_3 = g.getTransform();
-g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
-// _0_0_3
-paint = new Color(213, 43, 30, 254);
-shape = new GeneralPath();
-((GeneralPath)shape).moveTo(0.0, 354.34);
-((GeneralPath)shape).lineTo(1063.0, 354.34);
-((GeneralPath)shape).lineTo(1063.0, 708.66003);
-((GeneralPath)shape).lineTo(0.0, 708.66003);
-((GeneralPath)shape).closePath();
-g.setPaint(paint);
-g.fill(shape);
-g.setTransform(defaultTransform__0_0_3);
+g.setStroke(stroke);
+g.draw(shape);
 g.setTransform(defaultTransform__0_0);
 g.setTransform(defaultTransform__0);
 g.setTransform(defaultTransform_);
@@ -116,7 +71,7 @@ g.setTransform(defaultTransform_);
      * @return The X of the bounding box of the original SVG image.
      */
     public static double getOrigX() {
-        return 0.0;
+        return 1.2277991771697998;
     }
 
     /**
@@ -125,7 +80,7 @@ g.setTransform(defaultTransform_);
      * @return The Y of the bounding box of the original SVG image.
      */
     public static double getOrigY() {
-        return 0.0;
+        return 10.548418045043945;
     }
 
 	/**
@@ -134,7 +89,7 @@ g.setTransform(defaultTransform_);
 	 * @return The width of the bounding box of the original SVG image.
 	 */
 	public static double getOrigWidth() {
-		return 511.6524963378906;
+		return 45.97108840942383;
 	}
 
 	/**
@@ -143,7 +98,7 @@ g.setTransform(defaultTransform_);
 	 * @return The height of the bounding box of the original SVG image.
 	 */
 	public static double getOrigHeight() {
-		return 511.6524963378906;
+		return 34.08081817626953;
 	}
 
     /** The current width of this resizable icon. */
@@ -156,7 +111,7 @@ g.setTransform(defaultTransform_);
      * Creates a new transcoded SVG image. It is recommended to use the 
      * {@link #of(int, int)} method to obtain a pre-configured instance.
      */
-	public cl() {
+	public substance() {
         this.width = (int) getOrigWidth();
         this.height = (int) getOrigHeight();
 	}
@@ -214,7 +169,7 @@ g.setTransform(defaultTransform_);
      * Returns an instance of this icon with specified dimensions.
      */
     public static SubstanceIcon of(int width, int height) {
-       cl base = new cl();
+       substance base = new substance();
        base.width = width;
        base.height = height;
        return new SubstanceIcon(base);
@@ -224,7 +179,7 @@ g.setTransform(defaultTransform_);
      * Returns a {@link UIResource} instance of this icon with specified dimensions.
      */
     public static SubstanceIconUIResource uiResourceOf(int width, int height) {
-       cl base = new cl();
+       substance base = new substance();
        base.width = width;
        base.height = height;
        return new SubstanceIconUIResource(base);

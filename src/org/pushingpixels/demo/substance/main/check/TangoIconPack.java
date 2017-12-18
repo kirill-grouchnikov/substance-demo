@@ -63,212 +63,217 @@ import org.pushingpixels.demo.substance.main.check.svg.tango.user_home;
 import org.pushingpixels.demo.substance.main.check.svg.tango.view_fullscreen;
 import org.pushingpixels.demo.substance.main.check.svg.tango.view_refresh;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.icon.SubstanceIcon;
 import org.pushingpixels.substance.api.icon.SubstanceIconPack;
+import org.pushingpixels.substance.api.icon.SubstanceIconUIResource;
 
 public class TangoIconPack implements SubstanceIconPack {
 
     @Override
-    public SubstanceIcon getOptionPaneInformationIcon(int preferredSize,
+    public SubstanceIconUIResource getOptionPaneInformationIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return dialog_information.of(preferredSize, preferredSize);
+        return dialog_information.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public SubstanceIcon getOptionPaneWarningIcon(int preferredSize,
+    public SubstanceIconUIResource getOptionPaneWarningIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return dialog_warning.of(preferredSize, preferredSize);
+        return dialog_warning.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public SubstanceIcon getOptionPaneErrorIcon(int preferredSize,
+    public SubstanceIconUIResource getOptionPaneErrorIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return dialog_error.of(preferredSize, preferredSize);
+        return dialog_error.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public SubstanceIcon getOptionPaneQuestionIcon(int preferredSize,
+    public SubstanceIconUIResource getOptionPaneQuestionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return help_browser.of(preferredSize, preferredSize);
+        return help_browser.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public SubstanceIcon getFileChooserNewFolderIcon(int preferredSize,
+    public SubstanceIconUIResource getFileChooserNewFolderIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return folder_new.of(preferredSize, preferredSize);
+        return folder_new.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public SubstanceIcon getFileChooserUpFolderIcon(int preferredSize,
+    public SubstanceIconUIResource getFileChooserUpFolderIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return go_up.of(preferredSize, preferredSize);
+        return go_up.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public SubstanceIcon getFileChooserHomeFolderIcon(int preferredSize,
+    public SubstanceIconUIResource getFileChooserHomeFolderIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return user_home.of(preferredSize, preferredSize);
+        return user_home.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public SubstanceIcon getFileChooserListViewIcon(int preferredSize,
+    public SubstanceIconUIResource getFileChooserListViewIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return format_justify_fill.of(preferredSize, preferredSize);
+        return format_justify_fill.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public SubstanceIcon getFileChooserDetailsViewIcon(int preferredSize,
+    public SubstanceIconUIResource getFileChooserDetailsViewIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return accessories_text_editor.of(preferredSize, preferredSize);
+        return accessories_text_editor.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public SubstanceIcon getFileChooserViewMenuIcon(int preferredSize,
+    public SubstanceIconUIResource getFileChooserViewMenuIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return emblem_system.of(preferredSize, preferredSize);
+        return emblem_system.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public SubstanceIcon getFileChooserComputerIcon(int preferredSize,
+    public SubstanceIconUIResource getFileChooserComputerIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return computer.of(preferredSize, preferredSize);
+        return computer.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public SubstanceIcon getFileChooserDirectoryIcon(int preferredSize,
+    public SubstanceIconUIResource getFileChooserDirectoryIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return folder.of(preferredSize, preferredSize);
+        return folder.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public SubstanceIcon getFileChooserFileIcon(int preferredSize,
+    public SubstanceIconUIResource getFileChooserFileIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return text_x_generic.of(preferredSize, preferredSize);
+        return text_x_generic.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public SubstanceIcon getFileChooserFloppyDriveIcon(int preferredSize,
+    public SubstanceIconUIResource getFileChooserFloppyDriveIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return media_floppy.of(preferredSize, preferredSize);
+        return media_floppy.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public SubstanceIcon getFileChooserHardDriveIcon(int preferredSize,
+    public SubstanceIconUIResource getFileChooserHardDriveIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return drive_harddisk.of(preferredSize, preferredSize);
+        return drive_harddisk.uiResourceOf(preferredSize, preferredSize);
     }
 
     @Override
-    public SubstanceIcon getLockIcon(int preferredSize,
+    public SubstanceIconUIResource getLockIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return locked.of(preferredSize, preferredSize);
+        return locked.uiResourceOf(preferredSize, preferredSize);
     }
-    
+
     @Override
-    public SubstanceIcon getInspectIcon(int preferredSize,
+    public SubstanceIconUIResource getInspectIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return system_search.of(preferredSize, preferredSize);
+        return system_search.uiResourceOf(preferredSize, preferredSize);
     }
-    
+
     @Override
-    public SubstanceIcon getRefreshIcon(int preferredSize,
+    public SubstanceIconUIResource getRefreshIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return view_refresh.of(preferredSize, preferredSize);
+        return view_refresh.uiResourceOf(preferredSize, preferredSize);
     }
-    
+
     @Override
-    public SubstanceIcon getAllowedIcon(int preferredSize,
+    public SubstanceIconUIResource getAllowedIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return list_add.of(preferredSize, preferredSize);
+        return list_add.uiResourceOf(preferredSize, preferredSize);
     }
-    
+
     @Override
-    public SubstanceIcon getNotAllowedIcon(int preferredSize,
+    public SubstanceIconUIResource getNotAllowedIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return dialog_error.of(preferredSize, preferredSize);
+        return dialog_error.uiResourceOf(preferredSize, preferredSize);
     }
-    
+
     @Override
-    public SubstanceIcon getTextCopyActionIcon(int preferredSize,
+    public SubstanceIconUIResource getTextCopyActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return edit_copy.of(preferredSize, preferredSize).colorize(preferredIconColorScheme);
+        return edit_copy.uiResourceOf(preferredSize, preferredSize)
+                .colorize(preferredIconColorScheme);
     }
-    
+
     @Override
-    public SubstanceIcon getTextCutActionIcon(int preferredSize,
+    public SubstanceIconUIResource getTextCutActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return edit_cut.of(preferredSize, preferredSize).colorize(preferredIconColorScheme);
+        return edit_cut.uiResourceOf(preferredSize, preferredSize)
+                .colorize(preferredIconColorScheme);
     }
-    
+
     @Override
-    public SubstanceIcon getTextPasteActionIcon(int preferredSize,
+    public SubstanceIconUIResource getTextPasteActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return edit_paste.of(preferredSize, preferredSize).colorize(preferredIconColorScheme);
+        return edit_paste.uiResourceOf(preferredSize, preferredSize)
+                .colorize(preferredIconColorScheme);
     }
-    
+
     @Override
-    public SubstanceIcon getTextDeleteActionIcon(int preferredSize,
+    public SubstanceIconUIResource getTextDeleteActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return edit_delete.of(preferredSize, preferredSize).colorize(preferredIconColorScheme);
+        return edit_delete.uiResourceOf(preferredSize, preferredSize)
+                .colorize(preferredIconColorScheme);
     }
-    
+
     @Override
-    public SubstanceIcon getTextSelectAllActionIcon(int preferredSize,
+    public SubstanceIconUIResource getTextSelectAllActionIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return edit_select_all.of(preferredSize, preferredSize).colorize(preferredIconColorScheme);
+        return edit_select_all.uiResourceOf(preferredSize, preferredSize)
+                .colorize(preferredIconColorScheme);
     }
-    
+
     @Override
-    public SubstanceIcon getColorChooserColorPalettesIcon(int preferredSize,
+    public SubstanceIconUIResource getColorChooserColorPalettesIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return face_angel.of(preferredSize, preferredSize);
+        return face_angel.uiResourceOf(preferredSize, preferredSize);
     }
-    
+
     @Override
-    public SubstanceIcon getColorChooserColorSlidersIcon(int preferredSize,
+    public SubstanceIconUIResource getColorChooserColorSlidersIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return face_glasses.of(preferredSize, preferredSize);
+        return face_glasses.uiResourceOf(preferredSize, preferredSize);
     }
-    
+
     @Override
-    public SubstanceIcon getColorChooserColorSwatchesIcon(int preferredSize,
+    public SubstanceIconUIResource getColorChooserColorSwatchesIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return face_grin.of(preferredSize, preferredSize);
+        return face_grin.uiResourceOf(preferredSize, preferredSize);
     }
-    
+
     @Override
-    public SubstanceIcon getColorChooserColorWheelIcon(int preferredSize,
+    public SubstanceIconUIResource getColorChooserColorWheelIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return face_plain.of(preferredSize, preferredSize);
+        return face_plain.uiResourceOf(preferredSize, preferredSize);
     }
-    
+
     @Override
-    public SubstanceIcon getColorChooserCrayonsIcon(int preferredSize,
+    public SubstanceIconUIResource getColorChooserCrayonsIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return face_sad.of(preferredSize, preferredSize);
+        return face_sad.uiResourceOf(preferredSize, preferredSize);
     }
-    
+
     @Override
-    public SubstanceIcon getColorChooserImagePalettesIcon(int preferredSize,
+    public SubstanceIconUIResource getColorChooserImagePalettesIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return face_smile.of(preferredSize, preferredSize);
+        return face_smile.uiResourceOf(preferredSize, preferredSize);
     }
-    
+
     @Override
-    public SubstanceIcon getScrollHorizontalIcon(int preferredSize,
+    public SubstanceIconUIResource getScrollHorizontalIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return go_next.of(preferredSize, preferredSize);
+        return go_next.uiResourceOf(preferredSize, preferredSize);
     }
-    
+
     @Override
-    public SubstanceIcon getScrollVerticalIcon(int preferredSize,
+    public SubstanceIconUIResource getScrollVerticalIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return go_down.of(preferredSize, preferredSize);
+        return go_down.uiResourceOf(preferredSize, preferredSize);
     }
-    
+
     @Override
-    public SubstanceIcon getScrollAllIcon(int preferredSize,
+    public SubstanceIconUIResource getScrollAllIcon(int preferredSize,
             SubstanceColorScheme preferredIconColorScheme) {
-        return view_fullscreen.of(preferredSize, preferredSize);
+        return view_fullscreen.uiResourceOf(preferredSize, preferredSize);
     }
 }

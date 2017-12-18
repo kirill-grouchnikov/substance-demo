@@ -8,6 +8,7 @@ import javax.swing.plaf.UIResource;
 import org.pushingpixels.substance.api.icon.IsHiDpiAware;
 import org.pushingpixels.substance.api.icon.IsResizable;
 import org.pushingpixels.substance.api.icon.SubstanceIcon;
+import org.pushingpixels.substance.api.icon.SubstanceIconUIResource;
 
 /**
  * This class has been automatically generated using <a
@@ -439,18 +440,30 @@ g.setTransform(defaultTransform_);
                g2d.translate(extraDx, 0);
             }
         }
-		innerPaint(g2d);
+        Graphics2D g2ForInner = (Graphics2D) g2d.create();
+        innerPaint(g2ForInner);
+        g2ForInner.dispose();
 		g2d.dispose();
 	}
-	
+    
     /**
      * Returns an instance of this icon with specified dimensions.
      */
-	public static SubstanceIcon of(int width, int height) {
-	   view_zoom_out base = new view_zoom_out();
-	   base.width = width;
-	   base.height = height;
-	   return new SubstanceIcon(base);
-	}
+    public static SubstanceIcon of(int width, int height) {
+       view_zoom_out base = new view_zoom_out();
+       base.width = width;
+       base.height = height;
+       return new SubstanceIcon(base);
+    }
+    
+    /**
+     * Returns a {@link UIResource} instance of this icon with specified dimensions.
+     */
+    public static SubstanceIconUIResource uiResourceOf(int width, int height) {
+       view_zoom_out base = new view_zoom_out();
+       base.width = width;
+       base.height = height;
+       return new SubstanceIconUIResource(base);
+    }
 }
 
