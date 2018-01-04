@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2017 Substance Kirill Grouchnikov. All Rights Reserved.
+ * Copyright (c) 2005-2018 Substance Kirill Grouchnikov. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -27,49 +27,36 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package org.pushingpixels.demo.substance.main.check;
+package org.pushingpixels.demo.substance.main.visor;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
-/**
- * Colored panel for the test application.
- * 
- * @author Kirill Grouchnikov
- */
-public class ColorPanel extends JPanel {
-	/**
-	 * Caption text.
-	 */
-	private String str;
+public class PanelWithRightLine extends JPanel {
+    private Color rightLineColor;
 
-	/**
-	 * Creates a new colored panel.
-	 * 
-	 * @param str
-	 *            Caption text.
-	 */
-	public ColorPanel(String str) {
-		this.str = str;
-	}
+    public void setRightLineColor(Color rightLineColor) {
+        this.rightLineColor = rightLineColor;
+        if (this.rightLineColor != null) {
+            this.setBorder(new EmptyBorder(0, 0, 0, 1));
+        }
+        repaint();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
-	 */
-	protected void paintComponent(Graphics g) {
-		Graphics2D graphics = (Graphics2D) g.create();
-		super.paintComponent(graphics);
-		graphics.setColor(Color.black);
-		Color bg = this.getBackground();
-		graphics.drawString(this.str + " [" + bg.getRed() + ", "
-				+ bg.getGreen() + ", " + bg.getBlue() + "]", 10, this
-				.getHeight() / 2);
-
-		graphics.dispose();
-	}
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        
+        if (this.rightLineColor != null) {
+            Graphics2D g2d = (Graphics2D) g.create();
+            g2d.setColor(this.rightLineColor);
+            int width = getWidth();
+            g2d.drawLine(width, 0, width, getHeight());
+            g2d.dispose();
+        }
+    }
 }

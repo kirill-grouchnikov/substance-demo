@@ -13,13 +13,11 @@ import javax.swing.UIManager;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
-import org.pushingpixels.substance.internal.utils.WidgetUtilities;
 
 final class CheckeredPanel extends ScrollablePanel {
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D graphics = (Graphics2D) g.create();
-        graphics.setComposite(WidgetUtilities.getAlphaComposite(this));
 
         int w = this.getWidth();
         int h = this.getHeight();
