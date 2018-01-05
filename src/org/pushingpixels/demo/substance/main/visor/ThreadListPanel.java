@@ -91,7 +91,8 @@ public class ThreadListPanel extends PanelWithRightLine {
                 ColorSchemeAssociationKind.FILL, ComponentState.ENABLED);
         Color mainSelectorIconColor = fillScheme.getForegroundColor();
 
-        this.add(getTitlePanel(ic_mode_edit_black_24px.of(14, 14).colorize(mainSelectorIconColor)));
+        this.add(getTitlePanel(
+                ic_mode_edit_black_24px.of(14, 14).colorize(mainSelectorIconColor, 0.8f)));
         this.add(getInboxLabel("Inbox",
                 ic_mail_outline_black_24px.of(12, 12).colorize(mainSelectorIconColor),
                 fillScheme.getLightColor()));
@@ -131,7 +132,7 @@ public class ThreadListPanel extends PanelWithRightLine {
         });
 
         threadList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        threadList.setSelectedIndex(2);
+        threadList.setSelectedIndex(3);
 
         JScrollPane summaryScrollPane = new JScrollPane(threadList);
         this.add(summaryScrollPane);

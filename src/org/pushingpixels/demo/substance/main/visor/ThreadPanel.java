@@ -32,33 +32,30 @@ package org.pushingpixels.demo.substance.main.visor;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
 
 import javax.swing.JButton;
+import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 
-import org.jdesktop.swingx.JXSearchField;
-import org.pushingpixels.demo.substance.main.visor.svg.ic_mail_outline_black_24px;
-import org.pushingpixels.demo.substance.main.visor.svg.ic_mode_edit_black_24px;
-import org.pushingpixels.demo.substance.main.visor.svg.ic_person_outline_black_24px;
+import org.pushingpixels.demo.substance.main.visor.svg.ic_access_alarm_black_24px;
+import org.pushingpixels.demo.substance.main.visor.svg.ic_archive_black_24px;
+import org.pushingpixels.demo.substance.main.visor.svg.ic_close_black_24px;
+import org.pushingpixels.demo.substance.main.visor.svg.ic_delete_black_24px;
+import org.pushingpixels.demo.substance.main.visor.svg.ic_forward_black_24px;
+import org.pushingpixels.demo.substance.main.visor.svg.ic_history_black_24px;
+import org.pushingpixels.demo.substance.main.visor.svg.ic_more_horiz_black_24px;
+import org.pushingpixels.demo.substance.main.visor.svg.ic_reply_black_24px;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.api.colorscheme.SunGlareColorScheme;
-import org.pushingpixels.substance.api.colorscheme.TerracottaColorScheme;
-import org.pushingpixels.substance.api.icon.SubstanceIcon;
-import org.pushingpixels.substance.api.painter.border.SubstanceBorderPainter;
-import org.pushingpixels.substance.api.painter.highlight.SubstanceHighlightPainter;
+import org.pushingpixels.substance.internal.svg.ic_view_list_black_24px;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
@@ -71,124 +68,163 @@ public class ThreadPanel extends JPanel {
     public ThreadPanel() {
         this.setLayout(new VerticalStackLayout());
 
+        SubstanceSkin currentSkin = SubstanceCortex.GlobalScope.getCurrentSkin();
+        SubstanceColorScheme fillScheme = currentSkin.getColorScheme(DecorationAreaType.NONE,
+                ColorSchemeAssociationKind.FILL, ComponentState.ENABLED);
+        Color iconColor = fillScheme.getForegroundColor();
+        Color backgroundColor = fillScheme.getLightColor();
+        Color innerBackgroundColor = fillScheme.getUltraLightColor();
+
+        this.add(getHeaderActionsPanel(iconColor, backgroundColor));
+        this.add(getMessageTitlePanel("Keys found", backgroundColor));
+
+        this.add(getCollapsedMessagePanel("Reception desk",
+                "If you lost your keys stop by the reception desk", "10:25am", innerBackgroundColor,
+                backgroundColor));
+        this.add(getCollapsedMessagePanel("Alex Dunwood", "I think those might be Grayson's",
+                "10:28am", innerBackgroundColor, backgroundColor));
+        this.add(getFullMessagePanel("Reception desk", "Today, 4:15pm",
+                "Alex Dunwood, Grayson Flay",
+                "Thanks, Alex.\n\nGrayson, can you check if you still have your keys?\n\n"
+                        + "It's a silver keychain with five keys and a small elephant. "
+                        + "If these are yours, please stop by. We'll be here until six today.\n\n"
+                        + "Morgan from reception.",
+                innerBackgroundColor, backgroundColor, iconColor));
+
+        this.add(getFooterActionsPanel(backgroundColor, iconColor));
+
+        this.setBackground(backgroundColor);
+
         this.setPreferredSize(new Dimension(400, 0));
     }
 
-    // This class emulates the highlights on rows. In the real app this will probably
-    // be an extension of SubstanceDefaultListCellRenderer.
-    private static class HighlightablePanel extends JPanel {
-        private boolean isSelected;
+    private JPanel getHeaderActionsPanel(Color iconColor, Color backgroundColor) {
+        JPanel result = new JPanel(new FlowLayout(FlowLayout.LEADING, 24, 0));
+        result.setBorder(new EmptyBorder(14, 4, 14, 4));
 
-        public HighlightablePanel(JPanel content) {
-            content.setOpaque(false);
-            setLayout(new BorderLayout());
-            add(content, BorderLayout.CENTER);
-        }
+        result.add(new JLabel(ic_close_black_24px.of(16, 16).colorize(iconColor, 0.8f)));
+        result.add(new JLabel(ic_view_list_black_24px.of(16, 16).colorize(iconColor, 0.8f)));
+        result.add(new JLabel(ic_access_alarm_black_24px.of(16, 16).colorize(iconColor, 0.8f)));
+        result.add(new JLabel(ic_archive_black_24px.of(16, 16).colorize(iconColor, 0.8f)));
+        result.add(new JLabel(ic_delete_black_24px.of(16, 16).colorize(iconColor, 0.8f)));
 
-        public void setSelected() {
-            isSelected = true;
-            setOpaque(!isSelected);
-            repaint();
-        }
+        result.setBackground(backgroundColor);
 
-        @Override
-        protected void paintComponent(Graphics g) {
-            if (isSelected) {
-                SubstanceSkin skin = SubstanceCortex.ComponentScope.getCurrentSkin(this);
-                SubstanceHighlightPainter highlightPainter = skin.getHighlightPainter();
-                SubstanceBorderPainter highlightBorderPainter = skin.getHighlightBorderPainter();
-                if (highlightBorderPainter == null) {
-                    highlightBorderPainter = skin.getBorderPainter();
-                }
-                SubstanceColorScheme fillScheme = new SunGlareColorScheme();
-                SubstanceColorScheme borderScheme = new TerracottaColorScheme();
-
-                int width = this.getWidth();
-                int height = this.getHeight();
-
-                Graphics2D g2d = (Graphics2D) g.create();
-                highlightPainter.paintHighlight(g2d, this, width, height, fillScheme);
-                highlightBorderPainter.paintBorder(g2d, this, width, height,
-                        new Rectangle2D.Float(0, 0, width, height), null, borderScheme);
-                g2d.dispose();
-            }
-
-            super.paintComponent(g);
-        }
-    }
-
-    private HighlightablePanel getSelectorDestinationRow(SubstanceIcon icon, String title,
-            int count) {
-        FormLayout lm = new FormLayout("center:pref, 4dlu, fill:pref:grow, 4dlu, center:pref", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm).border(new EmptyBorder(8, 8, 8, 8));
-        builder.append(new JLabel(icon), new JLabel(title),
-                new JLabel(count > 0 ? Integer.toString(count) : ""));
-        HighlightablePanel result = new HighlightablePanel(builder.build());
         return result;
     }
 
-    private JPanel getInboxLabel(String title, SubstanceIcon icon, Color background) {
-        FormLayout lm = new FormLayout("center:pref, 4dlu, fill:pref:grow", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm).border(
-                new CompoundBorder(new LineBorder(background), new EmptyBorder(4, 8, 4, 8)));
-        builder.append(new JLabel(icon));
+    private JPanel getMessageTitlePanel(String title, Color backgroundColor) {
+        JPanel result = new JPanel(new BorderLayout());
+        result.setBorder(new EmptyBorder(6, 12, 16, 12));
+
         JLabel titleLabel = new JLabel(title);
         titleLabel.setFont(SubstanceCortex.GlobalScope.getFontPolicy().getFontSet("Substance", null)
-                .getControlFont().deriveFont(Font.BOLD));
-        builder.append(titleLabel);
-        JPanel result = builder.build();
-        result.setBackground(background);
-        return result;
-    }
-
-    private JPanel getThreadSummaryPanel(String from, String time, String title, String summary,
-            int unread) {
-        Font bold = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet("Substance", null)
-                .getControlFont().deriveFont(Font.BOLD);
-
-        DefaultFormBuilder firstRow = new DefaultFormBuilder(
-                new FormLayout("center:pref, 4dlu, fill:pref:grow, 4dlu, right:pref", ""))
-                        .border(new EmptyBorder(0, 0, 2, 0));
-        firstRow.append(new JLabel(ic_person_outline_black_24px.of(10, 10)));
-        JLabel fromLabel = new JLabel(from);
-        fromLabel.setFont(bold.deriveFont(bold.getSize() + 1.5f));
-        firstRow.append(fromLabel);
-        firstRow.append(new JLabel(time));
-
-        JLabel titleLabel = new JLabel(title);
-        titleLabel.setFont(bold);
-
-        DefaultFormBuilder thirdRow = new DefaultFormBuilder(
-                new FormLayout("fill:pref:grow, 16dlu, right:pref", ""));
-        thirdRow.append(new JLabel(summary));
-        if (unread > 0) {
-            thirdRow.append(new JLabel(Integer.toString(unread)));
-        }
-        thirdRow.appendSeparator();
-
-        JPanel result = new JPanel(new VerticalStackLayout());
-        result.add(firstRow.build());
+                .getControlFont().deriveFont(Font.BOLD, 19.0f));
         result.add(titleLabel);
-        result.add(thirdRow.build());
-        result.setBorder(new EmptyBorder(8, 16, 8, 16));
-        return result;
 
+        result.setBackground(backgroundColor);
+
+        return result;
     }
 
-    private JPanel getTitlePanel(SubstanceIcon icon) {
-        FormLayout lm = new FormLayout("fill:pref:grow, 8dlu, center:pref", "");
-        DefaultFormBuilder builder = new DefaultFormBuilder(lm)
-                .border(new EmptyBorder(8, 8, 12, 8));
+    private JPanel getCollapsedMessagePanel(String from, String summary, String date,
+            Color innerBackground, Color outerBackground) {
+        DefaultFormBuilder builder = new DefaultFormBuilder(
+                new FormLayout("center:pref, 8dlu, 0dlu:grow, 8dlu, right:pref", ""))
+                        .border(new EmptyBorder(8, 16, 8, 16));
+        Font baseFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet("Substance", null)
+                .getControlFont();
 
-        JXSearchField searchBox = new JXSearchField("Search");
-        builder.append(searchBox);
+        JLabel senderLabel = new JLabel(from);
+        senderLabel.setFont(baseFont.deriveFont(Font.BOLD));
+        builder.append(senderLabel);
 
-        JButton actionButton = new JButton(icon);
-        SubstanceCortex.ComponentOrParentScope.setButtonIgnoreMinimumSize(actionButton,
-                Boolean.TRUE);
-        SubstanceCortex.ComponentOrParentScope.setFlatBackground(actionButton, Boolean.TRUE);
-        builder.append(actionButton);
-        JPanel result = builder.build();
+        builder.append(new JLabel(summary));
+
+        JLabel dateLabel = new JLabel(date);
+        dateLabel.setFont(baseFont.deriveFont(baseFont.getSize() - 2.0f));
+        builder.append(dateLabel);
+
+        JPanel result = new JPanel(new BorderLayout());
+        result.setBorder(new EmptyBorder(2, 8, 2, 8));
+        result.setBackground(outerBackground);
+
+        JPanel inner = builder.build();
+        inner.setOpaque(true);
+        inner.setBackground(innerBackground);
+        result.add(inner, BorderLayout.CENTER);
+
+        return result;
+    }
+
+    private JPanel getFullMessagePanel(String from, String date, String to, String message,
+            Color innerBackground, Color outerBackground, Color iconColor) {
+        DefaultFormBuilder firstRow = new DefaultFormBuilder(new FormLayout(
+                "0dlu:grow, 8dlu, right:pref, 8dlu, center:pref, 8dlu, center:pref", ""))
+                        .border(new EmptyBorder(8, 16, 2, 16));
+        Font baseFont = SubstanceCortex.GlobalScope.getFontPolicy().getFontSet("Substance", null)
+                .getControlFont();
+
+        JLabel senderLabel = new JLabel(from);
+        senderLabel.setFont(baseFont.deriveFont(Font.BOLD));
+        firstRow.append(senderLabel);
+
+        JLabel dateLabel = new JLabel(date);
+        dateLabel.setFont(baseFont.deriveFont(baseFont.getSize() - 1.0f));
+        firstRow.append(dateLabel);
+
+        firstRow.append(new JLabel(ic_reply_black_24px.of(14, 14).colorize(iconColor, 0.8f)));
+        firstRow.append(new JLabel(ic_more_horiz_black_24px.of(14, 14).colorize(iconColor, 0.8f)));
+
+        JLabel toLabel = new JLabel("To: " + to);
+        toLabel.setBorder(new EmptyBorder(0, 16, 24, 16));
+
+        JEditorPane messagePane = new JEditorPane();
+        messagePane.setContentType("text/plain");
+        messagePane.setBorder(new EmptyBorder(0, 16, 0, 16));
+        messagePane.setBackground(innerBackground);
+        messagePane.setText(message);
+
+        Color historyColor = new Color(32, 96, 148);
+        JLabel historyLabel = new JLabel("Show History",
+                ic_history_black_24px.of(12, 12).colorize(historyColor), JLabel.LEADING);
+        historyLabel.setBorder(new EmptyBorder(24, 16, 16, 16));
+        historyLabel.setForeground(historyColor);
+        SubstanceCortex.ComponentOrParentChainScope.setColorizationFactor(historyLabel, 1.0);
+
+        JPanel result = new JPanel(new BorderLayout());
+        result.setBorder(new EmptyBorder(2, 8, 2, 8));
+        result.setBackground(outerBackground);
+
+        JPanel inner = new JPanel(new VerticalStackLayout());
+        inner.setOpaque(true);
+        inner.setBackground(innerBackground);
+        inner.add(firstRow.build());
+        inner.add(toLabel);
+        inner.add(messagePane);
+        inner.add(historyLabel);
+
+        result.add(inner, BorderLayout.CENTER);
+
+        return result;
+    }
+
+    private JPanel getFooterActionsPanel(Color backgroundColor, Color iconColor) {
+        JPanel result = new JPanel(new FlowLayout(FlowLayout.TRAILING, 8, 0));
+        result.setBorder(new EmptyBorder(16, 24, 16, 0));
+
+        JButton forward = new JButton("Forward",
+                ic_forward_black_24px.of(14, 14).colorize(iconColor, 0.8f));
+        JButton reply = new JButton("Reply",
+                ic_reply_black_24px.of(14, 14).colorize(iconColor, 0.8f));
+        // Mark the button panel to be flat - effectively marking both action buttons as flat
+        SubstanceCortex.ComponentOrParentScope.setFlatBackground(result, true);
+
+        result.add(forward);
+        result.add(reply);
+
+        result.setBackground(backgroundColor);
+
         return result;
     }
 }

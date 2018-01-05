@@ -79,14 +79,16 @@ public class DestinationsPanel extends PanelWithRightLine {
         this.setLayout(new VerticalStackLayout());
 
         // Get the color schemes for colorizing the icons.
-        Color mainSelectorIconColor = currentSkin.getColorScheme(DecorationAreaType.GENERAL,
-                ColorSchemeAssociationKind.FILL, ComponentState.ENABLED).getForegroundColor();
+        Color mainSelectorIconColor = currentSkin
+                .getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
+                        ColorSchemeAssociationKind.FILL, ComponentState.ROLLOVER_UNSELECTED)
+                .getDarkColor();
         Color mainSelectorIconTitleColor = currentSkin
                 .getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
                         ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)
                 .getForegroundColor();
 
-        this.add(getRefreshAction(window, 
+        this.add(getRefreshAction(window,
                 ic_refresh_black_24px.of(12, 12).colorize(mainSelectorIconTitleColor)));
         this.add(getMainLabel("MAIL"));
 
@@ -182,11 +184,11 @@ public class DestinationsPanel extends PanelWithRightLine {
         FormLayout lm = new FormLayout("right:pref:grow", "");
         DefaultFormBuilder builder = new DefaultFormBuilder(lm)
                 .border(new EmptyBorder(12, 8, 12, 8));
-        
-        // Use Substance API to create a button that has consistent look with the 
+
+        // Use Substance API to create a button that has consistent look with the
         // title pane control buttons
         JButton refreshButton = SubstanceCortex.WindowScope.createTitlePaneControlButton(window);
-        
+
         refreshButton.setIcon(icon);
         refreshButton.setToolTipText("Refresh mail");
         builder.append(refreshButton);
