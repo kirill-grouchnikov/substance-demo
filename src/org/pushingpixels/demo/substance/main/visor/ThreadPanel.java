@@ -49,13 +49,13 @@ import org.pushingpixels.demo.substance.main.visor.svg.ic_forward_black_24px;
 import org.pushingpixels.demo.substance.main.visor.svg.ic_history_black_24px;
 import org.pushingpixels.demo.substance.main.visor.svg.ic_more_horiz_black_24px;
 import org.pushingpixels.demo.substance.main.visor.svg.ic_reply_black_24px;
+import org.pushingpixels.demo.substance.main.visor.svg.ic_view_list_black_24px;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.colorscheme.SubstanceColorScheme;
-import org.pushingpixels.substance.internal.svg.ic_view_list_black_24px;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
@@ -81,11 +81,11 @@ public class ThreadPanel extends JPanel {
         this.add(getCollapsedMessagePanel("Reception desk",
                 "If you lost your keys stop by the reception desk", "10:25am", innerBackgroundColor,
                 backgroundColor));
-        this.add(getCollapsedMessagePanel("Alex Dunwood", "I think those might be Grayson's",
+        this.add(getCollapsedMessagePanel("Bryce Dunwood", "I think those might be Grayson's",
                 "10:28am", innerBackgroundColor, backgroundColor));
         this.add(getFullMessagePanel("Reception desk", "Today, 4:15pm",
-                "Alex Dunwood, Grayson Flay",
-                "Thanks, Alex.\n\nGrayson, can you check if you still have your keys?\n\n"
+                "Bryce Dunwood, Grayson Flay",
+                "Thanks, Bryce.\n\nGrayson, can you check if you still have your keys?\n\n"
                         + "It's a silver keychain with five keys and a small elephant. "
                         + "If these are yours, please stop by. We'll be here until six today.\n\n"
                         + "Morgan from reception.",
@@ -170,7 +170,7 @@ public class ThreadPanel extends JPanel {
         firstRow.append(senderLabel);
 
         JLabel dateLabel = new JLabel(date);
-        dateLabel.setFont(baseFont.deriveFont(baseFont.getSize() - 1.0f));
+        dateLabel.setFont(baseFont.deriveFont(baseFont.getSize() - 2.0f));
         firstRow.append(dateLabel);
 
         firstRow.append(new JLabel(ic_reply_black_24px.of(14, 14).colorize(iconColor, 0.8f)));
@@ -213,15 +213,15 @@ public class ThreadPanel extends JPanel {
         JPanel result = new JPanel(new FlowLayout(FlowLayout.TRAILING, 8, 0));
         result.setBorder(new EmptyBorder(16, 24, 16, 0));
 
-        JButton forward = new JButton("Forward",
-                ic_forward_black_24px.of(14, 14).colorize(iconColor, 0.8f));
         JButton reply = new JButton("Reply",
                 ic_reply_black_24px.of(14, 14).colorize(iconColor, 0.8f));
+        JButton forward = new JButton("Forward",
+                ic_forward_black_24px.of(14, 14).colorize(iconColor, 0.8f));
         // Mark the button panel to be flat - effectively marking both action buttons as flat
         SubstanceCortex.ComponentOrParentScope.setFlatBackground(result, true);
 
-        result.add(forward);
         result.add(reply);
+        result.add(forward);
 
         result.setBackground(backgroundColor);
 

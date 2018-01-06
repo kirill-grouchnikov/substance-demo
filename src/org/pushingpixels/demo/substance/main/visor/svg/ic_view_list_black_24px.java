@@ -14,7 +14,7 @@ import org.pushingpixels.substance.api.icon.SubstanceIconUIResource;
  * This class has been automatically generated using <a
  * href="https://github.com/kirill-grouchnikov/ibis">Ibis SVG transcoder</a>.
  */
-public class ic_list_black_24px implements Icon, IsResizable, IsHiDpiAware, UIResource {
+public class ic_view_list_black_24px implements Icon, IsResizable, IsHiDpiAware, UIResource {
     @SuppressWarnings("unused")
 	private void innerPaint(Graphics2D g) {
         Shape shape = null;
@@ -43,41 +43,41 @@ g.transform(new AffineTransform(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f));
 // _0_0
 paint = new Color(0, 0, 0, 255);
 shape = new GeneralPath();
-((GeneralPath)shape).moveTo(3.0, 13.0);
-((GeneralPath)shape).lineTo(5.0, 13.0);
-((GeneralPath)shape).lineTo(5.0, 11.0);
-((GeneralPath)shape).lineTo(3.0, 11.0);
-((GeneralPath)shape).lineTo(3.0, 13.0);
+((GeneralPath)shape).moveTo(4.0, 14.0);
+((GeneralPath)shape).lineTo(8.0, 14.0);
+((GeneralPath)shape).lineTo(8.0, 10.0);
+((GeneralPath)shape).lineTo(4.0, 10.0);
+((GeneralPath)shape).lineTo(4.0, 14.0);
 ((GeneralPath)shape).closePath();
-((GeneralPath)shape).moveTo(3.0, 17.0);
-((GeneralPath)shape).lineTo(5.0, 17.0);
-((GeneralPath)shape).lineTo(5.0, 15.0);
-((GeneralPath)shape).lineTo(3.0, 15.0);
-((GeneralPath)shape).lineTo(3.0, 17.0);
+((GeneralPath)shape).moveTo(4.0, 19.0);
+((GeneralPath)shape).lineTo(8.0, 19.0);
+((GeneralPath)shape).lineTo(8.0, 15.0);
+((GeneralPath)shape).lineTo(4.0, 15.0);
+((GeneralPath)shape).lineTo(4.0, 19.0);
 ((GeneralPath)shape).closePath();
-((GeneralPath)shape).moveTo(3.0, 9.0);
-((GeneralPath)shape).lineTo(5.0, 9.0);
-((GeneralPath)shape).lineTo(5.0, 7.0);
-((GeneralPath)shape).lineTo(3.0, 7.0);
-((GeneralPath)shape).lineTo(3.0, 9.0);
+((GeneralPath)shape).moveTo(4.0, 9.0);
+((GeneralPath)shape).lineTo(8.0, 9.0);
+((GeneralPath)shape).lineTo(8.0, 5.0);
+((GeneralPath)shape).lineTo(4.0, 5.0);
+((GeneralPath)shape).lineTo(4.0, 9.0);
 ((GeneralPath)shape).closePath();
-((GeneralPath)shape).moveTo(7.0, 13.0);
-((GeneralPath)shape).lineTo(21.0, 13.0);
-((GeneralPath)shape).lineTo(21.0, 11.0);
-((GeneralPath)shape).lineTo(7.0, 11.0);
-((GeneralPath)shape).lineTo(7.0, 13.0);
+((GeneralPath)shape).moveTo(9.0, 14.0);
+((GeneralPath)shape).lineTo(21.0, 14.0);
+((GeneralPath)shape).lineTo(21.0, 10.0);
+((GeneralPath)shape).lineTo(9.0, 10.0);
+((GeneralPath)shape).lineTo(9.0, 14.0);
 ((GeneralPath)shape).closePath();
-((GeneralPath)shape).moveTo(7.0, 17.0);
-((GeneralPath)shape).lineTo(21.0, 17.0);
+((GeneralPath)shape).moveTo(9.0, 19.0);
+((GeneralPath)shape).lineTo(21.0, 19.0);
 ((GeneralPath)shape).lineTo(21.0, 15.0);
-((GeneralPath)shape).lineTo(7.0, 15.0);
-((GeneralPath)shape).lineTo(7.0, 17.0);
+((GeneralPath)shape).lineTo(9.0, 15.0);
+((GeneralPath)shape).lineTo(9.0, 19.0);
 ((GeneralPath)shape).closePath();
-((GeneralPath)shape).moveTo(7.0, 7.0);
-((GeneralPath)shape).lineTo(7.0, 9.0);
+((GeneralPath)shape).moveTo(9.0, 5.0);
+((GeneralPath)shape).lineTo(9.0, 9.0);
 ((GeneralPath)shape).lineTo(21.0, 9.0);
-((GeneralPath)shape).lineTo(21.0, 7.0);
-((GeneralPath)shape).lineTo(7.0, 7.0);
+((GeneralPath)shape).lineTo(21.0, 5.0);
+((GeneralPath)shape).lineTo(9.0, 5.0);
 ((GeneralPath)shape).closePath();
 g.setPaint(paint);
 g.fill(shape);
@@ -98,7 +98,7 @@ g.setTransform(defaultTransform_);
      * @return The X of the bounding box of the original SVG image.
      */
     public static double getOrigX() {
-        return 3.0;
+        return 4.0;
     }
 
     /**
@@ -107,7 +107,7 @@ g.setTransform(defaultTransform_);
      * @return The Y of the bounding box of the original SVG image.
      */
     public static double getOrigY() {
-        return 7.0;
+        return 5.0;
     }
 
 	/**
@@ -116,7 +116,7 @@ g.setTransform(defaultTransform_);
 	 * @return The width of the bounding box of the original SVG image.
 	 */
 	public static double getOrigWidth() {
-		return 18.0;
+		return 17.0;
 	}
 
 	/**
@@ -125,7 +125,7 @@ g.setTransform(defaultTransform_);
 	 * @return The height of the bounding box of the original SVG image.
 	 */
 	public static double getOrigHeight() {
-		return 10.0;
+		return 14.0;
 	}
 
     /** The current width of this resizable icon. */
@@ -138,7 +138,7 @@ g.setTransform(defaultTransform_);
      * Creates a new transcoded SVG image. It is recommended to use the 
      * {@link #of(int, int)} method to obtain a pre-configured instance.
      */
-	public ic_list_black_24px() {
+	public ic_view_list_black_24px() {
         this.width = (int) getOrigWidth();
         this.height = (int) getOrigHeight();
 	}
@@ -196,7 +196,7 @@ g.setTransform(defaultTransform_);
      * Returns an instance of this icon with specified dimensions.
      */
     public static SubstanceIcon of(int width, int height) {
-       ic_list_black_24px base = new ic_list_black_24px();
+       ic_view_list_black_24px base = new ic_view_list_black_24px();
        base.width = width;
        base.height = height;
        return new SubstanceIcon(base);
@@ -206,7 +206,7 @@ g.setTransform(defaultTransform_);
      * Returns a {@link UIResource} instance of this icon with specified dimensions.
      */
     public static SubstanceIconUIResource uiResourceOf(int width, int height) {
-       ic_list_black_24px base = new ic_list_black_24px();
+       ic_view_list_black_24px base = new ic_view_list_black_24px();
        base.width = width;
        base.height = height;
        return new SubstanceIconUIResource(base);

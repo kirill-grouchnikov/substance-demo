@@ -45,6 +45,8 @@ public class VisorMail extends JFrame {
         BorderLayout mainLayout = new BorderLayout();
         this.getContentPane().setLayout(mainLayout);
 
+        // In the real app the space allocation between the panels will probably be
+        // more intelligent, allowing the user to reallocate the available space.
         this.getContentPane().add(new DestinationsPanel(this), BorderLayout.LINE_START);
         this.getContentPane().add(new ThreadListPanel(), BorderLayout.CENTER);
         this.getContentPane().add(new ThreadPanel(), BorderLayout.LINE_END);
@@ -54,27 +56,35 @@ public class VisorMail extends JFrame {
         SwingUtilities.invokeLater(() -> {
             // Register SwingX plugin (since we're using JXSearchField)
             SubstanceCortex.GlobalScope.registerComponentPlugin(new SubstanceSwingxPlugin());
-            
+
             // Configure the main skin
             SubstanceCortex.GlobalScope.setSkin(new BusinessBlueSteelSkin());
             SubstanceCortex.GlobalScope.setFocusKind(FocusKind.NONE);
             JFrame.setDefaultLookAndFeelDecorated(true);
 
+            // Create the main frame
             VisorMail visorMail = new VisorMail();
+
             // Configure the title control buttons to be displayed in the leading
             // position (in our main selector pane).
             SubstanceCortex.GlobalScope.configureTitleContentGravity(
                     SubstanceSlices.Gravity.CENTERED, SubstanceSlices.Gravity.LEADING,
                     SubstanceSlices.TitleIconGravity.NONE);
+
             // Extend our content into the title pane.
             SubstanceCortex.WindowScope.extendContentIntoTitlePane(visorMail);
+
             // And increase the height of the title pane to play nicer with additional
             // content that we are displaying in that area.
             SubstanceCortex.WindowScope.setPreferredTitlePaneHeight(visorMail, 40);
 
+            // Set initial size, center in screen, configure to exit the app on clicking the
+            // close button
             visorMail.setSize(900, 600);
             visorMail.setLocationRelativeTo(null);
             visorMail.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            
+            // And finally make the main frame visible
             visorMail.setVisible(true);
         });
     }
