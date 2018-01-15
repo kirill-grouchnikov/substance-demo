@@ -110,24 +110,6 @@ public class ScrollPanel extends ControllablePanel {
                 .setAutomaticScrollPresence(sp, hasAutoScroll.isSelected()));
         builder.append("Auto scroll", hasAutoScroll);
 
-        builder.appendSeparator("Scroll buttons settings");
-
-        final JCheckBox isFlat = new JCheckBox("Is flat");
-        isFlat.addActionListener((ActionEvent e) -> {
-            SubstanceCortex.ComponentOrParentScope.setFlatBackground(sp,
-                    isFlat.isSelected() ? Boolean.TRUE : null);
-            sp.repaint();
-        });
-        builder.append("Flat", isFlat);
-
-        final JCheckBox isNever = new JCheckBox("Is never painted");
-        isNever.addActionListener((ActionEvent e) -> {
-            SubstanceCortex.ComponentOrParentScope.setButtonNeverPaintBackground(sp,
-                    isNever.isSelected() ? Boolean.TRUE : null);
-            sp.repaint();
-        });
-        builder.append("Never", isNever);
-
         this.controlPanel = builder.getPanel();
     }
 

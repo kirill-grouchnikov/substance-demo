@@ -93,10 +93,10 @@ import org.pushingpixels.substance.api.SubstanceSlices.ButtonOrder;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceSlices.FocusKind;
-import org.pushingpixels.substance.api.SubstanceSlices.Gravity;
+import org.pushingpixels.substance.api.SubstanceSlices.HorizontalGravity;
 import org.pushingpixels.substance.api.SubstanceSlices.MenuGutterFillKind;
 import org.pushingpixels.substance.api.SubstanceSlices.SubstanceWidgetType;
-import org.pushingpixels.substance.api.SubstanceSlices.TitleIconGravity;
+import org.pushingpixels.substance.api.SubstanceSlices.TitleIconHorizontalGravity;
 import org.pushingpixels.substance.api.icon.SubstanceDefaultIconPack;
 import org.pushingpixels.substance.api.painter.preview.DefaultPreviewPainter;
 import org.pushingpixels.substance.api.skin.NebulaBrickWallSkin;
@@ -125,12 +125,12 @@ public class ControlPanelFactory {
 
     private static class TitlePaneConfiguration {
         private String title;
-        private SubstanceSlices.Gravity textGravity;
-        private SubstanceSlices.Gravity controlButtonsGravity;
-        private SubstanceSlices.TitleIconGravity iconGravity;
+        private SubstanceSlices.HorizontalGravity textGravity;
+        private SubstanceSlices.HorizontalGravity controlButtonsGravity;
+        private SubstanceSlices.TitleIconHorizontalGravity iconGravity;
 
-        public TitlePaneConfiguration(String title, Gravity textGravity,
-                Gravity controlButtonsGravity, TitleIconGravity iconGravity) {
+        public TitlePaneConfiguration(String title, HorizontalGravity textGravity,
+                HorizontalGravity controlButtonsGravity, TitleIconHorizontalGravity iconGravity) {
             this.title = title;
             this.textGravity = textGravity;
             this.controlButtonsGravity = controlButtonsGravity;
@@ -160,23 +160,23 @@ public class ControlPanelFactory {
         builder.appendSeparator("Title pane settings");
 
         final JComboBox titleContentGravity = new FlexiComboBox<TitlePaneConfiguration>(
-                new TitlePaneConfiguration("Swing default", SubstanceSlices.Gravity.SWING_DEFAULT,
-                        SubstanceSlices.Gravity.SWING_DEFAULT,
-                        SubstanceSlices.TitleIconGravity.SWING_DEFAULT),
-                new TitlePaneConfiguration("Platform", SubstanceSlices.Gravity.PLATFORM,
-                        SubstanceSlices.Gravity.PLATFORM,
-                        SubstanceSlices.TitleIconGravity.PLATFORM),
-                new TitlePaneConfiguration("Force macOS", SubstanceSlices.Gravity.CENTERED,
-                        SubstanceSlices.Gravity.LEADING,
-                        SubstanceSlices.TitleIconGravity.NEXT_TO_TITLE),
-                new TitlePaneConfiguration("Force Windows", SubstanceSlices.Gravity.LEADING,
-                        SubstanceSlices.Gravity.TRAILING,
-                        SubstanceSlices.TitleIconGravity.OPPOSITE_CONTROL_BUTTONS),
-                new TitlePaneConfiguration("Force Gnome", SubstanceSlices.Gravity.CENTERED,
-                        SubstanceSlices.Gravity.TRAILING, SubstanceSlices.TitleIconGravity.NONE),
-                new TitlePaneConfiguration("Force KDE", SubstanceSlices.Gravity.CENTERED,
-                        SubstanceSlices.Gravity.TRAILING,
-                        SubstanceSlices.TitleIconGravity.OPPOSITE_CONTROL_BUTTONS)) {
+                new TitlePaneConfiguration("Swing default", SubstanceSlices.HorizontalGravity.SWING_DEFAULT,
+                        SubstanceSlices.HorizontalGravity.SWING_DEFAULT,
+                        SubstanceSlices.TitleIconHorizontalGravity.SWING_DEFAULT),
+                new TitlePaneConfiguration("Platform", SubstanceSlices.HorizontalGravity.PLATFORM,
+                        SubstanceSlices.HorizontalGravity.PLATFORM,
+                        SubstanceSlices.TitleIconHorizontalGravity.PLATFORM),
+                new TitlePaneConfiguration("Force macOS", SubstanceSlices.HorizontalGravity.CENTERED,
+                        SubstanceSlices.HorizontalGravity.LEADING,
+                        SubstanceSlices.TitleIconHorizontalGravity.NEXT_TO_TITLE),
+                new TitlePaneConfiguration("Force Windows", SubstanceSlices.HorizontalGravity.LEADING,
+                        SubstanceSlices.HorizontalGravity.TRAILING,
+                        SubstanceSlices.TitleIconHorizontalGravity.OPPOSITE_CONTROL_BUTTONS),
+                new TitlePaneConfiguration("Force Gnome", SubstanceSlices.HorizontalGravity.CENTERED,
+                        SubstanceSlices.HorizontalGravity.TRAILING, SubstanceSlices.TitleIconHorizontalGravity.NONE),
+                new TitlePaneConfiguration("Force KDE", SubstanceSlices.HorizontalGravity.CENTERED,
+                        SubstanceSlices.HorizontalGravity.TRAILING,
+                        SubstanceSlices.TitleIconHorizontalGravity.OPPOSITE_CONTROL_BUTTONS)) {
             @Override
             public String getCaption(TitlePaneConfiguration item) {
                 return item.title;
@@ -477,15 +477,15 @@ public class ControlPanelFactory {
         });
         builder.append("Button bar order", buttonBarOrderCombo);
 
-        final JComboBox buttonBarGravityCombo = new FlexiComboBox<Gravity>(Gravity.values()) {
+        final JComboBox buttonBarGravityCombo = new FlexiComboBox<HorizontalGravity>(HorizontalGravity.values()) {
             @Override
-            public String getCaption(Gravity item) {
+            public String getCaption(HorizontalGravity item) {
                 return item.name();
             }
         };
         buttonBarGravityCombo.setSelectedItem(SubstanceCortex.GlobalScope.getButtonBarGravity());
         buttonBarGravityCombo.addActionListener((ActionEvent e) -> SubstanceCortex.GlobalScope
-                .setButtonBarGravity((Gravity) buttonBarGravityCombo.getSelectedItem()));
+                .setButtonBarGravity((HorizontalGravity) buttonBarGravityCombo.getSelectedItem()));
         builder.append("Button bar gravity", buttonBarGravityCombo);
 
         JButton bop = new JButton("Show");
