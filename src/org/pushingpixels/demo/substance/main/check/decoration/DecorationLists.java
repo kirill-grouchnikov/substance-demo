@@ -42,6 +42,7 @@ import javax.swing.SwingUtilities;
 
 import org.pushingpixels.demo.substance.main.check.SubstanceSkinComboSelector;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
@@ -49,7 +50,7 @@ public class DecorationLists extends JFrame {
     private static class ListPanel extends JPanel {
         public ListPanel(String caption, DecorationAreaType decorationAreaType, boolean isEnabled) {
             super(new BorderLayout());
-            SubstanceCortex.ComponentScope.setDecorationType(this, decorationAreaType);
+            ComponentOrParentChainScope.setDecorationType(this, decorationAreaType);
 
             JLabel captionLabel = new JLabel(" " + caption);
             Font font = captionLabel.getFont();

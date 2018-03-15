@@ -36,6 +36,7 @@ import org.pushingpixels.demo.flamingo.bcb.BreadCrumbTest;
 import org.pushingpixels.demo.substance.flamingo.SubstanceLogo;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.skin.BusinessSkin;
@@ -55,7 +56,7 @@ public class SubstanceBreadCrumbTest extends BreadCrumbTest {
                             .getColorScheme(DecorationAreaType.PRIMARY_TITLE_PANE,
                                     ColorSchemeAssociationKind.FILL, ComponentState.ENABLED)));
 
-            SubstanceCortex.ComponentScope.setDecorationType(test.bar, DecorationAreaType.HEADER);
+            ComponentOrParentChainScope.setDecorationType(test.bar, DecorationAreaType.HEADER);
             test.setSize(500, 420);
             test.setLocation(300, 100);
             test.setVisible(true);

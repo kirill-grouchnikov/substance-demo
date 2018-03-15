@@ -44,6 +44,7 @@ import javax.swing.border.EmptyBorder;
 
 import org.pushingpixels.demo.substance.main.check.SubstanceSkinComboSelector;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.skin.MistSilverSkin;
 
@@ -52,7 +53,7 @@ public class DecorationTables extends JFrame {
         public TablePanel(String caption, DecorationAreaType decorationAreaType,
                 boolean isEnabled) {
             super(new BorderLayout());
-            SubstanceCortex.ComponentScope.setDecorationType(this, decorationAreaType);
+            ComponentOrParentChainScope.setDecorationType(this, decorationAreaType);
 
             JLabel captionLabel = new JLabel(" " + caption);
             Font font = captionLabel.getFont();

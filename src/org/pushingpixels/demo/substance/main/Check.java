@@ -122,6 +122,7 @@ import org.pushingpixels.demo.substance.main.check.svg.tango.format_text_underli
 import org.pushingpixels.demo.substance.main.check.svg.tango.process_stop;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
@@ -213,7 +214,7 @@ public class Check extends JFrame {
 
         final JScrollPane scrollPane = new JScrollPane(taskPaneContainer,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        SubstanceCortex.ComponentScope.setDecorationType(scrollPane, DecorationAreaType.GENERAL);
+        ComponentOrParentChainScope.setDecorationType(scrollPane, DecorationAreaType.GENERAL);
         // scrollPane.setOpaque(false);
         // scrollPane.getViewport().setOpaque(false);
 

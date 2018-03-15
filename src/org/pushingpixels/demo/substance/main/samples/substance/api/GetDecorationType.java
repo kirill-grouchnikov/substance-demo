@@ -45,16 +45,17 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.skin.BusinessBlueSteelSkin;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceCortex.ComponentScope#getDecorationType(java.awt.Component)} API called on
+ * {@link ComponentOrParentChainScope#getDecorationType(java.awt.Component)} API called on
  * different components.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceCortex.ComponentScope#getDecorationType(java.awt.Component)
+ * @see ComponentOrParentChainScope#getDecorationType(java.awt.Component)
  */
 public class GetDecorationType extends JFrame {
     /**
@@ -66,18 +67,18 @@ public class GetDecorationType extends JFrame {
         this.setLayout(new BorderLayout());
 
         final JTabbedPane tabs = new JTabbedPane();
-        SubstanceCortex.ComponentScope.setDecorationType(tabs, DecorationAreaType.HEADER);
+        ComponentOrParentChainScope.setDecorationType(tabs, DecorationAreaType.HEADER);
 
         JPanel tab1 = new JPanel(new FlowLayout());
         tab1.add(new JTextField("sample"));
         final JComboBox combo = new JComboBox(new Object[] { "sample" });
         tab1.add(combo);
-        SubstanceCortex.ComponentScope.setDecorationType(tab1, DecorationAreaType.GENERAL);
+        ComponentOrParentChainScope.setDecorationType(tab1, DecorationAreaType.GENERAL);
 
         JPanel tab2 = new JPanel(new FlowLayout());
         tab2.add(new JTextField("sample2"));
         tab2.add(new JComboBox(new Object[] { "sample2" }));
-        SubstanceCortex.ComponentScope.setDecorationType(tab2, DecorationAreaType.GENERAL);
+        ComponentOrParentChainScope.setDecorationType(tab2, DecorationAreaType.GENERAL);
 
         tabs.addTab("tab1", tab1);
         tabs.addTab("tab2", tab2);
@@ -87,8 +88,8 @@ public class GetDecorationType extends JFrame {
         JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JButton getTypes = new JButton("Get types");
         getTypes.addActionListener((ActionEvent e) -> SwingUtilities.invokeLater(() -> {
-            DecorationAreaType tabsType = SubstanceCortex.ComponentScope.getDecorationType(tabs);
-            DecorationAreaType comboType = SubstanceCortex.ComponentScope.getDecorationType(combo);
+            DecorationAreaType tabsType = ComponentOrParentChainScope.getDecorationType(tabs);
+            DecorationAreaType comboType = ComponentOrParentChainScope.getDecorationType(combo);
             JOptionPane.showMessageDialog(GetDecorationType.this,
                     "Tabbed pane: " + tabsType.getDisplayName() + "\n" + "Combo box: "
                             + comboType.getDisplayName());

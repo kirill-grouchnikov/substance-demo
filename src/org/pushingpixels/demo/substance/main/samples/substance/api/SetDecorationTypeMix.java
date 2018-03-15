@@ -43,16 +43,17 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.skin.BusinessBlueSteelSkin;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceCortex.ComponentScope#setDecorationType(JComponent, DecorationAreaType)} API
+ * {@link ComponentOrParentChainScope#setDecorationType(JComponent, DecorationAreaType)} API
  * called on different components.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceCortex.ComponentScope#setDecorationType(JComponent, DecorationAreaType)
+ * @see ComponentOrParentChainScope#setDecorationType(JComponent, DecorationAreaType)
  */
 public class SetDecorationTypeMix extends JFrame {
     /**
@@ -64,17 +65,17 @@ public class SetDecorationTypeMix extends JFrame {
         this.setLayout(new BorderLayout());
 
         JTabbedPane tabs = new JTabbedPane();
-        SubstanceCortex.ComponentScope.setDecorationType(tabs, DecorationAreaType.HEADER);
+        ComponentOrParentChainScope.setDecorationType(tabs, DecorationAreaType.HEADER);
 
         JPanel tab1 = new JPanel(new FlowLayout());
         tab1.add(new JTextField("sample"));
         tab1.add(new JComboBox(new Object[] { "sample" }));
-        SubstanceCortex.ComponentScope.setDecorationType(tab1, DecorationAreaType.GENERAL);
+        ComponentOrParentChainScope.setDecorationType(tab1, DecorationAreaType.GENERAL);
 
         JPanel tab2 = new JPanel(new FlowLayout());
         tab2.add(new JTextField("sample2"));
         tab2.add(new JComboBox(new Object[] { "sample2" }));
-        SubstanceCortex.ComponentScope.setDecorationType(tab2, DecorationAreaType.GENERAL);
+        ComponentOrParentChainScope.setDecorationType(tab2, DecorationAreaType.GENERAL);
 
         tabs.addTab("tab1", tab1);
         tabs.addTab("tab2", tab2);

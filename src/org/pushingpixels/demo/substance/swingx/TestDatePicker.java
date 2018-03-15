@@ -50,6 +50,7 @@ import org.pushingpixels.demo.substance.main.SubstanceLogo;
 import org.pushingpixels.demo.substance.main.check.SampleMenuFactory;
 import org.pushingpixels.substance.api.ComponentState;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.ColorSchemeAssociationKind;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.skin.GeminiSkin;
@@ -74,7 +75,7 @@ public class TestDatePicker extends JFrame {
         left.add(Box.createVerticalStrut(30));
         left.add(new JLabel("In a sidebar"));
         left.add(new JXDatePicker(new Date()));
-        SubstanceCortex.ComponentScope.setDecorationType(left, DecorationAreaType.GENERAL);
+        ComponentOrParentChainScope.setDecorationType(left, DecorationAreaType.GENERAL);
         this.add(left, BorderLayout.WEST);
 
         JPanel center = new JPanel(new FlowLayout(FlowLayout.CENTER));

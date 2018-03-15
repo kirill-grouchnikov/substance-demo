@@ -54,6 +54,7 @@ import javax.swing.UIManager;
 
 import org.pushingpixels.demo.flamingo.ribbon.BasicCheckRibbon;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.AnimationFacet;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.SubstanceSlices.SubstanceWidgetType;
@@ -73,7 +74,7 @@ public class NewCheckRibbon extends BasicCheckRibbon {
     @Override
     protected void configureStatusBar() {
         super.configureStatusBar();
-        SubstanceCortex.ComponentScope.setDecorationType(this.statusBar, DecorationAreaType.FOOTER);
+        ComponentOrParentChainScope.setDecorationType(this.statusBar, DecorationAreaType.FOOTER);
     }
 
     @Override

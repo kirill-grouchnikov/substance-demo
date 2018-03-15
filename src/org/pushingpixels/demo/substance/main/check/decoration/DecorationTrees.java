@@ -46,6 +46,7 @@ import javax.swing.tree.TreePath;
 
 import org.pushingpixels.demo.substance.main.check.SubstanceSkinComboSelector;
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.skin.MistSilverSkin;
 
@@ -53,7 +54,7 @@ public class DecorationTrees extends JFrame {
     private static class TreePanel extends JPanel {
         public TreePanel(String caption, DecorationAreaType decorationAreaType, boolean isEnabled) {
             super(new BorderLayout());
-            SubstanceCortex.ComponentScope.setDecorationType(this, decorationAreaType);
+            ComponentOrParentChainScope.setDecorationType(this, decorationAreaType);
 
             JLabel captionLabel = new JLabel(" " + caption);
             Font font = captionLabel.getFont();

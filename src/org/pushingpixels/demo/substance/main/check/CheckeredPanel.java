@@ -38,6 +38,7 @@ import java.awt.Graphics2D;
 import javax.swing.UIManager;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 
 final class CheckeredPanel extends ScrollablePanel {
@@ -52,7 +53,7 @@ final class CheckeredPanel extends ScrollablePanel {
         int rows = 1 + h / 10;
         if ((UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel)
                 && SubstanceCortex.ComponentScope.getCurrentSkin(this).getActiveColorScheme(
-                        SubstanceCortex.ComponentScope.getDecorationType(this)).isDark())
+                        ComponentOrParentChainScope.getDecorationType(this)).isDark())
             graphics.setColor(Color.black);
         else
             graphics.setColor(Color.white);
@@ -65,7 +66,7 @@ final class CheckeredPanel extends ScrollablePanel {
                     boolean isDark = (UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel)
                             ? SubstanceCortex.ComponentScope.getCurrentSkin(this)
                                     .getActiveColorScheme(
-                                            SubstanceCortex.ComponentScope.getDecorationType(this))
+                                            ComponentOrParentChainScope.getDecorationType(this))
                                     .isDark()
                             : false;
                     float brightness = isDark ? 0.1f : 0.9f;

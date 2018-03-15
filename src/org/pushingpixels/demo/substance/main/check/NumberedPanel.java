@@ -42,6 +42,7 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 
 /**
@@ -87,7 +88,7 @@ public class NumberedPanel extends JPanel {
             if ((UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel)
                     && SubstanceCortex.ComponentScope.getCurrentSkin(this)
                             .getActiveColorScheme(
-                                    SubstanceCortex.ComponentScope.getDecorationType(this))
+                                    ComponentOrParentChainScope.getDecorationType(this))
                             .isDark())
                 graphics.setColor(Color.black);
             else
@@ -100,7 +101,7 @@ public class NumberedPanel extends JPanel {
             if ((UIManager.getLookAndFeel() instanceof SubstanceLookAndFeel)
                     && SubstanceCortex.ComponentScope.getCurrentSkin(this)
                             .getActiveColorScheme(
-                                    SubstanceCortex.ComponentScope.getDecorationType(this))
+                                    ComponentOrParentChainScope.getDecorationType(this))
                             .isDark())
                 graphics.setColor(Color.white);
             else

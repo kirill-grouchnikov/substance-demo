@@ -42,15 +42,16 @@ import javax.swing.JToggleButton;
 import javax.swing.SwingUtilities;
 
 import org.pushingpixels.substance.api.SubstanceCortex;
+import org.pushingpixels.substance.api.SubstanceCortex.ComponentOrParentChainScope;
 import org.pushingpixels.substance.api.SubstanceSlices.DecorationAreaType;
 import org.pushingpixels.substance.api.skin.BusinessBlackSteelSkin;
 
 /**
  * Test application that shows the use of the
- * {@link SubstanceCortex.ComponentScope#setDecorationType(JComponent, DecorationAreaType)} API.
+ * {@link ComponentOrParentChainScope#setDecorationType(JComponent, DecorationAreaType)} API.
  * 
  * @author Kirill Grouchnikov
- * @see SubstanceCortex.ComponentScope#setDecorationType(JComponent, DecorationAreaType)
+ * @see ComponentOrParentChainScope#setDecorationType(JComponent, DecorationAreaType)
  */
 public class SetDecorationType extends JFrame {
     /**
@@ -62,7 +63,7 @@ public class SetDecorationType extends JFrame {
         this.setLayout(new BorderLayout());
 
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        SubstanceCortex.ComponentScope.setDecorationType(controls, DecorationAreaType.GENERAL);
+        ComponentOrParentChainScope.setDecorationType(controls, DecorationAreaType.GENERAL);
         JToggleButton controlButton = new JToggleButton("control");
         controlButton.setSelected(true);
         JCheckBox controlCheckBox = new JCheckBox("control");
