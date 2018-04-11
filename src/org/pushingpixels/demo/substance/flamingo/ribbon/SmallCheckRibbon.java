@@ -50,6 +50,7 @@ import org.pushingpixels.flamingo.api.ribbon.JFlowRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup;
 import org.pushingpixels.flamingo.api.ribbon.RibbonTask;
+import org.pushingpixels.flamingo.api.ribbon.RibbonCommand.RibbonCommandBuilder;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.OfficeBlue2007Skin;
 import org.pushingpixels.substance.flamingo.SubstanceFlamingoPlugin;
@@ -103,9 +104,12 @@ public class SmallCheckRibbon extends BasicCheckRibbon {
         RichTooltip helpTooltip = new RichTooltip();
         helpTooltip.setTitle(resourceBundle.getString("Help.tooltip.title"));
         helpTooltip.addDescriptionSection(resourceBundle.getString("Help.tooltip.actionParagraph"));
-        this.getRibbon().configureHelp(new Help_browser(), helpTooltip,
-                (ActionEvent e) -> JOptionPane.showMessageDialog(SmallCheckRibbon.this,
-                        "Help button clicked"));
+        this.getRibbon()
+                .addAnchoredCommand(new RibbonCommandBuilder().setIcon(Help_browser.of(16, 16))
+                        .setRichTooltip(helpTooltip)
+                        .setAction((ActionEvent e) -> JOptionPane
+                                .showMessageDialog(SmallCheckRibbon.this, "Help button clicked"))
+                        .build());
 
         group1 = new RibbonContextualTaskGroup("Group 1", Color.red,
                 getContextualRibbonTask("Group 1-1", "XA"),
