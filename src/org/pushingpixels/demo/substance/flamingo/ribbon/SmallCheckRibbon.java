@@ -106,7 +106,7 @@ public class SmallCheckRibbon extends BasicCheckRibbon {
         helpTooltip.addDescriptionSection(resourceBundle.getString("Help.tooltip.actionParagraph"));
         this.getRibbon()
                 .addAnchoredCommand(new RibbonCommandBuilder().setIcon(Help_browser.of(16, 16))
-                        .setRichTooltip(helpTooltip)
+                        .setActionRichTooltip(helpTooltip)
                         .setAction((ActionEvent e) -> JOptionPane
                                 .showMessageDialog(SmallCheckRibbon.this, "Help button clicked"))
                         .build());
