@@ -46,11 +46,11 @@ import javax.swing.border.EmptyBorder;
 import org.pushingpixels.demo.flamingo.ribbon.BasicCheckRibbon;
 import org.pushingpixels.demo.substance.flamingo.svg.transcoded.Help_browser;
 import org.pushingpixels.flamingo.api.common.RichTooltip;
+import org.pushingpixels.flamingo.api.common.FlamingoCommand.FlamingoCommandBuilder;
 import org.pushingpixels.flamingo.api.ribbon.JFlowRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.JRibbonBand;
 import org.pushingpixels.flamingo.api.ribbon.RibbonContextualTaskGroup;
 import org.pushingpixels.flamingo.api.ribbon.RibbonTask;
-import org.pushingpixels.flamingo.api.ribbon.RibbonCommand.RibbonCommandBuilder;
 import org.pushingpixels.substance.api.SubstanceCortex;
 import org.pushingpixels.substance.api.skin.OfficeBlue2007Skin;
 import org.pushingpixels.substance.flamingo.SubstanceFlamingoPlugin;
@@ -101,15 +101,16 @@ public class SmallCheckRibbon extends BasicCheckRibbon {
         this.getRibbon().addTask(animationsTask);
         this.getRibbon().addTask(wrappedTask);
 
-        RichTooltip helpTooltip = new RichTooltip();
-        helpTooltip.setTitle(resourceBundle.getString("Help.tooltip.title"));
-        helpTooltip.addDescriptionSection(resourceBundle.getString("Help.tooltip.actionParagraph"));
-        this.getRibbon()
-                .addAnchoredCommand(new RibbonCommandBuilder().setIcon(Help_browser.of(16, 16))
-                        .setActionRichTooltip(helpTooltip)
-                        .setAction((ActionEvent e) -> JOptionPane
-                                .showMessageDialog(SmallCheckRibbon.this, "Help button clicked"))
-                        .build());
+        this.getRibbon().addAnchoredCommand(new FlamingoCommandBuilder()
+                .setIcon(Help_browser.of(16, 16))
+                .setActionRichTooltip(new RichTooltip.RichTooltipBuilder()
+                        .setTitle(resourceBundle.getString("Help.tooltip.title"))
+                        .addDescriptionSection(
+                                resourceBundle.getString("Help.tooltip.actionParagraph"))
+                        .build())
+                .setAction((ActionEvent e) -> JOptionPane.showMessageDialog(SmallCheckRibbon.this,
+                        "Help button clicked"))
+                .build());
 
         group1 = new RibbonContextualTaskGroup("Group 1", Color.red,
                 getContextualRibbonTask("Group 1-1", "XA"),
